@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/spots/new', 'SpotController@create')->name('spots.create');
+Route::post('/spots', 'SpotController@store')->name('spots.store');
+Route::get('/spots/{spot}', 'SpotController@view')->name('spots.view');
+Route::get('/spots/{spot}/edit', 'SpotController@edit')->name('spots.edit');
+Route::patch('/spots/{spot}', 'SpotController@update')->name('spots.update');
