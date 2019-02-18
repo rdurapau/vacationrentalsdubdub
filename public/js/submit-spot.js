@@ -1,4 +1,933 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/app"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["/js/submit-spot"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var mapboxgl = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
+
+var MapboxGeocoder = __webpack_require__(/*! mapbox-gl-geocoder */ "./node_modules/mapbox-gl-geocoder/lib/index.js");
+
+mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      'owner_name': '',
+      'website': '',
+      'email': '',
+      'email_confirm': '',
+      'phone': '',
+      'name': '',
+      'price': '',
+      'desc': '',
+      'terms_agree': false,
+      'address_street': '',
+      'address_city': '',
+      'address_state': '',
+      'address_zip': '',
+      'map': '',
+      'geocoder': ''
+    };
+  },
+  methods: {
+    addressSelected: function addressSelected(ev) {
+      console.log('selected');
+      console.log(ev.result);
+      var context = ev.result.context;
+      this.map.getSource('single-point').setData(ev.result.geometry);
+      this.address_street = (ev.result.address ? ev.result.address + ' ' : '') + ev.result.text;
+      this.address_city = context.find(function (e) {
+        return e.id.includes('place');
+      }).text;
+      this.address_zip = context.find(function (e) {
+        return e.id.includes('postcode');
+      }).text;
+      this.address_state = context.find(function (e) {
+        return e.id.includes('region');
+      }).text;
+    }
+  },
+  computed: {
+    csrf: function csrf() {
+      return window.Laravel.csrfToken;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    // console.log(mapboxgl);
+    this.map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v9',
+      center: [-98.5833, 39.833333],
+      zoom: 2
+    });
+    this.geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      country: 'US',
+      types: 'address'
+    });
+    document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
+    this.map.on('load', function () {
+      _this.map.addSource('single-point', {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        }
+      });
+
+      _this.map.addLayer({
+        "id": "point",
+        "source": "single-point",
+        "type": "circle",
+        "paint": {
+          "circle-radius": 10,
+          "circle-color": "#007cbf"
+        }
+      });
+
+      _this.geocoder.on('result', _this.addressSelected);
+    });
+  },
+  watch: {
+    'geocoder.result': 'addressSelected'
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.mapboxgl-ctrl-geocoder.mapboxgl-ctrl {\n    width:100%;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/events/events.js":
+/*!***************************************!*\
+  !*** ./node_modules/events/events.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var R = typeof Reflect === 'object' ? Reflect : null
+var ReflectApply = R && typeof R.apply === 'function'
+  ? R.apply
+  : function ReflectApply(target, receiver, args) {
+    return Function.prototype.apply.call(target, receiver, args);
+  }
+
+var ReflectOwnKeys
+if (R && typeof R.ownKeys === 'function') {
+  ReflectOwnKeys = R.ownKeys
+} else if (Object.getOwnPropertySymbols) {
+  ReflectOwnKeys = function ReflectOwnKeys(target) {
+    return Object.getOwnPropertyNames(target)
+      .concat(Object.getOwnPropertySymbols(target));
+  };
+} else {
+  ReflectOwnKeys = function ReflectOwnKeys(target) {
+    return Object.getOwnPropertyNames(target);
+  };
+}
+
+function ProcessEmitWarning(warning) {
+  if (console && console.warn) console.warn(warning);
+}
+
+var NumberIsNaN = Number.isNaN || function NumberIsNaN(value) {
+  return value !== value;
+}
+
+function EventEmitter() {
+  EventEmitter.init.call(this);
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._eventsCount = 0;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+var defaultMaxListeners = 10;
+
+Object.defineProperty(EventEmitter, 'defaultMaxListeners', {
+  enumerable: true,
+  get: function() {
+    return defaultMaxListeners;
+  },
+  set: function(arg) {
+    if (typeof arg !== 'number' || arg < 0 || NumberIsNaN(arg)) {
+      throw new RangeError('The value of "defaultMaxListeners" is out of range. It must be a non-negative number. Received ' + arg + '.');
+    }
+    defaultMaxListeners = arg;
+  }
+});
+
+EventEmitter.init = function() {
+
+  if (this._events === undefined ||
+      this._events === Object.getPrototypeOf(this)._events) {
+    this._events = Object.create(null);
+    this._eventsCount = 0;
+  }
+
+  this._maxListeners = this._maxListeners || undefined;
+};
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function setMaxListeners(n) {
+  if (typeof n !== 'number' || n < 0 || NumberIsNaN(n)) {
+    throw new RangeError('The value of "n" is out of range. It must be a non-negative number. Received ' + n + '.');
+  }
+  this._maxListeners = n;
+  return this;
+};
+
+function $getMaxListeners(that) {
+  if (that._maxListeners === undefined)
+    return EventEmitter.defaultMaxListeners;
+  return that._maxListeners;
+}
+
+EventEmitter.prototype.getMaxListeners = function getMaxListeners() {
+  return $getMaxListeners(this);
+};
+
+EventEmitter.prototype.emit = function emit(type) {
+  var args = [];
+  for (var i = 1; i < arguments.length; i++) args.push(arguments[i]);
+  var doError = (type === 'error');
+
+  var events = this._events;
+  if (events !== undefined)
+    doError = (doError && events.error === undefined);
+  else if (!doError)
+    return false;
+
+  // If there is no 'error' event listener then throw.
+  if (doError) {
+    var er;
+    if (args.length > 0)
+      er = args[0];
+    if (er instanceof Error) {
+      // Note: The comments on the `throw` lines are intentional, they show
+      // up in Node's output if this results in an unhandled exception.
+      throw er; // Unhandled 'error' event
+    }
+    // At least give some kind of context to the user
+    var err = new Error('Unhandled error.' + (er ? ' (' + er.message + ')' : ''));
+    err.context = er;
+    throw err; // Unhandled 'error' event
+  }
+
+  var handler = events[type];
+
+  if (handler === undefined)
+    return false;
+
+  if (typeof handler === 'function') {
+    ReflectApply(handler, this, args);
+  } else {
+    var len = handler.length;
+    var listeners = arrayClone(handler, len);
+    for (var i = 0; i < len; ++i)
+      ReflectApply(listeners[i], this, args);
+  }
+
+  return true;
+};
+
+function _addListener(target, type, listener, prepend) {
+  var m;
+  var events;
+  var existing;
+
+  if (typeof listener !== 'function') {
+    throw new TypeError('The "listener" argument must be of type Function. Received type ' + typeof listener);
+  }
+
+  events = target._events;
+  if (events === undefined) {
+    events = target._events = Object.create(null);
+    target._eventsCount = 0;
+  } else {
+    // To avoid recursion in the case that type === "newListener"! Before
+    // adding it to the listeners, first emit "newListener".
+    if (events.newListener !== undefined) {
+      target.emit('newListener', type,
+                  listener.listener ? listener.listener : listener);
+
+      // Re-assign `events` because a newListener handler could have caused the
+      // this._events to be assigned to a new object
+      events = target._events;
+    }
+    existing = events[type];
+  }
+
+  if (existing === undefined) {
+    // Optimize the case of one listener. Don't need the extra array object.
+    existing = events[type] = listener;
+    ++target._eventsCount;
+  } else {
+    if (typeof existing === 'function') {
+      // Adding the second element, need to change to array.
+      existing = events[type] =
+        prepend ? [listener, existing] : [existing, listener];
+      // If we've already got an array, just append.
+    } else if (prepend) {
+      existing.unshift(listener);
+    } else {
+      existing.push(listener);
+    }
+
+    // Check for listener leak
+    m = $getMaxListeners(target);
+    if (m > 0 && existing.length > m && !existing.warned) {
+      existing.warned = true;
+      // No error code for this since it is a Warning
+      // eslint-disable-next-line no-restricted-syntax
+      var w = new Error('Possible EventEmitter memory leak detected. ' +
+                          existing.length + ' ' + String(type) + ' listeners ' +
+                          'added. Use emitter.setMaxListeners() to ' +
+                          'increase limit');
+      w.name = 'MaxListenersExceededWarning';
+      w.emitter = target;
+      w.type = type;
+      w.count = existing.length;
+      ProcessEmitWarning(w);
+    }
+  }
+
+  return target;
+}
+
+EventEmitter.prototype.addListener = function addListener(type, listener) {
+  return _addListener(this, type, listener, false);
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.prependListener =
+    function prependListener(type, listener) {
+      return _addListener(this, type, listener, true);
+    };
+
+function onceWrapper() {
+  var args = [];
+  for (var i = 0; i < arguments.length; i++) args.push(arguments[i]);
+  if (!this.fired) {
+    this.target.removeListener(this.type, this.wrapFn);
+    this.fired = true;
+    ReflectApply(this.listener, this.target, args);
+  }
+}
+
+function _onceWrap(target, type, listener) {
+  var state = { fired: false, wrapFn: undefined, target: target, type: type, listener: listener };
+  var wrapped = onceWrapper.bind(state);
+  wrapped.listener = listener;
+  state.wrapFn = wrapped;
+  return wrapped;
+}
+
+EventEmitter.prototype.once = function once(type, listener) {
+  if (typeof listener !== 'function') {
+    throw new TypeError('The "listener" argument must be of type Function. Received type ' + typeof listener);
+  }
+  this.on(type, _onceWrap(this, type, listener));
+  return this;
+};
+
+EventEmitter.prototype.prependOnceListener =
+    function prependOnceListener(type, listener) {
+      if (typeof listener !== 'function') {
+        throw new TypeError('The "listener" argument must be of type Function. Received type ' + typeof listener);
+      }
+      this.prependListener(type, _onceWrap(this, type, listener));
+      return this;
+    };
+
+// Emits a 'removeListener' event if and only if the listener was removed.
+EventEmitter.prototype.removeListener =
+    function removeListener(type, listener) {
+      var list, events, position, i, originalListener;
+
+      if (typeof listener !== 'function') {
+        throw new TypeError('The "listener" argument must be of type Function. Received type ' + typeof listener);
+      }
+
+      events = this._events;
+      if (events === undefined)
+        return this;
+
+      list = events[type];
+      if (list === undefined)
+        return this;
+
+      if (list === listener || list.listener === listener) {
+        if (--this._eventsCount === 0)
+          this._events = Object.create(null);
+        else {
+          delete events[type];
+          if (events.removeListener)
+            this.emit('removeListener', type, list.listener || listener);
+        }
+      } else if (typeof list !== 'function') {
+        position = -1;
+
+        for (i = list.length - 1; i >= 0; i--) {
+          if (list[i] === listener || list[i].listener === listener) {
+            originalListener = list[i].listener;
+            position = i;
+            break;
+          }
+        }
+
+        if (position < 0)
+          return this;
+
+        if (position === 0)
+          list.shift();
+        else {
+          spliceOne(list, position);
+        }
+
+        if (list.length === 1)
+          events[type] = list[0];
+
+        if (events.removeListener !== undefined)
+          this.emit('removeListener', type, originalListener || listener);
+      }
+
+      return this;
+    };
+
+EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+
+EventEmitter.prototype.removeAllListeners =
+    function removeAllListeners(type) {
+      var listeners, events, i;
+
+      events = this._events;
+      if (events === undefined)
+        return this;
+
+      // not listening for removeListener, no need to emit
+      if (events.removeListener === undefined) {
+        if (arguments.length === 0) {
+          this._events = Object.create(null);
+          this._eventsCount = 0;
+        } else if (events[type] !== undefined) {
+          if (--this._eventsCount === 0)
+            this._events = Object.create(null);
+          else
+            delete events[type];
+        }
+        return this;
+      }
+
+      // emit removeListener for all listeners on all events
+      if (arguments.length === 0) {
+        var keys = Object.keys(events);
+        var key;
+        for (i = 0; i < keys.length; ++i) {
+          key = keys[i];
+          if (key === 'removeListener') continue;
+          this.removeAllListeners(key);
+        }
+        this.removeAllListeners('removeListener');
+        this._events = Object.create(null);
+        this._eventsCount = 0;
+        return this;
+      }
+
+      listeners = events[type];
+
+      if (typeof listeners === 'function') {
+        this.removeListener(type, listeners);
+      } else if (listeners !== undefined) {
+        // LIFO order
+        for (i = listeners.length - 1; i >= 0; i--) {
+          this.removeListener(type, listeners[i]);
+        }
+      }
+
+      return this;
+    };
+
+function _listeners(target, type, unwrap) {
+  var events = target._events;
+
+  if (events === undefined)
+    return [];
+
+  var evlistener = events[type];
+  if (evlistener === undefined)
+    return [];
+
+  if (typeof evlistener === 'function')
+    return unwrap ? [evlistener.listener || evlistener] : [evlistener];
+
+  return unwrap ?
+    unwrapListeners(evlistener) : arrayClone(evlistener, evlistener.length);
+}
+
+EventEmitter.prototype.listeners = function listeners(type) {
+  return _listeners(this, type, true);
+};
+
+EventEmitter.prototype.rawListeners = function rawListeners(type) {
+  return _listeners(this, type, false);
+};
+
+EventEmitter.listenerCount = function(emitter, type) {
+  if (typeof emitter.listenerCount === 'function') {
+    return emitter.listenerCount(type);
+  } else {
+    return listenerCount.call(emitter, type);
+  }
+};
+
+EventEmitter.prototype.listenerCount = listenerCount;
+function listenerCount(type) {
+  var events = this._events;
+
+  if (events !== undefined) {
+    var evlistener = events[type];
+
+    if (typeof evlistener === 'function') {
+      return 1;
+    } else if (evlistener !== undefined) {
+      return evlistener.length;
+    }
+  }
+
+  return 0;
+}
+
+EventEmitter.prototype.eventNames = function eventNames() {
+  return this._eventsCount > 0 ? ReflectOwnKeys(this._events) : [];
+};
+
+function arrayClone(arr, n) {
+  var copy = new Array(n);
+  for (var i = 0; i < n; ++i)
+    copy[i] = arr[i];
+  return copy;
+}
+
+function spliceOne(list, index) {
+  for (; index + 1 < list.length; index++)
+    list[index] = list[index + 1];
+  list.pop();
+}
+
+function unwrapListeners(arr) {
+  var ret = new Array(arr.length);
+  for (var i = 0; i < ret.length; ++i) {
+    ret[i] = arr[i].listener || arr[i];
+  }
+  return ret;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/fuzzy/lib/fuzzy.js":
+/*!*****************************************!*\
+  !*** ./node_modules/fuzzy/lib/fuzzy.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+ * Fuzzy
+ * https://github.com/myork/fuzzy
+ *
+ * Copyright (c) 2012 Matt York
+ * Licensed under the MIT license.
+ */
+
+(function() {
+
+var root = this;
+
+var fuzzy = {};
+
+// Use in node or in browser
+if (true) {
+  module.exports = fuzzy;
+} else {}
+
+// Return all elements of `array` that have a fuzzy
+// match against `pattern`.
+fuzzy.simpleFilter = function(pattern, array) {
+  return array.filter(function(str) {
+    return fuzzy.test(pattern, str);
+  });
+};
+
+// Does `pattern` fuzzy match `str`?
+fuzzy.test = function(pattern, str) {
+  return fuzzy.match(pattern, str) !== null;
+};
+
+// If `pattern` matches `str`, wrap each matching character
+// in `opts.pre` and `opts.post`. If no match, return null
+fuzzy.match = function(pattern, str, opts) {
+  opts = opts || {};
+  var patternIdx = 0
+    , result = []
+    , len = str.length
+    , totalScore = 0
+    , currScore = 0
+    // prefix
+    , pre = opts.pre || ''
+    // suffix
+    , post = opts.post || ''
+    // String to compare against. This might be a lowercase version of the
+    // raw string
+    , compareString =  opts.caseSensitive && str || str.toLowerCase()
+    , ch;
+
+  pattern = opts.caseSensitive && pattern || pattern.toLowerCase();
+
+  // For each character in the string, either add it to the result
+  // or wrap in template if it's the next string in the pattern
+  for(var idx = 0; idx < len; idx++) {
+    ch = str[idx];
+    if(compareString[idx] === pattern[patternIdx]) {
+      ch = pre + ch + post;
+      patternIdx += 1;
+
+      // consecutive characters should increase the score more than linearly
+      currScore += 1 + currScore;
+    } else {
+      currScore = 0;
+    }
+    totalScore += currScore;
+    result[result.length] = ch;
+  }
+
+  // return rendered string if we have a match for every char
+  if(patternIdx === pattern.length) {
+    // if the string is an exact match with pattern, totalScore should be maxed
+    totalScore = (compareString === pattern) ? Infinity : totalScore;
+    return {rendered: result.join(''), score: totalScore};
+  }
+
+  return null;
+};
+
+// The normal entry point. Filters `arr` for matches against `pattern`.
+// It returns an array with matching values of the type:
+//
+//     [{
+//         string:   '<b>lah' // The rendered string
+//       , index:    2        // The index of the element in `arr`
+//       , original: 'blah'   // The original element in `arr`
+//     }]
+//
+// `opts` is an optional argument bag. Details:
+//
+//    opts = {
+//        // string to put before a matching character
+//        pre:     '<b>'
+//
+//        // string to put after matching character
+//      , post:    '</b>'
+//
+//        // Optional function. Input is an entry in the given arr`,
+//        // output should be the string to test `pattern` against.
+//        // In this example, if `arr = [{crying: 'koala'}]` we would return
+//        // 'koala'.
+//      , extract: function(arg) { return arg.crying; }
+//    }
+fuzzy.filter = function(pattern, arr, opts) {
+  if(!arr || arr.length === 0) {
+    return [];
+  }
+  if (typeof pattern !== 'string') {
+    return arr;
+  }
+  opts = opts || {};
+  return arr
+    .reduce(function(prev, element, idx, arr) {
+      var str = element;
+      if(opts.extract) {
+        str = opts.extract(element);
+      }
+      var rendered = fuzzy.match(pattern, str, opts);
+      if(rendered != null) {
+        prev[prev.length] = {
+            string: rendered.rendered
+          , score: rendered.score
+          , index: idx
+          , original: element
+        };
+      }
+      return prev;
+    }, [])
+
+    // Sort by score. Browsers are inconsistent wrt stable/unstable
+    // sorting, so force stable by using the index in the case of tie.
+    // See http://ofb.net/~sethml/is-sort-stable.html
+    .sort(function(a,b) {
+      var compare = b.score - a.score;
+      if(compare) return compare;
+      return a.index - b.index;
+    });
+};
+
+
+}());
+
+
+
+/***/ }),
 
 /***/ "./node_modules/is-buffer/index.js":
 /*!*****************************************!*\
@@ -10408,6 +11337,610 @@ return jQuery;
 
 /***/ }),
 
+/***/ "./node_modules/mapbox/lib/callbackify.js":
+/*!************************************************!*\
+  !*** ./node_modules/mapbox/lib/callbackify.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (typeof Promise === 'undefined') {
+  // install ES6 Promise polyfill
+  __webpack_require__(/*! ../vendor/promise */ "./node_modules/mapbox/vendor/promise.js");
+}
+
+var interceptor = __webpack_require__(/*! rest/interceptor */ "./node_modules/rest/interceptor.js");
+
+var callbackify = interceptor({
+  success: function (response) {
+    var callback = response && response.callback;
+
+    if (typeof callback === 'function') {
+      callback(null, response.entity, response);
+    }
+
+    return response;
+  },
+  error: function (response) {
+    var callback = response && response.callback;
+
+    if (typeof callback === 'function') {
+      var err = response.error || response.entity;
+      if (typeof err !== 'object') err = new Error(err);
+      callback(err);
+    }
+
+    return response;
+  }
+});
+
+module.exports = callbackify;
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/lib/client.js":
+/*!*******************************************!*\
+  !*** ./node_modules/mapbox/lib/client.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+if (typeof Promise === 'undefined') {
+  // install ES6 Promise polyfill
+  __webpack_require__(/*! ../vendor/promise */ "./node_modules/mapbox/vendor/promise.js");
+}
+
+var rest = __webpack_require__(/*! rest */ "./node_modules/rest/browser.js");
+var standardResponse = __webpack_require__(/*! ./standard_response */ "./node_modules/mapbox/lib/standard_response.js");
+var callbackify = __webpack_require__(/*! ./callbackify */ "./node_modules/mapbox/lib/callbackify.js");
+
+// rest.js client with MIME support
+module.exports = function(config) {
+  return rest
+    .wrap(__webpack_require__(/*! rest/interceptor/errorCode */ "./node_modules/rest/interceptor/errorCode.js"))
+    .wrap(__webpack_require__(/*! rest/interceptor/pathPrefix */ "./node_modules/rest/interceptor/pathPrefix.js"), { prefix: config.endpoint })
+    .wrap(__webpack_require__(/*! rest/interceptor/mime */ "./node_modules/rest/interceptor/mime.js"), { mime: 'application/json' })
+    .wrap(__webpack_require__(/*! rest/interceptor/params */ "./node_modules/rest/interceptor/params.js"))
+    .wrap(__webpack_require__(/*! rest/interceptor/defaultRequest */ "./node_modules/rest/interceptor/defaultRequest.js"), {
+      params: { access_token: config.accessToken }
+    })
+    .wrap(__webpack_require__(/*! rest/interceptor/template */ "./node_modules/rest/interceptor/template.js"))
+    .wrap(standardResponse)
+    .wrap(callbackify);
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/lib/constants.js":
+/*!**********************************************!*\
+  !*** ./node_modules/mapbox/lib/constants.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// We keep all of the constants that declare endpoints in one
+// place, so that we could conceivably update this for API layout
+// revisions.
+module.exports.DEFAULT_ENDPOINT = 'https://api.mapbox.com';
+
+module.exports.API_GEOCODING_FORWARD = '/geocoding/v5/{dataset}/{query}.json{?proximity,country,types,bbox,limit}';
+module.exports.API_GEOCODING_REVERSE = '/geocoding/v5/{dataset}/{longitude},{latitude}.json{?types,limit}';
+
+module.exports.API_DIRECTIONS = '/v4/directions/{profile}/{encodedWaypoints}.json{?alternatives,instructions,geometry,steps}';
+module.exports.API_DISTANCE = '/distances/v1/mapbox/{profile}';
+
+module.exports.API_SURFACE = '/v4/surface/{mapid}.json{?layer,fields,points,geojson,interpolate,encoded_polyline}';
+
+module.exports.API_UPLOADS = '/uploads/v1/{owner}';
+module.exports.API_UPLOAD = '/uploads/v1/{owner}/{upload}';
+module.exports.API_UPLOAD_CREDENTIALS = '/uploads/v1/{owner}/credentials';
+
+module.exports.API_MATCHING = '/matching/v4/{profile}.json';
+
+module.exports.API_DATASET_DATASETS = '/datasets/v1/{owner}{?limit,start,fresh}';
+module.exports.API_DATASET_DATASET = '/datasets/v1/{owner}/{dataset}';
+module.exports.API_DATASET_FEATURES = '/datasets/v1/{owner}/{dataset}/features{?reverse,limit,start}';
+module.exports.API_DATASET_FEATURE = '/datasets/v1/{owner}/{dataset}/features/{id}';
+
+module.exports.API_TILESTATS_STATISTICS = '/tilestats/v1/{owner}/{tileset}';
+module.exports.API_TILESTATS_LAYER = '/tilestats/v1/{owner}/{tileset}/{layer}';
+module.exports.API_TILESTATS_ATTRIBUTE = '/tilestats/v1/{owner}/{tileset}/{layer}/{attribute}';
+
+module.exports.API_STATIC = '/v4/{mapid}{+overlay}/{+xyz}/{width}x{height}{+retina}{.format}{?access_token}';
+
+module.exports.API_STYLES_LIST = '/styles/v1/{owner}';
+module.exports.API_STYLES_CREATE = '/styles/v1/{owner}';
+module.exports.API_STYLES_READ = '/styles/v1/{owner}/{styleid}';
+module.exports.API_STYLES_UPDATE = '/styles/v1/{owner}/{styleid}';
+module.exports.API_STYLES_DELETE = '/styles/v1/{owner}/{styleid}';
+module.exports.API_STYLES_EMBED = '/styles/v1/{owner}/{styleid}.html{?zoomwheel,title,access_token}';
+module.exports.API_STYLES_SPRITE = '/styles/v1/{owner}/{styleid}/sprite{+retina}{.format}';
+module.exports.API_STYLES_SPRITE_ADD_ICON = '/styles/v1/{owner}/{styleid}/sprite/{iconName}';
+module.exports.API_STYLES_SPRITE_DELETE_ICON = '/styles/v1/{owner}/{styleid}/sprite/{iconName}';
+
+module.exports.API_STYLES_FONT_GLYPH_RANGES = '/fonts/v1/{owner}/{font}/{start}-{end}.pbf'
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/lib/get_user.js":
+/*!*********************************************!*\
+  !*** ./node_modules/mapbox/lib/get_user.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var b64 = __webpack_require__(/*! rest/util/base64 */ "./node_modules/rest/util/base64.js");
+
+/**
+ * Access tokens actually are data, and using them we can derive
+ * a user's username. This method attempts to do just that,
+ * decoding the part of the token after the first `.` into
+ * a username.
+ *
+ * @private
+ * @param {string} token an access token
+ * @return {string} username
+ */
+function getUser(token) {
+  var data = token.split('.')[1];
+  if (!data) return null;
+  data = data.replace(/-/g, '+').replace(/_/g, '/');
+
+  var mod = data.length % 4;
+  if (mod === 2) data += '==';
+  if (mod === 3) data += '=';
+  if (mod === 1 || mod > 3) return null;
+
+  try {
+    return JSON.parse(b64.decode(data)).u;
+  } catch(err) {
+    return null;
+  }
+}
+
+module.exports = getUser;
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/lib/make_service.js":
+/*!*************************************************!*\
+  !*** ./node_modules/mapbox/lib/make_service.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var invariant = __webpack_require__(/*! ../vendor/invariant */ "./node_modules/mapbox/vendor/invariant.js");
+var constants = __webpack_require__(/*! ./constants */ "./node_modules/mapbox/lib/constants.js");
+var client = __webpack_require__(/*! ./client */ "./node_modules/mapbox/lib/client.js");
+var getUser = __webpack_require__(/*! ./get_user */ "./node_modules/mapbox/lib/get_user.js");
+
+/**
+ * Services all have the same constructor pattern: you initialize them
+ * with an access token and options, and they validate those arguments
+ * in a predictable way. This is a constructor-generator that makes
+ * it possible to require each service's API individually.
+ *
+ * @private
+ * @param {string} name the name of the Mapbox API this class will access:
+ * this is set to the name of the function so it will show up in tracebacks
+ * @returns {Function} constructor function
+ */
+function makeService(name) {
+
+  function service(accessToken, options) {
+    this.name = name;
+
+    invariant(typeof accessToken === 'string',
+      'accessToken required to instantiate Mapbox client');
+
+    var endpoint = constants.DEFAULT_ENDPOINT;
+
+    if (options !== undefined) {
+      invariant(typeof options === 'object', 'options must be an object');
+      if (options.endpoint) {
+        invariant(typeof options.endpoint === 'string', 'endpoint must be a string');
+        endpoint = options.endpoint;
+      }
+      if (options.account) {
+        invariant(typeof options.account === 'string', 'account must be a string');
+        this.owner = options.account;
+      }
+    }
+
+    this.client = client({
+      endpoint: endpoint,
+      accessToken: accessToken
+    });
+
+    this.accessToken = accessToken;
+    this.endpoint = endpoint;
+    this.owner = this.owner || getUser(accessToken);
+    invariant(!!this.owner, 'could not determine account from provided accessToken');
+
+  }
+
+  return service;
+}
+
+module.exports = makeService;
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/lib/services/geocoding.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/mapbox/lib/services/geocoding.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var invariant = __webpack_require__(/*! ../../vendor/invariant */ "./node_modules/mapbox/vendor/invariant.js"),
+  makeService = __webpack_require__(/*! ../make_service */ "./node_modules/mapbox/lib/make_service.js"),
+  constants = __webpack_require__(/*! ../constants */ "./node_modules/mapbox/lib/constants.js");
+
+var MapboxGeocoding = makeService('MapboxGeocoding');
+
+var REVERSE_GEOCODING_PRECISION = 5;
+var FORWARD_GEOCODING_PROXIMITY_PRECISION = 3;
+
+function roundTo(value, places) {
+  var mult = Math.pow(10, places);
+  return Math.round(value * mult) / mult;
+}
+
+/**
+ * Search for a location with a string, using the
+ * [Mapbox Geocoding API](https://www.mapbox.com/api-documentation/#geocoding).
+ *
+ * The `query` parmeter can be an array of strings only if batch geocoding
+ * is used by specifying `mapbox.places-permanent` as the `dataset` option.
+ *
+ * @param {string|Array<string>} query desired location
+ * @param {Object} [options={}] additional options meant to tune
+ * the request
+ * @param {Object} options.proximity a proximity argument: this is
+ * a geographical point given as an object with latitude and longitude
+ * properties. Search results closer to this point will be given
+ * higher priority.
+ * @param {Array} options.bbox a bounding box argument: this is
+ * a bounding box given as an array in the format [minX, minY, maxX, maxY].
+ * Search results will be limited to the bounding box.
+ * @param {string} options.types a comma seperated list of types that filter
+ * results to match those specified. See https://www.mapbox.com/developers/api/geocoding/#filter-type
+ * for available types.
+ * @param {number=5} options.limit is the maximum number of results to return, between 1 and 10 inclusive.
+ * Some very specific queries may return fewer results than the limit.
+ * @param {string} options.country a comma separated list of country codes to
+ * limit results to specified country or countries.
+ * @param {boolean=true} options.autocomplete whether to include results that include
+ * the query only as a prefix. This is useful for UIs where users type
+ * values, but if you have complete addresses as input, you'll want to turn it off
+ * @param {string} [options.dataset=mapbox.places] the desired data to be
+ * geocoded against. The default, mapbox.places, does not permit unlimited
+ * caching. `mapbox.places-permanent` is available on request and does
+ * permit permanent caching.
+ * @param {Function} callback called with (err, results)
+ * @returns {undefined} nothing, calls callback
+ * @memberof MapboxClient
+ * @example
+ * var mapboxClient = new MapboxClient('ACCESSTOKEN');
+ * mapboxClient.geocodeForward('Paris, France', function(err, res) {
+ *   // res is a GeoJSON document with geocoding matches
+ * });
+ * // using the proximity option to weight results closer to texas
+ * mapboxClient.geocodeForward('Paris, France', {
+ *   proximity: { latitude: 33.6875431, longitude: -95.4431142 }
+ * }, function(err, res) {
+ *   // res is a GeoJSON document with geocoding matches
+ * });
+ * // using the bbox option to limit results to a portion of Washington, D.C.
+ * mapboxClient.geocodeForward('Starbucks', {
+ *   bbox: [-77.083056,38.908611,-76.997778,38.959167]
+ * }, function(err, res) {
+ *   // res is a GeoJSON document with geocoding matches
+ * });
+ */
+MapboxGeocoding.prototype.geocodeForward = function(query, options, callback) {
+
+  // permit the options argument to be omitted
+  if (callback === undefined && typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
+  // typecheck arguments
+  if (Array.isArray(query)) {
+    if (options.dataset !== 'mapbox.places-permanent') {
+      throw new Error('Batch geocoding is only available with the mapbox.places-permanent endpoint. See https://mapbox.com/api-documentation/#batch-requests for details')
+    } else {
+      query = query.join(';');
+    }
+  }
+  invariant(typeof query === 'string', 'query must be a string');
+  invariant(typeof options === 'object', 'options must be an object');
+
+  var queryOptions = {
+    query: query,
+    dataset: 'mapbox.places'
+  };
+
+  var autocomplete = true;
+  var precision = FORWARD_GEOCODING_PROXIMITY_PRECISION;
+  if (options.precision) {
+    invariant(typeof options.precision === 'number', 'precision option must be number');
+    precision = options.precision;
+  }
+
+  if (options.proximity) {
+    invariant(typeof options.proximity.latitude === 'number' &&
+      typeof options.proximity.longitude === 'number',
+      'proximity must be an object with numeric latitude & longitude properties');
+    queryOptions.proximity = roundTo(options.proximity.longitude, precision) + ',' + roundTo(options.proximity.latitude, precision);
+  }
+
+  if (options.bbox) {
+    invariant(typeof options.bbox[0] === 'number' &&
+      typeof options.bbox[1] === 'number' &&
+      typeof options.bbox[2] === 'number' &&
+      typeof options.bbox[3] === 'number' &&
+      options.bbox.length === 4,
+      'bbox must be an array with numeric values in the form [minX, minY, maxX, maxY]');
+    queryOptions.bbox = options.bbox[0] + "," + options.bbox[1] + "," + options.bbox[2] + "," + options.bbox[3];
+  }
+
+  if (options.limit) {
+    invariant(typeof options.limit === 'number',
+      'limit must be a number');
+    queryOptions.limit = options.limit;
+  }
+
+  if (options.dataset) {
+    invariant(typeof options.dataset === 'string', 'dataset option must be string');
+    queryOptions.dataset = options.dataset;
+  }
+
+  if (options.country) {
+    invariant(typeof options.country === 'string', 'country option must be string');
+    queryOptions.country = options.country;
+  }
+
+  if (options.types) {
+    invariant(typeof options.types === 'string', 'types option must be string');
+    queryOptions.types = options.types;
+  }
+
+  if (typeof options.autocomplete === 'boolean') {
+    invariant(typeof options.autocomplete === 'boolean', 'autocomplete must be a boolean');
+    queryOptions.autocomplete = options.autocomplete;
+  }
+
+  return this.client({
+    path: constants.API_GEOCODING_FORWARD,
+    params: queryOptions,
+    callback: callback
+  });
+};
+
+/**
+ * Given a location, determine what geographical features are located
+ * there. This uses the [Mapbox Geocoding API](https://www.mapbox.com/api-documentation/#geocoding).
+ *
+ * @param {Object} location the geographical point to search
+ * @param {number} location.latitude decimal degrees latitude, in range -90 to 90
+ * @param {number} location.longitude decimal degrees longitude, in range -180 to 180
+ * @param {Object} [options={}] additional options meant to tune
+ * the request.
+ * @param {string} options.types a comma seperated list of types that filter
+ * results to match those specified. See 
+ * https://www.mapbox.com/api-documentation/#retrieve-places-near-a-location
+ * for available types.
+ * @param {number=1} options.limit is the maximum number of results to return, between 1 and 5
+ * inclusive. Requires a single options.types to be specified (see example).
+ * @param {string} [options.dataset=mapbox.places] the desired data to be
+ * geocoded against. The default, mapbox.places, does not permit unlimited
+ * caching. `mapbox.places-permanent` is available on request and does
+ * permit permanent caching.
+ * @param {Function} callback called with (err, results)
+ * @returns {undefined} nothing, calls callback
+ * @example
+ * var mapboxClient = new MapboxGeocoding('ACCESSTOKEN');
+ * mapboxClient.geocodeReverse(
+ *   { latitude: 33.6875431, longitude: -95.4431142 },
+ *   function(err, res) {
+ *   // res is a GeoJSON document with geocoding matches
+ * });
+ * @example
+ * var mapboxClient = new MapboxGeocoding('ACCESSTOKEN');
+ * mapboxClient.geocodeReverse(
+ *   { latitude: 33.6875431, longitude: -95.4431142, options: { types: address, limit: 3 } },
+ *   function(err, res) {
+ *   // res is a GeoJSON document with up to 3 geocoding matches
+ * });
+ */
+MapboxGeocoding.prototype.geocodeReverse = function(location, options, callback) {
+
+  // permit the options argument to be omitted
+  if (callback === undefined && typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
+  // typecheck arguments
+  invariant(typeof location === 'object', 'location must be an object');
+  invariant(typeof options === 'object', 'options must be an object');
+
+  invariant(typeof location.latitude === 'number' &&
+    typeof location.longitude === 'number',
+    'location must be an object with numeric latitude & longitude properties');
+
+  var queryOptions = {
+    dataset: 'mapbox.places'
+  };
+
+  if (options.dataset) {
+    invariant(typeof options.dataset === 'string', 'dataset option must be string');
+    queryOptions.dataset = options.dataset;
+  }
+
+  var precision = REVERSE_GEOCODING_PRECISION;
+  if (options.precision) {
+    invariant(typeof options.precision === 'number', 'precision option must be number');
+    precision = options.precision;
+  }
+
+  if (options.types) {
+    invariant(typeof options.types === 'string', 'types option must be string');
+    queryOptions.types = options.types;
+  }
+
+  if (options.limit) {
+    invariant(typeof options.limit === 'number', 'limit option must be a number');
+    invariant(options.types.split(',').length === 1, 'a single type must be specified to use the limit option');
+    queryOptions.limit = options.limit;
+  }
+
+  queryOptions.longitude = roundTo(location.longitude, precision);
+  queryOptions.latitude = roundTo(location.latitude, precision);
+
+  return this.client({
+    path: constants.API_GEOCODING_REVERSE,
+    params: queryOptions,
+    callback: callback
+  });
+};
+
+module.exports = MapboxGeocoding;
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/lib/standard_response.js":
+/*!******************************************************!*\
+  !*** ./node_modules/mapbox/lib/standard_response.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var interceptor = __webpack_require__(/*! rest/interceptor */ "./node_modules/rest/interceptor.js");
+
+var standardResponse = interceptor({
+  response: transform,
+});
+
+function transform(response) {
+  return {
+    url: response.url,
+    status: response.status ? response.status.code : undefined,
+    headers: response.headers,
+    entity: response.entity,
+    error: response.error,
+    callback: response.request.callback
+  };
+};
+
+module.exports = standardResponse;
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/vendor/invariant.js":
+/*!*************************************************!*\
+  !*** ./node_modules/mapbox/vendor/invariant.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2013-2015, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+
+
+
+/*
+ * Use invariant() to assert state which your program assumes to be true.
+ *
+ * Provide sprintf-style format (only %s is supported) and arguments
+ * to provide information about what broke and what you were
+ * expecting.
+ *
+ * The invariant message will be stripped in production, but the invariant
+ * will remain to ensure logic does not differ in production.
+ */
+
+var NODE_ENV = "development";
+
+var invariant = function(condition, format, a, b, c, d, e, f) {
+  if (NODE_ENV !== 'production') {
+    if (format === undefined) {
+      throw new Error('invariant requires an error message argument');
+    }
+  }
+
+  if (!condition) {
+    var error;
+    if (format === undefined) {
+      error = new Error(
+        'Minified exception occurred; use the non-minified dev environment ' +
+        'for the full error message and additional helpful warnings.'
+      );
+    } else {
+      var args = [a, b, c, d, e, f];
+      var argIndex = 0;
+      error = new Error(
+        format.replace(/%s/g, function() { return args[argIndex++]; })
+      );
+      error.name = 'Invariant Violation';
+    }
+
+    error.framesToPop = 1; // we don't care about invariant's own frame
+    throw error;
+  }
+};
+
+module.exports = invariant;
+
+
+/***/ }),
+
+/***/ "./node_modules/mapbox/vendor/promise.js":
+/*!***********************************************!*\
+  !*** ./node_modules/mapbox/vendor/promise.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {var require;var require;!function(t){ true?module.exports=t():undefined}(function(){var t;return function e(t,n,o){function r(u,c){if(!n[u]){if(!t[u]){var f="function"==typeof require&&require;if(!c&&f)return require(u,!0);if(i)return i(u,!0);throw new Error("Cannot find module '"+u+"'")}var s=n[u]={exports:{}};t[u][0].call(s.exports,function(e){var n=t[u][1][e];return r(n?n:e)},s,s.exports,e,t,n,o)}return n[u].exports}for(var i="function"==typeof require&&require,u=0;u<o.length;u++)r(o[u]);return r}({1:[function(t,e,n){var o=t("../lib/decorators/unhandledRejection"),r=o(t("../lib/Promise"));e.exports="undefined"!=typeof global?global.Promise=r:"undefined"!=typeof self?self.Promise=r:r},{"../lib/Promise":2,"../lib/decorators/unhandledRejection":4}],2:[function(e,n,o){!function(t){"use strict";t(function(t){var e=t("./makePromise"),n=t("./Scheduler"),o=t("./env").asap;return e({scheduler:new n(o)})})}("function"==typeof t&&t.amd?t:function(t){n.exports=t(e)})},{"./Scheduler":3,"./env":5,"./makePromise":7}],3:[function(e,n,o){!function(t){"use strict";t(function(){function t(t){this._async=t,this._running=!1,this._queue=this,this._queueLen=0,this._afterQueue={},this._afterQueueLen=0;var e=this;this.drain=function(){e._drain()}}return t.prototype.enqueue=function(t){this._queue[this._queueLen++]=t,this.run()},t.prototype.afterQueue=function(t){this._afterQueue[this._afterQueueLen++]=t,this.run()},t.prototype.run=function(){this._running||(this._running=!0,this._async(this.drain))},t.prototype._drain=function(){for(var t=0;t<this._queueLen;++t)this._queue[t].run(),this._queue[t]=void 0;for(this._queueLen=0,this._running=!1,t=0;t<this._afterQueueLen;++t)this._afterQueue[t].run(),this._afterQueue[t]=void 0;this._afterQueueLen=0},t})}("function"==typeof t&&t.amd?t:function(t){n.exports=t()})},{}],4:[function(e,n,o){!function(t){"use strict";t(function(t){function e(t){throw t}function n(){}var o=t("../env").setTimer,r=t("../format");return function(t){function i(t){t.handled||(l.push(t),a("Potentially unhandled rejection ["+t.id+"] "+r.formatError(t.value)))}function u(t){var e=l.indexOf(t);e>=0&&(l.splice(e,1),h("Handled previous rejection ["+t.id+"] "+r.formatObject(t.value)))}function c(t,e){p.push(t,e),null===d&&(d=o(f,0))}function f(){for(d=null;p.length>0;)p.shift()(p.shift())}var s,a=n,h=n;"undefined"!=typeof console&&(s=console,a="undefined"!=typeof s.error?function(t){s.error(t)}:function(t){s.log(t)},h="undefined"!=typeof s.info?function(t){s.info(t)}:function(t){s.log(t)}),t.onPotentiallyUnhandledRejection=function(t){c(i,t)},t.onPotentiallyUnhandledRejectionHandled=function(t){c(u,t)},t.onFatalRejection=function(t){c(e,t.value)};var p=[],l=[],d=null;return t}})}("function"==typeof t&&t.amd?t:function(t){n.exports=t(e)})},{"../env":5,"../format":6}],5:[function(e,n,o){!function(t){"use strict";t(function(t){function e(){return"undefined"!=typeof process&&"[object process]"===Object.prototype.toString.call(process)}function n(){return"function"==typeof MutationObserver&&MutationObserver||"function"==typeof WebKitMutationObserver&&WebKitMutationObserver}function o(t){function e(){var t=n;n=void 0,t()}var n,o=document.createTextNode(""),r=new t(e);r.observe(o,{characterData:!0});var i=0;return function(t){n=t,o.data=i^=1}}var r,i="undefined"!=typeof setTimeout&&setTimeout,u=function(t,e){return setTimeout(t,e)},c=function(t){return clearTimeout(t)},f=function(t){return i(t,0)};if(e())f=function(t){return process.nextTick(t)};else if(r=n())f=o(r);else if(!i){var s=t,a=s("vertx");u=function(t,e){return a.setTimer(e,t)},c=a.cancelTimer,f=a.runOnLoop||a.runOnContext}return{setTimer:u,clearTimer:c,asap:f}})}("function"==typeof t&&t.amd?t:function(t){n.exports=t(e)})},{}],6:[function(e,n,o){!function(t){"use strict";t(function(){function t(t){var n="object"==typeof t&&null!==t&&(t.stack||t.message)?t.stack||t.message:e(t);return t instanceof Error?n:n+" (WARNING: non-Error used)"}function e(t){var e=String(t);return"[object Object]"===e&&"undefined"!=typeof JSON&&(e=n(t,e)),e}function n(t,e){try{return JSON.stringify(t)}catch(n){return e}}return{formatError:t,formatObject:e,tryStringify:n}})}("function"==typeof t&&t.amd?t:function(t){n.exports=t()})},{}],7:[function(e,n,o){!function(t){"use strict";t(function(){return function(t){function e(t,e){this._handler=t===_?e:n(t)}function n(t){function e(t){r.resolve(t)}function n(t){r.reject(t)}function o(t){r.notify(t)}var r=new b;try{t(e,n,o)}catch(i){n(i)}return r}function o(t){return S(t)?t:new e(_,new x(y(t)))}function r(t){return new e(_,new x(new P(t)))}function i(){return $}function u(){return new e(_,new b)}function c(t,e){var n=new b(t.receiver,t.join().context);return new e(_,n)}function f(t){return a(K,null,t)}function s(t,e){return a(F,t,e)}function a(t,n,o){function r(e,r,u){u.resolved||h(o,i,e,t(n,r,e),u)}function i(t,e,n){a[t]=e,0===--s&&n.become(new q(a))}for(var u,c="function"==typeof n?r:i,f=new b,s=o.length>>>0,a=new Array(s),p=0;p<o.length&&!f.resolved;++p)u=o[p],void 0!==u||p in o?h(o,c,p,u,f):--s;return 0===s&&f.become(new q(a)),new e(_,f)}function h(t,e,n,o,r){if(U(o)){var i=m(o),u=i.state();0===u?i.fold(e,n,void 0,r):u>0?e(n,i.value,r):(r.become(i),p(t,n+1,i))}else e(n,o,r)}function p(t,e,n){for(var o=e;o<t.length;++o)l(y(t[o]),n)}function l(t,e){if(t!==e){var n=t.state();0===n?t.visit(t,void 0,t._unreport):0>n&&t._unreport()}}function d(t){return"object"!=typeof t||null===t?r(new TypeError("non-iterable passed to race()")):0===t.length?i():1===t.length?o(t[0]):v(t)}function v(t){var n,o,r,i=new b;for(n=0;n<t.length;++n)if(o=t[n],void 0!==o||n in t){if(r=y(o),0!==r.state()){i.become(r),p(t,n+1,r);break}r.visit(i,i.resolve,i.reject)}return new e(_,i)}function y(t){return S(t)?t._handler.join():U(t)?j(t):new q(t)}function m(t){return S(t)?t._handler.join():j(t)}function j(t){try{var e=t.then;return"function"==typeof e?new g(e,t):new q(t)}catch(n){return new P(n)}}function _(){}function w(){}function b(t,n){e.createContext(this,n),this.consumers=void 0,this.receiver=t,this.handler=void 0,this.resolved=!1}function x(t){this.handler=t}function g(t,e){b.call(this),I.enqueue(new E(t,e,this))}function q(t){e.createContext(this),this.value=t}function P(t){e.createContext(this),this.id=++Y,this.value=t,this.handled=!1,this.reported=!1,this._report()}function R(t,e){this.rejection=t,this.context=e}function C(t){this.rejection=t}function O(){return new P(new TypeError("Promise cycle"))}function T(t,e){this.continuation=t,this.handler=e}function Q(t,e){this.handler=e,this.value=t}function E(t,e,n){this._then=t,this.thenable=e,this.resolver=n}function L(t,e,n,o,r){try{t.call(e,n,o,r)}catch(i){o(i)}}function k(t,e,n,o){this.f=t,this.z=e,this.c=n,this.to=o,this.resolver=X,this.receiver=this}function S(t){return t instanceof e}function U(t){return("object"==typeof t||"function"==typeof t)&&null!==t}function H(t,n,o,r){return"function"!=typeof t?r.become(n):(e.enterContext(n),W(t,n.value,o,r),void e.exitContext())}function N(t,n,o,r,i){return"function"!=typeof t?i.become(o):(e.enterContext(o),z(t,n,o.value,r,i),void e.exitContext())}function M(t,n,o,r,i){return"function"!=typeof t?i.notify(n):(e.enterContext(o),A(t,n,r,i),void e.exitContext())}function F(t,e,n){try{return t(e,n)}catch(o){return r(o)}}function W(t,e,n,o){try{o.become(y(t.call(n,e)))}catch(r){o.become(new P(r))}}function z(t,e,n,o,r){try{t.call(o,e,n,r)}catch(i){r.become(new P(i))}}function A(t,e,n,o){try{o.notify(t.call(n,e))}catch(r){o.notify(r)}}function J(t,e){e.prototype=V(t.prototype),e.prototype.constructor=e}function K(t,e){return e}function D(){}function G(){return"undefined"!=typeof process&&null!==process&&"function"==typeof process.emit?function(t,e){return"unhandledRejection"===t?process.emit(t,e.value,e):process.emit(t,e)}:"undefined"!=typeof self&&"function"==typeof CustomEvent?function(t,e,n){var o=!1;try{var r=new n("unhandledRejection");o=r instanceof n}catch(i){}return o?function(t,o){var r=new n(t,{detail:{reason:o.value,key:o},bubbles:!1,cancelable:!0});return!e.dispatchEvent(r)}:t}(D,self,CustomEvent):D}var I=t.scheduler,B=G(),V=Object.create||function(t){function e(){}return e.prototype=t,new e};e.resolve=o,e.reject=r,e.never=i,e._defer=u,e._handler=y,e.prototype.then=function(t,e,n){var o=this._handler,r=o.join().state();if("function"!=typeof t&&r>0||"function"!=typeof e&&0>r)return new this.constructor(_,o);var i=this._beget(),u=i._handler;return o.chain(u,o.receiver,t,e,n),i},e.prototype["catch"]=function(t){return this.then(void 0,t)},e.prototype._beget=function(){return c(this._handler,this.constructor)},e.all=f,e.race=d,e._traverse=s,e._visitRemaining=p,_.prototype.when=_.prototype.become=_.prototype.notify=_.prototype.fail=_.prototype._unreport=_.prototype._report=D,_.prototype._state=0,_.prototype.state=function(){return this._state},_.prototype.join=function(){for(var t=this;void 0!==t.handler;)t=t.handler;return t},_.prototype.chain=function(t,e,n,o,r){this.when({resolver:t,receiver:e,fulfilled:n,rejected:o,progress:r})},_.prototype.visit=function(t,e,n,o){this.chain(X,t,e,n,o)},_.prototype.fold=function(t,e,n,o){this.when(new k(t,e,n,o))},J(_,w),w.prototype.become=function(t){t.fail()};var X=new w;J(_,b),b.prototype._state=0,b.prototype.resolve=function(t){this.become(y(t))},b.prototype.reject=function(t){this.resolved||this.become(new P(t))},b.prototype.join=function(){if(!this.resolved)return this;for(var t=this;void 0!==t.handler;)if(t=t.handler,t===this)return this.handler=O();return t},b.prototype.run=function(){var t=this.consumers,e=this.handler;this.handler=this.handler.join(),this.consumers=void 0;for(var n=0;n<t.length;++n)e.when(t[n])},b.prototype.become=function(t){this.resolved||(this.resolved=!0,this.handler=t,void 0!==this.consumers&&I.enqueue(this),void 0!==this.context&&t._report(this.context))},b.prototype.when=function(t){this.resolved?I.enqueue(new T(t,this.handler)):void 0===this.consumers?this.consumers=[t]:this.consumers.push(t)},b.prototype.notify=function(t){this.resolved||I.enqueue(new Q(t,this))},b.prototype.fail=function(t){var e="undefined"==typeof t?this.context:t;this.resolved&&this.handler.join().fail(e)},b.prototype._report=function(t){this.resolved&&this.handler.join()._report(t)},b.prototype._unreport=function(){this.resolved&&this.handler.join()._unreport()},J(_,x),x.prototype.when=function(t){I.enqueue(new T(t,this))},x.prototype._report=function(t){this.join()._report(t)},x.prototype._unreport=function(){this.join()._unreport()},J(b,g),J(_,q),q.prototype._state=1,q.prototype.fold=function(t,e,n,o){N(t,e,this,n,o)},q.prototype.when=function(t){H(t.fulfilled,this,t.receiver,t.resolver)};var Y=0;J(_,P),P.prototype._state=-1,P.prototype.fold=function(t,e,n,o){o.become(this)},P.prototype.when=function(t){"function"==typeof t.rejected&&this._unreport(),H(t.rejected,this,t.receiver,t.resolver)},P.prototype._report=function(t){I.afterQueue(new R(this,t))},P.prototype._unreport=function(){this.handled||(this.handled=!0,I.afterQueue(new C(this)))},P.prototype.fail=function(t){this.reported=!0,B("unhandledRejection",this),e.onFatalRejection(this,void 0===t?this.context:t)},R.prototype.run=function(){this.rejection.handled||this.rejection.reported||(this.rejection.reported=!0,B("unhandledRejection",this.rejection)||e.onPotentiallyUnhandledRejection(this.rejection,this.context))},C.prototype.run=function(){this.rejection.reported&&(B("rejectionHandled",this.rejection)||e.onPotentiallyUnhandledRejectionHandled(this.rejection))},e.createContext=e.enterContext=e.exitContext=e.onPotentiallyUnhandledRejection=e.onPotentiallyUnhandledRejectionHandled=e.onFatalRejection=D;var Z=new _,$=new e(_,Z);return T.prototype.run=function(){this.handler.join().when(this.continuation)},Q.prototype.run=function(){var t=this.handler.consumers;if(void 0!==t)for(var e,n=0;n<t.length;++n)e=t[n],M(e.progress,this.value,this.handler,e.receiver,e.resolver)},E.prototype.run=function(){function t(t){o.resolve(t)}function e(t){o.reject(t)}function n(t){o.notify(t)}var o=this.resolver;L(this._then,this.thenable,t,e,n)},k.prototype.fulfilled=function(t){this.f.call(this.c,this.z,t,this.to)},k.prototype.rejected=function(t){this.to.reject(t)},k.prototype.progress=function(t){this.to.notify(t)},e}})}("function"==typeof t&&t.amd?t:function(t){n.exports=t()})},{}]},{},[1])(1)});
+//# sourceMappingURL=Promise.min.js.map
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -10599,6 +12132,2665 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/UrlBuilder.js":
+/*!*****************************************!*\
+  !*** ./node_modules/rest/UrlBuilder.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var mixin, xWWWFormURLEncoder, origin, urlRE, absoluteUrlRE, fullyQualifiedUrlRE;
+
+mixin = __webpack_require__(/*! ./util/mixin */ "./node_modules/rest/util/mixin.js");
+xWWWFormURLEncoder = __webpack_require__(/*! ./mime/type/application/x-www-form-urlencoded */ "./node_modules/rest/mime/type/application/x-www-form-urlencoded.js");
+
+urlRE = /([a-z][a-z0-9\+\-\.]*:)\/\/([^@]+@)?(([^:\/]+)(:([0-9]+))?)?(\/[^?#]*)?(\?[^#]*)?(#\S*)?/i;
+absoluteUrlRE = /^([a-z][a-z0-9\-\+\.]*:\/\/|\/)/i;
+fullyQualifiedUrlRE = /([a-z][a-z0-9\+\-\.]*:)\/\/([^@]+@)?(([^:\/]+)(:([0-9]+))?)?\//i;
+
+/**
+ * Apply params to the template to create a URL.
+ *
+ * Parameters that are not applied directly to the template, are appended
+ * to the URL as query string parameters.
+ *
+ * @param {string} template the URI template
+ * @param {Object} params parameters to apply to the template
+ * @return {string} the resulting URL
+ */
+function buildUrl(template, params) {
+	// internal builder to convert template with params.
+	var url, name, queryStringParams, queryString, re;
+
+	url = template;
+	queryStringParams = {};
+
+	if (params) {
+		for (name in params) {
+			/*jshint forin:false */
+			re = new RegExp('\\{' + name + '\\}');
+			if (re.test(url)) {
+				url = url.replace(re, encodeURIComponent(params[name]), 'g');
+			}
+			else {
+				queryStringParams[name] = params[name];
+			}
+		}
+
+		queryString = xWWWFormURLEncoder.write(queryStringParams);
+		if (queryString) {
+			url += url.indexOf('?') === -1 ? '?' : '&';
+			url += queryString;
+		}
+	}
+	return url;
+}
+
+function startsWith(str, test) {
+	return str.indexOf(test) === 0;
+}
+
+/**
+ * Create a new URL Builder
+ *
+ * @param {string|UrlBuilder} template the base template to build from, may be another UrlBuilder
+ * @param {Object} [params] base parameters
+ * @constructor
+ */
+function UrlBuilder(template, params) {
+	if (!(this instanceof UrlBuilder)) {
+		// invoke as a constructor
+		return new UrlBuilder(template, params);
+	}
+
+	if (template instanceof UrlBuilder) {
+		this._template = template.template;
+		this._params = mixin({}, this._params, params);
+	}
+	else {
+		this._template = (template || '').toString();
+		this._params = params || {};
+	}
+}
+
+UrlBuilder.prototype = {
+
+	/**
+	 * Create a new UrlBuilder instance that extends the current builder.
+	 * The current builder is unmodified.
+	 *
+	 * @param {string} [template] URL template to append to the current template
+	 * @param {Object} [params] params to combine with current params.  New params override existing params
+	 * @return {UrlBuilder} the new builder
+	 */
+	append: function (template,  params) {
+		// TODO consider query strings and fragments
+		return new UrlBuilder(this._template + template, mixin({}, this._params, params));
+	},
+
+	/**
+	 * Create a new UrlBuilder with a fully qualified URL based on the
+	 * window's location or base href and the current templates relative URL.
+	 *
+	 * Path variables are preserved.
+	 *
+	 * *Browser only*
+	 *
+	 * @return {UrlBuilder} the fully qualified URL template
+	 */
+	fullyQualify: function () {
+		if (typeof location === 'undefined') { return this; }
+		if (this.isFullyQualified()) { return this; }
+
+		var template = this._template;
+
+		if (startsWith(template, '//')) {
+			template = origin.protocol + template;
+		}
+		else if (startsWith(template, '/')) {
+			template = origin.origin + template;
+		}
+		else if (!this.isAbsolute()) {
+			template = origin.origin + origin.pathname.substring(0, origin.pathname.lastIndexOf('/') + 1);
+		}
+
+		if (template.indexOf('/', 8) === -1) {
+			// default the pathname to '/'
+			template = template + '/';
+		}
+
+		return new UrlBuilder(template, this._params);
+	},
+
+	/**
+	 * True if the URL is absolute
+	 *
+	 * @return {boolean}
+	 */
+	isAbsolute: function () {
+		return absoluteUrlRE.test(this.build());
+	},
+
+	/**
+	 * True if the URL is fully qualified
+	 *
+	 * @return {boolean}
+	 */
+	isFullyQualified: function () {
+		return fullyQualifiedUrlRE.test(this.build());
+	},
+
+	/**
+	 * True if the URL is cross origin. The protocol, host and port must not be
+	 * the same in order to be cross origin,
+	 *
+	 * @return {boolean}
+	 */
+	isCrossOrigin: function () {
+		if (!origin) {
+			return true;
+		}
+		var url = this.parts();
+		return url.protocol !== origin.protocol ||
+		       url.hostname !== origin.hostname ||
+		       url.port !== origin.port;
+	},
+
+	/**
+	 * Split a URL into its consituent parts following the naming convention of
+	 * 'window.location'. One difference is that the port will contain the
+	 * protocol default if not specified.
+	 *
+	 * @see https://developer.mozilla.org/en-US/docs/DOM/window.location
+	 *
+	 * @returns {Object} a 'window.location'-like object
+	 */
+	parts: function () {
+		/*jshint maxcomplexity:20 */
+		var url, parts;
+		url = this.fullyQualify().build().match(urlRE);
+		parts = {
+			href: url[0],
+			protocol: url[1],
+			host: url[3] || '',
+			hostname: url[4] || '',
+			port: url[6],
+			pathname: url[7] || '',
+			search: url[8] || '',
+			hash: url[9] || ''
+		};
+		parts.origin = parts.protocol + '//' + parts.host;
+		parts.port = parts.port || (parts.protocol === 'https:' ? '443' : parts.protocol === 'http:' ? '80' : '');
+		return parts;
+	},
+
+	/**
+	 * Expand the template replacing path variables with parameters
+	 *
+	 * @param {Object} [params] params to combine with current params.  New params override existing params
+	 * @return {string} the expanded URL
+	 */
+	build: function (params) {
+		return buildUrl(this._template, mixin({}, this._params, params));
+	},
+
+	/**
+	 * @see build
+	 */
+	toString: function () {
+		return this.build();
+	}
+
+};
+
+origin = typeof location !== 'undefined' ? new UrlBuilder(location.href).parts() : void 0;
+
+module.exports = UrlBuilder;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/browser.js":
+/*!**************************************!*\
+  !*** ./node_modules/rest/browser.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2014-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var rest = __webpack_require__(/*! ./client/default */ "./node_modules/rest/client/default.js"),
+    browser = __webpack_require__(/*! ./client/xhr */ "./node_modules/rest/client/xhr.js");
+
+rest.setPlatformDefaultClient(browser);
+
+module.exports = rest;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/client.js":
+/*!*************************************!*\
+  !*** ./node_modules/rest/client.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2014-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+/**
+ * Add common helper methods to a client impl
+ *
+ * @param {function} impl the client implementation
+ * @param {Client} [target] target of this client, used when wrapping other clients
+ * @returns {Client} the client impl with additional methods
+ */
+module.exports = function client(impl, target) {
+
+	if (target) {
+
+		/**
+		 * @returns {Client} the target client
+		 */
+		impl.skip = function skip() {
+			return target;
+		};
+
+	}
+
+	/**
+	 * Allow a client to easily be wrapped by an interceptor
+	 *
+	 * @param {Interceptor} interceptor the interceptor to wrap this client with
+	 * @param [config] configuration for the interceptor
+	 * @returns {Client} the newly wrapped client
+	 */
+	impl.wrap = function wrap(interceptor, config) {
+		return interceptor(impl, config);
+	};
+
+	/**
+	 * @deprecated
+	 */
+	impl.chain = function chain() {
+		if (typeof console !== 'undefined') {
+			console.log('rest.js: client.chain() is deprecated, use client.wrap() instead');
+		}
+
+		return impl.wrap.apply(this, arguments);
+	};
+
+	return impl;
+
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/client/default.js":
+/*!*********************************************!*\
+  !*** ./node_modules/rest/client/default.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2014-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+/**
+ * Plain JS Object containing properties that represent an HTTP request.
+ *
+ * Depending on the capabilities of the underlying client, a request
+ * may be cancelable. If a request may be canceled, the client will add
+ * a canceled flag and cancel function to the request object. Canceling
+ * the request will put the response into an error state.
+ *
+ * @field {string} [method='GET'] HTTP method, commonly GET, POST, PUT, DELETE or HEAD
+ * @field {string|UrlBuilder} [path=''] path template with optional path variables
+ * @field {Object} [params] parameters for the path template and query string
+ * @field {Object} [headers] custom HTTP headers to send, in addition to the clients default headers
+ * @field [entity] the HTTP entity, common for POST or PUT requests
+ * @field {boolean} [canceled] true if the request has been canceled, set by the client
+ * @field {Function} [cancel] cancels the request if invoked, provided by the client
+ * @field {Client} [originator] the client that first handled this request, provided by the interceptor
+ *
+ * @class Request
+ */
+
+/**
+ * Plain JS Object containing properties that represent an HTTP response
+ *
+ * @field {Object} [request] the request object as received by the root client
+ * @field {Object} [raw] the underlying request object, like XmlHttpRequest in a browser
+ * @field {number} [status.code] status code of the response (i.e. 200, 404)
+ * @field {string} [status.text] status phrase of the response
+ * @field {Object] [headers] response headers hash of normalized name, value pairs
+ * @field [entity] the response body
+ *
+ * @class Response
+ */
+
+/**
+ * HTTP client particularly suited for RESTful operations.
+ *
+ * @field {function} wrap wraps this client with a new interceptor returning the wrapped client
+ *
+ * @param {Request} the HTTP request
+ * @returns {ResponsePromise<Response>} a promise the resolves to the HTTP response
+ *
+ * @class Client
+ */
+
+ /**
+  * Extended when.js Promises/A+ promise with HTTP specific helpers
+  *q
+  * @method entity promise for the HTTP entity
+  * @method status promise for the HTTP status code
+  * @method headers promise for the HTTP response headers
+  * @method header promise for a specific HTTP response header
+  *
+  * @class ResponsePromise
+  * @extends Promise
+  */
+
+var client, target, platformDefault;
+
+client = __webpack_require__(/*! ../client */ "./node_modules/rest/client.js");
+
+if (typeof Promise !== 'function' && console && console.log) {
+	console.log('An ES6 Promise implementation is required to use rest.js. See https://github.com/cujojs/when/blob/master/docs/es6-promise-shim.md for using when.js as a Promise polyfill.');
+}
+
+/**
+ * Make a request with the default client
+ * @param {Request} the HTTP request
+ * @returns {Promise<Response>} a promise the resolves to the HTTP response
+ */
+function defaultClient() {
+	return target.apply(void 0, arguments);
+}
+
+/**
+ * Change the default client
+ * @param {Client} client the new default client
+ */
+defaultClient.setDefaultClient = function setDefaultClient(client) {
+	target = client;
+};
+
+/**
+ * Obtain a direct reference to the current default client
+ * @returns {Client} the default client
+ */
+defaultClient.getDefaultClient = function getDefaultClient() {
+	return target;
+};
+
+/**
+ * Reset the default client to the platform default
+ */
+defaultClient.resetDefaultClient = function resetDefaultClient() {
+	target = platformDefault;
+};
+
+/**
+ * @private
+ */
+defaultClient.setPlatformDefaultClient = function setPlatformDefaultClient(client) {
+	if (platformDefault) {
+		throw new Error('Unable to redefine platformDefaultClient');
+	}
+	target = platformDefault = client;
+};
+
+module.exports = client(defaultClient);
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/client/xhr.js":
+/*!*****************************************!*\
+  !*** ./node_modules/rest/client/xhr.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var normalizeHeaderName, responsePromise, client, headerSplitRE;
+
+normalizeHeaderName = __webpack_require__(/*! ../util/normalizeHeaderName */ "./node_modules/rest/util/normalizeHeaderName.js");
+responsePromise = __webpack_require__(/*! ../util/responsePromise */ "./node_modules/rest/util/responsePromise.js");
+client = __webpack_require__(/*! ../client */ "./node_modules/rest/client.js");
+
+// according to the spec, the line break is '\r\n', but doesn't hold true in practice
+headerSplitRE = /[\r|\n]+/;
+
+function parseHeaders(raw) {
+	// Note: Set-Cookie will be removed by the browser
+	var headers = {};
+
+	if (!raw) { return headers; }
+
+	raw.trim().split(headerSplitRE).forEach(function (header) {
+		var boundary, name, value;
+		boundary = header.indexOf(':');
+		name = normalizeHeaderName(header.substring(0, boundary).trim());
+		value = header.substring(boundary + 1).trim();
+		if (headers[name]) {
+			if (Array.isArray(headers[name])) {
+				// add to an existing array
+				headers[name].push(value);
+			}
+			else {
+				// convert single value to array
+				headers[name] = [headers[name], value];
+			}
+		}
+		else {
+			// new, single value
+			headers[name] = value;
+		}
+	});
+
+	return headers;
+}
+
+function safeMixin(target, source) {
+	Object.keys(source || {}).forEach(function (prop) {
+		// make sure the property already exists as
+		// IE 6 will blow up if we add a new prop
+		if (source.hasOwnProperty(prop) && prop in target) {
+			try {
+				target[prop] = source[prop];
+			}
+			catch (e) {
+				// ignore, expected for some properties at some points in the request lifecycle
+			}
+		}
+	});
+
+	return target;
+}
+
+module.exports = client(function xhr(request) {
+	return responsePromise.promise(function (resolve, reject) {
+		/*jshint maxcomplexity:20 */
+
+		var client, method, url, headers, entity, headerName, response, XHR;
+
+		request = typeof request === 'string' ? { path: request } : request || {};
+		response = { request: request };
+
+		if (request.canceled) {
+			response.error = 'precanceled';
+			reject(response);
+			return;
+		}
+
+		XHR = request.engine || XMLHttpRequest;
+		if (!XHR) {
+			reject({ request: request, error: 'xhr-not-available' });
+			return;
+		}
+
+		entity = request.entity;
+		request.method = request.method || (entity ? 'POST' : 'GET');
+		method = request.method;
+		url = response.url = request.path || '';
+
+		try {
+			client = response.raw = new XHR();
+
+			// mixin extra request properties before and after opening the request as some properties require being set at different phases of the request
+			safeMixin(client, request.mixin);
+			client.open(method, url, true);
+			safeMixin(client, request.mixin);
+
+			headers = request.headers;
+			for (headerName in headers) {
+				/*jshint forin:false */
+				if (headerName === 'Content-Type' && headers[headerName] === 'multipart/form-data') {
+					// XMLHttpRequest generates its own Content-Type header with the
+					// appropriate multipart boundary when sending multipart/form-data.
+					continue;
+				}
+
+				client.setRequestHeader(headerName, headers[headerName]);
+			}
+
+			request.canceled = false;
+			request.cancel = function cancel() {
+				request.canceled = true;
+				client.abort();
+				reject(response);
+			};
+
+			client.onreadystatechange = function (/* e */) {
+				if (request.canceled) { return; }
+				if (client.readyState === (XHR.DONE || 4)) {
+					response.status = {
+						code: client.status,
+						text: client.statusText
+					};
+					response.headers = parseHeaders(client.getAllResponseHeaders());
+					response.entity = client.responseText;
+
+					// #125 -- Sometimes IE8-9 uses 1223 instead of 204
+					// http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
+					if (response.status.code === 1223) {
+						response.status.code = 204;
+					}
+
+					if (response.status.code > 0) {
+						// check status code as readystatechange fires before error event
+						resolve(response);
+					}
+					else {
+						// give the error callback a chance to fire before resolving
+						// requests for file:// URLs do not have a status code
+						setTimeout(function () {
+							resolve(response);
+						}, 0);
+					}
+				}
+			};
+
+			try {
+				client.onerror = function (/* e */) {
+					response.error = 'loaderror';
+					reject(response);
+				};
+			}
+			catch (e) {
+				// IE 6 will not support error handling
+			}
+
+			client.send(entity);
+		}
+		catch (e) {
+			response.error = 'loaderror';
+			reject(response);
+		}
+
+	});
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/interceptor.js":
+/*!******************************************!*\
+  !*** ./node_modules/rest/interceptor.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var defaultClient, mixin, responsePromise, client;
+
+defaultClient = __webpack_require__(/*! ./client/default */ "./node_modules/rest/client/default.js");
+mixin = __webpack_require__(/*! ./util/mixin */ "./node_modules/rest/util/mixin.js");
+responsePromise = __webpack_require__(/*! ./util/responsePromise */ "./node_modules/rest/util/responsePromise.js");
+client = __webpack_require__(/*! ./client */ "./node_modules/rest/client.js");
+
+/**
+ * Interceptors have the ability to intercept the request and/org response
+ * objects.  They may augment, prune, transform or replace the
+ * request/response as needed.  Clients may be composed by wrapping
+ * together multiple interceptors.
+ *
+ * Configured interceptors are functional in nature.  Wrapping a client in
+ * an interceptor will not affect the client, merely the data that flows in
+ * and out of that client.  A common configuration can be created once and
+ * shared; specialization can be created by further wrapping that client
+ * with custom interceptors.
+ *
+ * @param {Client} [target] client to wrap
+ * @param {Object} [config] configuration for the interceptor, properties will be specific to the interceptor implementation
+ * @returns {Client} A client wrapped with the interceptor
+ *
+ * @class Interceptor
+ */
+
+function defaultInitHandler(config) {
+	return config;
+}
+
+function defaultRequestHandler(request /*, config, meta */) {
+	return request;
+}
+
+function defaultResponseHandler(response /*, config, meta */) {
+	return response;
+}
+
+/**
+ * Alternate return type for the request handler that allows for more complex interactions.
+ *
+ * @param properties.request the traditional request return object
+ * @param {Promise} [properties.abort] promise that resolves if/when the request is aborted
+ * @param {Client} [properties.client] override the defined client with an alternate client
+ * @param [properties.response] response for the request, short circuit the request
+ */
+function ComplexRequest(properties) {
+	if (!(this instanceof ComplexRequest)) {
+		// in case users forget the 'new' don't mix into the interceptor
+		return new ComplexRequest(properties);
+	}
+	mixin(this, properties);
+}
+
+/**
+ * Create a new interceptor for the provided handlers.
+ *
+ * @param {Function} [handlers.init] one time intialization, must return the config object
+ * @param {Function} [handlers.request] request handler
+ * @param {Function} [handlers.response] response handler regardless of error state
+ * @param {Function} [handlers.success] response handler when the request is not in error
+ * @param {Function} [handlers.error] response handler when the request is in error, may be used to 'unreject' an error state
+ * @param {Function} [handlers.client] the client to use if otherwise not specified, defaults to platform default client
+ *
+ * @returns {Interceptor}
+ */
+function interceptor(handlers) {
+
+	var initHandler, requestHandler, successResponseHandler, errorResponseHandler;
+
+	handlers = handlers || {};
+
+	initHandler            = handlers.init    || defaultInitHandler;
+	requestHandler         = handlers.request || defaultRequestHandler;
+	successResponseHandler = handlers.success || handlers.response || defaultResponseHandler;
+	errorResponseHandler   = handlers.error   || function () {
+		// Propagate the rejection, with the result of the handler
+		return Promise.resolve((handlers.response || defaultResponseHandler).apply(this, arguments))
+			.then(Promise.reject.bind(Promise));
+	};
+
+	return function (target, config) {
+
+		if (typeof target === 'object') {
+			config = target;
+		}
+		if (typeof target !== 'function') {
+			target = handlers.client || defaultClient;
+		}
+
+		config = initHandler(config || {});
+
+		function interceptedClient(request) {
+			var context, meta;
+			context = {};
+			meta = { 'arguments': Array.prototype.slice.call(arguments), client: interceptedClient };
+			request = typeof request === 'string' ? { path: request } : request || {};
+			request.originator = request.originator || interceptedClient;
+			return responsePromise(
+				requestHandler.call(context, request, config, meta),
+				function (request) {
+					var response, abort, next;
+					next = target;
+					if (request instanceof ComplexRequest) {
+						// unpack request
+						abort = request.abort;
+						next = request.client || next;
+						response = request.response;
+						// normalize request, must be last
+						request = request.request;
+					}
+					response = response || Promise.resolve(request).then(function (request) {
+						return Promise.resolve(next(request)).then(
+							function (response) {
+								return successResponseHandler.call(context, response, config, meta);
+							},
+							function (response) {
+								return errorResponseHandler.call(context, response, config, meta);
+							}
+						);
+					});
+					return abort ? Promise.race([response, abort]) : response;
+				},
+				function (error) {
+					return Promise.reject({ request: request, error: error });
+				}
+			);
+		}
+
+		return client(interceptedClient, target);
+	};
+}
+
+interceptor.ComplexRequest = ComplexRequest;
+
+module.exports = interceptor;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/interceptor/defaultRequest.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/rest/interceptor/defaultRequest.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2013-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var interceptor, mixinUtil, defaulter;
+
+interceptor = __webpack_require__(/*! ../interceptor */ "./node_modules/rest/interceptor.js");
+mixinUtil = __webpack_require__(/*! ../util/mixin */ "./node_modules/rest/util/mixin.js");
+
+defaulter = (function () {
+
+	function mixin(prop, target, defaults) {
+		if (prop in target || prop in defaults) {
+			target[prop] = mixinUtil({}, defaults[prop], target[prop]);
+		}
+	}
+
+	function copy(prop, target, defaults) {
+		if (prop in defaults && !(prop in target)) {
+			target[prop] = defaults[prop];
+		}
+	}
+
+	var mappings = {
+		method: copy,
+		path: copy,
+		params: mixin,
+		headers: mixin,
+		entity: copy,
+		mixin: mixin
+	};
+
+	return function (target, defaults) {
+		for (var prop in mappings) {
+			/*jshint forin: false */
+			mappings[prop](prop, target, defaults);
+		}
+		return target;
+	};
+
+}());
+
+/**
+ * Provide default values for a request. These values will be applied to the
+ * request if the request object does not already contain an explicit value.
+ *
+ * For 'params', 'headers', and 'mixin', individual values are mixed in with the
+ * request's values. The result is a new object representiing the combined
+ * request and config values. Neither input object is mutated.
+ *
+ * @param {Client} [client] client to wrap
+ * @param {string} [config.method] the default method
+ * @param {string} [config.path] the default path
+ * @param {Object} [config.params] the default params, mixed with the request's existing params
+ * @param {Object} [config.headers] the default headers, mixed with the request's existing headers
+ * @param {Object} [config.mixin] the default "mixins" (http/https options), mixed with the request's existing "mixins"
+ *
+ * @returns {Client}
+ */
+module.exports = interceptor({
+	request: function handleRequest(request, config) {
+		return defaulter(request, config);
+	}
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/interceptor/errorCode.js":
+/*!****************************************************!*\
+  !*** ./node_modules/rest/interceptor/errorCode.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var interceptor;
+
+interceptor = __webpack_require__(/*! ../interceptor */ "./node_modules/rest/interceptor.js");
+
+/**
+ * Rejects the response promise based on the status code.
+ *
+ * Codes greater than or equal to the provided value are rejected.  Default
+ * value 400.
+ *
+ * @param {Client} [client] client to wrap
+ * @param {number} [config.code=400] code to indicate a rejection
+ *
+ * @returns {Client}
+ */
+module.exports = interceptor({
+	init: function (config) {
+		config.code = config.code || 400;
+		return config;
+	},
+	response: function (response, config) {
+		if (response.status && response.status.code >= config.code) {
+			return Promise.reject(response);
+		}
+		return response;
+	}
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/interceptor/mime.js":
+/*!***********************************************!*\
+  !*** ./node_modules/rest/interceptor/mime.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var interceptor, mime, registry, noopConverter, missingConverter, attempt;
+
+interceptor = __webpack_require__(/*! ../interceptor */ "./node_modules/rest/interceptor.js");
+mime = __webpack_require__(/*! ../mime */ "./node_modules/rest/mime.js");
+registry = __webpack_require__(/*! ../mime/registry */ "./node_modules/rest/mime/registry.js");
+attempt = __webpack_require__(/*! ../util/attempt */ "./node_modules/rest/util/attempt.js");
+
+noopConverter = {
+	read: function (obj) { return obj; },
+	write: function (obj) { return obj; }
+};
+
+missingConverter = {
+	read: function () { throw 'No read method found on converter'; },
+	write: function () { throw 'No write method found on converter'; }
+};
+
+/**
+ * MIME type support for request and response entities.  Entities are
+ * (de)serialized using the converter for the MIME type.
+ *
+ * Request entities are converted using the desired converter and the
+ * 'Accept' request header prefers this MIME.
+ *
+ * Response entities are converted based on the Content-Type response header.
+ *
+ * @param {Client} [client] client to wrap
+ * @param {string} [config.mime='text/plain'] MIME type to encode the request
+ *   entity
+ * @param {string} [config.accept] Accept header for the request
+ * @param {Client} [config.client=<request.originator>] client passed to the
+ *   converter, defaults to the client originating the request
+ * @param {Registry} [config.registry] MIME registry, defaults to the root
+ *   registry
+ * @param {boolean} [config.permissive] Allow an unkown request MIME type
+ *
+ * @returns {Client}
+ */
+module.exports = interceptor({
+	init: function (config) {
+		config.registry = config.registry || registry;
+		return config;
+	},
+	request: function (request, config) {
+		var type, headers;
+
+		headers = request.headers || (request.headers = {});
+		type = mime.parse(headers['Content-Type'] || config.mime || 'text/plain');
+		headers.Accept = headers.Accept || config.accept || type.raw + ', application/json;q=0.8, text/plain;q=0.5, */*;q=0.2';
+
+		if (!('entity' in request)) {
+			return request;
+		}
+
+		headers['Content-Type'] = type.raw;
+
+		return config.registry.lookup(type)['catch'](function () {
+			// failed to resolve converter
+			if (config.permissive) {
+				return noopConverter;
+			}
+			throw 'mime-unknown';
+		}).then(function (converter) {
+			var client = config.client || request.originator,
+				write = converter.write || missingConverter.write;
+
+			return attempt(write.bind(void 0, request.entity, { client: client, request: request, mime: type, registry: config.registry }))
+				['catch'](function() {
+					throw 'mime-serialization';
+				})
+				.then(function(entity) {
+					request.entity = entity;
+					return request;
+				});
+		});
+	},
+	response: function (response, config) {
+		if (!(response.headers && response.headers['Content-Type'] && response.entity)) {
+			return response;
+		}
+
+		var type = mime.parse(response.headers['Content-Type']);
+
+		return config.registry.lookup(type)['catch'](function () { return noopConverter; }).then(function (converter) {
+			var client = config.client || response.request && response.request.originator,
+				read = converter.read || missingConverter.read;
+
+			return attempt(read.bind(void 0, response.entity, { client: client, response: response, mime: type, registry: config.registry }))
+				['catch'](function (e) {
+					response.error = 'mime-deserialization';
+					response.cause = e;
+					throw response;
+				})
+				.then(function (entity) {
+					response.entity = entity;
+					return response;
+				});
+		});
+	}
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/interceptor/params.js":
+/*!*************************************************!*\
+  !*** ./node_modules/rest/interceptor/params.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var interceptor, UrlBuilder;
+
+interceptor = __webpack_require__(/*! ../interceptor */ "./node_modules/rest/interceptor.js");
+UrlBuilder = __webpack_require__(/*! ../UrlBuilder */ "./node_modules/rest/UrlBuilder.js");
+
+/**
+ * Applies request params to the path by token replacement
+ *
+ * Params not applied as a token are appended to the query string. Params
+ * are removed from the request object, as they have been consumed.
+ *
+ * @deprecated The template interceptor `rest/interceptor/template` is a
+ * much richer way to apply paramters to a template. This interceptor is
+ * available as a bridge to users who previousled depended on this
+ * functionality being available directly on clients.
+ *
+ * @param {Client} [client] client to wrap
+ * @param {Object} [config.params] default param values
+ *
+ * @returns {Client}
+ */
+module.exports = interceptor({
+	init: function (config) {
+		config.params = config.params || {};
+		return config;
+	},
+	request: function (request, config) {
+		var path, params;
+
+		path = request.path || '';
+		params = request.params || {};
+
+		request.path = new UrlBuilder(path, config.params).append('', params).build();
+		delete request.params;
+
+		return request;
+	}
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/interceptor/pathPrefix.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/rest/interceptor/pathPrefix.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var interceptor, UrlBuilder;
+
+interceptor = __webpack_require__(/*! ../interceptor */ "./node_modules/rest/interceptor.js");
+UrlBuilder = __webpack_require__(/*! ../UrlBuilder */ "./node_modules/rest/UrlBuilder.js");
+
+function startsWith(str, prefix) {
+	return str.indexOf(prefix) === 0;
+}
+
+function endsWith(str, suffix) {
+	return str.lastIndexOf(suffix) + suffix.length === str.length;
+}
+
+/**
+ * Prefixes the request path with a common value.
+ *
+ * @param {Client} [client] client to wrap
+ * @param {number} [config.prefix] path prefix
+ *
+ * @returns {Client}
+ */
+module.exports = interceptor({
+	request: function (request, config) {
+		var path;
+
+		if (config.prefix && !(new UrlBuilder(request.path).isFullyQualified())) {
+			path = config.prefix;
+			if (request.path) {
+				if (!endsWith(path, '/') && !startsWith(request.path, '/')) {
+					// add missing '/' between path sections
+					path += '/';
+				}
+				path += request.path;
+			}
+			request.path = path;
+		}
+
+		return request;
+	}
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/interceptor/template.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rest/interceptor/template.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2015-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var interceptor, uriTemplate, mixin;
+
+interceptor = __webpack_require__(/*! ../interceptor */ "./node_modules/rest/interceptor.js");
+uriTemplate = __webpack_require__(/*! ../util/uriTemplate */ "./node_modules/rest/util/uriTemplate.js");
+mixin = __webpack_require__(/*! ../util/mixin */ "./node_modules/rest/util/mixin.js");
+
+/**
+ * Applies request params to the path as a URI Template
+ *
+ * Params are removed from the request object, as they have been consumed.
+ *
+ * @see https://tools.ietf.org/html/rfc6570
+ *
+ * @param {Client} [client] client to wrap
+ * @param {Object} [config.params] default param values
+ * @param {string} [config.template] default template
+ *
+ * @returns {Client}
+ */
+module.exports = interceptor({
+	init: function (config) {
+		config.params = config.params || {};
+		config.template = config.template || '';
+		return config;
+	},
+	request: function (request, config) {
+		var template, params;
+
+		template = request.path || config.template;
+		params = mixin({}, request.params, config.params);
+
+		request.path = uriTemplate.expand(template, params);
+		delete request.params;
+
+		return request;
+	}
+});
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/mime.js":
+/*!***********************************!*\
+  !*** ./node_modules/rest/mime.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+* Copyright 2014-2016 the original author or authors
+* @license MIT, see LICENSE.txt for details
+*
+* @author Scott Andrews
+*/
+
+
+
+/**
+ * Parse a MIME type into it's constituent parts
+ *
+ * @param {string} mime MIME type to parse
+ * @return {{
+ *   {string} raw the original MIME type
+ *   {string} type the type and subtype
+ *   {string} [suffix] mime suffix, including the plus, if any
+ *   {Object} params key/value pair of attributes
+ * }}
+ */
+function parse(mime) {
+	var params, type;
+
+	params = mime.split(';');
+	type = params[0].trim().split('+');
+
+	return {
+		raw: mime,
+		type: type[0],
+		suffix: type[1] ? '+' + type[1] : '',
+		params: params.slice(1).reduce(function (params, pair) {
+			pair = pair.split('=');
+			params[pair[0].trim()] = pair[1] ? pair[1].trim() : void 0;
+			return params;
+		}, {})
+	};
+}
+
+module.exports = {
+	parse: parse
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/mime/registry.js":
+/*!********************************************!*\
+  !*** ./node_modules/rest/mime/registry.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var mime, registry;
+
+mime = __webpack_require__(/*! ../mime */ "./node_modules/rest/mime.js");
+
+function Registry(mimes) {
+
+	/**
+	 * Lookup the converter for a MIME type
+	 *
+	 * @param {string} type the MIME type
+	 * @return a promise for the converter
+	 */
+	this.lookup = function lookup(type) {
+		var parsed;
+
+		parsed = typeof type === 'string' ? mime.parse(type) : type;
+
+		if (mimes[parsed.raw]) {
+			return mimes[parsed.raw];
+		}
+		if (mimes[parsed.type + parsed.suffix]) {
+			return mimes[parsed.type + parsed.suffix];
+		}
+		if (mimes[parsed.type]) {
+			return mimes[parsed.type];
+		}
+		if (mimes[parsed.suffix]) {
+			return mimes[parsed.suffix];
+		}
+
+		return Promise.reject(new Error('Unable to locate converter for mime "' + parsed.raw + '"'));
+	};
+
+	/**
+	 * Create a late dispatched proxy to the target converter.
+	 *
+	 * Common when a converter is registered under multiple names and
+	 * should be kept in sync if updated.
+	 *
+	 * @param {string} type mime converter to dispatch to
+	 * @returns converter whose read/write methods target the desired mime converter
+	 */
+	this.delegate = function delegate(type) {
+		return {
+			read: function () {
+				var args = arguments;
+				return this.lookup(type).then(function (converter) {
+					return converter.read.apply(this, args);
+				}.bind(this));
+			}.bind(this),
+			write: function () {
+				var args = arguments;
+				return this.lookup(type).then(function (converter) {
+					return converter.write.apply(this, args);
+				}.bind(this));
+			}.bind(this)
+		};
+	};
+
+	/**
+	 * Register a custom converter for a MIME type
+	 *
+	 * @param {string} type the MIME type
+	 * @param converter the converter for the MIME type
+	 * @return a promise for the converter
+	 */
+	this.register = function register(type, converter) {
+		mimes[type] = Promise.resolve(converter);
+		return mimes[type];
+	};
+
+	/**
+	 * Create a child registry whoes registered converters remain local, while
+	 * able to lookup converters from its parent.
+	 *
+	 * @returns child MIME registry
+	 */
+	this.child = function child() {
+		return new Registry(Object.create(mimes));
+	};
+
+}
+
+registry = new Registry({});
+
+// include provided serializers
+registry.register('application/hal', __webpack_require__(/*! ./type/application/hal */ "./node_modules/rest/mime/type/application/hal.js"));
+registry.register('application/json', __webpack_require__(/*! ./type/application/json */ "./node_modules/rest/mime/type/application/json.js"));
+registry.register('application/x-www-form-urlencoded', __webpack_require__(/*! ./type/application/x-www-form-urlencoded */ "./node_modules/rest/mime/type/application/x-www-form-urlencoded.js"));
+registry.register('multipart/form-data', __webpack_require__(/*! ./type/multipart/form-data */ "./node_modules/rest/mime/type/multipart/form-data.js"));
+registry.register('text/plain', __webpack_require__(/*! ./type/text/plain */ "./node_modules/rest/mime/type/text/plain.js"));
+
+registry.register('+json', registry.delegate('application/json'));
+
+module.exports = registry;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/mime/type/application/hal.js":
+/*!********************************************************!*\
+  !*** ./node_modules/rest/mime/type/application/hal.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2013-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var pathPrefix, template, find, lazyPromise, responsePromise;
+
+pathPrefix = __webpack_require__(/*! ../../../interceptor/pathPrefix */ "./node_modules/rest/interceptor/pathPrefix.js");
+template = __webpack_require__(/*! ../../../interceptor/template */ "./node_modules/rest/interceptor/template.js");
+find = __webpack_require__(/*! ../../../util/find */ "./node_modules/rest/util/find.js");
+lazyPromise = __webpack_require__(/*! ../../../util/lazyPromise */ "./node_modules/rest/util/lazyPromise.js");
+responsePromise = __webpack_require__(/*! ../../../util/responsePromise */ "./node_modules/rest/util/responsePromise.js");
+
+function defineProperty(obj, name, value) {
+	Object.defineProperty(obj, name, {
+		value: value,
+		configurable: true,
+		enumerable: false,
+		writeable: true
+	});
+}
+
+/**
+ * Hypertext Application Language serializer
+ *
+ * Implemented to https://tools.ietf.org/html/draft-kelly-json-hal-06
+ *
+ * As the spec is still a draft, this implementation will be updated as the
+ * spec evolves
+ *
+ * Objects are read as HAL indexing links and embedded objects on to the
+ * resource. Objects are written as plain JSON.
+ *
+ * Embedded relationships are indexed onto the resource by the relationship
+ * as a promise for the related resource.
+ *
+ * Links are indexed onto the resource as a lazy promise that will GET the
+ * resource when a handler is first registered on the promise.
+ *
+ * A `requestFor` method is added to the entity to make a request for the
+ * relationship.
+ *
+ * A `clientFor` method is added to the entity to get a full Client for a
+ * relationship.
+ *
+ * The `_links` and `_embedded` properties on the resource are made
+ * non-enumerable.
+ */
+module.exports = {
+
+	read: function (str, opts) {
+		var client, console;
+
+		opts = opts || {};
+		client = opts.client;
+		console = opts.console || console;
+
+		function deprecationWarning(relationship, deprecation) {
+			if (deprecation && console && console.warn || console.log) {
+				(console.warn || console.log).call(console, 'Relationship \'' + relationship + '\' is deprecated, see ' + deprecation);
+			}
+		}
+
+		return opts.registry.lookup(opts.mime.suffix).then(function (converter) {
+			return converter.read(str, opts);
+		}).then(function (root) {
+			find.findProperties(root, '_embedded', function (embedded, resource, name) {
+				Object.keys(embedded).forEach(function (relationship) {
+					if (relationship in resource) { return; }
+					var related = responsePromise({
+						entity: embedded[relationship]
+					});
+					defineProperty(resource, relationship, related);
+				});
+				defineProperty(resource, name, embedded);
+			});
+			find.findProperties(root, '_links', function (links, resource, name) {
+				Object.keys(links).forEach(function (relationship) {
+					var link = links[relationship];
+					if (relationship in resource) { return; }
+					defineProperty(resource, relationship, responsePromise.make(lazyPromise(function () {
+						if (link.deprecation) { deprecationWarning(relationship, link.deprecation); }
+						if (link.templated === true) {
+							return template(client)({ path: link.href });
+						}
+						return client({ path: link.href });
+					})));
+				});
+				defineProperty(resource, name, links);
+				defineProperty(resource, 'clientFor', function (relationship, clientOverride) {
+					var link = links[relationship];
+					if (!link) {
+						throw new Error('Unknown relationship: ' + relationship);
+					}
+					if (link.deprecation) { deprecationWarning(relationship, link.deprecation); }
+					if (link.templated === true) {
+						return template(
+							clientOverride || client,
+							{ template: link.href }
+						);
+					}
+					return pathPrefix(
+						clientOverride || client,
+						{ prefix: link.href }
+					);
+				});
+				defineProperty(resource, 'requestFor', function (relationship, request, clientOverride) {
+					var client = this.clientFor(relationship, clientOverride);
+					return client(request);
+				});
+			});
+
+			return root;
+		});
+
+	},
+
+	write: function (obj, opts) {
+		return opts.registry.lookup(opts.mime.suffix).then(function (converter) {
+			return converter.write(obj, opts);
+		});
+	}
+
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/mime/type/application/json.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/rest/mime/type/application/json.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+/**
+ * Create a new JSON converter with custom reviver/replacer.
+ *
+ * The extended converter must be published to a MIME registry in order
+ * to be used. The existing converter will not be modified.
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON
+ *
+ * @param {function} [reviver=undefined] custom JSON.parse reviver
+ * @param {function|Array} [replacer=undefined] custom JSON.stringify replacer
+ */
+function createConverter(reviver, replacer) {
+	return {
+
+		read: function (str) {
+			return JSON.parse(str, reviver);
+		},
+
+		write: function (obj) {
+			return JSON.stringify(obj, replacer);
+		},
+
+		extend: createConverter
+
+	};
+}
+
+module.exports = createConverter();
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/mime/type/application/x-www-form-urlencoded.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/rest/mime/type/application/x-www-form-urlencoded.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var encodedSpaceRE, urlEncodedSpaceRE;
+
+encodedSpaceRE = /%20/g;
+urlEncodedSpaceRE = /\+/g;
+
+function urlEncode(str) {
+	str = encodeURIComponent(str);
+	// spec says space should be encoded as '+'
+	return str.replace(encodedSpaceRE, '+');
+}
+
+function urlDecode(str) {
+	// spec says space should be encoded as '+'
+	str = str.replace(urlEncodedSpaceRE, ' ');
+	return decodeURIComponent(str);
+}
+
+function append(str, name, value) {
+	if (Array.isArray(value)) {
+		value.forEach(function (value) {
+			str = append(str, name, value);
+		});
+	}
+	else {
+		if (str.length > 0) {
+			str += '&';
+		}
+		str += urlEncode(name);
+		if (value !== undefined && value !== null) {
+			str += '=' + urlEncode(value);
+		}
+	}
+	return str;
+}
+
+module.exports = {
+
+	read: function (str) {
+		var obj = {};
+		str.split('&').forEach(function (entry) {
+			var pair, name, value;
+			pair = entry.split('=');
+			name = urlDecode(pair[0]);
+			if (pair.length === 2) {
+				value = urlDecode(pair[1]);
+			}
+			else {
+				value = null;
+			}
+			if (name in obj) {
+				if (!Array.isArray(obj[name])) {
+					// convert to an array, perserving currnent value
+					obj[name] = [obj[name]];
+				}
+				obj[name].push(value);
+			}
+			else {
+				obj[name] = value;
+			}
+		});
+		return obj;
+	},
+
+	write: function (obj) {
+		var str = '';
+		Object.keys(obj).forEach(function (name) {
+			str = append(str, name, obj[name]);
+		});
+		return str;
+	}
+
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/mime/type/multipart/form-data.js":
+/*!************************************************************!*\
+  !*** ./node_modules/rest/mime/type/multipart/form-data.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2014-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Michael Jackson
+ */
+
+/* global FormData, File, Blob */
+
+
+
+function isFormElement(object) {
+	return object &&
+		object.nodeType === 1 && // Node.ELEMENT_NODE
+		object.tagName === 'FORM';
+}
+
+function createFormDataFromObject(object) {
+	var formData = new FormData();
+
+	var value;
+	for (var property in object) {
+		if (object.hasOwnProperty(property)) {
+			value = object[property];
+
+			if (value instanceof File) {
+				formData.append(property, value, value.name);
+			} else if (value instanceof Blob) {
+				formData.append(property, value);
+			} else {
+				formData.append(property, String(value));
+			}
+		}
+	}
+
+	return formData;
+}
+
+module.exports = {
+
+	write: function (object) {
+		if (typeof FormData === 'undefined') {
+			throw new Error('The multipart/form-data mime serializer requires FormData support');
+		}
+
+		// Support FormData directly.
+		if (object instanceof FormData) {
+			return object;
+		}
+
+		// Support <form> elements.
+		if (isFormElement(object)) {
+			return new FormData(object);
+		}
+
+		// Support plain objects, may contain File/Blob as value.
+		if (typeof object === 'object' && object !== null) {
+			return createFormDataFromObject(object);
+		}
+
+		throw new Error('Unable to create FormData from object ' + object);
+	}
+
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/mime/type/text/plain.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rest/mime/type/text/plain.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+module.exports = {
+
+	read: function (str) {
+		return str;
+	},
+
+	write: function (obj) {
+		return obj.toString();
+	}
+
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/attempt.js":
+/*!*******************************************!*\
+  !*** ./node_modules/rest/util/attempt.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2015-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+/**
+ * Attempt to invoke a function capturing the resulting value as a Promise
+ *
+ * If the method throws, the caught value used to reject the Promise.
+ *
+ * @param {function} work function to invoke
+ * @returns {Promise} Promise for the output of the work function
+ */
+function attempt(work) {
+	try {
+		return Promise.resolve(work());
+	}
+	catch (e) {
+		return Promise.reject(e);
+	}
+}
+
+module.exports = attempt;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/base64.js":
+/*!******************************************!*\
+  !*** ./node_modules/rest/util/base64.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright (c) 2009 Nicholas C. Zakas. All rights reserved.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+/*
+ * Base 64 implementation in JavaScript
+ * Original source available at https://raw.github.com/nzakas/computer-science-in-javascript/02a2745b4aa8214f2cae1bf0b15b447ca1a91b23/encodings/base64/base64.js
+ *
+ * Linter refinement by Scott Andrews
+ */
+
+
+
+/*jshint bitwise: false */
+
+var digits = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+/**
+ * Base64-encodes a string of text.
+ *
+ * @param {string} text The text to encode.
+ * @return {string} The base64-encoded string.
+ */
+function base64Encode(text) {
+
+	if (/([^\u0000-\u00ff])/.test(text)) {
+		throw new Error('Can\'t base64 encode non-ASCII characters.');
+	}
+
+	var i = 0,
+		cur, prev, byteNum,
+		result = [];
+
+	while (i < text.length) {
+
+		cur = text.charCodeAt(i);
+		byteNum = i % 3;
+
+		switch (byteNum) {
+		case 0: //first byte
+			result.push(digits.charAt(cur >> 2));
+			break;
+
+		case 1: //second byte
+			result.push(digits.charAt((prev & 3) << 4 | (cur >> 4)));
+			break;
+
+		case 2: //third byte
+			result.push(digits.charAt((prev & 0x0f) << 2 | (cur >> 6)));
+			result.push(digits.charAt(cur & 0x3f));
+			break;
+		}
+
+		prev = cur;
+		i += 1;
+	}
+
+	if (byteNum === 0) {
+		result.push(digits.charAt((prev & 3) << 4));
+		result.push('==');
+	} else if (byteNum === 1) {
+		result.push(digits.charAt((prev & 0x0f) << 2));
+		result.push('=');
+	}
+
+	return result.join('');
+}
+
+/**
+ * Base64-decodes a string of text.
+ *
+ * @param {string} text The text to decode.
+ * @return {string} The base64-decoded string.
+ */
+function base64Decode(text) {
+
+	//ignore white space
+	text = text.replace(/\s/g, '');
+
+	//first check for any unexpected input
+	if (!(/^[a-z0-9\+\/\s]+\={0,2}$/i.test(text)) || text.length % 4 > 0) {
+		throw new Error('Not a base64-encoded string.');
+	}
+
+	//local variables
+	var cur, prev, digitNum,
+		i = 0,
+		result = [];
+
+	//remove any equals signs
+	text = text.replace(/\=/g, '');
+
+	//loop over each character
+	while (i < text.length) {
+
+		cur = digits.indexOf(text.charAt(i));
+		digitNum = i % 4;
+
+		switch (digitNum) {
+
+		//case 0: first digit - do nothing, not enough info to work with
+
+		case 1: //second digit
+			result.push(String.fromCharCode(prev << 2 | cur >> 4));
+			break;
+
+		case 2: //third digit
+			result.push(String.fromCharCode((prev & 0x0f) << 4 | cur >> 2));
+			break;
+
+		case 3: //fourth digit
+			result.push(String.fromCharCode((prev & 3) << 6 | cur));
+			break;
+		}
+
+		prev = cur;
+		i += 1;
+	}
+
+	//return a string
+	return result.join('');
+
+}
+
+module.exports = {
+	encode: base64Encode,
+	decode: base64Decode
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/find.js":
+/*!****************************************!*\
+  !*** ./node_modules/rest/util/find.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2013-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+module.exports = {
+
+	/**
+	 * Find objects within a graph the contain a property of a certain name.
+	 *
+	 * NOTE: this method will not discover object graph cycles.
+	 *
+	 * @param {*} obj object to search on
+	 * @param {string} prop name of the property to search for
+	 * @param {Function} callback function to receive the found properties and their parent
+	 */
+	findProperties: function findProperties(obj, prop, callback) {
+		if (typeof obj !== 'object' || obj === null) { return; }
+		if (prop in obj) {
+			callback(obj[prop], obj, prop);
+		}
+		Object.keys(obj).forEach(function (key) {
+			findProperties(obj[key], prop, callback);
+		});
+	}
+
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/lazyPromise.js":
+/*!***********************************************!*\
+  !*** ./node_modules/rest/util/lazyPromise.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2013-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var attempt = __webpack_require__(/*! ./attempt */ "./node_modules/rest/util/attempt.js");
+
+/**
+ * Create a promise whose work is started only when a handler is registered.
+ *
+ * The work function will be invoked at most once. Thrown values will result
+ * in promise rejection.
+ *
+ * @param {Function} work function whose ouput is used to resolve the
+ *   returned promise.
+ * @returns {Promise} a lazy promise
+ */
+function lazyPromise(work) {
+	var started, resolver, promise, then;
+
+	started = false;
+
+	promise = new Promise(function (resolve, reject) {
+		resolver = {
+			resolve: resolve,
+			reject: reject
+		};
+	});
+	then = promise.then;
+
+	promise.then = function () {
+		if (!started) {
+			started = true;
+			attempt(work).then(resolver.resolve, resolver.reject);
+		}
+		return then.apply(promise, arguments);
+	};
+
+	return promise;
+}
+
+module.exports = lazyPromise;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/mixin.js":
+/*!*****************************************!*\
+  !*** ./node_modules/rest/util/mixin.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var empty = {};
+
+/**
+ * Mix the properties from the source object into the destination object.
+ * When the same property occurs in more then one object, the right most
+ * value wins.
+ *
+ * @param {Object} dest the object to copy properties to
+ * @param {Object} sources the objects to copy properties from.  May be 1 to N arguments, but not an Array.
+ * @return {Object} the destination object
+ */
+function mixin(dest /*, sources... */) {
+	var i, l, source, name;
+
+	if (!dest) { dest = {}; }
+	for (i = 1, l = arguments.length; i < l; i += 1) {
+		source = arguments[i];
+		for (name in source) {
+			if (!(name in dest) || (dest[name] !== source[name] && (!(name in empty) || empty[name] !== source[name]))) {
+				dest[name] = source[name];
+			}
+		}
+	}
+
+	return dest; // Object
+}
+
+module.exports = mixin;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/normalizeHeaderName.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/rest/util/normalizeHeaderName.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2012-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+/**
+ * Normalize HTTP header names using the pseudo camel case.
+ *
+ * For example:
+ *   content-type         -> Content-Type
+ *   accepts              -> Accepts
+ *   x-custom-header-name -> X-Custom-Header-Name
+ *
+ * @param {string} name the raw header name
+ * @return {string} the normalized header name
+ */
+function normalizeHeaderName(name) {
+	return name.toLowerCase()
+		.split('-')
+		.map(function (chunk) { return chunk.charAt(0).toUpperCase() + chunk.slice(1); })
+		.join('-');
+}
+
+module.exports = normalizeHeaderName;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/responsePromise.js":
+/*!***************************************************!*\
+  !*** ./node_modules/rest/util/responsePromise.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2014-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+/*jshint latedef: nofunc */
+
+var normalizeHeaderName = __webpack_require__(/*! ./normalizeHeaderName */ "./node_modules/rest/util/normalizeHeaderName.js");
+
+function property(promise, name) {
+	return promise.then(
+		function (value) {
+			return value && value[name];
+		},
+		function (value) {
+			return Promise.reject(value && value[name]);
+		}
+	);
+}
+
+/**
+ * Obtain the response entity
+ *
+ * @returns {Promise} for the response entity
+ */
+function entity() {
+	/*jshint validthis:true */
+	return property(this, 'entity');
+}
+
+/**
+ * Obtain the response status
+ *
+ * @returns {Promise} for the response status
+ */
+function status() {
+	/*jshint validthis:true */
+	return property(property(this, 'status'), 'code');
+}
+
+/**
+ * Obtain the response headers map
+ *
+ * @returns {Promise} for the response headers map
+ */
+function headers() {
+	/*jshint validthis:true */
+	return property(this, 'headers');
+}
+
+/**
+ * Obtain a specific response header
+ *
+ * @param {String} headerName the header to retrieve
+ * @returns {Promise} for the response header's value
+ */
+function header(headerName) {
+	/*jshint validthis:true */
+	headerName = normalizeHeaderName(headerName);
+	return property(this.headers(), headerName);
+}
+
+/**
+ * Follow a related resource
+ *
+ * The relationship to follow may be define as a plain string, an object
+ * with the rel and params, or an array containing one or more entries
+ * with the previous forms.
+ *
+ * Examples:
+ *   response.follow('next')
+ *
+ *   response.follow({ rel: 'next', params: { pageSize: 100 } })
+ *
+ *   response.follow([
+ *       { rel: 'items', params: { projection: 'noImages' } },
+ *       'search',
+ *       { rel: 'findByGalleryIsNull', params: { projection: 'noImages' } },
+ *       'items'
+ *   ])
+ *
+ * @param {String|Object|Array} rels one, or more, relationships to follow
+ * @returns ResponsePromise<Response> related resource
+ */
+function follow(rels) {
+	/*jshint validthis:true */
+	rels = [].concat(rels);
+
+	return make(rels.reduce(function (response, rel) {
+		return response.then(function (response) {
+			if (typeof rel === 'string') {
+				rel = { rel: rel };
+			}
+			if (typeof response.entity.clientFor !== 'function') {
+				throw new Error('Hypermedia response expected');
+			}
+			var client = response.entity.clientFor(rel.rel);
+			return client({ params: rel.params });
+		});
+	}, this));
+}
+
+/**
+ * Wrap a Promise as an ResponsePromise
+ *
+ * @param {Promise<Response>} promise the promise for an HTTP Response
+ * @returns {ResponsePromise<Response>} wrapped promise for Response with additional helper methods
+ */
+function make(promise) {
+	promise.status = status;
+	promise.headers = headers;
+	promise.header = header;
+	promise.entity = entity;
+	promise.follow = follow;
+	return promise;
+}
+
+function responsePromise(obj, callback, errback) {
+	return make(Promise.resolve(obj).then(callback, errback));
+}
+
+responsePromise.make = make;
+responsePromise.reject = function (val) {
+	return make(Promise.reject(val));
+};
+responsePromise.promise = function (func) {
+	return make(new Promise(func));
+};
+
+module.exports = responsePromise;
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/uriEncoder.js":
+/*!**********************************************!*\
+  !*** ./node_modules/rest/util/uriEncoder.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2015-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var charMap;
+
+charMap = (function () {
+	var strings = {
+		alpha: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+		digit: '0123456789'
+	};
+
+	strings.genDelims = ':/?#[]@';
+	strings.subDelims = '!$&\'()*+,;=';
+	strings.reserved = strings.genDelims + strings.subDelims;
+	strings.unreserved = strings.alpha + strings.digit + '-._~';
+	strings.url = strings.reserved + strings.unreserved;
+	strings.scheme = strings.alpha + strings.digit + '+-.';
+	strings.userinfo = strings.unreserved + strings.subDelims + ':';
+	strings.host = strings.unreserved + strings.subDelims;
+	strings.port = strings.digit;
+	strings.pchar = strings.unreserved + strings.subDelims + ':@';
+	strings.segment = strings.pchar;
+	strings.path = strings.segment + '/';
+	strings.query = strings.pchar + '/?';
+	strings.fragment = strings.pchar + '/?';
+
+	return Object.keys(strings).reduce(function (charMap, set) {
+		charMap[set] = strings[set].split('').reduce(function (chars, myChar) {
+			chars[myChar] = true;
+			return chars;
+		}, {});
+		return charMap;
+	}, {});
+}());
+
+function encode(str, allowed) {
+	if (typeof str !== 'string') {
+		throw new Error('String required for URL encoding');
+	}
+	return str.split('').map(function (myChar) {
+		if (allowed.hasOwnProperty(myChar)) {
+			return myChar;
+		}
+		var code = myChar.charCodeAt(0);
+		if (code <= 127) {
+			var encoded = code.toString(16).toUpperCase();
+ 			return '%' + (encoded.length % 2 === 1 ? '0' : '') + encoded;
+		}
+		else {
+			return encodeURIComponent(myChar).toUpperCase();
+		}
+	}).join('');
+}
+
+function makeEncoder(allowed) {
+	allowed = allowed || charMap.unreserved;
+	return function (str) {
+		return encode(str, allowed);
+	};
+}
+
+function decode(str) {
+	return decodeURIComponent(str);
+}
+
+module.exports = {
+
+	/*
+	 * Decode URL encoded strings
+	 *
+	 * @param {string} URL encoded string
+	 * @returns {string} URL decoded string
+	 */
+	decode: decode,
+
+	/*
+	 * URL encode a string
+	 *
+	 * All but alpha-numerics and a very limited set of punctuation - . _ ~ are
+	 * encoded.
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encode: makeEncoder(),
+
+	/*
+	* URL encode a URL
+	*
+	* All character permitted anywhere in a URL are left unencoded even
+	* if that character is not permitted in that portion of a URL.
+	*
+	* Note: This method is typically not what you want.
+	*
+	* @param {string} string to encode
+	* @returns {string} URL encoded string
+	*/
+	encodeURL: makeEncoder(charMap.url),
+
+	/*
+	 * URL encode the scheme portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodeScheme: makeEncoder(charMap.scheme),
+
+	/*
+	 * URL encode the user info portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodeUserInfo: makeEncoder(charMap.userinfo),
+
+	/*
+	 * URL encode the host portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodeHost: makeEncoder(charMap.host),
+
+	/*
+	 * URL encode the port portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodePort: makeEncoder(charMap.port),
+
+	/*
+	 * URL encode a path segment portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodePathSegment: makeEncoder(charMap.segment),
+
+	/*
+	 * URL encode the path portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodePath: makeEncoder(charMap.path),
+
+	/*
+	 * URL encode the query portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodeQuery: makeEncoder(charMap.query),
+
+	/*
+	 * URL encode the fragment portion of a URL
+	 *
+	 * @param {string} string to encode
+	 * @returns {string} URL encoded string
+	 */
+	encodeFragment: makeEncoder(charMap.fragment)
+
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/rest/util/uriTemplate.js":
+/*!***********************************************!*\
+  !*** ./node_modules/rest/util/uriTemplate.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*
+ * Copyright 2015-2016 the original author or authors
+ * @license MIT, see LICENSE.txt for details
+ *
+ * @author Scott Andrews
+ */
+
+
+
+var uriEncoder, operations, prefixRE;
+
+uriEncoder = __webpack_require__(/*! ./uriEncoder */ "./node_modules/rest/util/uriEncoder.js");
+
+prefixRE = /^([^:]*):([0-9]+)$/;
+operations = {
+	'':  { first: '',  separator: ',', named: false, empty: '',  encoder: uriEncoder.encode },
+	'+': { first: '',  separator: ',', named: false, empty: '',  encoder: uriEncoder.encodeURL },
+	'#': { first: '#', separator: ',', named: false, empty: '',  encoder: uriEncoder.encodeURL },
+	'.': { first: '.', separator: '.', named: false, empty: '',  encoder: uriEncoder.encode },
+	'/': { first: '/', separator: '/', named: false, empty: '',  encoder: uriEncoder.encode },
+	';': { first: ';', separator: ';', named: true,  empty: '',  encoder: uriEncoder.encode },
+	'?': { first: '?', separator: '&', named: true,  empty: '=', encoder: uriEncoder.encode },
+	'&': { first: '&', separator: '&', named: true,  empty: '=', encoder: uriEncoder.encode },
+	'=': { reserved: true },
+	',': { reserved: true },
+	'!': { reserved: true },
+	'@': { reserved: true },
+	'|': { reserved: true }
+};
+
+function apply(operation, expression, params) {
+	/*jshint maxcomplexity:11 */
+	return expression.split(',').reduce(function (result, variable) {
+		var opts, value;
+
+		opts = {};
+		if (variable.slice(-1) === '*') {
+			variable = variable.slice(0, -1);
+			opts.explode = true;
+		}
+		if (prefixRE.test(variable)) {
+			var prefix = prefixRE.exec(variable);
+			variable = prefix[1];
+			opts.maxLength = parseInt(prefix[2]);
+		}
+
+		variable = uriEncoder.decode(variable);
+		value = params[variable];
+
+		if (value === void 0 || value === null) {
+			return result;
+		}
+		if (Array.isArray(value)) {
+			result = value.reduce(function (result, value) {
+				if (result.length) {
+					result += opts.explode ? operation.separator : ',';
+					if (operation.named && opts.explode) {
+						result += operation.encoder(variable);
+						result += value.length ? '=' : operation.empty;
+					}
+				}
+				else {
+					result += operation.first;
+					if (operation.named) {
+						result += operation.encoder(variable);
+						result += value.length ? '=' : operation.empty;
+					}
+				}
+				result += operation.encoder(value);
+				return result;
+			}, result);
+		}
+		else if (typeof value === 'object') {
+			result = Object.keys(value).reduce(function (result, name) {
+				if (result.length) {
+					result += opts.explode ? operation.separator : ',';
+				}
+				else {
+					result += operation.first;
+					if (operation.named && !opts.explode) {
+						result += operation.encoder(variable);
+						result += value[name].length ? '=' : operation.empty;
+					}
+				}
+				result += operation.encoder(name);
+				result += opts.explode ? '=' : ',';
+				result += operation.encoder(value[name]);
+				return result;
+			}, result);
+		}
+		else {
+			value = String(value);
+			if (opts.maxLength) {
+				value = value.slice(0, opts.maxLength);
+			}
+			result += result.length ? operation.separator : operation.first;
+			if (operation.named) {
+				result += operation.encoder(variable);
+				result += value.length ? '=' : operation.empty;
+			}
+			result += operation.encoder(value);
+		}
+
+		return result;
+	}, '');
+}
+
+function expandExpression(expression, params) {
+	var operation;
+
+	operation = operations[expression.slice(0,1)];
+	if (operation) {
+		expression = expression.slice(1);
+	}
+	else {
+		operation = operations[''];
+	}
+
+	if (operation.reserved) {
+		throw new Error('Reserved expression operations are not supported');
+	}
+
+	return apply(operation, expression, params);
+}
+
+function expandTemplate(template, params) {
+	var start, end, uri;
+
+	uri = '';
+	end = 0;
+	while (true) {
+		start = template.indexOf('{', end);
+		if (start === -1) {
+			// no more expressions
+			uri += template.slice(end);
+			break;
+		}
+		uri += template.slice(end, start);
+		end = template.indexOf('}', start) + 1;
+		uri += expandExpression(template.slice(start + 1, end - 1), params);
+	}
+
+	return uri;
+}
+
+module.exports = {
+
+	/**
+	 * Expand a URI Template with parameters to form a URI.
+	 *
+	 * Full implementation (level 4) of rfc6570.
+	 * @see https://tools.ietf.org/html/rfc6570
+	 *
+	 * @param {string} template URI template
+	 * @param {Object} [params] params to apply to the template durring expantion
+	 * @returns {string} expanded URI
+	 */
+	expand: expandTemplate
+
+};
 
 
 /***/ }),
@@ -10801,6 +14993,949 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmitSpot.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/suggestions/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/suggestions/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/**
+ * A typeahead component for inputs
+ * @class Suggestions
+ *
+ * @param {HTMLInputElement} el A valid HTML input element
+ * @param {Array} data An array of data used for results
+ * @param {Object} options
+ * @param {Number} [options.limit=5] Max number of results to display in the auto suggest list.
+ * @param {Number} [options.minLength=2] Number of characters typed into an input to trigger suggestions.
+ * @return {Suggestions} `this`
+ * @example
+ * // in the browser
+ * var input = document.querySelector('input');
+ * var data = [
+ *   'Roy Eldridge',
+ *   'Roy Hargrove',
+ *   'Rex Stewart'
+ * ];
+ *
+ * new Suggestions(input, data);
+ *
+ * // with options
+ * var input = document.querySelector('input');
+ * var data = [{
+ *   name: 'Roy Eldridge',
+ *   year: 1911
+ * }, {
+ *   name: 'Roy Hargrove',
+ *   year: 1969
+ * }, {
+ *   name: 'Rex Stewart',
+ *   year: 1907
+ * }];
+ *
+ * var typeahead = new Suggestions(input, data, {
+ *   filter: false, // Disable filtering
+ *   minLength: 3, // Number of characters typed into an input to trigger suggestions.
+ *   limit: 3 //  Max number of results to display.
+ * });
+ *
+ * // As we're passing an object of an arrays as data, override
+ * // `getItemValue` by specifying the specific property to search on.
+ * typeahead.getItemValue = function(item) { return item.name };
+ *
+ * input.addEventListener('change', function() {
+ *   console.log(typeahead.selected); // Current selected item.
+ * });
+ *
+ * // With browserify
+ * var Suggestions = require('suggestions');
+ *
+ * new Suggestions(input, data);
+ */
+var Suggestions = __webpack_require__(/*! ./src/suggestions */ "./node_modules/suggestions/src/suggestions.js");
+window.Suggestions = module.exports = Suggestions;
+
+
+/***/ }),
+
+/***/ "./node_modules/suggestions/src/list.js":
+/*!**********************************************!*\
+  !*** ./node_modules/suggestions/src/list.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+'Use strict';
+
+var List = function(component) {
+  this.component = component;
+  this.items = [];
+  this.active = 0;
+  this.element = document.createElement('ul');
+  this.element.className = 'suggestions';
+
+  // selectingListItem is set to true in the time between the mousedown and mouseup when clicking an item in the list
+  // mousedown on a list item will cause the input to blur which normally hides the list, so this flag is used to keep
+  // the list open until the mouseup
+  this.selectingListItem = false;
+
+  component.el.parentNode.insertBefore(this.element, component.el.nextSibling);
+  return this;
+};
+
+List.prototype.show = function() {
+  this.element.style.display = 'block';
+};
+
+List.prototype.hide = function() {
+  this.element.style.display = 'none';
+};
+
+List.prototype.add = function(item) {
+  this.items.push(item);
+};
+
+List.prototype.clear = function() {
+  this.items = [];
+  this.active = 0;
+};
+
+List.prototype.isEmpty = function() {
+  return !this.items.length;
+};
+
+List.prototype.draw = function() {
+  this.element.innerHTML = '';
+
+  if (this.items.length === 0) {
+    this.hide();
+    return;
+  }
+
+  for (var i = 0; i < this.items.length; i++) {
+    this.drawItem(this.items[i], this.active === i);
+  }
+
+  this.show();
+};
+
+List.prototype.drawItem = function(item, active) {
+  var li = document.createElement('li'),
+    a = document.createElement('a');
+
+  if (active) li.className += ' active';
+
+  a.innerHTML = item.string;
+
+  li.appendChild(a);
+  this.element.appendChild(li);
+
+  li.addEventListener('mousedown', function() {
+    this.selectingListItem = true;
+  }.bind(this));
+
+  li.addEventListener('mouseup', function() {
+    this.handleMouseUp.call(this, item);
+  }.bind(this));
+};
+
+List.prototype.handleMouseUp = function(item) {
+  this.selectingListItem = false;
+  this.component.value(item.original);
+  this.clear();
+  this.draw();
+};
+
+List.prototype.move = function(index) {
+  this.active = index;
+  this.draw();
+};
+
+List.prototype.previous = function() {
+  this.move(this.active === 0 ? this.items.length - 1 : this.active - 1);
+};
+
+List.prototype.next = function() {
+  this.move(this.active === this.items.length - 1 ? 0 : this.active + 1);
+};
+
+module.exports = List;
+
+
+/***/ }),
+
+/***/ "./node_modules/suggestions/src/suggestions.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/suggestions/src/suggestions.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var extend = __webpack_require__(/*! xtend */ "./node_modules/xtend/immutable.js");
+var fuzzy = __webpack_require__(/*! fuzzy */ "./node_modules/fuzzy/lib/fuzzy.js");
+var List = __webpack_require__(/*! ./list */ "./node_modules/suggestions/src/list.js");
+
+var Suggestions = function(el, data, options) {
+  options = options || {};
+
+  this.options = extend({
+    minLength: 2,
+    limit: 5,
+    filter: true
+  }, options);
+
+  this.el = el;
+  this.data = data || [];
+  this.list = new List(this);
+
+  this.query = '';
+  this.selected = null;
+
+  this.list.draw();
+
+  this.el.addEventListener('keyup', function(e) {
+    this.handleKeyUp(e.keyCode);
+  }.bind(this), false);
+
+  this.el.addEventListener('keydown', function(e) {
+    this.handleKeyDown(e);
+  }.bind(this));
+
+  this.el.addEventListener('focus', function() {
+    this.handleFocus();
+  }.bind(this));
+
+  this.el.addEventListener('blur', function() {
+    this.handleBlur();
+  }.bind(this));
+
+  this.el.addEventListener('paste', function(e) {
+    this.handlePaste(e);
+  }.bind(this));
+
+  return this;
+};
+
+Suggestions.prototype.handleKeyUp = function(keyCode) {
+  // 40 - DOWN
+  // 38 - UP
+  // 27 - ESC
+  // 13 - ENTER
+  // 9 - TAB
+
+  if (keyCode === 40 ||
+      keyCode === 38 ||
+      keyCode === 27 ||
+      keyCode === 13 ||
+      keyCode === 9) return;
+
+  this.handleInputChange(this.el.value);
+};
+
+Suggestions.prototype.handleKeyDown = function(e) {
+  switch (e.keyCode) {
+    case 13: // ENTER
+    case 9:  // TAB
+      e.preventDefault();
+      if (!this.list.isEmpty()) {
+        this.value(this.list.items[this.list.active].original);
+        this.list.hide();
+      }
+    break;
+    case 27: // ESC
+      if (!this.list.isEmpty()) this.list.hide();
+    break;
+    case 38: // UP
+      this.list.previous();
+    break;
+    case 40: // DOWN
+      this.list.next();
+    break;
+  }
+};
+
+Suggestions.prototype.handleBlur = function() {
+  if (!this.list.selectingListItem) {
+    this.list.hide();
+  }
+};
+
+Suggestions.prototype.handlePaste = function(e) {
+  if (e.clipboardData) {
+    this.handleInputChange(e.clipboardData.getData('Text'));
+  } else {
+    var self = this;
+    setTimeout(function () {
+      self.handleInputChange(e.target.value);
+    }, 100);
+  }
+};
+
+Suggestions.prototype.handleInputChange = function(query) {
+  this.query = this.normalize(query);
+
+  this.list.clear();
+
+  if (this.query.length < this.options.minLength) {
+    this.list.draw();
+    return;
+  }
+
+  this.getCandidates(function(data) {
+    for (var i = 0; i < data.length; i++) {
+      this.list.add(data[i]);
+      if (i === (this.options.limit - 1)) break;
+    }
+    this.list.draw();
+  }.bind(this));
+};
+
+Suggestions.prototype.handleFocus = function() {
+  if (!this.list.isEmpty()) this.list.show();
+  this.list.selectingListItem = false;
+};
+
+/**
+ * Update data previously passed
+ *
+ * @param {Array} revisedData
+ */
+Suggestions.prototype.update = function(revisedData) {
+  this.data = revisedData;
+  this.handleKeyUp();
+};
+
+/**
+ * Clears data
+ */
+Suggestions.prototype.clear = function() {
+  this.data = [];
+  this.list.clear();
+};
+
+/**
+ * Normalize the results list and input value for matching
+ *
+ * @param {String} value
+ * @return {String}
+ */
+Suggestions.prototype.normalize = function(value) {
+  value = value.toLowerCase();
+  return value;
+};
+
+/**
+ * Evaluates whether an array item qualifies as a match with the current query
+ *
+ * @param {String} candidate a possible item from the array passed
+ * @param {String} query the current query
+ * @return {Boolean}
+ */
+Suggestions.prototype.match = function(candidate, query) {
+  return candidate.indexOf(query) > -1;
+};
+
+Suggestions.prototype.value = function(value) {
+  this.selected = value;
+  this.el.value = this.getItemValue(value);
+
+  if (document.createEvent) {
+    var e = document.createEvent('HTMLEvents');
+    e.initEvent('change', true, false);
+    this.el.dispatchEvent(e);
+  } else {
+    this.el.fireEvent('onchange');
+  }
+};
+
+Suggestions.prototype.getCandidates = function(callback) {
+  var options = {
+    pre: '<strong>',
+    post: '</strong>',
+    extract: function(d) { return this.getItemValue(d); }.bind(this)
+  };
+
+  var results = this.options.filter ?
+    fuzzy.filter(this.query, this.data, options) :
+    this.data.map(function(d) {
+      var boldString = this.getItemValue(d);
+      var indexString = this.normalize(boldString);
+      var indexOfQuery = indexString.lastIndexOf(this.query);
+      while(indexOfQuery > -1) {
+        var endIndexOfQuery = indexOfQuery + this.query.length;
+        boldString = boldString.slice(0, indexOfQuery) + '<strong>' + boldString.slice(indexOfQuery, endIndexOfQuery) + '</strong>' + boldString.slice(endIndexOfQuery);
+        indexOfQuery = indexString.slice(0, indexOfQuery).lastIndexOf(this.query);
+      }
+      return {
+        original: d,
+        string: boldString
+      };
+    }.bind(this));
+
+  callback(results);
+};
+
+/**
+ * For a given item in the data array, return what should be used as the candidate string
+ *
+ * @param {Object|String} item an item from the data array
+ * @return {String} item
+ */
+Suggestions.prototype.getItemValue = function(item) {
+  return item;
+};
+
+module.exports = Suggestions;
+
+
+/***/ }),
+
 /***/ "./node_modules/timers-browserify/main.js":
 /*!************************************************!*\
   !*** ./node_modules/timers-browserify/main.js ***!
@@ -10876,6 +16011,362 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=template&id=a1231126&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=template&id=a1231126& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Submit Your Property")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c("form", { attrs: { method: "post", action: "/spots" } }, [
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "form-group col-md-6" }, [
+                  _c("label", { attrs: { for: "ownerName" } }, [
+                    _vm._v("Owner's Full Name")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.owner_name,
+                        expression: "owner_name"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "owner_name",
+                      id: "ownerName"
+                    },
+                    domProps: { value: _vm.owner_name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.owner_name = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _vm._m(4),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "form-group col-md-5" }, [
+                  _c("label", { attrs: { for: "addressStreet" } }, [
+                    _vm._v("Street Address")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.address_street,
+                        expression: "address_street"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      type: "text",
+                      name: "address1",
+                      id: "addressStreet"
+                    },
+                    domProps: { value: _vm.address_street },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.address_street = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-3" }, [
+                  _c("label", { attrs: { for: "addressCity" } }, [
+                    _vm._v("City")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.address_city,
+                        expression: "address_city"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "city", id: "addressCity" },
+                    domProps: { value: _vm.address_city },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.address_city = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("label", { attrs: { for: "addressState" } }, [
+                    _vm._v("State")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.address_state,
+                        expression: "address_state"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "state", id: "addressState" },
+                    domProps: { value: _vm.address_state },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.address_state = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group col-md-2" }, [
+                  _c("label", { attrs: { for: "addressZip" } }, [
+                    _vm._v("Zipcode")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.address_zip,
+                        expression: "address_zip"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", name: "zipcode", id: "addressZip" },
+                    domProps: { value: _vm.address_zip },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.address_zip = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _vm._m(5),
+              _vm._v(" "),
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7)
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group col-md-6" }, [
+      _c("label", { attrs: { for: "propertyWebsite" } }, [
+        _vm._v("Property Website")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "form-control",
+        attrs: { type: "url", name: "website", id: "propertyWebsite" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "emailAddress" } }, [
+          _vm._v("Email Address")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "email", name: "email", id: "emailAddress" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "emailConfirm" } }, [
+          _vm._v("Confirm Email Address")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "email", name: "email_confirm", id: "emailConfirm" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "phoneNumber" } }, [
+          _vm._v("Phone Number")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "phone", name: "phone", id: "phoneNumber" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "name" } }, [_vm._v("Property Name")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", name: "name", id: "name" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "price" } }, [_vm._v("Price per Night")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "text", name: "price", id: "price" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-8 col-offset-2" }, [
+        _c("label", { attrs: { for: "name" } }, [_vm._v("Property Address")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "geocoder", attrs: { id: "geocoder" } }),
+        _vm._v(" "),
+        _c("div", { staticStyle: { height: "200px" }, attrs: { id: "map" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "desc" } }, [_vm._v("Description")]),
+      _vm._v(" "),
+      _c("textarea", {
+        staticClass: "form-control",
+        attrs: { name: "desc", id: "desc", rows: "3" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group form-check" }, [
+      _c("input", {
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", id: "termsAgree" }
+      }),
+      _vm._v(" "),
+      _c(
+        "label",
+        { staticClass: "form-check-label", attrs: { for: "termsAgree" } },
+        [
+          _vm._v("I Have Read & Agree to the SweetSpot "),
+          _c("a", { attrs: { href: "#" } }, [_vm._v("Terms of Service")])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-right" }, [
+      _c("a", { staticClass: "btn btn-mute", attrs: { href: "#" } }, [
+        _vm._v("Cancel")
+      ]),
+      _vm._v(" "),
+      _c(
+        "button",
+        { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+        [_vm._v("Save & Continue")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -10940,39 +16431,33 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
+/***/ "./node_modules/xtend/immutable.js":
+/*!*****************************************!*\
+  !*** ./node_modules/xtend/immutable.js ***!
+  \*****************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue');
+module.exports = extend
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+var hasOwnProperty = Object.prototype.hasOwnProperty;
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-// const app = new Vue({
-//     el: '#app'
-// });
+function extend() {
+    var target = {}
+
+    for (var i = 0; i < arguments.length; i++) {
+        var source = arguments[i]
+
+        for (var key in source) {
+            if (hasOwnProperty.call(source, key)) {
+                target[key] = source[key]
+            }
+        }
+    }
+
+    return target
+}
+
 
 /***/ }),
 
@@ -11035,40 +16520,171 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./resources/js/submit-spot/components/SubmitSpot.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/submit-spot/components/SubmitSpot.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SubmitSpot_vue_vue_type_template_id_a1231126___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SubmitSpot.vue?vue&type=template&id=a1231126& */ "./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=template&id=a1231126&");
+/* harmony import */ var _SubmitSpot_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SubmitSpot.vue?vue&type=script&lang=js& */ "./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _SubmitSpot_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SubmitSpot.vue?vue&type=style&index=0&lang=css& */ "./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _SubmitSpot_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SubmitSpot_vue_vue_type_template_id_a1231126___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SubmitSpot_vue_vue_type_template_id_a1231126___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/submit-spot/components/SubmitSpot.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/sass/mapbox.scss":
-/*!************************************!*\
-  !*** ./resources/sass/mapbox.scss ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/***/ "./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmitSpot.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ 0:
-/*!******************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/mapbox.scss ./resources/sass/app.scss ***!
-  \******************************************************************************************/
+/***/ "./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--7-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--7-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmitSpot.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=template&id=a1231126&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=template&id=a1231126& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_template_id_a1231126___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./SubmitSpot.vue?vue&type=template&id=a1231126& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/submit-spot/components/SubmitSpot.vue?vue&type=template&id=a1231126&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_template_id_a1231126___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SubmitSpot_vue_vue_type_template_id_a1231126___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/submit-spot/submit-spot.js":
+/*!*************************************************!*\
+  !*** ./resources/js/submit-spot/submit-spot.js ***!
+  \*************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_SubmitSpot_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/SubmitSpot.vue */ "./resources/js/submit-spot/components/SubmitSpot.vue");
+__webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
+
+
+Vue.component('submit-spot', _components_SubmitSpot_vue__WEBPACK_IMPORTED_MODULE_0__["default"]);
+new Vue({
+  el: '#submit-spot-wrapper'
+});
+/*
+
+let mapboxgl = require('mapbox-gl');
+let MapboxGeocoder = require('mapbox-gl-geocoder');
+
+mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [-79.4512, 43.6568],
+    zoom: 13
+});
+
+var geocoder = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken
+});
+
+map.addControl(geocoder);
+
+// After the map style has loaded on the page, add a source layer and default
+// styling for a single point.
+map.on('load', function () {
+    map.addSource('single-point', {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": []
+        }
+    });
+
+    map.addLayer({
+        "id": "point",
+        "source": "single-point",
+        "type": "circle",
+        "paint": {
+            "circle-radius": 10,
+            "circle-color": "#007cbf"
+        }
+    });
+
+    // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+    // makes a selection and add a symbol that matches the result.
+    geocoder.on('result', function (ev) {
+        map.getSource('single-point').setData(ev.result.geometry);
+    });
+});
+
+*/
+
+/***/ }),
+
+/***/ 1:
+/*!*******************************************************!*\
+  !*** multi ./resources/js/submit-spot/submit-spot.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/cabeeb/Dev/Code/sweetspot/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Users/cabeeb/Dev/Code/sweetspot/resources/sass/mapbox.scss */"./resources/sass/mapbox.scss");
-module.exports = __webpack_require__(/*! /Users/cabeeb/Dev/Code/sweetspot/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /Users/cabeeb/Dev/Code/sweetspot/resources/js/submit-spot/submit-spot.js */"./resources/js/submit-spot/submit-spot.js");
 
 
 /***/ })
 
-},[[0,"/js/manifest","/js/vendor"]]]);
+},[[1,"/js/manifest","/js/vendor"]]]);

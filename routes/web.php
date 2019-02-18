@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/map', 'HomeController@map')->name('map');
+
 Route::get('/spots/new', 'SpotController@create')->name('spots.create');
 Route::post('/spots', 'SpotController@store')->name('spots.store');
 Route::get('/spots/{spot}', 'SpotController@view')->name('spots.view');

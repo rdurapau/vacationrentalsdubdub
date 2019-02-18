@@ -12,4 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+   .js('resources/js/submit-spot/submit-spot.js', 'public/js')
+   .sass('resources/sass/mapbox.scss', 'public/css')
+   .sass('resources/sass/app.scss', 'public/css')
+   .extract(['axios', 'bootstrap', 'lodash', 'mapbox-gl', 'mapbox-gl-geocoder', 'popper.js', 'vue'
+   ]);
