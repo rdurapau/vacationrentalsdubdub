@@ -14,7 +14,10 @@
         "laravel/horizon": "^2.2",
         "laravel/nova": "*",
         "laravel/telescope": "^1.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "sweetspot/moderation-filter": "*",
+        "sweetspot/moderate-spot": "*",
+        "sweetspot/sweetspot-theme": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -28,6 +31,14 @@
         {
             "type": "path",
             "url": "./nova"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ModerateSpot"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/SweetspotTheme"
         }
     ],
     "config": {

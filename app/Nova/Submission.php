@@ -9,20 +9,24 @@ use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Boolean;
+use Sweetspot\ModerateSpot\ModerateSpot;
+use App\Nova\Filters\ModerationFilter;
+
+// use Sweetspot\ModerationFilter\ModerationFilter;
 
 use App\ModerationStatus;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Spot extends Resource
+class Submission extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Spot';
+    public static $model = 'App\Submission';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -44,15 +48,22 @@ class Spot extends Resource
         'state',
     ];
 
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     // public static function indexQuery(NovaRequest $request, $query)
     // {
     //     return $query
-    //         ->where('moderation_status',ModerationStatus::APPROVED);
+    //         ->where('moderation_status','!=',ModerationStatus::APPROVED);
     // }
     // public static function scoutQuery(NovaRequest $request, $query)
     // {
     //     return $query
-    //         ->where('moderation_status',ModerationStatus::APPROVED);
+    //         ->where('moderation_status','!=',ModerationStatus::APPROVED);
     // }
     
     /**
@@ -64,11 +75,14 @@ class Spot extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')->sortable(),
+            Text::make('Name')->sortable()->displayUsing(function ($value) {
+                return str_limit($value, '12', '...');
+            }),
             Trix::make('Description', 'desc')->hideFromIndex(),
             Currency::make('Price')->sortable(),
             new Panel('Owner Contact Information', $this->contactFields()),
-            new Panel('Address Information', $this->addressFields())
+            new Panel('Address Information', $this->addressFields()),
+            // ModerateSpot::make()
         ];
     }
 
@@ -111,7 +125,9 @@ class Spot extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new ModerationFilter
+        ];
     }
 
     /**
@@ -133,6 +149,17 @@ class Spot extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new Actions\ApproveSubmission,
+            new Actions\RejectSubmission
+        ];
+    }
+    
+    public static function countBadge()
+    {
+        // return 1;
+        // return self::count;
+        // return $this->count;
+        return \App\Submission::count();
     }
 }

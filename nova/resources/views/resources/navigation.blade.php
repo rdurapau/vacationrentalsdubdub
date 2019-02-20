@@ -14,6 +14,7 @@
 
         <ul class="list-reset mb-8">
             @foreach($resources as $resource)
+            
                 <li class="leading-tight mb-4 ml-8 text-sm">
                     <router-link :to="{
                         name: 'index',
@@ -22,6 +23,11 @@
                         }
                     }" class="text-white text-justify no-underline dim">
                         {{ $resource::label() }}
+                        @if ($resource::countBadge())
+                            <span class="rounded-full bg-primary uppercase px-1 py-0 text-xs font-bold ml-2">
+                                {{ $resource::countBadge() }}
+                            </span>
+                        @endif
                     </router-link>
                 </li>
             @endforeach

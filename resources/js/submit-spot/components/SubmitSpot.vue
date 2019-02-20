@@ -78,8 +78,8 @@
                                     </div>
 
                                     <div class="form-group col-md-2">
-                                        <label for="addressZip">Zipcode</label>
-                                        <input type="text" name="zipcode" class="form-control" id="addressZip" v-model="address_zip" />
+                                        <label for="addressPostalCode">Postal Code</label>
+                                        <input type="text" name="postal_code" class="form-control" id="addressPostalCode" v-model="address_zip" />
                                     </div>
                                 <!-- </fieldset> -->
                             </div>
@@ -93,6 +93,8 @@
                                 <input type="checkbox" class="form-check-input" id="termsAgree">
                                 <label class="form-check-label" for="termsAgree">I Have Read & Agree to the SweetSpot <a href="#">Terms of Service</a></label>
                             </div>
+
+                            <input type="hidden" name="_token" :value="csrf" />
 
                             <div class="text-right">
                                 <a href="#" class="btn btn-mute">Cancel</a>

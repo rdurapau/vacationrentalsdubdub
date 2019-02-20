@@ -79,6 +79,7 @@
             @yield('content')
         </main>
     </div>
+    <script>window.Laravel = { csrfToken: '{{ csrf_token() }}', pusherAppKey: '{{env('PUSHER_APP_KEY')}}' };</script>
     @yield ('footer')
 </body>
 </html>

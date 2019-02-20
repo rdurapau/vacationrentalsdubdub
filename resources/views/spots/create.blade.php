@@ -15,10 +15,11 @@
 @endsection
 
 @section('content')
-    
+
     {{-- <div id='map'></div> --}}
     <section id="submit-spot-wrapper">
         <submit-spot></submit-spot>
+        @csrf
     </section>
 
 @endsection

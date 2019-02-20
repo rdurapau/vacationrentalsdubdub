@@ -44,8 +44,8 @@
                             </div>
 
                             <div class="form-group col-md-2">
-                                <label for="addressZip">Zipcode</label>
-                                <input type="text" name="zipcode" class="form-control" id="addressZip" />
+                                <label for="addressPostalCode">Postal Code</label>
+                                <input type="text" name="postal_code" class="form-control" id="addressPostalCode" />
                             </div>
                         </div>
 

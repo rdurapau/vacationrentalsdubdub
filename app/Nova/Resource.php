@@ -56,4 +56,15 @@ abstract class Resource extends NovaResource
     {
         return parent::relatableQuery($request, $query);
     }
+
+    /** 
+     * Determines what the count badge next to the resource name on the sidebar should be
+     * Defaults to no badge
+     * 
+     * @return Boolean|Integer
+     */
+    public static function countBadge()
+    {
+        return false;
+    }
 }

@@ -117,6 +117,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var mapboxgl = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 
 var MapboxGeocoder = __webpack_require__(/*! mapbox-gl-geocoder */ "./node_modules/mapbox-gl-geocoder/lib/index.js");
@@ -16172,8 +16174,8 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group col-md-2" }, [
-                  _c("label", { attrs: { for: "addressZip" } }, [
-                    _vm._v("Zipcode")
+                  _c("label", { attrs: { for: "addressPostalCode" } }, [
+                    _vm._v("Postal Code")
                   ]),
                   _vm._v(" "),
                   _c("input", {
@@ -16186,7 +16188,11 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "text", name: "zipcode", id: "addressZip" },
+                    attrs: {
+                      type: "text",
+                      name: "postal_code",
+                      id: "addressPostalCode"
+                    },
                     domProps: { value: _vm.address_zip },
                     on: {
                       input: function($event) {
@@ -16203,6 +16209,11 @@ var render = function() {
               _vm._m(5),
               _vm._v(" "),
               _vm._m(6),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "_token" },
+                domProps: { value: _vm.csrf }
+              }),
               _vm._v(" "),
               _vm._m(7)
             ])
