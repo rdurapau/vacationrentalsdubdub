@@ -26,3 +26,6 @@ Route::post('/spots', 'SpotController@store')->name('spots.store');
 Route::get('/spots/{spot}', 'SpotController@view')->name('spots.view');
 Route::get('/spots/{spot}/edit', 'SpotController@edit')->name('spots.edit');
 Route::patch('/spots/{spot}', 'SpotController@update')->name('spots.update');
+
+Route::get('/photos/new', 'PhotoController@create');
+Route::post('/photos', 'PhotoController@store');

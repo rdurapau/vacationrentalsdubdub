@@ -12,14 +12,14 @@ use Laravel\Nova\Fields\HasMany;
 
 use Illuminate\Http\Request;
 
-class Spot extends Resource
+class Photo extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = 'App\Spot';
+    public static $model = 'App\Photo';
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -50,32 +50,7 @@ class Spot extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')->sortable(),
-            Trix::make('Description', 'desc')->hideFromIndex(),
-            Currency::make('Price')->sortable(),
-            new Panel('Owner Contact Information', $this->contactFields()),
-            new Panel('Address Information', $this->addressFields()),
-            HasMany::make('Photos')
-        ];
-    }
-
-    protected function contactFields()
-    {
-        return [
-            Text::make('Owner Name')->hideFromIndex(),
-            Text::make('Website')->hideFromIndex(),
-            Text::make('Email')->hideFromIndex(),
-            Text::make('Phone Number', 'phone')->hideFromIndex()
-        ];
-    }
-
-    protected function addressFields()
-    {
-        return [
-            Place::make('Address', 'address1')->sortable(),
-            Text::make('City')->sortable(),
-            Text::make('State')->sortable(),
-            Text::make('Postal Code')->hideFromIndex()
+            
         ];
     }
 

@@ -38,4 +38,9 @@ class Spot extends Model
             $builder->where('moderation_status', ModerationStatus::APPROVED);
         });
     }
+
+    public function photos()
+    {
+        return $this->hasMany('App\Photo');
+    }
 }

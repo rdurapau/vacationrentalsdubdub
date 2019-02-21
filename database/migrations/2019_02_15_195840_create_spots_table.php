@@ -30,6 +30,8 @@ class CreateSpotsTable extends Migration
             $table->smallInteger('moderation_status')->default(0);
             $table->integer('moderated_by')->unsigned()->nullable();
             $table->datetime('moderated_at')->nullable();
+            $table->decimal('lng', 10, 7)->nullable();
+            $table->decimal('lat', 10, 7)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
