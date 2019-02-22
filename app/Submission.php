@@ -3,12 +3,17 @@
 namespace App;
 
 use App\ModerationStatus;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Submission extends Model
+class Submission extends Model implements HasMedia
 {
+    use SoftDeletes, HasMediaTrait;
+
     protected $table = 'spots';
 
     protected $fillable = [
@@ -68,7 +73,13 @@ class Submission extends Model
                 ModerationStatus::REJECTED
             ]);
     }
-    
 
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+              ->width(400)
+              ->height(400)
+              ->sharpen(10);
+    }
 
 }

@@ -7,8 +7,11 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
-
+use Laravel\Nova\Fields\Markdown;
 use Laravel\Nova\Fields\HasMany;
+
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 
 use Illuminate\Http\Request;
 
@@ -50,19 +53,19 @@ class Spot extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')->sortable(),
+            Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
             Currency::make('Price')->sortable(),
             new Panel('Owner Contact Information', $this->contactFields()),
             new Panel('Address Information', $this->addressFields()),
-            HasMany::make('Photos')
+            new Panel('Photos', $this->photoFields())
         ];
     }
 
     protected function contactFields()
     {
         return [
-            Text::make('Owner Name')->hideFromIndex(),
+            Text::make('Owner Name'),
             Text::make('Website')->hideFromIndex(),
             Text::make('Email')->hideFromIndex(),
             Text::make('Phone Number', 'phone')->hideFromIndex()
@@ -76,6 +79,26 @@ class Spot extends Resource
             Text::make('City')->sortable(),
             Text::make('State')->sortable(),
             Text::make('Postal Code')->hideFromIndex()
+        ];
+    }
+
+    protected function photoFields()
+    {
+        return [
+            Images::make('Photos','default')
+                // ->conversion('medium-size') // conversion used to display the "original" image
+                // ->conversionOnView('thumb') // conversion used on the model's view
+                // ->thumbnail('thumb') // conversion used to display the image on the model's index page
+                ->multiple() // enable upload of multiple images - also ordering
+                ->fullSize() // full size column
+                // ->rules('required', 'size:3') // validation rules for the collection of images
+                // validation rules for the collection of images
+                ->singleImageRules('dimensions:min_width=100')
+                // ->thumbnail('thumb')
+                // ->customPropertiesFields([
+                //     Markdown::make('Description')
+                // ])
+                ->hideFromIndex()
         ];
     }
 

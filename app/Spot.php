@@ -2,13 +2,18 @@
 
 namespace App;
 
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\Image\Manipulations;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Spot extends Model
+class Spot extends Model implements HasMedia
 {
-    use SoftDeletes;
+    use SoftDeletes, HasMediaTrait;
 
     protected $fillable = [
         'email',
@@ -39,8 +44,13 @@ class Spot extends Model
         });
     }
 
-    public function photos()
+    public function registerMediaConversions(Media $media = null)
     {
-        return $this->hasMany('App\Photo');
+        $this->addMediaConversion('thumb')
+             ->crop(
+                Manipulations::CROP_CENTER,
+                300,
+                300
+             );
     }
 }

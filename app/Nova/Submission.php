@@ -8,9 +8,10 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Markdown;
 use Sweetspot\ModerateSpot\ModerateSpot;
 use App\Nova\Filters\ModerationFilter;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 // use Sweetspot\ModerationFilter\ModerationFilter;
 
@@ -57,21 +58,19 @@ class Submission extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')->sortable()->displayUsing(function ($value) {
-                return str_limit($value, '12', '...');
-            }),
+            Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
             Currency::make('Price')->sortable(),
             new Panel('Owner Contact Information', $this->contactFields()),
             new Panel('Address Information', $this->addressFields()),
-            // ModerateSpot::make()
+            new Panel('Photos', $this->photoFields()),
         ];
     }
 
     protected function contactFields()
     {
         return [
-            Text::make('Owner Name')->hideFromIndex(),
+            Text::make('Owner Name'),
             Text::make('Website')->hideFromIndex(),
             Text::make('Email')->hideFromIndex(),
             Text::make('Phone Number', 'phone')->hideFromIndex()
@@ -85,6 +84,26 @@ class Submission extends Resource
             Text::make('City')->sortable(),
             Text::make('State')->sortable(),
             Text::make('Postal Code')->hideFromIndex()
+        ];
+    }
+
+    protected function photoFields()
+    {
+        return [
+            Images::make('Photos','default')
+                // ->conversion('medium-size') // conversion used to display the "original" image
+                // ->conversionOnView('thumb') // conversion used on the model's view
+                // ->thumbnail('thumb') // conversion used to display the image on the model's index page
+                ->multiple() // enable upload of multiple images - also ordering
+                ->fullSize() // full size column
+                // ->rules('required', 'size:3') // validation rules for the collection of images
+                // validation rules for the collection of images
+                ->singleImageRules('dimensions:min_width=100')
+                // ->thumbnail('thumb')
+                // ->customPropertiesFields([
+                //     Markdown::make('Description')
+                // ])
+                ->hideFromIndex()
         ];
     }
 
