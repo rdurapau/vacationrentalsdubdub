@@ -7,11 +7,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Markdown;
-use Laravel\Nova\Fields\HasMany;
 
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
-use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 
 use Illuminate\Http\Request;
 

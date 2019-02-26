@@ -2,6 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/mapbox.css": "/css/mapbox.css",
     "/css/app.css": "/css/app.css",
+    "/js/im-the-map.js": "/js/im-the-map.js",
     "/js/manifest.js": "/js/manifest.js",
     "/js/submit-spot.js": "/js/submit-spot.js",
     "/js/vendor.js": "/js/vendor.js"

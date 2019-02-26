@@ -14,7 +14,7 @@ class SpotController extends Controller
      */
     public function index()
     {
-        //
+        return view('spots.index');
     }
 
     /**

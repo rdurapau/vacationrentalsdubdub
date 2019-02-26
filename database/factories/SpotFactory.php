@@ -6,6 +6,10 @@ use Illuminate\Support\Str;
 use App\ModerationStatus;
 
 $factory->define(App\Spot::class, function (Faker $faker) {
+    
+    $h = new \App\Helpers\RandomCoordinates;
+    $coords = $h->getPoint();
+
     return [
         'name' => $faker->sentence(3),
         'desc' => $faker->text(),
@@ -20,7 +24,9 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'owner_name' => $faker->name(),
         'moderated_by' => 1,
         'moderated_at' => $faker->dateTimeBetween('-2 years', $endDate = 'now'),
-        'moderation_status' => ModerationStatus::APPROVED
+        'moderation_status' => ModerationStatus::APPROVED,
+        'lat' => $coords[0],
+        'lng' => $coords[1]
     ];
 });
 
