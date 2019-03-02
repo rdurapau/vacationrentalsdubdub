@@ -1,6 +1,7 @@
 <template>
     <div>
 
+        <button class="run-it" @click="queryRendered">Run it</button>
         <div id="map-wrapper"></div>
 
     </div>
@@ -19,12 +20,13 @@
         data() {
             return {
                 'map' : '',
+                'popups' : []
             }
         },
         methods: {
             queryRendered() {
-                console.log(this.map.queryRenderedFeatures([1,2,3,4,5,6,7,8,9,10,72,75]));
-                console.log(this.map.queryRenderedFeatures().length);
+                console.log(this.map.queryRenderedFeatures());
+                console.log(this.map.queryRenderedFeatures({layers:['unclustered-point']}));
             }
         },
         computed: {
@@ -294,77 +296,70 @@
 
                 // Taken from:
                 // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
-                if (true) {
-                    this.map.addSource('places', {
-                        type: 'geojson',
-                        data: "http://sweetspot.test/api/gj",
-                        cluster: true,
-                        clusterMaxZoom: 14, // Max zoom to cluster points on
-                        clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-                    })
-                    this.map.addLayer({
-                        id: "clusters",
-                        type: "circle",
-                        source: "places",
-                        filter: ["has", "point_count"],
-                        paint: {
-                            // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-                            // with three steps to implement three types of circles:
-                            //   * Blue, 20px circles when point count is less than 100
-                            //   * Yellow, 30px circles when point count is between 100 and 750
-                            //   * Pink, 40px circles when point count is greater than or equal to 750
-                            "circle-color": [
-                                "step",
-                                ["get", "point_count"],
-                                "#51bbd6",
-                                100,
-                                "#f1f075",
-                                750,
-                                "#f28cb1"
-                            ],
-                            "circle-radius": [
-                                "step",
-                                ["get", "point_count"],
-                                20,
-                                100,
-                                30,
-                                750,
-                                40
-                            ]
-                        }
-                    });
+                this.map.addSource('places', {
+                    type: 'geojson',
+                    data: "http://sweetspot.test/api/gj",
+                    cluster: true,
+                    clusterMaxZoom: 12, // Max zoom to cluster points on
+                    clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+                })
+                
+                // Adds the circles for the clusters
+                this.map.addLayer({
+                    id: "clusters",
+                    type: "circle",
+                    source: "places",
+                    paint: {
+                        "circle-color": "#2BC569",
+                        "circle-radius": 14
+                    },
+                    maxzoom:11.999
+                });
 
-                    this.map.addLayer({
-                        id: "cluster-count",
-                        type: "symbol",
-                        source: "places",
-                        filter: ["has", "point_count"],
-                        layout: {
-                            "text-field": "{point_count_abbreviated}",
-                            "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-                            "text-size": 12
-                        }
-                    });
+                // Adds the number labels on top of the circle clusters
+                this.map.addLayer({
+                    id: "cluster-count",
+                    type: "symbol",
+                    source: "places",
+                    layout: {
+                        "text-field": ["case",
+                            ['all', 
+                                ['has','point_count_abbreviated'], 
+                                ['>', ['get', 'point_count_abbreviated'], 1]
+                            ], ['get', 'point_count_abbreviated'],
+                            "1"
+                        ],
+                        "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
+                        "text-size": 15
+                    },
+                    paint: {
+                        "text-color": "#fff"
+                    },
+                    maxzoom:11.999
+                });
 
-                    this.map.addLayer({
-                        id: "unclustered-point",
-                        type: "circle",
-                        source: "places",
-                        filter: ["!", ["has", "point_count"]],
-                        paint: {
-                            "circle-color": "#11b4da",
-                            "circle-radius": 4,
-                            "circle-stroke-width": 1,
-                            "circle-stroke-color": "#fff"
-                        }
-                    });
+                // Adds the individual spot markers
+                this.map.addLayer({
+                    id: "unclustered-point",
+                    type: "circle",
+                    source: "places",
+                    filter: ["!", ["has", "point_count"]],
+                    paint: {
+                        "circle-color": "#ff0000",
+                        "circle-radius": 0,
+                        "circle-stroke-width": 0,
+                        "circle-stroke-color": "#fff"
+                    },
+                    minzoom: 12
+                });
 
-                    // inspect a cluster on click
-                    let self = this;
-                    this.map.on('click', 'clusters', function (e) {
-                        var features = self.map.queryRenderedFeatures(e.point, {
-                            layers: ['clusters']
-                        });
+                // inspect a cluster on click
+                let self = this;
+                this.map.on('click', 'clusters', function (e) {
+                    var features = self.map.queryRenderedFeatures(e.point, {
+                        layers: ['clusters']
+                    });
+                    if (features.length) {
                         var clusterId = features[0].properties.cluster_id;
                         self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
                             if (err)
@@ -375,53 +370,52 @@
                                 zoom: zoom
                             });
                         });
+                    }
+                });
+
+                this.map.on('moveend', function() {
+                    console.log('moveend');
+                    self.popups.forEach((popup) => {
+                        popup.remove();
                     });
-                    this.map.on('click', 'unclustered-point', function (e) {
-                        self.queryRendered();
-                        alert('SHOW ME SPOT #'+e.features[0].properties.id + ', KNAVE')
-                    });
-                } else {
-                    let self = this;
-                    this.map.addSource('places', {
-                        type: 'geojson',
-                        data: "http://sweetspot.test/api/geo",
-                        // cluster: true,
-                        // clusterMaxZoom: 14, // Max zoom to cluster points on
-                        // clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-                    })
-                    this.map.addLayer({
-                        id: 'spots',
-                        type: 'circle',
-                        source: 'places',
-                        paint: {
-                            "circle-color": "#11b4da",
-                            "circle-radius": 4,
-                            "circle-stroke-width": 1,
-                            "circle-stroke-color": "#fff"
-                        }
-                        // cluster: true,
-                        // clusterMaxZoom: 14, // Max zoom to cluster points on
-                        // clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-                    })
-                    this.map.on('click', 'spots', function (e) {
-                        // console.log('ok');
-                        console.log(e.features[0].properties.id);
-                        var coordinates = e.features[0].geometry.coordinates.slice();
-                        var description = e.features[0].properties.description;
+                    self.popups = [];
+
+                    var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
+                    
+                    console.log(visibleFeatures);
+
+                    if (visibleFeatures) {
+                        // var uniqueFeatures = getUniqueFeatures(features, "iata_code");
+
+                        visibleFeatures.forEach((feature) => {
+                            self.popups.push(
+                                new mapboxgl.Popup({
+                                    closeButton: false,
+                                    closeOnClick : false
+                                }).setLngLat(feature.geometry.coordinates)
+                                .setHTML('<img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section>')
+                                .addTo(self.map)
+                            )
+                        });
+
                         
-                        // Ensure that if the map is zoomed out such that multiple
-                        // copies of the feature are visible, the popup appears
-                        // over the copy being pointed to.
-                        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                        }
+
+                        // Populate features for the listing overlay.
+                        // renderListings(uniqueFeatures);
                         
-                        new mapboxgl.Popup()
-                            .setLngLat(coordinates)
-                            .setHTML(description)
-                            .addTo(self.map);
-                    });
-                }
+                        // Clear the input container
+                        // filterEl.value = '';
+                        
+                        // Store the current features in sn `airports` variable to
+                        // later use for filtering on `keyup`.
+                        // airports = uniqueFeatures;
+                    }
+                });
+                
+                // this.map.on('click', 'unclustered-point', function (e) {
+                //     self.queryRendered();
+                //     alert('SHOW ME SPOT #'+e.features[0].properties.id + ', KNAVE')
+                // });
                 
 
                 
@@ -470,10 +464,11 @@
         width:100vw;
         height:100vh;
     }
-    .marker {
-        width:10px;
-        height:10px;
-        background:red;
+    button.run-it {
+        position:fixed;
+        top:5px;
+        right:5px;
+        z-index:1000;
     }
 </style>
 

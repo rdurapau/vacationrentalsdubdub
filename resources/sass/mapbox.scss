@@ -1,2 +1,39 @@
 @import '~mapbox-gl/dist/mapbox-gl.css';
 @import '~mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
+$purple: #29304C;
+$green: #2BC569;
+
+.mapboxgl-popup-content {
+    background:$purple;
+    color:#fff;
+    width:138px;
+    padding:4px;
+    img {
+        display:block;
+        height:auto;
+        max-width:100%;
+    }
+    section {
+        display:flex;
+        justify-content:space-between;
+        span {
+            display:block;
+        }
+    }
+    
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {border-top-color:$purple}
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {border-right-color:$purple}
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {border-left-color:$purple}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {border-bottom-color:$purple}
+
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
+    border-bottom-color:$purple;
+}
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip {
+    border-top-color:$purple;
+}

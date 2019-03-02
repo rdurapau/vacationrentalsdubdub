@@ -620,5 +620,51 @@ a.mapboxgl-ctrl-logo.mapboxgl-compact {
     -webkit-animation: rotate 400ms linear infinite;
             animation: rotate 400ms linear infinite;
     }
+.mapboxgl-popup-content {
+  background: #29304C;
+  color: #fff;
+  width: 138px;
+  padding: 4px;
+}
 
+.mapboxgl-popup-content img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+}
+
+.mapboxgl-popup-content section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mapboxgl-popup-content section span {
+  display: block;
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: #29304C;
+}
+
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-right-color: #29304C;
+}
+
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-left-color: #29304C;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
+  border-bottom-color: #29304C;
+}
+
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
+  border-bottom-color: #29304C;
+}
+
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip {
+  border-top-color: #29304C;
+}
 
