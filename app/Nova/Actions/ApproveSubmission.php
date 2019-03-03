@@ -49,6 +49,6 @@ class ApproveSubmission extends Action
      *
      * @var bool
      */
-    // public $onlyOnDetail = true;
+    public $onlyOnDetail = false;
 
 }

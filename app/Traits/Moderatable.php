@@ -2,8 +2,12 @@
 namespace App\Traits;
 
 use App\ModerationStatus;
+use App\Mail\SpotApproved;
+use App\Mail\SpotRejected;
 use App\Events\SpotWasRejected;
 use App\Events\SpotWasApproved;
+
+use Illuminate\Support\Facades\Mail;
 
 trait Moderatable
 {
@@ -15,7 +19,8 @@ trait Moderatable
         $this->moderated_at = now();
         $this->save();
 
-        // TODO: Send the optional message
+        // TODO: Break this out to a listener
+        Mail::to($this->email)->send(new SpotApproved($this->id));
 
         broadcast(new SpotWasApproved($this));
     }
@@ -27,7 +32,8 @@ trait Moderatable
         $this->moderated_at = now();
         $this->save();
 
-        // TODO: Send the optional message
+        // TODO: Break this out to a listener
+        Mail::to($this->email)->send(new SpotRejected($this->id, $message));
 
         broadcast(new SpotWasRejected($this));
     }

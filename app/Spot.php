@@ -21,7 +21,6 @@ class Spot extends Model implements HasMedia
         'name',
         'phone',
         'website',
-        'address1',
         'desc',
         'price',
         'address1',
@@ -60,4 +59,10 @@ class Spot extends Model implements HasMedia
                 300
              );
     }
+
+    public function getFullAddressAttribute()
+    {
+        return "{$this->address1}, {$this->city}, {$this->state} {$this->postal_code}";
+    }
+
 }

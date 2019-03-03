@@ -54,7 +54,7 @@ class SubmissionPolicy
      */
     public function delete(User $user, Submission $submission)
     {
-        return false;
+        return true;
     }
 
     /**

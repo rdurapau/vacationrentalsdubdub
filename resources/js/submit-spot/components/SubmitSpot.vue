@@ -27,7 +27,7 @@
 
                                 <div class="form-group col-md-6">
                                     <label for="emailConfirm">Confirm Email Address</label>
-                                    <input type="email" name="email_confirm" class="form-control" id="emailConfirm" />
+                                    <input type="email" name="email_confirmation" class="form-control" id="emailConfirm" />
                                 </div>
                             </div>
 

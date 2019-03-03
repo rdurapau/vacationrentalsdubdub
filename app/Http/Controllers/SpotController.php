@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Spot;
+use App\Mail\SpotSubmitted;
+use App\Events\SpotWasSubmitted;
+
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class SpotController extends Controller
@@ -35,13 +39,26 @@ class SpotController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request->all();
+        $validated = $request->validate([
+            'email' => 'required|confirmed|email',
+            'name' => 'required',
+            'phone' => 'required',
+            'website' => 'required|url',
+            'desc' => 'required',
+            'price' => 'required|numeric|min:10|max:1000',
+            'address1' => 'required|string|max:255',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'postal_code' => 'required',
+            'owner_name' => 'required',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric'
+        ]);
 
-        $spot = Spot::create(
-            $request->all()
-        );
+        $spot = Spot::create($validated);
 
-        return $spot;
+        Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
+        broadcast(new SpotWasSubmitted($spot));
 
         return back();
     }

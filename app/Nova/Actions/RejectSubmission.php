@@ -26,10 +26,10 @@ class RejectSubmission extends DestructiveAction
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            $model->reject();
+            $model->reject($fields->optional_reason);
         }
 
-        return Action::redirect('/nova/resources/submissions');
+        return DestructiveAction::redirect('/nova/resources/submissions');
     }
 
     /**

@@ -16279,7 +16279,11 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("input", {
           staticClass: "form-control",
-          attrs: { type: "email", name: "email_confirm", id: "emailConfirm" }
+          attrs: {
+            type: "email",
+            name: "email_confirmation",
+            id: "emailConfirm"
+          }
         })
       ])
     ])

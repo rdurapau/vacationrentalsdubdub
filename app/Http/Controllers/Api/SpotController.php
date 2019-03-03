@@ -6,7 +6,7 @@ use App\Spot;
 use App\Http\Resources\Spot as SpotResource;
 use App\Http\Resources\SpotCollection;
 
-class SpotsController extends ApiController
+class SpotController extends ApiController
 {
 
     public function index()
