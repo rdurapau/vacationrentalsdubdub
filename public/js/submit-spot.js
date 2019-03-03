@@ -119,6 +119,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 var mapboxgl = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 
 var MapboxGeocoder = __webpack_require__(/*! mapbox-gl-geocoder */ "./node_modules/mapbox-gl-geocoder/lib/index.js");
@@ -140,6 +142,8 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
       'address_city': '',
       'address_state': '',
       'address_zip': '',
+      'lat': '',
+      'lng': '',
       'map': '',
       'geocoder': ''
     };
@@ -160,6 +164,9 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
       this.address_state = context.find(function (e) {
         return e.id.includes('region');
       }).text;
+      var coords = ev.result.geometry.coordinates;
+      this.lng = coords[0];
+      this.lat = coords[1];
     }
   },
   computed: {
@@ -16209,6 +16216,16 @@ var render = function() {
               _vm._m(5),
               _vm._v(" "),
               _vm._m(6),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "lat" },
+                domProps: { value: _vm.lat }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "lng" },
+                domProps: { value: _vm.lng }
+              }),
               _vm._v(" "),
               _c("input", {
                 attrs: { type: "hidden", name: "_token" },

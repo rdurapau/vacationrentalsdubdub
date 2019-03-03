@@ -16,5 +16,4 @@ mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/im-the-map/im-the-map.js', 'public/js')
    .sass('resources/sass/mapbox.scss', 'public/css')
    .sass('resources/sass/app.scss', 'public/css')
-   .extract(['axios', 'bootstrap', 'geojson', 'lodash', 'mapbox-gl', 'mapbox-gl-geocoder', 'popper.js', 'vue'
-   ]);
+   .extract(['axios', 'bootstrap', 'geojson', 'lodash', 'mapbox-gl', 'mapbox-gl-geocoder', 'popper.js', 'vue', 'vee-validate']);

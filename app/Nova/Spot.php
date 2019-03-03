@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Place;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
 
@@ -52,10 +53,14 @@ class Spot extends Resource
         return [
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
-            Currency::make('Price')->sortable(),
+            Currency::make('Price')->hideFromIndex(),
             new Panel('Owner Contact Information', $this->contactFields()),
             new Panel('Address Information', $this->addressFields()),
-            new Panel('Photos', $this->photoFields())
+            new Panel('Photos', $this->photoFields()),
+            DateTime::make('Approved', 'moderated_at')
+                ->onlyOnIndex()
+                ->format('YYYY-MM-DD @ HH:mm')
+                ->sortable()
         ];
     }
 

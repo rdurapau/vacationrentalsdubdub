@@ -25,7 +25,11 @@ class RejectSubmission extends DestructiveAction
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        //
+        foreach ($models as $model) {
+            $model->reject();
+        }
+
+        return Action::redirect('/nova/resources/submissions');
     }
 
     /**
@@ -36,7 +40,7 @@ class RejectSubmission extends DestructiveAction
     public function fields()
     {
         return [
-            Markdown::make('Reason (optional)'),
+            Markdown::make('Optional reason'),
         ];
     }
 
@@ -45,5 +49,5 @@ class RejectSubmission extends DestructiveAction
      *
      * @var bool
      */
-    public $onlyOnDetail = true;
+    public $onlyOnDetail = false;
 }

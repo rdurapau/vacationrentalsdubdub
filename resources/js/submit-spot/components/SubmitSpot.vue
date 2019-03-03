@@ -94,6 +94,8 @@
                                 <label class="form-check-label" for="termsAgree">I Have Read & Agree to the SweetSpot <a href="#">Terms of Service</a></label>
                             </div>
 
+                            <input type="hidden" name="lat" :value="lat" />
+                            <input type="hidden" name="lng" :value="lng" />
                             <input type="hidden" name="_token" :value="csrf" />
 
                             <div class="text-right">
@@ -132,6 +134,9 @@
                 'address_state' : '',
                 'address_zip' : '',
 
+                'lat': '',
+                'lng': '',
+
                 'map' : '',
                 'geocoder': ''
             }
@@ -147,6 +152,10 @@
                 this.address_city = context.find(e => e.id.includes('place')).text;
                 this.address_zip = context.find(e => e.id.includes('postcode')).text;
                 this.address_state = context.find(e => e.id.includes('region')).text;
+
+                let coords = ev.result.geometry.coordinates;
+                this.lng = coords[0];
+                this.lat = coords[1];
             }
         },
         computed: {

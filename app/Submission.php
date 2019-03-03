@@ -3,6 +3,8 @@
 namespace App;
 
 use App\ModerationStatus;
+use App\Traits\Moderatable;
+
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -13,7 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Submission extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait;
+    use SoftDeletes, HasMediaTrait, Moderatable;
 
     protected $table = 'spots';
 

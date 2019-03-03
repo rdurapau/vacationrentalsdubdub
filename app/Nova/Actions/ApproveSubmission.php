@@ -25,7 +25,11 @@ class ApproveSubmission extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        //
+        foreach ($models as $model) {
+            $model->approve();
+        }
+
+        return Action::redirect('/nova/resources/spots');
     }
 
     /**

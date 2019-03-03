@@ -8,7 +8,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Fields\Markdown;
+use Laravel\Nova\Fields\DateTime;
 use Sweetspot\ModerateSpot\ModerateSpot;
 use App\Nova\Filters\ModerationFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
@@ -64,6 +64,11 @@ class Submission extends Resource
             new Panel('Owner Contact Information', $this->contactFields()),
             new Panel('Address Information', $this->addressFields()),
             new Panel('Photos', $this->photoFields()),
+            DateTime::make('Submitted', 'created_at')
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->format('YYYY-MM-DD @ HH:mm')
+                ->sortable()
         ];
     }
 

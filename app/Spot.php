@@ -7,13 +7,14 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Image\Manipulations;
 
+use App\Traits\Moderatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Spot extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait;
+    use SoftDeletes, HasMediaTrait, Moderatable;
 
     protected $fillable = [
         'email',
@@ -27,7 +28,13 @@ class Spot extends Model implements HasMedia
         'city',
         'state',
         'postal_code',
-        'owner_name'
+        'owner_name',
+        'lat',
+        'lng'
+    ];
+
+    protected $dates = [
+        'moderated_at'
     ];
 
     /**
