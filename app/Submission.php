@@ -46,6 +46,33 @@ class Submission extends Model implements HasMedia
         static::addGlobalScope('pending', function (Builder $builder) {
             $builder->where('moderation_status', ModerationStatus::PENDING);
         });
+
+        static::created(function($spot) {
+            do {
+                $token = str_random(30);
+            } while (EditToken::where('token', $token)->count() > 0);
+            $editToken = new EditToken([
+                'token' => $token,
+                'expires_at' => now()->addDays(7)
+            ]);
+            $editToken->spot()->associate($spot);
+            $editToken->save();
+        });
+    }
+
+    public function editToken()
+    {
+        return $this->hasOne('App\EditToken', 'spot_id');
+    }
+
+    public function getFullAddressAttribute()
+    {
+        return "{$this->address1}, {$this->city}, {$this->state} {$this->postal_code}";
+    }
+
+    public function getEditUrlAttribute()
+    {
+        return route('editTokens.edit', ['spots' => $this, 'editToken' => $this->editToken]);
     }
 
     /**

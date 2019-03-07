@@ -13,6 +13,7 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .js('resources/js/submit-spot/submit-spot.js', 'public/js')
+   .js('resources/js/edit-spot/edit-spot.js', 'public/js')
    .js('resources/js/im-the-map/im-the-map.js', 'public/js')
    .sass('resources/sass/mapbox.scss', 'public/css')
    .sass('resources/sass/app.scss', 'public/css')

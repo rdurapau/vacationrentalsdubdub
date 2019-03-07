@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Spot;
 use App\Mail\SpotSubmitted;
 use App\Events\SpotWasSubmitted;
+use App\Events\SpotWasUpdated;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
@@ -94,7 +96,32 @@ class SpotController extends Controller
      */
     public function update(Request $request, Spot $spot)
     {
-        //
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'name' => 'required',
+            'phone' => 'required',
+            'website' => 'required|url',
+            'desc' => 'required',
+            'price' => 'required|numeric|min:10|max:1000',
+            'address1' => 'required|string|max:255',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'postal_code' => 'required',
+            'owner_name' => 'required',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
+            'edit_token' => [
+                'required',
+                Rule::in($spot->editTokens->pluck('token'))
+            ]
+        ]);
+
+        $spot->update($validated);
+
+        // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
+        broadcast(new SpotWasUpdated($spot));
+
+        return back();
     }
 
     /**

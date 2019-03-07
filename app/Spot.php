@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\EditToken;
+
 use Spatie\MediaLibrary\Models\Media;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -48,6 +50,28 @@ class Spot extends Model implements HasMedia
         static::addGlobalScope('approved', function (Builder $builder) {
             $builder->where('moderation_status', ModerationStatus::APPROVED);
         });
+
+        static::created(function($spot) {
+            do {
+                $token = str_random(30);
+            } while (EditToken::where('token', $token)->count() > 0);
+            $editToken = new EditToken([
+                'token' => $token,
+                'expires_at' => now()->addDays(7)
+            ]);
+            $editToken->spot()->associate($spot);
+            $editToken->save();
+        });
+    }
+
+    public function editToken()
+    {
+        return $this->hasOne('App\EditToken');
+    }
+
+    public function editTokens()
+    {
+        return $this->hasMany('App\EditToken');
     }
 
     public function registerMediaConversions(Media $media = null)
@@ -63,6 +87,11 @@ class Spot extends Model implements HasMedia
     public function getFullAddressAttribute()
     {
         return "{$this->address1}, {$this->city}, {$this->state} {$this->postal_code}";
+    }
+
+    public function getEditUrlAttribute()
+    {
+        return route('editTokens.edit', ['spots' => $this, 'editToken' => $this->editToken]);
     }
 
 }

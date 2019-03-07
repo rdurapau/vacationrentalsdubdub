@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use App\Spot;
+
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -14,14 +16,16 @@ class SpotWasApproved
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $spot;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Spot $spot)
     {
-        //
+        $this->spot = $spot;
     }
 
     /**

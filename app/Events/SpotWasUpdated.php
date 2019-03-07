@@ -12,7 +12,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class SpotWasRejected
+class SpotWasUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
