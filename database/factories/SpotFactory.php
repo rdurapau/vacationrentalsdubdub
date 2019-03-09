@@ -22,19 +22,23 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'state' => $faker->stateAbbr(),
         'postal_code' => $faker->postcode(),
         'owner_name' => $faker->name(),
-        'moderated_by' => 1,
-        'moderated_at' => $faker->dateTimeBetween('-2 years', $endDate = 'now'),
-        'moderation_status' => ModerationStatus::APPROVED,
         'lat' => $coords[0],
-        'lng' => $coords[1]
+        'lng' => $coords[1],
+        'moderated_by' => 1,
+        'moderated_at' => $faker->dateTimeBetween('-1 years', $endDate = 'now'),
+        'moderation_status' => ModerationStatus::APPROVED,
+        'created_at' => $faker->dateTimeBetween('-1 years', $endDate = 'now')
     ];
 });
 
-$factory->state(App\Spot::class, 'pending', [
-    'moderated_by' => NULL,
-    'moderated_at' => NULL,
-    'moderation_status' => ModerationStatus::PENDING
-]);
+$factory->state(App\Spot::class, 'pending', function (Faker $faker) {
+    return [
+        'moderated_by' => NULL,
+        'moderated_at' => NULL,
+        'moderation_status' => ModerationStatus::PENDING,
+        'created_at' => $faker->dateTimeBetween('-2 weeks', $endDate = 'now')
+    ];
+});
 
 $factory->state(App\Spot::class, 'rejected', [
     'moderation_status' => ModerationStatus::REJECTED

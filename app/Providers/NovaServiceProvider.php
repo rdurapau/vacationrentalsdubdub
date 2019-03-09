@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Nova\Metrics\PendingSubmissions;
+use App\Nova\Metrics\NewSubmissions;
+use App\Nova\Metrics\NewSubmissionsOverTime;
+
 use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -56,7 +59,14 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help,
+            // Two-thirds of the content area...
+            (new PendingSubmissions)->width('1/3'),
+            
+            // Two-thirds of the content area...
+            (new NewSubmissions)->width('1/3'),
+    
+            // Full width...
+            (new NewSubmissionsOverTime)->width('2/3'),
         ];
     }
 
