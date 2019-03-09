@@ -1,6 +1,6 @@
 <?php
 
-namespace Sweetspot\ModerateSpot;
+namespace SweetSpot\ModerateSpot;
 
 use Laravel\Nova\ResourceTool;
 

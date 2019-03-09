@@ -1,5 +1,5 @@
 {
-    "name": "sweetspot/moderate-spot",
+    "name": "sweet-spot/moderate-spot",
     "description": "A Laravel Nova resource tool.",
     "keywords": [
         "laravel",
@@ -11,13 +11,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Sweetspot\\ModerateSpot\\": "src/"
+            "SweetSpot\\ModerateSpot\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Sweetspot\\ModerateSpot\\ToolServiceProvider"
+                "SweetSpot\\ModerateSpot\\ToolServiceProvider"
             ]
         }
     },

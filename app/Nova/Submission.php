@@ -9,12 +9,11 @@ use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\DateTime;
-use Sweetspot\ModerateSpot\ModerateSpot;
+use SweetSpot\ModerateSpot\ModerateSpot;
 use App\Nova\Filters\ModerationFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 use SweetSpot\PendingSubmissions\PendingSubmissions as PendingSubmissionsCard;
-// use Sweetspot\ModerationFilter\ModerationFilter;
 
 use App\ModerationStatus;
 
@@ -59,6 +58,7 @@ class Submission extends Resource
     public function fields(Request $request)
     {
         return [
+            // ModerateSpot::make(),
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
             Currency::make('Price')->sortable(),

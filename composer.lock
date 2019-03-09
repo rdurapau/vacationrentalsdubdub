@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b38399428f310547740568b79b22f0d",
+    "content-hash": "ae5e00e5710c6a39bf7c3c6af025ff93",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2854,6 +2854,39 @@
             "time": "2018-04-12T09:34:43+00:00"
         },
         {
+            "name": "sweet-spot/moderate-spot",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/ModerateSpot",
+                "reference": "87ef229d74b0af312b351ea29eeb516800e68de4"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SweetSpot\\ModerateSpot\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SweetSpot\\ModerateSpot\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova resource tool.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
+        },
+        {
             "name": "sweet-spot/pending-submissions",
             "version": "dev-master",
             "dist": {
@@ -2887,12 +2920,12 @@
             ]
         },
         {
-            "name": "sweetspot/moderate-spot",
+            "name": "sweet-spot/sweet-spot-theme",
             "version": "dev-master",
             "dist": {
                 "type": "path",
-                "url": "./nova-components/ModerateSpot",
-                "reference": "93fa005c134866ce76d65631e13e509846b29e6b"
+                "url": "./nova-components/SweetSpotTheme",
+                "reference": "193310add5854baedd4dfd2a1e3d8bf31536f78a"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -2901,46 +2934,13 @@
             "extra": {
                 "laravel": {
                     "providers": [
-                        "Sweetspot\\ModerateSpot\\ToolServiceProvider"
+                        "SweetSpot\\SweetSpotTheme\\ThemeServiceProvider"
                     ]
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Sweetspot\\ModerateSpot\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova resource tool.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ]
-        },
-        {
-            "name": "sweetspot/sweetspot-theme",
-            "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "./nova-components/SweetspotTheme",
-                "reference": "b148da2dcc51d1e8f6df2fa996e259d750716105"
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Sweetspot\\SweetspotTheme\\ThemeServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Sweetspot\\SweetspotTheme\\": "src/"
+                    "SweetSpot\\SweetSpotTheme\\": "src/"
                 }
             },
             "license": [
