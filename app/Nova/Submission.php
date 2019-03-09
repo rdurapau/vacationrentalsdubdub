@@ -34,7 +34,17 @@ class Submission extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'address1';
+
+    /**
+     * Get the search result subtitle for the resource.
+     *
+     * @return string
+     */
+    public function subtitle()
+    {
+        return "Owner: {$this->owner_name}";
+    }
 
     /**
      * The columns that should be searched.
@@ -42,11 +52,10 @@ class Submission extends Resource
      * @var array
      */
     public static $search = [
-        'id',
-        'name',
         'address1',
         'city',
         'state',
+        'owner_name'
     ];
     
     /**

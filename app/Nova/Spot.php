@@ -27,20 +27,17 @@ class Spot extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'address1';
 
     /**
-     * The columns that should be searched.
+     * Get the search result subtitle for the resource.
      *
-     * @var array
+     * @return string
      */
-    public static $search = [
-        'id',
-        'name',
-        'address1',
-        'city',
-        'state',
-    ];
+    public function subtitle()
+    {
+        return "Owner: {$this->owner_name}";
+    }
     
     /**
      * Get the fields displayed by the resource.
