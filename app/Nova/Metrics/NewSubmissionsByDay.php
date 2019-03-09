@@ -6,7 +6,7 @@ use App\Spot;
 use Illuminate\Http\Request;
 use Laravel\Nova\Metrics\Trend;
 
-class NewSubmissionsOverTime extends Trend
+class NewSubmissionsPerDay extends Trend
 {
     /**
      * Calculate the value of the metric.
@@ -16,7 +16,8 @@ class NewSubmissionsOverTime extends Trend
      */
     public function calculate(Request $request)
     {
-        return $this->countByDays($request, Spot::withoutGlobalScope('approved'));
+        return $this->countByDays($request, Spot::withoutGlobalScope('approved'))
+            ->showLatestValue();
     }
 
     /**

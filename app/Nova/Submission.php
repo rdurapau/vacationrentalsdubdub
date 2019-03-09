@@ -13,6 +13,7 @@ use Sweetspot\ModerateSpot\ModerateSpot;
 use App\Nova\Filters\ModerationFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
+use SweetSpot\PendingSubmissions\PendingSubmissions as PendingSubmissionsCard;
 // use Sweetspot\ModerationFilter\ModerationFilter;
 
 use App\ModerationStatus;
@@ -124,8 +125,9 @@ class Submission extends Resource
     public function cards(Request $request)
     {
         return [
+            (new PendingSubmissionsCard)->showButton(false),
             new Metrics\NewSubmissions,
-            new Metrics\NewSubmissionsOverTime,
+            new Metrics\NewSubmissionsPerDay,
         ];
     }
 

@@ -4,7 +4,9 @@ namespace App\Providers;
 
 use App\Nova\Metrics\PendingSubmissions;
 use App\Nova\Metrics\NewSubmissions;
-use App\Nova\Metrics\NewSubmissionsOverTime;
+use App\Nova\Metrics\NewSubmissionsPerDay;
+
+use SweetSpot\PendingSubmissions\PendingSubmissions as PendingSubmissionsCard;
 
 use Laravel\Nova\Nova;
 use Illuminate\Support\Facades\Gate;
@@ -60,13 +62,16 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             // Two-thirds of the content area...
+            (new PendingSubmissionsCard)->width('1/3')->showButton(true),
+            
+            // Two-thirds of the content area...
             (new PendingSubmissions)->width('1/3'),
             
             // Two-thirds of the content area...
             (new NewSubmissions)->width('1/3'),
     
             // Full width...
-            (new NewSubmissionsOverTime)->width('2/3'),
+            (new NewSubmissionsPerDay)->width('2/3'),
         ];
     }
 

@@ -17,10 +17,7 @@ class PendingSubmissions extends Value
      */
     public function calculate(Request $request)
     {
-        
-        // dump(Submission::count());
         return $this->result(Submission::count())->previous(Submission::count());
-        // return $this->count(NULL, Submission::class);
     }
 
     /**
