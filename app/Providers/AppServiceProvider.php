@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Added to get Heroku working
+        Schema::defaultStringLength(191);
     }
 }
