@@ -50,7 +50,7 @@ class FakeSpots extends Command
 
         if ($type == 'approved' || $type == 'a') {
             $this->info("Seeding {$a} approved spots");
-            factory('App\Spot', $a)->create();
+            factory('App\Spot', $a)->states('has-requests')->create();
         }
 
         if ($type == 'pending' || $type == 'p') {

@@ -24,7 +24,7 @@
                         </div>
                     @endif
 
-                    <form method="post" action="/spots/1/requests">
+                    <form method="post" action="/spots/{{$spot->id}}/requests">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="fullName">Full Name</label>

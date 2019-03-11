@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Nova\Metrics\PendingSubmissions;
+use App\Nova\Metrics\NewBookingRequests;
+use App\Nova\Metrics\BookingRequestsPerDay;
 use App\Nova\Metrics\NewSubmissions;
 use App\Nova\Metrics\NewSubmissionsPerDay;
 
@@ -61,9 +63,12 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            (new PendingSubmissionsCard)->width('1/2')->showButton(true),
-            (new NewSubmissions)->width('1/2'),
+            (new PendingSubmissionsCard)->width('1/3')->showButton(true),
+            (new NewSubmissions)->width('1/3'),
             (new NewSubmissionsPerDay)->width('full'),
+            (new BookingRequestsPerDay)->width('full'),
+            (new NewBookingRequests)->width('1/3'),
+            
         ];
     }
 

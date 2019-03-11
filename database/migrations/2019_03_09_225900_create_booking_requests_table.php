@@ -18,7 +18,7 @@ class CreateBookingRequestsTable extends Migration
             $table->unsignedBigInteger('spot_id');
             $table->foreign('spot_id')->references('id')->on('spots');
             $table->string('name',100);
-            $table->string('phone',15);
+            $table->string('phone',50);
             $table->string('email',70);
             $table->string('dates',50);
             $table->timestamp('created_at')->useCurrent();;

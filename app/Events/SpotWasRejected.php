@@ -23,9 +23,9 @@ class SpotWasRejected
      *
      * @return void
      */
-    public function __construct(Spot $spot)
+    public function __construct($spotId)
     {
-        $this->spot = $spot;
+        $this->spot = Spot::withoutGlobalScope('approved')->find($spotId);
     }
 
     /**

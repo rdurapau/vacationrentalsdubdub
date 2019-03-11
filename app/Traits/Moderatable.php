@@ -22,7 +22,7 @@ trait Moderatable
         // TODO: Break this out to a listener
         Mail::to($this->email)->send(new SpotApproved($this->id));
 
-        broadcast(new SpotWasApproved($this));
+        broadcast(new SpotWasApproved($this->id));
     }
 
     public function reject($message = NULL)
@@ -35,7 +35,7 @@ trait Moderatable
         // TODO: Break this out to a listener
         Mail::to($this->email)->send(new SpotRejected($this->id, $message));
 
-        broadcast(new SpotWasRejected($this));
+        broadcast(new SpotWasApproved($this->id));
     }
 
     public function moderationStatus()

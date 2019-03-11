@@ -39,6 +39,18 @@ class Spot extends Resource
     {
         return "Owner: {$this->owner_name}";
     }
+
+    /**
+     * The columns that should be searched.
+     *
+     * @var array
+     */
+    public static $search = [
+        'address1',
+        'city',
+        'state',
+        'owner_name'
+    ];
     
     /**
      * Get the fields displayed by the resource.
@@ -136,7 +148,9 @@ class Spot extends Resource
      */
     public function lenses(Request $request)
     {
-        return [];
+        return [
+            new Lenses\MostRequestedSpots,
+        ];
     }
 
     /**

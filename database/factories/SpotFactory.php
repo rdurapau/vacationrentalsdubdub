@@ -44,7 +44,7 @@ $factory->state(App\Spot::class, 'rejected', [
     'moderation_status' => ModerationStatus::REJECTED
 ]);
 
-$factory->afterMakingState(App\Spot::class, 'has-requests', function ($spot, $faker) {
+$factory->afterCreatingState(App\Spot::class, 'has-requests', function ($spot, $faker) {
     factory('App\BookingRequest',rand(0,5))->create([
         'spot_id' => $spot->id
     ]);

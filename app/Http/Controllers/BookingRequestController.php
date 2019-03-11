@@ -27,9 +27,9 @@ class BookingRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Spot $spot)
     {
-        return view('requests.create');
+        return view('requests.create', compact('spot'));
     }
 
     /**
