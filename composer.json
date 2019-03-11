@@ -20,7 +20,8 @@
         "league/flysystem-cached-adapter": "~1.0",
         "spatie/laravel-medialibrary": "^7.0.0",
         "sweet-spot/moderate-spot": "*",
-        "sweet-spot/pending-submissions": "*"
+        "sweet-spot/pending-submissions": "*",
+        "sweet-spot/sweet-theme": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -41,11 +42,11 @@
         },
         {
             "type": "path",
-            "url": "./nova-components/SweetSpotTheme"
+            "url": "./nova-components/PendingSubmissions"
         },
         {
             "type": "path",
-            "url": "./nova-components/PendingSubmissions"
+            "url": "./nova-components/SweetTheme"
         }
     ],
     "config": {

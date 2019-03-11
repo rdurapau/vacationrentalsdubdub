@@ -1,6 +1,6 @@
 <?php
 
-namespace SweetSpot\SweetSpotTheme;
+namespace SweetSpot\SweetTheme;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
@@ -16,7 +16,7 @@ class ThemeServiceProvider extends ServiceProvider
     public function boot()
     {
         Nova::serving(function (ServingNova $event) {
-            Nova::style('sweet-spot-theme', __DIR__.'/../resources/css/theme.css');
+            Nova::style('sweet-theme', __DIR__.'/../resources/css/theme.css');
         });
     }
 

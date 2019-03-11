@@ -1,5 +1,5 @@
 {
-    "name": "sweet-spot/sweet-spot-theme",
+    "name": "sweet-spot/sweet-theme",
     "description": "A Laravel Nova theme.",
     "keywords": [
         "laravel",
@@ -11,13 +11,13 @@
     },
     "autoload": {
         "psr-4": {
-            "SweetSpot\\SweetSpotTheme\\": "src/"
+            "SweetSpot\\SweetTheme\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "SweetSpot\\SweetSpotTheme\\ThemeServiceProvider"
+                "SweetSpot\\SweetTheme\\ThemeServiceProvider"
             ]
         }
     },
