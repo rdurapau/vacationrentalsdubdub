@@ -40,22 +40,10 @@
             "type": "path",
             "url": "./nova-components/ModerateSpot"
         },
-        {
-            "type": "path",
-            "url": "./nova-components/SweetSpotTheme"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/PendingSubmissions"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/PendingSubmissions"
-        },
-        {
-            "type": "path",
-            "url": "./nova-components/PendingSubmissions"
-        },
+        // {
+        //     "type": "path",
+        //     "url": "./nova-components/SweetSpotTheme"
+        // },
         {
             "type": "path",
             "url": "./nova-components/PendingSubmissions"
