@@ -1,5 +1,12 @@
 <?php
 
+// Heroku config
+$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
+$host = array_key_exists("host", $url) ? $url["host"] : '127.0.0.1';
+$username = array_key_exists("user", $url) ? $url["user"] : 'forge';
+$password = array_key_exists("pass", $url) ? $url["pass"] : '';
+$database = (array_key_exists("path", $url) && substr($url["path"], 1)) ? substr($url["path"], 1) : 'forge';
+
 return [
 
     /*
@@ -42,11 +49,11 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', $host),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', $database),
+            'username' => env('DB_USERNAME', $username),
+            'password' => env('DB_PASSWORD', $password),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
