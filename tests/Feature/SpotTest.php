@@ -7,7 +7,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SpotTest extends TestCase
 {
-    public function setUp()
+    use RefreshDatabase;
+    
+    public function setUp() : void 
     {
         parent::setUp();
     }
@@ -17,18 +19,13 @@ class SpotTest extends TestCase
     {
         $this->get('/spots/new')
             ->assertStatus(200)
-            ->assertSee('Submit Your Property');
+
+        // TODO: Submit a spot
     }
 
-    public function a_spot_can_be_approved()
+    public function when_a_spot_is_created_an_email_is_sent_to_the_owner()
     {
 
     }
-
-    public function a_spot_can_be_edited_with_the_correct_edit_url()
-    {
-
-    }
-
 
 }

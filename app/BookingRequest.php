@@ -4,23 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EditToken extends Model
+class BookingRequest extends Model
 {
-    public $timestamps = false;
-
     protected $fillable = [
-        'token',
-        'expires_at'
+        'name',
+        'email',
+        'phone',
+        'dates',
+        'spot_id'
     ];
 
+    public $timestamps = false;
     protected $dates = [
-        'expires_at'
+        'created_at'
     ];
-
-    public function getRouteKeyName()
-    {
-        return 'token';
-    }
 
     public function spot()
     {

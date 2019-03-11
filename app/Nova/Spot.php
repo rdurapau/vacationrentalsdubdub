@@ -8,6 +8,7 @@ use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\HasMany;
 
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
@@ -60,7 +61,8 @@ class Spot extends Resource
                 ->sortable(),
             Text::make('Edit Url', function () {
                 return $this->edit_url;
-            })->onlyOnDetail()
+            })->onlyOnDetail(),
+            HasMany::make('Booking Requests', 'bookingRequests')->hideFromIndex()
         ];
     }
 

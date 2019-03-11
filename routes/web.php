@@ -31,5 +31,8 @@ Route::post('/spots', 'SpotController@store')->name('spots.store');
 // Route::get('/spots/{spot}/edit', 'SpotController@edit')->name('spots.edit');
 // Route::patch('/spots/{spot}', 'SpotController@update')->name('spots.update');
 
+Route::get('/spots/{spot}/requests/new', 'BookingRequestController@create')->name('requests.create');
+Route::post('/spots/{spot}/requests', 'BookingRequestController@store')->name('requests.store');
+
 Route::get('/photos/new', 'PhotoController@create');
 Route::post('/photos', 'PhotoController@store');

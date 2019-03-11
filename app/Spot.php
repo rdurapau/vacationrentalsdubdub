@@ -64,6 +64,19 @@ class Spot extends Model implements HasMedia
         });
     }
 
+
+    // ######                                                    
+    // #     # ###### #        ##   ##### #  ####  #    #  ####  
+    // #     # #      #       #  #    #   # #    # ##   # #      
+    // ######  #####  #      #    #   #   # #    # # #  #  ####  
+    // #   #   #      #      ######   #   # #    # #  # #      # 
+    // #    #  #      #      #    #   #   # #    # #   ## #    # 
+    // #     # ###### ###### #    #   #   #  ####  #    #  ####                                                                
+    public function bookingRequests()
+    {
+        return $this->hasMany('App\BookingRequest');
+    }
+    
     public function editToken()
     {
         return $this->hasOne('App\EditToken');

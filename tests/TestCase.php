@@ -10,7 +10,7 @@ abstract class TestCase extends BaseTestCase
 
     protected $apiRoot = '/api/v1';
 
-    public function setUp()
+    public function setUp() : void 
     {
         parent::setUp();
     }
