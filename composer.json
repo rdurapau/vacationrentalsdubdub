@@ -21,7 +21,7 @@
         "spatie/laravel-medialibrary": "^7.0.0",
         "sweet-spot/moderate-spot": "*",
         "sweet-spot/pending-submissions": "*",
-        "sweet-spot/sweet-spot-theme": "*"
+        // "sweet-spot/sweet-spot-theme": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
