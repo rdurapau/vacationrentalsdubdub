@@ -24,13 +24,13 @@ class BookingRequest extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     public static function label() {
         return 'Requests';
     }
 
-    public static $group = 'TT';
+    public static $group = 'z';
 
     /**
      * The columns that should be searched.
@@ -50,7 +50,6 @@ class BookingRequest extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make()->sortable(),
             Text::make('Name'),
             Text::make('Email'),
             Text::make('Phone'),

@@ -1,16 +1,17 @@
 <?php
 
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
-
-use App\ModerationStatus;
+use Carbon\Carbon;
 
 $factory->define(App\BookingRequest::class, function (Faker $faker) {
+    $createdAt = $faker->dateTimeBetween('-4 months', $endDate = 'now');
+    $startDate = Carbon::instance($createdAt)->addDays(rand(10,200));
+    $dateStr = $startDate->toFormattedDateString() . ' - ' . $startDate->addDays(rand(1,8))->toFormattedDateString();
     return [
         'name' => $faker->name(),
         'email' => $faker->email(),
         'phone' => $faker->phoneNumber(),
-        'dates' => $faker->sentence(2),
-        'created_at' => $faker->dateTimeBetween('-2 months', $endDate = 'now')
+        'dates' => $dateStr,
+        'created_at' => $createdAt
     ];
 });

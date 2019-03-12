@@ -11,7 +11,7 @@ class SpotsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Spot::class, 20)->create();
+        factory(App\Spot::class, 20)->states('has-requests')->create();
 
         factory(App\Spot::class, 10)->states('pending')->create();
 

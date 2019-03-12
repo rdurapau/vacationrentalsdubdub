@@ -74,6 +74,7 @@ class Spot extends Resource
             Text::make('Edit Url', function () {
                 return $this->edit_url;
             })->onlyOnDetail(),
+            // (new ManageLink)->editUrl(function(){return $this->edit_url;}),
             HasMany::make('Booking Requests', 'bookingRequests')->hideFromIndex()
         ];
     }
@@ -81,7 +82,7 @@ class Spot extends Resource
     protected function contactFields()
     {
         return [
-            Text::make('Owner Name'),
+            Text::make('Owner Name')->hideFromIndex(),
             Text::make('Website')->hideFromIndex(),
             Text::make('Email')->hideFromIndex(),
             Text::make('Phone Number', 'phone')->hideFromIndex()

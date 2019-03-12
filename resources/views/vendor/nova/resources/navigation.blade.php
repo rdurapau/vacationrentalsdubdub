@@ -17,7 +17,7 @@
                 @endif
                 {{ $resource::label() }}
                 @if ($resource::countBadge())
-                    <span class="rounded-full bg-primary uppercase px-1 py-0 text-xs font-bold ml-2">
+                    <span class="rounded-full bg-info uppercase px-1 py-0 text-xs font-bold ml-2">
                         {{ $resource::countBadge() }}
                     </span>
                 @endif

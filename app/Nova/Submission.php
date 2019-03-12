@@ -88,7 +88,7 @@ class Submission extends Resource
     protected function contactFields()
     {
         return [
-            Text::make('Owner Name'),
+            Text::make('Owner Name')->hideFromIndex(),
             Text::make('Website')->hideFromIndex(),
             Text::make('Email')->hideFromIndex(),
             Text::make('Phone Number', 'phone')->hideFromIndex()
