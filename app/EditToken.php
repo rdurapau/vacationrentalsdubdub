@@ -27,7 +27,7 @@ class EditToken extends Model
 
     public function spot()
     {
-        return $this->belongsTo('App\Spot');
+        return $this->belongsTo('App\BaseSpot', 'spot_id');
     }
 
     public function resendEmail()
