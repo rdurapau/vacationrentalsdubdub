@@ -25,9 +25,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::bind('anySpot', function($id) {
-            return \App\Spot::withoutGlobalScope('approved')->findOrFail($id);
-        });
+        // Route::bind('anySpot', function($id) {
+        //     return \App\Spot::withoutGlobalScope('approved')->findOrFail($id);
+        // });
     }
 
     /**

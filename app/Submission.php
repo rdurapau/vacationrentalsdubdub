@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\ModerationStatus;
+use App\Traits\Spotty;
 use App\Traits\Moderatable;
 
 use Spatie\MediaLibrary\Models\Media;
@@ -13,26 +13,27 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Submission extends Model implements HasMedia
+class Submission extends BaseSpot
 {
-    use SoftDeletes, HasMediaTrait, Moderatable;
+    // use SoftDeletes, HasMediaTrait, Moderatable, Spotty;
 
     protected $table = 'spots';
 
-    protected $fillable = [
-        'email',
-        'name',
-        'phone',
-        'website',
-        'address1',
-        'desc',
-        'price',
-        'address1',
-        'city',
-        'state',
-        'postal_code',
-        'owner_name'
-    ];
+    // protected $fillable = [
+    //     'email',
+    //     'name',
+    //     'phone',
+    //     'website',
+    //     'desc',
+    //     'price',
+    //     'address1',
+    //     'city',
+    //     'state',
+    //     'postal_code',
+    //     'owner_name',
+    //     'lat',
+    //     'lng'
+    // ];
 
     /**
      * The "booting" method of the model.
@@ -47,32 +48,7 @@ class Submission extends Model implements HasMedia
             $builder->where('moderation_status', ModerationStatus::PENDING);
         });
 
-        static::created(function($spot) {
-            do {
-                $token = str_random(30);
-            } while (EditToken::where('token', $token)->count() > 0);
-            $editToken = new EditToken([
-                'token' => $token,
-                'expires_at' => now()->addDays(7)
-            ]);
-            $editToken->spot()->associate($spot);
-            $editToken->save();
-        });
-    }
-
-    public function editToken()
-    {
-        return $this->hasOne('App\EditToken', 'spot_id');
-    }
-
-    public function getFullAddressAttribute()
-    {
-        return "{$this->address1}, {$this->city}, {$this->state} {$this->postal_code}";
-    }
-
-    public function getEditUrlAttribute()
-    {
-        return route('editTokens.edit', ['spots' => $this, 'editToken' => $this->editToken]);
+        // static::withoutGlobalScope('approved');
     }
 
     /**
@@ -103,13 +79,4 @@ class Submission extends Model implements HasMedia
                 ModerationStatus::REJECTED
             ]);
     }
-
-    public function registerMediaConversions(Media $media = null)
-    {
-        $this->addMediaConversion('thumb')
-              ->width(400)
-              ->height(400)
-              ->sharpen(10);
-    }
-
 }

@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Spot;
+use App\BaseSpot;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -25,7 +25,7 @@ class SpotWasRejected
      */
     public function __construct($spotId)
     {
-        $this->spot = Spot::withoutGlobalScope('approved')->find($spotId);
+        $this->spot = BaseSpot::find($spotId);
     }
 
     /**

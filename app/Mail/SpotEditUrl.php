@@ -2,27 +2,28 @@
 
 namespace App\Mail;
 
-use App\BaseSpot;
+use App\EditToken;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SpotApproved extends Mailable
+class SpotEditUrl extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $spot;
+    public $spot,$token;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($spotId)
+    public function __construct(EditToken $token)
     {
-        $this->spot = BaseSpot::find($spotId);
+        $this->token = $token;
+        $this->spot = $this->token->spot;
     }
 
     /**
@@ -32,6 +33,6 @@ class SpotApproved extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.spots.approved');
+        return $this->markdown('emails.spots.edit-url');
     }
 }

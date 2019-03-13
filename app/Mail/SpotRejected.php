@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Spot;
+use App\BaseSpot;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -23,7 +23,7 @@ class SpotRejected extends Mailable
      */
     public function __construct($spotId, $reason = NULL)
     {
-        $this->spot = Spot::withoutGlobalScope('approved')->find($spotId);
+        $this->spot = BaseSpot::withoutGlobalScope('approved')->find($spotId);
         $this->reason = $reason;
     }
 

@@ -22,7 +22,7 @@ class SpotSubmitted extends Mailable
      */
     public function __construct($spotId)
     {
-        $this->spot = Spot::withoutGlobalScope('approved')->find($spotId);
+        $this->spot = BaseSpot::find($spotId);
     }
 
     /**

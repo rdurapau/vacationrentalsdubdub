@@ -18,7 +18,7 @@ class SpotTest extends TestCase
     public function a_spot_can_be_submitted()
     {
         $this->get('/spots/new')
-            ->assertStatus(200)
+            ->assertStatus(200);
 
         // TODO: Submit a spot
     }

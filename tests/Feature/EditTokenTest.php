@@ -14,11 +14,11 @@ class EditTokenTest extends TestCase
         parent::setUp();
     }
 
+    /** @test */
     public function example()
     {
         $this->get('/spots/new')
-            ->assertStatus(200)
-            ->assertSee('Submit Your Property');
+            ->assertStatus(200);
     }
 
     public function a_spot_can_be_edited_with_the_correct_edit_url()
