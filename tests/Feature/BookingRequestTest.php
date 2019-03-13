@@ -4,11 +4,12 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class BookingRequestTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     
     public function setUp(): void 
     {
@@ -19,23 +20,19 @@ class BookingRequestTest extends TestCase
     public function a_booking_request_can_be_submitted()
     {
         $spot = factory('App\Spot')->create();
+        $data = $this->getFakeBookingRequestData();
 
-        $r = $this->post("/spots/{$spot->id}/requests", [
-                'name' => 'Caleb White',
-                'email' => 'test@email.com',
-                'email_confirmation' => 'test@email.com',
-                'phone' => '1112223333',
-                'dates' => 'Aug 1, 2019 - Aug 5, 2019'
-            ])->assertRedirect();
+        $r = $this->post("/spots/{$spot->id}/requests", $data)
+            ->assertSessionHasNoErrors()    
+            ->assertRedirect();
             // ]); dd($r->decodeResponseJson());
-        
-        $this->assertDatabaseHas('booking_requests', [
-            'name' => 'Caleb White',
-            'email' => 'test@email.com',
-            'phone' => '1112223333',
-            'dates' => 'Aug 1, 2019 - Aug 5, 2019',
+
+        unset($data['email_confirmation']);
+        $dbdata = array_merge($data, [
             'spot_id' => $spot->id
         ]);
+
+        $this->assertDatabaseHas('booking_requests', $dbdata);
     }
 
     /** @test */
@@ -44,14 +41,11 @@ class BookingRequestTest extends TestCase
         Mail::fake();
 
         $spot = factory('App\Spot')->create();
-
-        $r = $this->post("/spots/{$spot->id}/requests", [
-                'name' => 'Caleb White',
-                'email' => 'test@email.com',
-                'email_confirmation' => 'test@email.com',
-                'phone' => '1112223333',
-                'dates' => 'Aug 1, 2019 - Aug 5, 2019'
-            ])->assertRedirect();
+        
+        $data = $this->getFakeBookingRequestData();
+        $r = $this->post("/spots/{$spot->id}/requests", $data)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
             // ]); dd($r->decodeResponseJson());
         
         $bookingRequest = $spot->bookingRequests()->first();
@@ -69,17 +63,11 @@ class BookingRequestTest extends TestCase
 
         $spot = factory('App\Spot')->create();
 
-        $r = $this->post("/spots/{$spot->id}/requests", [
-                'name' => 'Caleb White',
-                'email' => 'test@email.com',
-                'email_confirmation' => 'test@email.com',
-                'phone' => '1112223333',
-                'dates' => 'Aug 1, 2019 - Aug 5, 2019'
-            ])->assertRedirect();
+        $data = $this->getFakeBookingRequestData();
+        $r = $this->post("/spots/{$spot->id}/requests", $data)->assertRedirect();
             // ]); dd($r->decodeResponseJson());
         
         $bookingRequest = $spot->bookingRequests()->first();
-        // dd($bookingRequest->toArray());
         
         Mail::assertSent(\App\Mail\Booking\BookingRequestConfirm::class, function ($mail) use ($bookingRequest) {
             return $mail->bookingRequest->id === $bookingRequest->id;

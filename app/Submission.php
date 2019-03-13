@@ -2,38 +2,11 @@
 
 namespace App;
 
-use App\Traits\Spotty;
-use App\Traits\Moderatable;
-
-use Spatie\MediaLibrary\Models\Media;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Submission extends BaseSpot
 {
-    // use SoftDeletes, HasMediaTrait, Moderatable, Spotty;
-
     protected $table = 'spots';
-
-    // protected $fillable = [
-    //     'email',
-    //     'name',
-    //     'phone',
-    //     'website',
-    //     'desc',
-    //     'price',
-    //     'address1',
-    //     'city',
-    //     'state',
-    //     'postal_code',
-    //     'owner_name',
-    //     'lat',
-    //     'lng'
-    // ];
 
     /**
      * The "booting" method of the model.

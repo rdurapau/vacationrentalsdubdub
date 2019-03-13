@@ -23,7 +23,7 @@ class SpotRejected extends Mailable
      */
     public function __construct($spotId, $reason = NULL)
     {
-        $this->spot = BaseSpot::withoutGlobalScope('approved')->find($spotId);
+        $this->spot = BaseSpot::find($spotId);
         $this->reason = $reason;
     }
 

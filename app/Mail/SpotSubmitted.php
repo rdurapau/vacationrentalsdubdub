@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Spot;
+use App\BaseSpot;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

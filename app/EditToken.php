@@ -4,6 +4,7 @@ namespace App;
 
 use App\Mail\SpotEditUrl;
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Database\Eloquent\Model;
 
 class EditToken extends Model

@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Spot;
+use App\BaseSpot;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -23,7 +23,7 @@ class SpotWasSubmitted
      *
      * @return void
      */
-    public function __construct(Spot $spot)
+    public function __construct(BaseSpot $spot)
     {
         $this->spot = $spot;
     }

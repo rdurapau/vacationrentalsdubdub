@@ -7,11 +7,12 @@ use App\ModerationStatus;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SpotModerationTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     
     public function setUp(): void 
     {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Spot;
+use App\BaseSpot;
+
 use App\Mail\SpotSubmitted;
 use App\Events\SpotWasSubmitted;
 use App\Events\SpotWasUpdated;
@@ -94,7 +96,7 @@ class SpotController extends Controller
      * @param  \App\Spot  $spot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Spot $spot)
+    public function update(Request $request, BaseSpot $spot)
     {
         $validated = $request->validate([
             'email' => 'required|email',
