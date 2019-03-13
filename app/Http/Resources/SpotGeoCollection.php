@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SpotCollection extends ResourceCollection
+class SpotGeoCollection extends ResourceCollection
 {
 
     /**

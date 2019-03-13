@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class Spot extends JsonResource
+class SpotGeo extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -14,21 +14,13 @@ class Spot extends JsonResource
      */
     public function toArray($request)
     {
-
-        // return parent::toArray($request);
-
-        // return [
-        //     "type" => ""
-        //     'id' => $this->id
-        // ];
-
         return [
             "type"=> "Feature",
             "geometry"=> [
                 "type"=> "Point",
                 "coordinates"=> [
-                    $this->lng,
-                    $this->lat
+                    floatval($this->lng),
+                    floatval($this->lat)
                 ]
             ],
             "properties"=> [

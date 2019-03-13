@@ -12,7 +12,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, WithFaker;
 
-    protected $apiRoot = '/api/v1';
+    public $apiRoot = '/api';
 
     public function setUp() : void 
     {
