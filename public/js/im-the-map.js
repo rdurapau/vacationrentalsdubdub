@@ -274,7 +274,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
       // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
       _this.map.addSource('places', {
         type: 'geojson',
-        data: "http://sweetspot.test/api/gj",
+        data: "http://sweetspot.test/api/spots?output=geojson",
         cluster: true,
         clusterMaxZoom: 12,
         // Max zoom to cluster points on

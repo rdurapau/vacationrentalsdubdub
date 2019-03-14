@@ -3,20 +3,42 @@
 namespace App\Http\Controllers\Api;
 
 use App\Spot;
-use App\Http\Resources\SpotGeo as SpotGeoResource;
-use App\Http\Resources\SpotGeoCollection;
+use Illuminate\Http\Request;
+
+use App\Http\Resources\GeoSpot as GeoSpotResource;
+use App\Http\Resources\GeoSpotCollection;
+use App\Http\Resources\Spot as SpotResource;
+use App\Http\Resources\SpotCollection;
+
 
 class SpotController extends ApiController
 {
-
-    public function index()
+    public function index(Request $request)
     {
-        return new SpotGeoCollection(Spot::all()); 
+        $spots = Spot::all();
+
+        if ($this->wantsGeoJson($request)) {
+            return response()
+                ->json(new GeoSpotCollection($spots))
+                ->header('Content-Type', 'application/geo+json');
+        } else {
+            return response()
+                ->json(new SpotCollection($spots))
+                ->header('Content-Type', 'application/json');
+        }
     }
 
-    public function show(Spot $spot)
+    public function show(Request $request, Spot $spot)
     {
-        return new SpotGeoResource($spot);
+        if ($this->wantsGeoJson($request)) {
+            return response()
+                ->json(new GeoSpotResource($spot))
+                ->header('Content-Type', 'application/geo+json');
+        } else {
+            return response()
+                ->json(new SpotResource($spot))
+                ->header('Content-Type', 'application/json');
+        }
     }
 
 }

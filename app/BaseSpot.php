@@ -77,7 +77,8 @@ class BaseSpot extends Model implements HasMedia
     
     public function editToken()
     {
-        return $this->hasOne('App\EditToken', 'spot_id');
+        return $this->hasOne('App\EditToken', 'spot_id')
+            ->orderByDesc('expires_at');
     }
 
     public function editTokens()

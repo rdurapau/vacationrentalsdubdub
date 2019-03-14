@@ -298,7 +298,7 @@
                 // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
                 this.map.addSource('places', {
                     type: 'geojson',
-                    data: "http://sweetspot.test/api/gj",
+                    data: "http://sweetspot.test/api/spots?output=geojson",
                     cluster: true,
                     clusterMaxZoom: 12, // Max zoom to cluster points on
                     clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)

@@ -3,7 +3,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
+
 // use League\Fractal\Manager;
 
 class ApiController extends Controller
@@ -57,6 +59,15 @@ class ApiController extends Controller
 				'status_code' => $this->getStatusCode()
 			]
 		]);
+	}
+
+	public function wantsGeoJson(Request $request)
+	{
+		return (
+			$request->header('accept') == 'application/geo+json'
+			|| $request->input('output') == 'application/geo+json'
+			|| $request->input('output') == 'geojson'
+		);
 	}
 
 
