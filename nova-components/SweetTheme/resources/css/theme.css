@@ -1,5 +1,7 @@
 :root {
   --transparent: transparent;
+  --blue: #45AEF1;
+  --purple: #9080F0;
   --black: #22292f;
   --white: white;
   --white-50: rgba(255, 255, 255, 0.5);
@@ -31,9 +33,9 @@
       linear,
       left bottom,
       left top,
-      from(#3F5E92),
-      to(#3a5c88)
+      from(#A076EE),
+      to(#45AEF1)
   );
 
-  background-image: linear-gradient(0deg, #3F5E92, #5eb6ba);
+  background-image: linear-gradient(0deg, #A076EE, #45AEF1);
 }

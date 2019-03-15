@@ -23,7 +23,7 @@ class Spot extends JsonResource
             "postal_code" => $this->postal_code,
             "id" => $this->id,
             "photo" => "https://picsum.photos/300/200?image={$this->id}",
-            "pets" => rand(0,1),
+            "pets" => (boolean) rand(0,1),
             "sleeps" => rand(2,20),
             "baths" => rand(1,3)
         ];
