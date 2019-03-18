@@ -12,7 +12,9 @@
         "build-moderate-spot-prod": "cd nova-components/ModerateSpot && npm run prod",
         "build-pending-submissions": "cd nova-components/PendingSubmissions && npm run dev",
         "watch-pending-submissions": "cd nova-components/PendingSubmissions && npm run watch",
-        "build-pending-submissions-prod": "cd nova-components/PendingSubmissions && npm run prod"
+        "build-pending-submissions-prod": "cd nova-components/PendingSubmissions && npm run prod",
+        "build-belongs-to-many-checks": "cd nova-components/BelongsToManyChecks && npm run dev",
+        "build-belongs-to-many-checks-prod": "cd nova-components/BelongsToManyChecks && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",

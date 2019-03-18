@@ -60,8 +60,16 @@ class BaseSpot extends Model implements HasMedia
             $editToken->spot()->associate($spot);
             $editToken->save();
         });
-    }
 
+        // static::saving(function ($spot) {
+        //     dump('hmm');
+        //     dump($spot->selected_amenities);
+        //     if ($spot->isDirty('selected_amenities')) {
+        //         $spot->amenities()->sync($spot->selected_amenities);
+        //         unset($spot->selected_amenities);
+        //     }
+        // });
+    }
 
     // ######                                                    
     // #     # ###### #        ##   ##### #  ####  #    #  ####  
@@ -70,6 +78,11 @@ class BaseSpot extends Model implements HasMedia
     // #   #   #      #      ######   #   # #    # #  # #      # 
     // #    #  #      #      #    #   #   # #    # #   ## #    # 
     // #     # ###### ###### #    #   #   #  ####  #    #  ####                                                                
+    public function amenities()
+    {
+        return $this->belongsToMany('App\Amenity', 'amenity_spot', 'spot_id', 'amenity_id');
+    }
+    
     public function bookingRequests()
     {
         return $this->hasMany('App\BookingRequest', 'spot_id');

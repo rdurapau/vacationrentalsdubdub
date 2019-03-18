@@ -34,5 +34,4 @@ class SpotTest extends TestCase
         $this->assertNull(Spot::find($spot->id));
         $this->assertCount(0,Spot::all());
     }
-
 }

@@ -45,6 +45,13 @@ class BaseSpotTest extends TestCase
         );
     }
 
+    public function test_it_has_amenities()
+    {
+        $amenity = factory('App\Amenity')->create();
+        $this->spot->amenities()->attach($amenity);
+        $this->assertCount(1, $this->spot->amenities);
+    }
+
     public function test_it_has_an_edit_url_attribute()
     {
         $this->assertEquals($this->spot->editToken->url, $this->spot->edit_url);

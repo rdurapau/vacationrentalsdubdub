@@ -9,7 +9,11 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\BelongsToMany;
 
+use SweetSpot\BelongsToManyChecks\BelongsToManyChecks;
+use Fourstacks\NovaCheckboxes\Checkboxes;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 use Illuminate\Http\Request;
@@ -64,6 +68,11 @@ class Spot extends Resource
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
             Currency::make('Price')->hideFromIndex(),
+            BelongsToManyChecks::make('Amenities', 'spot_amenities')
+                ->populateWith(\App\Amenity::all())
+                ->groupBy('type')
+                ->selected($this->amenities->pluck('id')->toArray())
+                ->hideFromIndex(),
             new Panel('Owner Contact Information', $this->contactFields()),
             new Panel('Address Information', $this->addressFields()),
             new Panel('Photos', $this->photoFields()),
@@ -75,7 +84,10 @@ class Spot extends Resource
                 return $this->edit_url;
             })->onlyOnDetail(),
             // (new ManageLink)->editUrl(function(){return $this->edit_url;}),
-            HasMany::make('Booking Requests', 'bookingRequests')->hideFromIndex()
+            HasMany::make('Booking Requests', 'bookingRequests')->hideFromIndex(),
+            // Checkboxes::make('Amenities', 'selected_amenities')
+            //     ->options(\App\Amenity::all()->pluck('name','id')),
+            // BelongsToMany::make('Amenities')->hideFromIndex()
         ];
     }
 
