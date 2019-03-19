@@ -10,13 +10,18 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\Image\Manipulations;
 
 use App\Traits\Moderatable;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class BaseSpot extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait, Moderatable;
+    use SoftDeletes, HasMediaTrait, Moderatable;  
+
+    protected $morphClass = 'spot';
 
     protected $table = 'spots';
 
@@ -61,6 +66,10 @@ class BaseSpot extends Model implements HasMedia
             $editToken->save();
         });
 
+        // Relation::morphMap([
+        //     'spots' => 'App\BaseSpot',
+        // ]);
+
         // static::saving(function ($spot) {
         //     dump('hmm');
         //     dump($spot->selected_amenities);
@@ -69,6 +78,18 @@ class BaseSpot extends Model implements HasMedia
         //         unset($spot->selected_amenities);
         //     }
         // });
+    }
+
+    // protected static function loadMorphMap()
+    // {
+    //     Relation::morphMap([
+    //         'users' => 'App\Models\User',
+    //     ]);
+    // }
+
+    public function getMorphClass()
+    {
+        return 'App\BaseSpot';
     }
 
     // ######                                                    
@@ -99,6 +120,31 @@ class BaseSpot extends Model implements HasMedia
         return $this->hasMany('App\EditToken', 'spot_id');
     }
 
+    // public function media()
+    // {
+    //     return $this->morphMany(config('medialibrary.media_model'), 'model');
+    // }
+
+    public function coverPhoto()
+    {
+        return url($this->getFirstMediaUrl());
+        // return $this->media()->orderBy('order_column')->first()
+            // ->orderByDesc('order_column');
+    }
+
+    // public function registerMediaCollections()
+    // {
+    //     $this->addMediaCollection('photos')
+    //         ->registerMediaConversions(function(Media $media = null) {
+    //             $this->addMediaConversion('thumb')
+    //                  ->crop(
+    //                     Manipulations::CROP_CENTER,
+    //                     300,
+    //                     300
+    //                  );
+    //         });
+    // }
+
     public function registerMediaConversions(Media $media = null)
     {
         $this->addMediaConversion('thumb')
@@ -124,6 +170,26 @@ class BaseSpot extends Model implements HasMedia
     public function getEditUrlAttribute()
     {
         return route('editTokens.edit', ['spots' => $this, 'editToken' => $this->editToken]);
+    }
+
+    public function allowsPets()
+    {
+        // $this->loadMissing('amenities');
+        // if ($this->relationLoaded('amenities')) {
+            return $this->amenities->contains(function($amenity) {
+                return $amenity->id == 14;
+            });
+        // } else {
+        //     return DB::table('amenity_spot')
+        //         ->whereSpotId($this->id)
+        //         ->whereAmenityId(14)
+        //         ->count() > 0;
+        // }
+    }
+
+    public function getCoverPhotoAttribute()
+    {
+        
     }
 
     //  #     #                                          

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Submission extends BaseSpot
 {
@@ -21,6 +22,9 @@ class Submission extends BaseSpot
             $builder->where('moderation_status', ModerationStatus::PENDING);
         });
 
+        // Relation::morphMap([
+        //     'spots' => 'App\Submission',
+        // ]);
         // static::withoutGlobalScope('approved');
     }
 

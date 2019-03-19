@@ -22,8 +22,12 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'state' => $faker->stateAbbr(),
         'postal_code' => $faker->postcode(),
         'owner_name' => $faker->name(),
+        
+        "sleeps" => rand(2,20),
+        "baths" => rand(1,3),
         'lat' => $coords[0],
         'lng' => $coords[1],
+        
         'moderated_by' => 1,
         'moderated_at' => $faker->dateTimeBetween('-1 years', $endDate = 'now'),
         'moderation_status' => ModerationStatus::APPROVED,
@@ -43,6 +47,17 @@ $factory->state(App\Spot::class, 'pending', function (Faker $faker) {
 $factory->state(App\Spot::class, 'rejected', [
     'moderation_status' => ModerationStatus::REJECTED
 ]);
+
+$factory->afterCreating(App\Spot::class, function($spot, $faker) {
+    $amenities = range(1,19);
+    $spot->amenities()->sync($faker->randomElements($amenities,rand(3,8)));
+});
+
+$factory->afterCreatingState(App\Spot::class, 'has-photo', function ($spot, $faker) {
+    $spot
+        ->addMediaFromUrl($faker->image('/tmp', 640, 480, 'city'))
+        ->toMediaCollection();
+});
 
 $factory->afterCreatingState(App\Spot::class, 'has-requests', function ($spot, $faker) {
     factory('App\BookingRequest',rand(0,5))->create([

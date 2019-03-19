@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e5d0c1dd931293f711a73f42ebc16a6f",
+    "content-hash": "067c015827c263a2c9eb87e1ec4ca6d2",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.90.3",
+            "version": "3.90.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "12ba8071bcc3d79cbfbf8cca77f59f146816b17a"
+                "reference": "6b8821a0d9c28dba9fc62d9997f36ccfc7fc2e53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/12ba8071bcc3d79cbfbf8cca77f59f146816b17a",
-                "reference": "12ba8071bcc3d79cbfbf8cca77f59f146816b17a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6b8821a0d9c28dba9fc62d9997f36ccfc7fc2e53",
+                "reference": "6b8821a0d9c28dba9fc62d9997f36ccfc7fc2e53",
                 "shasum": ""
             },
             "require": {
@@ -86,7 +86,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2019-03-14T18:32:41+00:00"
+            "time": "2019-03-18T18:09:25+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -3033,6 +3033,39 @@
             ]
         },
         {
+            "name": "sweet-spot/edit-url",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/EditUrl",
+                "reference": "9f0a9810655b0d7494e45094de1f726bf28f2b78"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SweetSpot\\EditUrl\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SweetSpot\\EditUrl\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
+        },
+        {
             "name": "sweet-spot/moderate-spot",
             "version": "dev-master",
             "dist": {
@@ -3060,6 +3093,39 @@
                 "MIT"
             ],
             "description": "A Laravel Nova resource tool.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ]
+        },
+        {
+            "name": "sweet-spot/moderate-submission",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "./nova-components/ModerateSubmission",
+                "reference": "40b11d7453a41ccab89f3d304dde116dfb413903"
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "SweetSpot\\ModerateSubmission\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "SweetSpot\\ModerateSubmission\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
             "keywords": [
                 "laravel",
                 "nova"

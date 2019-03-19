@@ -25,6 +25,20 @@ class Amenity extends Resource
     public static $title = 'name';
 
     /**
+     * Indicates if the resource should be displayed in the sidebar.
+     *
+     * @var bool
+     */
+    public static $displayInNavigation = false;
+
+    /**
+     * Indicates if the resource should be globally searchable.
+     *
+     * @var bool
+     */
+    public static $globallySearchable = false;
+
+    /**
      * The columns that should be searched.
      *
      * @var array

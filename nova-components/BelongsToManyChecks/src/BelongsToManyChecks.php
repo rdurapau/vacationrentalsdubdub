@@ -27,7 +27,8 @@ class BelongsToManyChecks extends Field
 
     public function populateWith($val)
     {
-        // dump($val);
+        // dump($model);
+        // dump(get_class($this->amenities()->getRelated()));
         return $this->withMeta(['populateWith' => $val]);
     }
 

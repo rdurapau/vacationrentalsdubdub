@@ -14,7 +14,11 @@
         "watch-pending-submissions": "cd nova-components/PendingSubmissions && npm run watch",
         "build-pending-submissions-prod": "cd nova-components/PendingSubmissions && npm run prod",
         "build-belongs-to-many-checks": "cd nova-components/BelongsToManyChecks && npm run dev",
-        "build-belongs-to-many-checks-prod": "cd nova-components/BelongsToManyChecks && npm run prod"
+        "build-belongs-to-many-checks-prod": "cd nova-components/BelongsToManyChecks && npm run prod",
+        "build-edit-url": "cd nova-components/EditUrl && npm run dev",
+        "build-edit-url-prod": "cd nova-components/EditUrl && npm run prod",
+        "build-moderate-submission": "cd nova-components/ModerateSubmission && npm run dev",
+        "build-moderate-submission-prod": "cd nova-components/ModerateSubmission && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",

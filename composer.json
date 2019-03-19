@@ -25,7 +25,9 @@
         "sweet-spot/belongs-to-many-checks": "*",
         "sweet-spot/moderate-spot": "*",
         "sweet-spot/pending-submissions": "*",
-        "sweet-spot/sweet-theme": "*"
+        "sweet-spot/sweet-theme": "*",
+        "sweet-spot/edit-url": "*",
+        "sweet-spot/moderate-submission": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -56,6 +58,14 @@
         {
             "type": "path",
             "url": "./nova-components/BelongsToManyChecks"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/EditUrl"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/ModerateSubmission"
         }
     ],
     "config": {

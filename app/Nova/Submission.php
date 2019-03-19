@@ -14,6 +14,8 @@ use App\Nova\Filters\ModerationFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 use SweetSpot\PendingSubmissions\PendingSubmissions as PendingSubmissionsCard;
+use SweetSpot\BelongsToManyChecks\BelongsToManyChecks;
+use SweetSpot\EditUrl\EditUrl;
 
 use App\ModerationStatus;
 
@@ -67,10 +69,15 @@ class Submission extends Resource
     public function fields(Request $request)
     {
         return [
-            // ModerateSpot::make(),
+            
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
             Currency::make('Price')->sortable(),
+            BelongsToManyChecks::make('Amenities')
+                ->populateWith(\App\Amenity::all())
+                ->groupBy('type')
+                ->selected($this->amenities->pluck('id')->toArray())
+                ->hideFromIndex(),
             new Panel('Owner Contact Information', $this->contactFields()),
             new Panel('Address Information', $this->addressFields()),
             new Panel('Photos', $this->photoFields()),
@@ -79,9 +86,11 @@ class Submission extends Resource
                 ->hideWhenUpdating()
                 ->format('YYYY-MM-DD @ HH:mm')
                 ->sortable(),
-            Text::make('Edit Url', function () {
-                return $this->edit_url;
-            })->onlyOnDetail()
+            EditUrl::make('Edit Url')
+                ->onlyOnDetail(),
+            // Text::make('Edit Url', function () {
+            //     return $this->edit_url;
+            // })->onlyOnDetail()
         ];
     }
 

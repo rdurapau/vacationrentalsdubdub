@@ -25,17 +25,17 @@ class GeoSpot extends JsonResource
                 ]
             ],
             "properties"=> [
-                // "name" => $this->name,
-                "price" => $this->price,
+                "baths" => $this->baths,
                 // "address" => $this->address1,
                 // "city" => $this->city,
-                // "state" => $this->state,
-                "postal_code" => $this->postal_code,
                 "id" => $this->id,
-                "photo" => "https://picsum.photos/300/200?image={$this->id}",
-                "pets" => (boolean) rand(0,1),
-                "sleeps" => rand(2,20),
-                "baths" => rand(1,3)
+                // "name" => $this->name,
+                "pets" => $this->allowsPets(),
+                "photo" => $this->cover_photo,
+                "postal_code" => $this->postal_code,
+                "price" => $this->price,
+                "sleeps" => $this->sleeps,
+                // "state" => $this->state,
             ]
         ];
     }

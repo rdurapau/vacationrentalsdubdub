@@ -68,7 +68,7 @@ class Spot extends Resource
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
             Currency::make('Price')->hideFromIndex(),
-            BelongsToManyChecks::make('Amenities', 'spot_amenities')
+            BelongsToManyChecks::make('Amenities')
                 ->populateWith(\App\Amenity::all())
                 ->groupBy('type')
                 ->selected($this->amenities->pluck('id')->toArray())

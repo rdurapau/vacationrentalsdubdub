@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class Spot extends BaseSpot
 {
@@ -20,6 +21,13 @@ class Spot extends BaseSpot
         static::addGlobalScope('approved', function (Builder $builder) {
             $builder->where('moderation_status', ModerationStatus::APPROVED);
         });
+    }
+
+
+
+    public function media()
+    {
+        return $this->morphMany(config('medialibrary.media_model'), 'model');
     }
 
 }

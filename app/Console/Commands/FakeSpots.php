@@ -11,7 +11,7 @@ class FakeSpots extends Command
      *
      * @var string
      */
-    protected $signature = 'sweet:fakespots {count?} {--T|type=all}';
+    protected $signature = 'sweet:fakespots {count?} {--T|type=all} {--P|photo}';
 
     /**
      * The console command description.
@@ -39,6 +39,7 @@ class FakeSpots extends Command
     {
         $count = $this->argument('count') ? $this->argument('count') : 50;
         $type = $this->option('type') ? $this->option('type') : 'all';
+        $states = $this->option('photo') ? ['has-photo'] : [];
 
         if ($type == 'all') {
             $a = floor($count/2);
@@ -48,19 +49,25 @@ class FakeSpots extends Command
             $a = $b = $c = intval($count);
         }
 
-        if ($type == 'approved' || $type == 'a') {
+        if ($type == 'approved' || $type == 'a' || $type == 'all') {
+            $aState = $states;
+            $aState[] = 'has-requests';
             $this->info("Seeding {$a} approved spots");
-            factory('App\Spot', $a)->states('has-requests')->create();
+            factory('App\Spot', $a)->states($aState)->create();
         }
 
-        if ($type == 'pending' || $type == 'p') {
+        if ($type == 'pending' || $type == 'p' || $type == 'all') {
+            $pState = $states;
+            $pState[] = 'pending';
             $this->info("Seeding {$b} pending spots");
-            factory('App\Spot', $b)->states('pending')->create();
+            factory('App\Spot', $b)->states($pState)->create();
         }
 
-        if ($type == 'rejected' || $type == 'r') {
+        if ($type == 'rejected' || $type == 'r' || $type == 'all') {
+            $rState = $states;
+            $rState[] = 'rejected';
             $this->info("Seeding {$c} rejected spots");
-            factory('App\Spot', $c)->states('rejected')->create();
+            factory('App\Spot', $c)->states($rState)->create();
         }
     }
 }
