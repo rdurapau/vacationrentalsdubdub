@@ -37,6 +37,8 @@ class BaseSpot extends Model implements HasMedia
         'state',
         'postal_code',
         'owner_name',
+        'sleeps',
+        'baths',
         'lat',
         'lng'
     ];
@@ -187,9 +189,29 @@ class BaseSpot extends Model implements HasMedia
         // }
     }
 
+    /**
+     * Returns an array of the IDs of the Amenity's associated with this spot
+     * @return array
+     */
+    public function getAmenityIdsAttribute()
+    {   
+        $amenityIds = DB::table('amenity_spot')
+            ->select('amenity_id')
+            ->where('spot_id','=',$this->id)
+            ->get();
+
+        $json = json_decode(json_encode($amenityIds), true);
+        $arr = [];
+        foreach($json as $j) {
+            $arr[] = $j['amenity_id'];
+        }
+        return $arr;
+    }
+    
+
     public function getCoverPhotoAttribute()
     {
-        
+        return $this->getFirstMediaUrl() ? url($this->getFirstMediaUrl()) : NULL;
     }
 
     //  #     #                                          

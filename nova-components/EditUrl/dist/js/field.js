@@ -342,6 +342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['resource', 'resourceName', 'resourceId', 'field']
@@ -364,12 +365,13 @@ var render = function() {
           _c(
             "a",
             {
-              staticClass: "text-primary-dark",
+              staticClass: "text-primary",
               attrs: { target: "_blank", href: _vm.field.value }
             },
             [_vm._v(_vm._s(_vm.field.value))]
           )
         ]),
+        _vm._v(" "),
         _c("div", [
           _c(
             "button",
@@ -489,6 +491,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -501,25 +508,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /*
          * Set the initial, internal value for the field.
          */
-        setInitialValue: function setInitialValue() {
-            this.value = this.field.value || '';
-        },
+        // setInitialValue() {
+        //     this.value = this.field.value || ''
+        // },
 
+        // /**
+        //  * Fill the given FormData object with the field's internal value.
+        //  */
+        // fill(formData) {
+        //     formData.append(this.field.attribute, this.value || '')
+        // },
 
-        /**
-         * Fill the given FormData object with the field's internal value.
-         */
-        fill: function fill(formData) {
-            formData.append(this.field.attribute, this.value || '');
-        },
-
-
-        /**
-         * Update the field's internal value.
-         */
-        handleChange: function handleChange(value) {
-            this.value = value;
-        }
+        // /**
+        //  * Update the field's internal value.
+        //  */
+        // handleChange(value) {
+        //     this.value = value
+        // },
     }
 });
 
@@ -10760,35 +10765,54 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "default-field",
-    { attrs: { field: _vm.field, errors: _vm.errors } },
+    { attrs: { field: _vm.field, errors: _vm.errors, fullWidthContent: true } },
     [
       _c("template", { slot: "field" }, [
-        _c("input", {
-          directives: [
+        _c("div", { staticClass: "flex align-center justify-start" }, [
+          _c(
+            "a",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          class: _vm.errorClasses,
-          attrs: {
-            id: _vm.field.name,
-            type: "text",
-            placeholder: _vm.field.name
-          },
-          domProps: { value: _vm.value },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.value = $event.target.value
-            }
-          }
-        })
+              staticClass: "text-primary",
+              attrs: { target: "_blank", href: _vm.field.value }
+            },
+            [_vm._v(_vm._s(_vm.field.value))]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass:
+                "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex align-center justify-start"
+            },
+            [
+              _c(
+                "svg",
+                {
+                  staticClass: "icon-refresh w-4 h-auto mr-1",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 24 24",
+                    width: "24",
+                    height: "24"
+                  }
+                },
+                [
+                  _c("path", {
+                    staticClass: "heroicon-ui",
+                    attrs: {
+                      fill: "#fff",
+                      d:
+                        "M5.41 16H18a2 2 0 0 0 2-2 1 1 0 0 1 2 0 4 4 0 0 1-4 4H5.41l2.3 2.3a1 1 0 0 1-1.42 1.4l-4-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.4L5.4 16zM6 8a2 2 0 0 0-2 2 1 1 0 0 1-2 0 4 4 0 0 1 4-4h12.59l-2.3-2.3a1 1 0 1 1 1.42-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.42-1.4L18.6 8H6z"
+                    }
+                  })
+                ]
+              ),
+              _vm._v("\n                Generate New URL\n            ")
+            ]
+          )
+        ])
       ])
     ],
     2

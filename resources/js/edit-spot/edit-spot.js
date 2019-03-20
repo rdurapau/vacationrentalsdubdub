@@ -15,7 +15,7 @@ let MapboxGeocoder = require('mapbox-gl-geocoder');
 mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-79.4512, 43.6568],
     zoom: 13
 });

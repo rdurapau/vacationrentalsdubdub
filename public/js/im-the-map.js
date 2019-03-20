@@ -23,6 +23,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var mapboxgl = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 
 var geoJSON = __webpack_require__(/*! geojson */ "./node_modules/geojson/geojson.js");
@@ -37,18 +40,12 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
       'popups': [],
       'filters': {
         'pets': false,
-        'sleeps': 0,
+        'sleeps': '',
         'price': 0
       }
     };
   },
   methods: {
-    queryRendered: function queryRendered() {
-      console.log(this.map.queryRenderedFeatures());
-      console.log(this.map.queryRenderedFeatures({
-        layers: ['unclustered-point']
-      }));
-    },
     applyFilters: function applyFilters() {
       var filters = [];
       if (this.filterPet) filters.push(this.filterPet);
@@ -94,7 +91,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
     // console.log(mapboxgl);
     this.map = new mapboxgl.Map({
       container: 'map-wrapper',
-      style: 'mapbox://styles/mapbox/streets-v9',
+      style: 'mapbox://styles/mapbox/light-v10',
       center: [-98.3810608, 37.9507756],
       zoom: 4
     });
@@ -155,32 +152,28 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
       }); // inspect a cluster on click
 
 
-      var self = _this;
-
-      _this.map.on('click', 'clusters', function (e) {
-        var features = self.map.queryRenderedFeatures(e.point, {
-          layers: ['clusters']
-        });
-
-        if (features.length) {
-          var clusterId = features[0].properties.cluster_id;
-          self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
-            if (err) return;
-            self.map.easeTo({
-              center: features[0].geometry.coordinates,
-              zoom: zoom
-            });
-          });
-        }
-      });
+      var self = _this; // this.map.on('click', 'clusters', function (e) {
+      //     var features = self.map.queryRenderedFeatures(e.point, {
+      //         layers: ['clusters']
+      //     });
+      //     if (features.length) {
+      //         var clusterId = features[0].properties.cluster_id;
+      //         self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
+      //             if (err)
+      //                 return;
+      //             self.map.easeTo({
+      //                 center: features[0].geometry.coordinates,
+      //                 zoom: zoom
+      //             });
+      //         });
+      //     }
+      // });
 
       _this.map.on('click', 'unclustered-point', function (e) {
-        // self.queryRendered();
         alert('SHOW ME SPOT #' + e.features[0].properties.id + ', KNAVE');
       });
 
       _this.map.on('moveend', function () {
-        console.log('moveend');
         self.popups.forEach(function (popup) {
           popup.remove();
         });
@@ -188,22 +181,14 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
         var visibleFeatures = self.map.queryRenderedFeatures({
           layers: ['unclustered-point']
         });
-        console.log(visibleFeatures);
 
         if (visibleFeatures) {
-          // var uniqueFeatures = getUniqueFeatures(features, "iata_code");
           visibleFeatures.forEach(function (feature) {
             self.popups.push(new mapboxgl.Popup({
               closeButton: false,
               closeOnClick: false
             }).setLngLat(feature.geometry.coordinates).setHTML('<img src="' + feature.properties.photo + '"/><section><span>$' + feature.properties.price + '</span><span>B: ' + feature.properties.baths + '</span><span>S: ' + feature.properties.sleeps + '</span></section>').addTo(self.map));
-          }); // Populate features for the listing overlay.
-          // renderListings(uniqueFeatures);
-          // Clear the input container
-          // filterEl.value = '';
-          // Store the current features in sn `airports` variable to
-          // later use for filtering on `keyup`.
-          // airports = uniqueFeatures;
+          });
         }
       });
     });
@@ -11760,7 +11745,7 @@ var render = function() {
             expression: "filters.sleeps"
           }
         ],
-        attrs: { type: "text" },
+        attrs: { type: "text", placeholder: "How many people?" },
         domProps: { value: _vm.filters.sleeps },
         on: {
           input: function($event) {
@@ -11772,45 +11757,48 @@ var render = function() {
         }
       }),
       _vm._v(" "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.filters.pets,
-            expression: "filters.pets"
-          }
-        ],
-        attrs: { type: "checkbox" },
-        domProps: {
-          checked: Array.isArray(_vm.filters.pets)
-            ? _vm._i(_vm.filters.pets, null) > -1
-            : _vm.filters.pets
-        },
-        on: {
-          change: function($event) {
-            var $$a = _vm.filters.pets,
-              $$el = $event.target,
-              $$c = $$el.checked ? true : false
-            if (Array.isArray($$a)) {
-              var $$v = null,
-                $$i = _vm._i($$a, $$v)
-              if ($$el.checked) {
-                $$i < 0 && _vm.$set(_vm.filters, "pets", $$a.concat([$$v]))
+      _c("label", { attrs: { for: "filter-pets" } }, [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.filters.pets,
+              expression: "filters.pets"
+            }
+          ],
+          attrs: { type: "checkbox", id: "filter-pets" },
+          domProps: {
+            checked: Array.isArray(_vm.filters.pets)
+              ? _vm._i(_vm.filters.pets, null) > -1
+              : _vm.filters.pets
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.filters.pets,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && _vm.$set(_vm.filters, "pets", $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    _vm.$set(
+                      _vm.filters,
+                      "pets",
+                      $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                    )
+                }
               } else {
-                $$i > -1 &&
-                  _vm.$set(
-                    _vm.filters,
-                    "pets",
-                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                  )
+                _vm.$set(_vm.filters, "pets", $$c)
               }
-            } else {
-              _vm.$set(_vm.filters, "pets", $$c)
             }
           }
-        }
-      }),
+        }),
+        _vm._v("\n            Allows Pets\n        ")
+      ]),
       _vm._v(" "),
       _c("button", { staticClass: "run-it", on: { click: _vm.applyFilters } }, [
         _vm._v("Filter")
@@ -12062,7 +12050,7 @@ let MapboxGeocoder = require('mapbox-gl-geocoder');
 mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-79.4512, 43.6568],
     zoom: 13
 });

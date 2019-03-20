@@ -54,6 +54,7 @@ class SpotTest extends TestCase
         $r = $this->post('/spots', $data)
             ->assertSessionHasNoErrors()
             ->assertRedirect();
+            // ;dd($r->decodeResponseJson());
 
         $spot = BaseSpot::where('desc', $data['desc'])->first();
         

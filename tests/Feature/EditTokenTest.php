@@ -10,6 +10,7 @@ use App\Helpers\RandomCoordinates;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -106,5 +107,31 @@ class EditTokenTest extends TestCase
             'id' => $spot->id,
             'address1' => $spot->address1
         ]);
+    }
+
+    public function playground()
+    {
+        $spot = factory('App\Spot')->create();
+        $amenity_ids = DB::table('amenity_spot')
+            ->select('amenity_id')
+            ->where('spot_id','=',$spot->id)
+            ->get();
+
+        $json = json_decode(json_encode($amenity_ids), true);
+        $arr = [];
+        foreach($json as $j) {
+            $arr[] = $j['amenity_id'];
+        }
+        dd($arr);
+
+        
+        $result = DB::table('amenities')
+            ->leftJoin('amenity_spot', 'amenities.id', '=', 'amenity_spot.amenity_id')
+            ->leftJoin('spots', 'spots.id', '=', 'amenity_spot.spot_id')
+            ->select('amenities.*', 'amenity_spot.*')
+            ->get();
+
+        dd($result);
+        
     }
 }

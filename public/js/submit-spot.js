@@ -121,12 +121,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var mapboxgl = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 
 var MapboxGeocoder = __webpack_require__(/*! mapbox-gl-geocoder */ "./node_modules/mapbox-gl-geocoder/lib/index.js");
 
 mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['amenities'],
   data: function data() {
     return {
       'owner_name': '',
@@ -150,8 +168,6 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
   },
   methods: {
     addressSelected: function addressSelected(ev) {
-      console.log('selected');
-      console.log(ev.result);
       var context = ev.result.context;
       this.map.getSource('single-point').setData(ev.result.geometry);
       this.address_street = (ev.result.address ? ev.result.address + ' ' : '') + ev.result.text;
@@ -180,7 +196,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
     // console.log(mapboxgl);
     this.map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v9',
+      style: 'mapbox://styles/mapbox/light-v10',
       center: [-98.5833, 39.833333],
       zoom: 2
     });
@@ -16081,6 +16097,34 @@ var render = function() {
                 _vm._m(0)
               ]),
               _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "form-row" },
+                _vm._l(_vm.amenities, function(amenity) {
+                  return _c(
+                    "div",
+                    { staticClass: "form-check form-check-inline" },
+                    [
+                      _c("input", {
+                        staticClass: "form-check-input",
+                        attrs: {
+                          type: "checkbox",
+                          name: "amenities[" + amenity.id + "]",
+                          id: "check-amenity-" + amenity.id
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", {
+                        staticClass: "form-check-label",
+                        attrs: { for: "check-amenity-" + amenity.id },
+                        domProps: { textContent: _vm._s(amenity.name) }
+                      })
+                    ]
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
               _vm._m(1),
               _vm._v(" "),
               _vm._m(2),
@@ -16090,6 +16134,8 @@ var render = function() {
               _vm._m(3),
               _vm._v(" "),
               _vm._m(4),
+              _vm._v(" "),
+              _vm._m(5),
               _vm._v(" "),
               _c("div", { staticClass: "form-row" }, [
                 _c("div", { staticClass: "form-group col-md-5" }, [
@@ -16213,9 +16259,9 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
               _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7),
               _vm._v(" "),
               _c("input", {
                 attrs: { type: "hidden", name: "lat" },
@@ -16232,7 +16278,7 @@ var render = function() {
                 domProps: { value: _vm.csrf }
               }),
               _vm._v(" "),
-              _vm._m(7)
+              _vm._m(8)
             ])
           ])
         ])
@@ -16325,6 +16371,32 @@ var staticRenderFns = [
         _c("input", {
           staticClass: "form-control",
           attrs: { type: "text", name: "price", id: "price" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-row" }, [
+      _c("div", { staticClass: "form-group col-md-6" }, [
+        _c("label", { attrs: { for: "sleeps" } }, [
+          _vm._v("# of people it can sleep")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "number", name: "sleeps", id: "sleeps" }
+        })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group col-md-4" }, [
+        _c("label", { attrs: { for: "baths" } }, [_vm._v("# of bathrooms")]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "form-control",
+          attrs: { type: "number", name: "baths", id: "baths" }
         })
       ])
     ])
@@ -16664,7 +16736,7 @@ let MapboxGeocoder = require('mapbox-gl-geocoder');
 mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-79.4512, 43.6568],
     zoom: 13
 });

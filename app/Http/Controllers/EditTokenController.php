@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Amenity;
 use App\BaseSpot;
 use App\EditToken;
 use Illuminate\Http\Request;
@@ -72,8 +73,14 @@ class EditTokenController extends Controller
         if ($editToken->spot_id != $spot->id) {
             return false;
         }
-
-        return view('spots.edit', compact('spot', 'editToken'));
+        $amenities = Amenity::all();
+        $selectedAmenities = $spot->amenities()->pluck('id');
+        $amenities->each(function($a) use ($selectedAmenities) {
+            // $a->selected = (in_array($a->id, $spot->amenity_ids));
+            $a->selected = $selectedAmenities->contains($a->id);
+        });
+        // dd($amenities);
+        return view('spots.edit', compact('spot', 'editToken','amenities'));
     }
 
     /**

@@ -27,6 +27,7 @@ class Spot extends JsonResource
             "sleeps" => $this->sleeps,
             "state" => $this->state,
             "photo" => $this->cover_photo,
+            "pets" => $this->allowsPets(),
             'amenities' => Amenity::collection($this->whenLoaded('amenities')),
         ];
     }

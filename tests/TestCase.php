@@ -17,6 +17,8 @@ abstract class TestCase extends BaseTestCase
     public function setUp() : void 
     {
         parent::setUp();
+        $this->seedAmenities();
+
     }
 
     protected function signIn($user = null, $guard = null)
@@ -49,6 +51,8 @@ abstract class TestCase extends BaseTestCase
             'state' => $this->faker->stateAbbr(),
             'postal_code' => $this->faker->postcode(),
             'owner_name' => $this->faker->name(),
+            'sleeps' => rand(2,18),
+            'baths' => rand(2,4),
             'lat' => $coords[0],
             'lng' => $coords[1]
         ], $overrides);
@@ -67,5 +71,10 @@ abstract class TestCase extends BaseTestCase
             'phone' => $this->faker->phoneNumber(),
             'dates' => $dates
         ], $overrides);
+    }
+
+    protected function seedAmenities()
+    {
+        $this->artisan('db:seed --class=AmenitiesTableSeeder');
     }
 }

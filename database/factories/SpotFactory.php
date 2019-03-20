@@ -49,8 +49,11 @@ $factory->state(App\Spot::class, 'rejected', [
 ]);
 
 $factory->afterCreating(App\Spot::class, function($spot, $faker) {
-    $amenities = range(1,19);
-    $spot->amenities()->sync($faker->randomElements($amenities,rand(3,8)));
+    // $amenities = range(1,19);
+    $amenities = \App\Amenity::pluck('id')->toArray();
+    if ($amenities) {
+        $spot->amenities()->sync($faker->randomElements($amenities,rand(3,8)));
+    }
 });
 
 $factory->afterCreatingState(App\Spot::class, 'has-photo', function ($spot, $faker) {

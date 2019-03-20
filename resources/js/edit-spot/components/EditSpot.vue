@@ -46,26 +46,44 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                    <div class="form-group col-md-5">
-                                        <label for="addressStreet">Street Address</label>
-                                        <input type="text" name="address1" class="form-control" id="addressStreet" v-model="address1" />
-                                    </div>
+                                <div class="form-group col-md-6">
+                                    <label for="sleeps"># of people it can sleep</label>
+                                    <input v-model="sleeps" type="number" name="sleeps" class="form-control" id="sleeps" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="baths"># of bathrooms</label>
+                                    <input v-model="baths" type="number" name="baths" class="form-control" id="baths" />
+                                </div>
+                            </div>
 
-                                    <div class="form-group col-md-3">
-                                        <label for="addressCity">City</label>
-                                        <input type="text" name="city" class="form-control" id="addressCity" v-model="city" />
-                                    </div>
+                            <h6>Amenities</h6>
+                            <div class="form-row">
+                                <div class="form-check form-check-inline" v-for="amenity in amenities">
+                                    <input class="form-check-input" type="checkbox" :name="'amenities['+amenity.id+']'" :id="'check-amenity-'+amenity.id" :checked="amenity.selected">
+                                    <label class="form-check-label" :for="'check-amenity-'+amenity.id" v-text="amenity.name"></label>
+                                </div>
+                            </div>
 
-                                    <div class="form-group col-md-2">
-                                        <label for="addressState">State</label>
-                                        <input type="text" name="state" class="form-control" id="addressState" v-model="state" />
-                                    </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <label for="addressStreet">Street Address</label>
+                                    <input type="text" name="address1" class="form-control" id="addressStreet" v-model="address1" />
+                                </div>
 
-                                    <div class="form-group col-md-2">
-                                        <label for="addressPostalCode">Postal Code</label>
-                                        <input type="text" name="postal_code" class="form-control" id="addressPostalCode" v-model="postal_code" />
-                                    </div>
-                                <!-- </fieldset> -->
+                                <div class="form-group col-md-3">
+                                    <label for="addressCity">City</label>
+                                    <input type="text" name="city" class="form-control" id="addressCity" v-model="city" />
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="addressState">State</label>
+                                    <input type="text" name="state" class="form-control" id="addressState" v-model="state" />
+                                </div>
+
+                                <div class="form-group col-md-2">
+                                    <label for="addressPostalCode">Postal Code</label>
+                                    <input type="text" name="postal_code" class="form-control" id="addressPostalCode" v-model="postal_code" />
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -99,6 +117,7 @@
 
     export default {
         props: [
+            'amenities',
             'initdata',
             'token'
         ],
@@ -129,7 +148,7 @@
         },
         methods: {
             initSetup() {
-                let fields = ['address1','city','desc','email','id','lat','lng','moderation_status','name','owner_name','phone','postal_code','price','state','website'];
+                let fields = ['address1','city','desc','email','id','lat','lng','moderation_status','name','owner_name','phone','postal_code','price','state','website','sleeps','baths'];
                 var self = this;
                 fields.forEach((field) => {
                     self[field] = (self.initdata[field]) ? self.initdata[field] : '';

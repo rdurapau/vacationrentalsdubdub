@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
@@ -72,22 +73,25 @@ class Submission extends Resource
             
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
+            Number::make('Sleeps'),
+            Number::make('Baths'),
             Currency::make('Price')->sortable(),
             BelongsToManyChecks::make('Amenities')
                 ->populateWith(\App\Amenity::all())
                 ->groupBy('type')
                 ->selected($this->amenities->pluck('id')->toArray())
                 ->hideFromIndex(),
-            new Panel('Owner Contact Information', $this->contactFields()),
-            new Panel('Address Information', $this->addressFields()),
-            new Panel('Photos', $this->photoFields()),
+            EditUrl::make('Edit Url')
+                ->hideWhenCreating()
+                ->hideFromIndex(),
             DateTime::make('Submitted', 'created_at')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->format('YYYY-MM-DD @ HH:mm')
                 ->sortable(),
-            EditUrl::make('Edit Url')
-                ->onlyOnDetail(),
+            new Panel('Owner Contact Information', $this->contactFields()),
+            new Panel('Address Information', $this->addressFields()),
+            new Panel('Photos', $this->photoFields()),
             // Text::make('Edit Url', function () {
             //     return $this->edit_url;
             // })->onlyOnDetail()

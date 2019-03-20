@@ -102,13 +102,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var mapboxgl = __webpack_require__(/*! mapbox-gl */ "./node_modules/mapbox-gl/dist/mapbox-gl.js");
 
 var MapboxGeocoder = __webpack_require__(/*! mapbox-gl-geocoder */ "./node_modules/mapbox-gl-geocoder/lib/index.js");
 
 mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['initdata', 'token'],
+  props: ['amenities', 'initdata', 'token'],
   data: function data() {
     return {
       'id': '',
@@ -133,7 +151,7 @@ mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2e
   },
   methods: {
     initSetup: function initSetup() {
-      var fields = ['address1', 'city', 'desc', 'email', 'id', 'lat', 'lng', 'moderation_status', 'name', 'owner_name', 'phone', 'postal_code', 'price', 'state', 'website'];
+      var fields = ['address1', 'city', 'desc', 'email', 'id', 'lat', 'lng', 'moderation_status', 'name', 'owner_name', 'phone', 'postal_code', 'price', 'state', 'website', 'sleeps', 'baths'];
       var self = this;
       fields.forEach(function (field) {
         self[field] = self.initdata[field] ? self.initdata[field] : '';
@@ -16178,6 +16196,95 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "form-group col-md-6" }, [
+                    _c("label", { attrs: { for: "sleeps" } }, [
+                      _vm._v("# of people it can sleep")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.sleeps,
+                          expression: "sleeps"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", name: "sleeps", id: "sleeps" },
+                      domProps: { value: _vm.sleeps },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.sleeps = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-md-4" }, [
+                    _c("label", { attrs: { for: "baths" } }, [
+                      _vm._v("# of bathrooms")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.baths,
+                          expression: "baths"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "number", name: "baths", id: "baths" },
+                      domProps: { value: _vm.baths },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.baths = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("h6", [_vm._v("Amenities")]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "form-row" },
+                  _vm._l(_vm.amenities, function(amenity) {
+                    return _c(
+                      "div",
+                      { staticClass: "form-check form-check-inline" },
+                      [
+                        _c("input", {
+                          staticClass: "form-check-input",
+                          attrs: {
+                            type: "checkbox",
+                            name: "amenities[" + amenity.id + "]",
+                            id: "check-amenity-" + amenity.id
+                          },
+                          domProps: { checked: amenity.selected }
+                        }),
+                        _vm._v(" "),
+                        _c("label", {
+                          staticClass: "form-check-label",
+                          attrs: { for: "check-amenity-" + amenity.id },
+                          domProps: { textContent: _vm._s(amenity.name) }
+                        })
+                      ]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "form-group col-md-5" }, [
                     _c("label", { attrs: { for: "addressStreet" } }, [
                       _vm._v("Street Address")
@@ -16654,7 +16761,7 @@ let MapboxGeocoder = require('mapbox-gl-geocoder');
 mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/light-v10',
     center: [-79.4512, 43.6568],
     zoom: 13
 });

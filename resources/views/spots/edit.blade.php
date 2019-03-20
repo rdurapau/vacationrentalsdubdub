@@ -27,6 +27,7 @@
     <section id="edit-spot-wrapper">
         <edit-spot
             :initdata="{{$spot->toJson()}}"
+            :amenities='{!!json_encode($amenities)!!}'
             token="{{$editToken->token}}"
         ></edit-spot>
         @csrf

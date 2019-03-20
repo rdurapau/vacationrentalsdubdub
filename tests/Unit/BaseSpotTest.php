@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
+use App\BaseSpot;
 
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -16,7 +17,8 @@ class BaseSpotTest extends TestCase
     {
         parent::setUp();
 
-        $this->spot = factory('App\BaseSpot')->create();
+        $spot = factory('App\Spot')->create();
+        $this->spot = BaseSpot::find($spot->id);
     }
 
     public function test_it_has_edit_tokens()
@@ -48,7 +50,7 @@ class BaseSpotTest extends TestCase
     public function test_it_has_amenities()
     {
         $amenity = factory('App\Amenity')->create();
-        $this->spot->amenities()->attach($amenity);
+        $this->spot->amenities()->sync($amenity);
         $this->assertCount(1, $this->spot->amenities);
     }
 
