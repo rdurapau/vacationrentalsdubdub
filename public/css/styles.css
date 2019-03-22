@@ -1,0 +1,120 @@
+/* CSS Reset from http://meyerweb.com/ */
+* {
+  outline: 0;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+
+html, body, div, span,
+applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dd, dl, dt, li, ol, ul,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  line-height: 1;
+  font-family: inherit;
+  text-align: left; }
+
+a img, :link img, :visited img {
+  border: 0; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+ol, ul {
+  list-style: none; }
+
+q:before, q:after,
+blockquote:before, blockquote:after {
+  content: ""; }
+
+*:focus {
+  outline: 0; }
+
+body, html {
+  height: 100%;
+  position: relative; }
+
+/* Positions */
+body {
+  background: #B7B7B6; }
+
+h1.logo {
+  position: absolute;
+  top: 50px;
+  left: 40px;
+  width: 70px;
+  height: 17px;
+  background: url("../images/logo.svg");
+  background-size: contain; }
+
+footer {
+  position: fixed;
+  display: flex;
+  bottom: 20px;
+  right: 20px;
+  height: 45px; }
+  footer a.submit {
+    background: #9080F0;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    font-family: "Whitney A", "Whitney B";
+    font-style: normal;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 0 20px;
+    margin-right: 20px;
+    border-radius: 100px;
+    transition: all ease-out .25s; }
+    footer a.submit:hover {
+      background: #45AEF1; }
+  footer ul.navigation {
+    display: flex;
+    flex-grow: 1;
+    background: #fff;
+    padding: 0 20px;
+    border-radius: 100px; }
+    footer ul.navigation li {
+      display: flex;
+      flex-grow: 1;
+      align-items: center;
+      font-family: "Whitney A", "Whitney B";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 13px;
+      margin-right: 15px; }
+      footer ul.navigation li:last-child {
+        margin-right: 0;
+        font-family: "Whitney A", "Whitney B";
+        font-style: normal;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 0.35); }
+        footer ul.navigation li:last-child::before {
+          content: '|';
+          font-family: "Whitney A", "Whitney B";
+          font-style: normal;
+          font-weight: 400;
+          color: rgba(0, 0, 0, 0.15);
+          margin-right: 15px; }
+      footer ul.navigation li a {
+        text-decoration: none;
+        color: #666;
+        transition: all ease-out .25s; }
+        footer ul.navigation li a:hover {
+          color: #45AEF1; }

@@ -1,0 +1,11 @@
+@mixin fontBook() {
+    font-family: "Whitney A", "Whitney B";
+    font-style: normal;
+    font-weight: 400;
+}
+
+@mixin fontBold() {
+    font-family: "Whitney A", "Whitney B";
+    font-style: normal;
+    font-weight: 700;
+}
