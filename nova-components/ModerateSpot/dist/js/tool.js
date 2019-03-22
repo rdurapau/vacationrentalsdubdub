@@ -76,57 +76,13 @@ module.exports = __webpack_require__(6);
 /***/ (function(module, exports, __webpack_require__) {
 
 Nova.booting(function (Vue, router, store) {
-    Vue.component('moderate-spot', __webpack_require__(2));
+    // Vue.component('moderate-spot', require('./components/ModerateSpot'))
+    Vue.component('custom-detail-toolbar', __webpack_require__(17));
+    Vue.component('submissions-detail-toolbar', __webpack_require__(20));
 });
 
 /***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(4)
-/* template */
-var __vue_template__ = __webpack_require__(5)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/Tool.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-68ff5483", Component.options)
-  } else {
-    hotAPI.reload("data-v-68ff5483", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 2 */,
 /* 3 */
 /***/ (function(module, exports) {
 
@@ -236,7 +192,176 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 4 */
+/* 4 */,
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(18)
+/* template */
+var __vue_template__ = __webpack_require__(19)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/CustomDetailToolbar.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-cb990944", Component.options)
+  } else {
+    hotAPI.reload("data-v-cb990944", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['resourceName', 'resourceId'],
+    computed: {
+        component: function component() {
+            return this.resourceName + '-detail-toolbar';
+        },
+        hasComponent: function hasComponent() {
+            return this.component in this.$options.components;
+        }
+    }
+});
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "flex w-full justify-end items-center" },
+    [
+      _vm.hasComponent
+        ? _c(_vm.component, {
+            tag: "component",
+            attrs: { resourceId: _vm.resourceId }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-cb990944", module.exports)
+  }
+}
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(21)
+/* template */
+var __vue_template__ = __webpack_require__(22)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/SubmissionsDetailToolbar.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7afd9c6e", Component.options)
+  } else {
+    hotAPI.reload("data-v-7afd9c6e", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -252,24 +377,95 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['resourceName', 'resourceId', 'field'],
+    props: ['resourceId'],
+    data: function data() {
+        return {
+            isWorking: false
+        };
+    },
+    mounted: function mounted() {
+        var elements = document.getElementById('nova').querySelectorAll('h4');
+        [].forEach.call(elements, function (element) {
+            if (element.innerHTML === 'Custom Detail Toolbar') {
+                element.parentNode.remove();
+            }
+        });
+    },
 
     methods: {
         approveSpot: function approveSpot() {
-            console.log('Approved!');
+            this.submitRequest('approved');
         },
         rejectSpot: function rejectSpot() {
-            console.log('Rejected!');
-        }
-    },
+            this.submitRequest('rejected');
+        },
+        submitRequest: function submitRequest(status, message) {
+            var _this = this;
 
-    mounted: function mounted() {}
+            this.isWorking = true;
+            return Nova.request().put('/api/spots/' + this.resourceId + '/moderate', {
+                'status': status,
+                'message': message
+            }).then(function (response) {
+                _this.$toasted.show('Submission was ' + status, { type: 'success' });
+                _this.$router.push('/resources/submissions');
+            }).catch(function (error) {
+                _this.isWorking = false;
+            });
+        }
+    }
 });
 
 /***/ }),
-/* 5 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -277,35 +473,289 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass:
-          "bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded",
-        on: {
-          click: function($event) {
-            $event.preventDefault()
-            return _vm.approveSpot($event)
+    _c("div", { staticClass: "flex w-full justify-end items-center" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default bg-danger btn-icon btn-white mr-3",
+          attrs: { title: "Reject", disabled: _vm.isWorking },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.rejectSpot($event)
+            }
           }
-        }
-      },
-      [_vm._v("\n        Approve\n    ")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass:
-          "bg-danger hover:bg-primary-dark text-white font-bold py-2 px-4 rounded",
-        on: {
-          click: function($event) {
-            $event.preventDefault()
-            return _vm.rejectSpot($event)
+        },
+        [
+          _vm.isWorking
+            ? _c(
+                "svg",
+                {
+                  staticClass: "text-20 mx-0 my-1 h-auto block",
+                  staticStyle: { width: "24px" },
+                  attrs: {
+                    viewBox: "0 0 120 30",
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "currentColor"
+                  }
+                },
+                [
+                  _c("circle", { attrs: { cx: "15", cy: "15", r: "15" } }, [
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "r",
+                        from: "15",
+                        to: "15",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "15;9;15",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    }),
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "fill-opacity",
+                        from: "1",
+                        to: "1",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "1;.5;1",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    })
+                  ]),
+                  _c(
+                    "circle",
+                    {
+                      attrs: {
+                        cx: "60",
+                        cy: "15",
+                        r: "9",
+                        "fill-opacity": "0.3"
+                      }
+                    },
+                    [
+                      _c("animate", {
+                        attrs: {
+                          attributeName: "r",
+                          from: "9",
+                          to: "9",
+                          begin: "0s",
+                          dur: "0.8s",
+                          values: "9;15;9",
+                          calcMode: "linear",
+                          repeatCount: "indefinite"
+                        }
+                      }),
+                      _c("animate", {
+                        attrs: {
+                          attributeName: "fill-opacity",
+                          from: "0.5",
+                          to: "0.5",
+                          begin: "0s",
+                          dur: "0.8s",
+                          values: ".5;1;.5",
+                          calcMode: "linear",
+                          repeatCount: "indefinite"
+                        }
+                      })
+                    ]
+                  ),
+                  _c("circle", { attrs: { cx: "105", cy: "15", r: "15" } }, [
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "r",
+                        from: "15",
+                        to: "15",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "15;9;15",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    }),
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "fill-opacity",
+                        from: "1",
+                        to: "1",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "1;.5;1",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    })
+                  ])
+                ]
+              )
+            : _c(
+                "svg",
+                {
+                  staticClass: "fill-current text-white text-80",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 24 24",
+                    width: "24",
+                    height: "24"
+                  }
+                },
+                [
+                  _c("path", {
+                    staticClass: "heroicon-ui icon-thumb-down",
+                    attrs: {
+                      d:
+                        "M6.38 14H4a2 2 0 0 1-2-2V4c0-1.1.9-2 2-2h11.5c1.2 0 2.3.72 2.74 1.79l3.5 7 .03.06A3 3 0 0 1 19 15h-5v5a2 2 0 0 1-2 2h-1.62l-4-8zM8 12.76L11.62 20H12v-7h7c.13 0 .25-.02.38-.08a1 1 0 0 0 .55-1.28l-3.5-7.02A1 1 0 0 0 15.5 4H8v8.76zM6 12V4H4v8h2z"
+                    }
+                  })
+                ]
+              )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-default bg-success btn-icon btn-white  mr-3",
+          attrs: { title: "Approve", disabled: _vm.isWorking },
+          on: {
+            click: function($event) {
+              $event.preventDefault()
+              return _vm.approveSpot($event)
+            }
           }
-        }
-      },
-      [_vm._v("\n        Reject\n    ")]
-    )
+        },
+        [
+          _vm.isWorking
+            ? _c(
+                "svg",
+                {
+                  staticClass: "text-20 mx-0 my-1 h-auto block",
+                  staticStyle: { width: "24px" },
+                  attrs: {
+                    viewBox: "0 0 120 30",
+                    xmlns: "http://www.w3.org/2000/svg",
+                    fill: "currentColor"
+                  }
+                },
+                [
+                  _c("circle", { attrs: { cx: "15", cy: "15", r: "15" } }, [
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "r",
+                        from: "15",
+                        to: "15",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "15;9;15",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    }),
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "fill-opacity",
+                        from: "1",
+                        to: "1",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "1;.5;1",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    })
+                  ]),
+                  _c(
+                    "circle",
+                    {
+                      attrs: {
+                        cx: "60",
+                        cy: "15",
+                        r: "9",
+                        "fill-opacity": "0.3"
+                      }
+                    },
+                    [
+                      _c("animate", {
+                        attrs: {
+                          attributeName: "r",
+                          from: "9",
+                          to: "9",
+                          begin: "0s",
+                          dur: "0.8s",
+                          values: "9;15;9",
+                          calcMode: "linear",
+                          repeatCount: "indefinite"
+                        }
+                      }),
+                      _c("animate", {
+                        attrs: {
+                          attributeName: "fill-opacity",
+                          from: "0.5",
+                          to: "0.5",
+                          begin: "0s",
+                          dur: "0.8s",
+                          values: ".5;1;.5",
+                          calcMode: "linear",
+                          repeatCount: "indefinite"
+                        }
+                      })
+                    ]
+                  ),
+                  _c("circle", { attrs: { cx: "105", cy: "15", r: "15" } }, [
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "r",
+                        from: "15",
+                        to: "15",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "15;9;15",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    }),
+                    _c("animate", {
+                      attrs: {
+                        attributeName: "fill-opacity",
+                        from: "1",
+                        to: "1",
+                        begin: "0s",
+                        dur: "0.8s",
+                        values: "1;.5;1",
+                        calcMode: "linear",
+                        repeatCount: "indefinite"
+                      }
+                    })
+                  ])
+                ]
+              )
+            : _c(
+                "svg",
+                {
+                  staticClass: "fill-current text-white text-80",
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    viewBox: "0 0 24 24",
+                    width: "24",
+                    height: "24"
+                  }
+                },
+                [
+                  _c("path", {
+                    staticClass: "heroicon-ui icon-thumb-up",
+                    attrs: {
+                      d:
+                        "M17.62 10H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H8.5c-1.2 0-2.3-.72-2.74-1.79l-3.5-7-.03-.06A3 3 0 0 1 5 9h5V4c0-1.1.9-2 2-2h1.62l4 8zM16 11.24L12.38 4H12v7H5a1 1 0 0 0-.93 1.36l3.5 7.02a1 1 0 0 0 .93.62H16v-8.76zm2 .76v8h2v-8h-2z"
+                    }
+                  })
+                ]
+              )
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = []
@@ -314,15 +764,9 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-68ff5483", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-7afd9c6e", module.exports)
   }
 }
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

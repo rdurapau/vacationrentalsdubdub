@@ -76,4 +76,46 @@ class SpotModerationTest extends TestCase
         });
     }
 
+    /** @test */
+    public function a_spot_can_be_approved_via_the_api()
+    {
+        $spot = factory('App\Spot')->states('pending')->create();
+        $r = $this->json(
+            'POST',
+            "{$this->apiRoot}/spots/{$spot->id}/moderate",
+            [
+                'status' => 'approved',
+                '_method'=>'PUT'
+            ]
+        )->assertStatus(204);
+        // );dd($r->decodeResponseJson());
+        
+        $spot->moderate('approved');
+
+        $this->assertDatabaseHas('spots', [
+            'id' => $spot->id,
+            'moderation_status' => ModerationStatus::APPROVED
+        ]);
+    }
+
+    /** @test */
+    public function a_spot_can_be_rejected_via_the_api()
+    {
+        $spot = factory('App\Spot')->states('pending')->create();
+        $r = $this->json(
+            'POST',
+            "{$this->apiRoot}/spots/{$spot->id}/moderate",
+            [
+                'status' => 'rejected',
+                '_method'=>'PUT'
+            ]
+        )->assertStatus(204);
+        // );dd($r->decodeResponseJson());
+
+        $this->assertDatabaseHas('spots', [
+            'id' => $spot->id,
+            'moderation_status' => ModerationStatus::REJECTED
+        ]);
+    }
+
 }

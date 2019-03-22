@@ -69,5 +69,4 @@ class BaseSpotTest extends TestCase
             return (($mail->spot->id === $spot->id) && ($mail->token->id === $spot->editToken->id));
         });
     }
-
 }

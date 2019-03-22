@@ -10,11 +10,13 @@ use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\DateTime;
-use SweetSpot\ModerateSpot\ModerateSpot;
+
 use App\Nova\Filters\ModerationFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 use SweetSpot\PendingSubmissions\PendingSubmissions as PendingSubmissionsCard;
+use SweetSpot\ModerateSpot\ModerateSpot;
+use SweetSpot\ModerateSubmission\ModerateSubmission;
 use SweetSpot\BelongsToManyChecks\BelongsToManyChecks;
 use SweetSpot\EditUrl\EditUrl;
 
@@ -70,12 +72,12 @@ class Submission extends Resource
     public function fields(Request $request)
     {
         return [
-            
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
-            Number::make('Sleeps'),
-            Number::make('Baths'),
+            Number::make('Sleeps')->hideFromIndex(),
+            Number::make('Baths')->hideFromIndex(),
             Currency::make('Price')->sortable(),
+            // ModerateSubmission::make('Moderate'),
             BelongsToManyChecks::make('Amenities')
                 ->populateWith(\App\Amenity::all())
                 ->groupBy('type')
@@ -95,6 +97,7 @@ class Submission extends Resource
             // Text::make('Edit Url', function () {
             //     return $this->edit_url;
             // })->onlyOnDetail()
+            ModerateSpot::make('Moderate'),
         ];
     }
 

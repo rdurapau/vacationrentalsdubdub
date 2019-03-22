@@ -38,6 +38,20 @@ trait Moderatable
         broadcast(new SpotWasApproved($this->id));
     }
 
+    public function moderate($status, $message = NULL)
+    {
+        switch($status) {
+            case 'approved':
+                return $this->approve($message);
+                break;
+            case 'rejected':
+                return $this->reject($message);
+                break;
+            default:
+                throw new \Exception;
+        }
+    }
+
     public function moderationStatus()
     {
         return ModerationStatus::getFriendly($this->moderation_status);

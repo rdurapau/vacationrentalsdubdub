@@ -27,7 +27,8 @@
         "sweet-spot/pending-submissions": "*",
         "sweet-spot/sweet-theme": "*",
         "sweet-spot/edit-url": "*",
-        "sweet-spot/moderate-submission": "*"
+        "sweet-spot/moderate-submission": "*",
+        "test/test": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -66,6 +67,10 @@
         {
             "type": "path",
             "url": "./nova-components/ModerateSubmission"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/Test"
         }
     ],
     "config": {
