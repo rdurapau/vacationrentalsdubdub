@@ -19,3 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('spots', 'Api\SpotController@index');
 Route::get('spots/{spot}', 'Api\SpotController@show');
+
+Route::post('spots/{spot}/edit-token/email', 'Api\EditTokenEmailController@create');
+
+Route::put('spots/{spot}/moderate', 'Api\SpotModerationController@update');

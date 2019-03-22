@@ -21,8 +21,9 @@ class AmenityTest extends TestCase
 
     public function test_it_has_spots()
     {
+        // dd(\App\Amenity::all());
         $spot = factory('App\Spot')->create();
-        $this->amenity->spots()->attach($spot);
+        $this->amenity->spots()->sync($spot);
         $this->assertCount(1, $this->amenity->spots);
     }
     

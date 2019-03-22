@@ -13,7 +13,8 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsToMany;
 
 use SweetSpot\BelongsToManyChecks\BelongsToManyChecks;
-use Fourstacks\NovaCheckboxes\Checkboxes;
+use SweetSpot\EditUrl\EditUrl;
+// use Fourstacks\NovaCheckboxes\Checkboxes;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 use Illuminate\Http\Request;
@@ -73,16 +74,19 @@ class Spot extends Resource
                 ->groupBy('type')
                 ->selected($this->amenities->pluck('id')->toArray())
                 ->hideFromIndex(),
-            new Panel('Owner Contact Information', $this->contactFields()),
-            new Panel('Address Information', $this->addressFields()),
-            new Panel('Photos', $this->photoFields()),
+            EditUrl::make('Edit Url')
+                ->hideWhenCreating()
+                ->hideFromIndex(),
             DateTime::make('Approved', 'moderated_at')
                 ->onlyOnIndex()
                 ->format('YYYY-MM-DD @ HH:mm')
                 ->sortable(),
-            Text::make('Edit Url', function () {
-                return $this->edit_url;
-            })->onlyOnDetail(),
+            new Panel('Owner Contact Information', $this->contactFields()),
+            new Panel('Address Information', $this->addressFields()),
+            new Panel('Photos', $this->photoFields()),
+            // Text::make('Edit Url', function () {
+            //     return $this->edit_url;
+            // })->onlyOnDetail(),
             // (new ManageLink)->editUrl(function(){return $this->edit_url;}),
             HasMany::make('Booking Requests', 'bookingRequests')->hideFromIndex(),
             // Checkboxes::make('Amenities', 'selected_amenities')

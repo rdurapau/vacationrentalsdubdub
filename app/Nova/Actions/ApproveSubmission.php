@@ -17,6 +17,13 @@ class ApproveSubmission extends Action
     use InteractsWithQueue, Queueable, SerializesModels;
 
     /**
+     * Indicates if this action is only available on the resource index view.
+     *
+     * @var bool
+     */
+    public $onlyOnIndex = true;
+
+    /**
      * Perform the action on the given models.
      *
      * @param  \Laravel\Nova\Fields\ActionFields  $fields

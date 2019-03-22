@@ -102,6 +102,7 @@ class SpotApiTest extends TestCase
                 'sleeps',
                 'baths'               
             ]);
+            // );dd($response->decodeResponseJson());
 
         $data = json_decode($response->getContent(), true);
         $this->assertEquals($spot->name, $data['name']);

@@ -20,6 +20,13 @@
                             </div>
 
                             <div class="form-row">
+                                <div class="form-check form-check-inline" v-for="amenity in amenities">
+                                    <input class="form-check-input" type="checkbox" :name="'amenities['+amenity.id+']'" :id="'check-amenity-'+amenity.id">
+                                    <label class="form-check-label" :for="'check-amenity-'+amenity.id" v-text="amenity.name"></label>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="emailAddress">Email Address</label>
                                     <input type="email" name="email" class="form-control" id="emailAddress" />
@@ -48,6 +55,16 @@
                                 <div class="form-group col-md-4">
                                     <label for="price">Price per Night</label>
                                     <input type="text" name="price" class="form-control" id="price" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="sleeps"># of people it can sleep</label>
+                                    <input type="number" name="sleeps" class="form-control" id="sleeps" />
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="baths"># of bathrooms</label>
+                                    <input type="number" name="baths" class="form-control" id="baths" />
                                 </div>
                             </div>
                             <div class="form-row">
@@ -117,6 +134,7 @@
     mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
 
     export default {
+        props: ['amenities'],
         data() {
             return {
                 'owner_name' : '',
@@ -143,8 +161,6 @@
         },
         methods: {
             addressSelected(ev) {
-                console.log('selected');
-                console.log(ev.result);
                 let context = ev.result.context;
                 this.map.getSource('single-point').setData(ev.result.geometry);
 
@@ -167,7 +183,7 @@
             // console.log(mapboxgl);
             this.map = new mapboxgl.Map({
                 container: 'map',
-                style: 'mapbox://styles/mapbox/streets-v9',
+                style: 'mapbox://styles/mapbox/light-v10',
                 center: [-98.5833, 39.833333],
                 zoom: 2
             });

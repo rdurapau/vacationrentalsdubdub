@@ -29,8 +29,7 @@ class SpotController extends ApiController
 
     public function show(Request $request, Spot $spot)
     {
-        $photo = $spot->coverPhoto()->get();
-        dump($photo);
+        // $photo = $spot->coverPhoto()->get();
         $spot->load('amenities','media');
         if ($this->wantsGeoJson($request)) {
             return response()

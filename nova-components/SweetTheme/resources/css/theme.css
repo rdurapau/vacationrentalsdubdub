@@ -9,8 +9,8 @@
   --success: #47b374;
   --warning: #ffea61;
   --info: #3a5c88;
-  --primary: #5eb6ba;
-  --primary-dark: #42959a;
+  --primary: #9080F0;
+  --primary-dark: #6658ba;
   --primary-70: rgba(94, 182, 186, 0.7);
   --primary-50: rgba(94, 182, 186, 0.5);
   --primary-30: rgba(94, 182, 186, 0.3);
@@ -34,8 +34,11 @@
       left bottom,
       left top,
       from(#A076EE),
-      to(#45AEF1)
+      to(#6658ba)
+      2570a0
   );
 
-  background-image: linear-gradient(0deg, #A076EE, #45AEF1);
+  background-image: linear-gradient(0deg, #A076EE, #6658ba);
+  background-image: linear-gradient(0deg, #45AEF1, #5186ee);
+  
 }

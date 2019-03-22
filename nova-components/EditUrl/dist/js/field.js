@@ -342,9 +342,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['resource', 'resourceName', 'resourceId', 'field']
+    props: ['resource', 'resourceName', 'resourceId', 'field'],
+    data: function data() {
+        return {
+            isWorking: false
+        };
+    },
+
+    methods: {
+        resendEmail: function resendEmail() {
+            var _this = this;
+
+            this.isWorking = true;
+            axios.post('/api/spots/' + this.resourceId + '/edit-token/email').then(function (result) {
+                _this.isWorking = false;
+                _this.$toasted.show('Edit URL email sent to owner!', { type: 'success' });
+            }).catch(function (error) {
+                _this.isWorking = false;
+                _this.$toasted.show("Hmm... that didn't work", { type: 'error' });
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -364,43 +392,167 @@ var render = function() {
           _c(
             "a",
             {
-              staticClass: "text-primary-dark",
+              staticClass: "text-primary",
               attrs: { target: "_blank", href: _vm.field.value }
             },
             [_vm._v(_vm._s(_vm.field.value))]
           )
         ]),
+        _vm._v(" "),
         _c("div", [
           _c(
             "button",
             {
               staticClass:
-                "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex align-center justify-start"
+                "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex align-center justify-start",
+              attrs: { disabled: _vm.isWorking },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.resendEmail()
+                }
+              }
             },
             [
-              _c(
-                "svg",
-                {
-                  staticClass: "icon-location w-4 h-auto mr-1",
-                  attrs: {
-                    xmlns: "http://www.w3.org/2000/svg",
-                    viewBox: "0 0 24 24",
-                    width: "24",
-                    height: "24"
-                  }
-                },
-                [
-                  _c("path", {
-                    staticClass: "heroicon-ui",
-                    attrs: {
-                      fill: "#fff",
-                      d:
-                        "M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm16 3.38V6H4v1.38l8 4 8-4zm0 2.24l-7.55 3.77a1 1 0 0 1-.9 0L4 9.62V18h16V9.62z"
-                    }
-                  })
-                ]
-              ),
-              _vm._v("\n                Resend to Owner\n            ")
+              _vm.isWorking
+                ? _c(
+                    "svg",
+                    {
+                      staticClass: "text-20 mx-8 my-1 h-auto block",
+                      staticStyle: { width: "32px" },
+                      attrs: {
+                        viewBox: "0 0 120 30",
+                        xmlns: "http://www.w3.org/2000/svg",
+                        fill: "currentColor"
+                      }
+                    },
+                    [
+                      _c("circle", { attrs: { cx: "15", cy: "15", r: "15" } }, [
+                        _c("animate", {
+                          attrs: {
+                            attributeName: "r",
+                            from: "15",
+                            to: "15",
+                            begin: "0s",
+                            dur: "0.8s",
+                            values: "15;9;15",
+                            calcMode: "linear",
+                            repeatCount: "indefinite"
+                          }
+                        }),
+                        _c("animate", {
+                          attrs: {
+                            attributeName: "fill-opacity",
+                            from: "1",
+                            to: "1",
+                            begin: "0s",
+                            dur: "0.8s",
+                            values: "1;.5;1",
+                            calcMode: "linear",
+                            repeatCount: "indefinite"
+                          }
+                        })
+                      ]),
+                      _c(
+                        "circle",
+                        {
+                          attrs: {
+                            cx: "60",
+                            cy: "15",
+                            r: "9",
+                            "fill-opacity": "0.3"
+                          }
+                        },
+                        [
+                          _c("animate", {
+                            attrs: {
+                              attributeName: "r",
+                              from: "9",
+                              to: "9",
+                              begin: "0s",
+                              dur: "0.8s",
+                              values: "9;15;9",
+                              calcMode: "linear",
+                              repeatCount: "indefinite"
+                            }
+                          }),
+                          _c("animate", {
+                            attrs: {
+                              attributeName: "fill-opacity",
+                              from: "0.5",
+                              to: "0.5",
+                              begin: "0s",
+                              dur: "0.8s",
+                              values: ".5;1;.5",
+                              calcMode: "linear",
+                              repeatCount: "indefinite"
+                            }
+                          })
+                        ]
+                      ),
+                      _c(
+                        "circle",
+                        { attrs: { cx: "105", cy: "15", r: "15" } },
+                        [
+                          _c("animate", {
+                            attrs: {
+                              attributeName: "r",
+                              from: "15",
+                              to: "15",
+                              begin: "0s",
+                              dur: "0.8s",
+                              values: "15;9;15",
+                              calcMode: "linear",
+                              repeatCount: "indefinite"
+                            }
+                          }),
+                          _c("animate", {
+                            attrs: {
+                              attributeName: "fill-opacity",
+                              from: "1",
+                              to: "1",
+                              begin: "0s",
+                              dur: "0.8s",
+                              values: "1;.5;1",
+                              calcMode: "linear",
+                              repeatCount: "indefinite"
+                            }
+                          })
+                        ]
+                      )
+                    ]
+                  )
+                : _c(
+                    "span",
+                    { staticClass: "flex align-center justify-start" },
+                    [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "icon-location w-4 h-auto mr-1",
+                          attrs: {
+                            xmlns: "http://www.w3.org/2000/svg",
+                            viewBox: "0 0 24 24",
+                            width: "24",
+                            height: "24"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "heroicon-ui",
+                            attrs: {
+                              fill: "#fff",
+                              d:
+                                "M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6c0-1.1.9-2 2-2zm16 3.38V6H4v1.38l8 4 8-4zm0 2.24l-7.55 3.77a1 1 0 0 1-.9 0L4 9.62V18h16V9.62z"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(
+                        "\n                    Resend to Owner\n                "
+                      )
+                    ]
+                  )
             ]
           )
         ])
@@ -489,6 +641,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -501,25 +658,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         /*
          * Set the initial, internal value for the field.
          */
-        setInitialValue: function setInitialValue() {
-            this.value = this.field.value || '';
-        },
+        // setInitialValue() {
+        //     this.value = this.field.value || ''
+        // },
 
+        // /**
+        //  * Fill the given FormData object with the field's internal value.
+        //  */
+        // fill(formData) {
+        //     formData.append(this.field.attribute, this.value || '')
+        // },
 
-        /**
-         * Fill the given FormData object with the field's internal value.
-         */
-        fill: function fill(formData) {
-            formData.append(this.field.attribute, this.value || '');
-        },
-
-
-        /**
-         * Update the field's internal value.
-         */
-        handleChange: function handleChange(value) {
-            this.value = value;
-        }
+        // /**
+        //  * Update the field's internal value.
+        //  */
+        // handleChange(value) {
+        //     this.value = value
+        // },
     }
 });
 
@@ -10760,35 +10915,56 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "default-field",
-    { attrs: { field: _vm.field, errors: _vm.errors } },
+    { attrs: { field: _vm.field, errors: _vm.errors, fullWidthContent: true } },
     [
       _c("template", { slot: "field" }, [
-        _c("input", {
-          directives: [
+        _c("div", { staticClass: "flex align-center justify-start pt-2" }, [
+          _c(
+            "a",
             {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.value,
-              expression: "value"
-            }
-          ],
-          staticClass: "w-full form-control form-input form-input-bordered",
-          class: _vm.errorClasses,
-          attrs: {
-            id: _vm.field.name,
-            type: "text",
-            placeholder: _vm.field.name
-          },
-          domProps: { value: _vm.value },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.value = $event.target.value
-            }
-          }
-        })
+              staticClass: "text-primary",
+              attrs: { target: "_blank", href: _vm.field.value }
+            },
+            [_vm._v(_vm._s(_vm.field.value))]
+          )
+        ]),
+        _vm._v(" "),
+        false
+          ? _c("div", [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex align-center justify-start"
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "icon-refresh w-4 h-auto mr-1",
+                      attrs: {
+                        xmlns: "http://www.w3.org/2000/svg",
+                        viewBox: "0 0 24 24",
+                        width: "24",
+                        height: "24"
+                      }
+                    },
+                    [
+                      _c("path", {
+                        staticClass: "heroicon-ui",
+                        attrs: {
+                          fill: "#fff",
+                          d:
+                            "M5.41 16H18a2 2 0 0 0 2-2 1 1 0 0 1 2 0 4 4 0 0 1-4 4H5.41l2.3 2.3a1 1 0 0 1-1.42 1.4l-4-4a1 1 0 0 1 0-1.4l4-4a1 1 0 1 1 1.42 1.4L5.4 16zM6 8a2 2 0 0 0-2 2 1 1 0 0 1-2 0 4 4 0 0 1 4-4h12.59l-2.3-2.3a1 1 0 1 1 1.42-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.42-1.4L18.6 8H6z"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v("\n                Generate New URL\n            ")
+                ]
+              )
+            ])
+          : _vm._e()
       ])
     ],
     2

@@ -11,15 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
+Route::get('/', 'SpotController@index')->name('index');
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/map', 'HomeController@map')->name('map');
+// Route::get('/map', 'HomeController@map')->name('map');
 
 Route::get('/s/{spot}/{editToken}', 'EditTokenController@edit')->name('editTokens.edit');
 Route::patch('/spots/{spot}', 'SpotController@update')->name('spots.update');

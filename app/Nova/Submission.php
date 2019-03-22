@@ -5,15 +5,18 @@ namespace App\Nova;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\Currency;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\DateTime;
-use SweetSpot\ModerateSpot\ModerateSpot;
+
 use App\Nova\Filters\ModerationFilter;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 use SweetSpot\PendingSubmissions\PendingSubmissions as PendingSubmissionsCard;
+use SweetSpot\ModerateSpot\ModerateSpot;
+use SweetSpot\ModerateSubmission\ModerateSubmission;
 use SweetSpot\BelongsToManyChecks\BelongsToManyChecks;
 use SweetSpot\EditUrl\EditUrl;
 
@@ -69,28 +72,32 @@ class Submission extends Resource
     public function fields(Request $request)
     {
         return [
-            
             Text::make('Name')->sortable()->hideFromIndex(),
             Trix::make('Description', 'desc')->hideFromIndex(),
+            Number::make('Sleeps')->hideFromIndex(),
+            Number::make('Baths')->hideFromIndex(),
             Currency::make('Price')->sortable(),
+            // ModerateSubmission::make('Moderate'),
             BelongsToManyChecks::make('Amenities')
                 ->populateWith(\App\Amenity::all())
                 ->groupBy('type')
                 ->selected($this->amenities->pluck('id')->toArray())
                 ->hideFromIndex(),
-            new Panel('Owner Contact Information', $this->contactFields()),
-            new Panel('Address Information', $this->addressFields()),
-            new Panel('Photos', $this->photoFields()),
+            EditUrl::make('Edit Url')
+                ->hideWhenCreating()
+                ->hideFromIndex(),
             DateTime::make('Submitted', 'created_at')
                 ->hideWhenCreating()
                 ->hideWhenUpdating()
                 ->format('YYYY-MM-DD @ HH:mm')
                 ->sortable(),
-            EditUrl::make('Edit Url')
-                ->onlyOnDetail(),
+            new Panel('Owner Contact Information', $this->contactFields()),
+            new Panel('Address Information', $this->addressFields()),
+            new Panel('Photos', $this->photoFields()),
             // Text::make('Edit Url', function () {
             //     return $this->edit_url;
             // })->onlyOnDetail()
+            ModerateSpot::make('Moderate'),
         ];
     }
 

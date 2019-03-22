@@ -10,7 +10,7 @@ class Amenity extends Model
 
     public function spots()
     {
-        return $this->belongsToMany('App\Spot', 'amenity_spot', 'spot_id', 'amenity_id');
+        return $this->belongsToMany('App\Spot', 'amenity_spot', 'amenity_id', 'spot_id');
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Spot;
 use App\BaseSpot;
+use App\Amenity;
 
 use App\Mail\SpotSubmitted;
 use App\Events\SpotWasSubmitted;
@@ -32,7 +33,8 @@ class SpotController extends Controller
      */
     public function create()
     {
-        return view('spots.create');
+        $amenities = Amenity::all();
+        return view('spots.create', compact('amenities'));
     }
 
     /**
@@ -43,6 +45,9 @@ class SpotController extends Controller
      */
     public function store(Request $request)
     {
+        // $values = $request->all();
+        // dd($values['amenities']);
+
         $validated = $request->validate([
             'email' => 'required|confirmed|email',
             'name' => 'required',
@@ -55,11 +60,18 @@ class SpotController extends Controller
             'state' => 'required|string',
             'postal_code' => 'required',
             'owner_name' => 'required',
+            'amenities' => 'array',
+            'sleeps' => 'required|numeric',
+            'baths' => 'required|numeric',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric'
         ]);
 
         $spot = Spot::create($validated);
+
+        if (array_key_exists('amenities', $validated) && count($validated['amenities'])) {
+            $spot->amenities()->sync(array_keys($validated['amenities']));
+        }
 
         Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
         broadcast(new SpotWasSubmitted($spot));
@@ -112,6 +124,9 @@ class SpotController extends Controller
             'owner_name' => 'required',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
+            'amenities' => 'array',
+            'sleeps' => 'required|numeric',
+            'baths' => 'required|numeric',
             'edit_token' => [
                 'required',
                 Rule::in($spot->editTokens->pluck('token'))
@@ -119,7 +134,12 @@ class SpotController extends Controller
         ]);
 
         $spot->update($validated);
-
+        if (array_key_exists('amenities', $validated) && count($validated['amenities'])) {
+            $amenities = array_keys($validated['amenities']);
+        } else {
+            $amenities = [];
+        }
+        $spot->amenities()->sync($amenities);
         // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
         broadcast(new SpotWasUpdated($spot));
 

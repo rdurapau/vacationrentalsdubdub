@@ -2,8 +2,11 @@
     <div>
 
         <div id="form-wrap">
-            <input type="text" v-model="filters.sleeps" />
-            <input type="checkbox" v-model="filters.pets" />
+            <input type="text" v-model="filters.sleeps" placeholder="How many people?" />
+            <label for="filter-pets">
+                <input type="checkbox" v-model="filters.pets" id="filter-pets" />
+                Allows Pets
+            </label>
             <button class="run-it" @click="applyFilters">Filter</button>
         </div>
         
@@ -28,16 +31,12 @@
                 'popups' : [],
                 'filters' : {
                     'pets' : false,
-                    'sleeps' : 0,
+                    'sleeps' : '',
                     'price' : 0
                 }
             }
         },
         methods: {
-            queryRendered() {
-                console.log(this.map.queryRenderedFeatures());
-                console.log(this.map.queryRenderedFeatures({layers:['unclustered-point']}));
-            },
             applyFilters() {
                 let filters = [];
                 if (this.filterPet) filters.push(this.filterPet);
@@ -80,7 +79,7 @@
             // console.log(mapboxgl);
             this.map = new mapboxgl.Map({
                 container: 'map-wrapper',
-                style: 'mapbox://styles/mapbox/streets-v9',
+                style: 'mapbox://styles/mapbox/light-v10',
                 center: [-98.3810608, 37.9507756],
                 zoom: 4
             });
@@ -148,43 +147,37 @@
 
                 // inspect a cluster on click
                 let self = this;
-                this.map.on('click', 'clusters', function (e) {
-                    var features = self.map.queryRenderedFeatures(e.point, {
-                        layers: ['clusters']
-                    });
-                    if (features.length) {
-                        var clusterId = features[0].properties.cluster_id;
-                        self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
-                            if (err)
-                                return;
+                // this.map.on('click', 'clusters', function (e) {
+                //     var features = self.map.queryRenderedFeatures(e.point, {
+                //         layers: ['clusters']
+                //     });
+                //     if (features.length) {
+                //         var clusterId = features[0].properties.cluster_id;
+                //         self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
+                //             if (err)
+                //                 return;
 
-                            self.map.easeTo({
-                                center: features[0].geometry.coordinates,
-                                zoom: zoom
-                            });
-                        });
-                    }
-                });
+                //             self.map.easeTo({
+                //                 center: features[0].geometry.coordinates,
+                //                 zoom: zoom
+                //             });
+                //         });
+                //     }
+                // });
 
                 this.map.on('click', 'unclustered-point', function (e) {
-                    // self.queryRendered();
                     alert('SHOW ME SPOT #'+e.features[0].properties.id + ', KNAVE')
                 });
 
                 this.map.on('moveend', function() {
-                    console.log('moveend');
                     self.popups.forEach((popup) => {
                         popup.remove();
                     });
                     self.popups = [];
 
                     var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
-                    
-                    console.log(visibleFeatures);
 
                     if (visibleFeatures) {
-                        // var uniqueFeatures = getUniqueFeatures(features, "iata_code");
-
                         visibleFeatures.forEach((feature) => {
                             self.popups.push(
                                 new mapboxgl.Popup({
@@ -195,18 +188,6 @@
                                 .addTo(self.map)
                             )
                         });
-
-                        
-
-                        // Populate features for the listing overlay.
-                        // renderListings(uniqueFeatures);
-                        
-                        // Clear the input container
-                        // filterEl.value = '';
-                        
-                        // Store the current features in sn `airports` variable to
-                        // later use for filtering on `keyup`.
-                        // airports = uniqueFeatures;
                     }
                 });
             })
