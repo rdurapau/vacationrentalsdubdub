@@ -16,6 +16,7 @@ use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 
 use SweetSpot\PendingSubmissions\PendingSubmissions as PendingSubmissionsCard;
 use SweetSpot\ModerateSpot\ModerateSpot;
+use SweetSpot\MapLocation\MapLocation;
 use SweetSpot\ModerateSubmission\ModerateSubmission;
 use SweetSpot\BelongsToManyChecks\BelongsToManyChecks;
 use SweetSpot\EditUrl\EditUrl;
@@ -117,7 +118,10 @@ class Submission extends Resource
             Place::make('Address', 'address1')->sortable(),
             Text::make('City')->sortable(),
             Text::make('State')->sortable(),
-            Text::make('Postal Code')->hideFromIndex()
+            Text::make('Postal Code')->hideFromIndex(),
+            // MapLocation::make('Map Location')
+            //     ->onlyOnForms()
+            //     ->env()
         ];
     }
 

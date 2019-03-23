@@ -17,9 +17,9 @@
 
 <script>
     let mapboxgl = require('mapbox-gl');
-    let geoJSON = require('geojson')
+    // let geoJSON = require('geojson')
 
-    console.log(geoJSON);
+    // console.log(geoJSON);
     // GeoJSON.parse(data, {Point: ['lat', 'lng']});
 
     mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;

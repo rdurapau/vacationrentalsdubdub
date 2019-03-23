@@ -28,7 +28,8 @@
         "sweet-spot/sweet-theme": "*",
         "sweet-spot/edit-url": "*",
         "sweet-spot/moderate-submission": "*",
-        "test/test": "*"
+        "test/test": "*",
+        "sweet-spot/map-location": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -71,6 +72,10 @@
         {
             "type": "path",
             "url": "./nova-components/Test"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/MapLocation"
         }
     ],
     "config": {

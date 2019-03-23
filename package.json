@@ -20,7 +20,9 @@
         "build-moderate-submission": "cd nova-components/ModerateSubmission && npm run dev",
         "build-moderate-submission-prod": "cd nova-components/ModerateSubmission && npm run prod",
         "build-test": "cd nova-components/Test && npm run dev",
-        "build-test-prod": "cd nova-components/Test && npm run prod"
+        "build-test-prod": "cd nova-components/Test && npm run prod",
+        "build-map-location": "cd nova-components/MapLocation && npm run dev",
+        "build-map-location-prod": "cd nova-components/MapLocation && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.18",
