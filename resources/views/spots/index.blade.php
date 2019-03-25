@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
+<html>
+
+  <head>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>SweetSpot | True Vacation Rentals</title>
+    <link href="/images/favicon.png" rel="shortcut icon"/>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -15,26 +18,31 @@
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/im-the-map.js') }}" defer></script>
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7601296/6583212/css/fonts.css" />
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ asset('css/mapbox.css') }}" rel="stylesheet">
 
-    <style>
-        body {
-            height:100vh;
-            width:100vw;
-        }
-    </style>
-</head>
-<body>
+  </head>
+
+  <body>
+
+    <h1 class="logo"></h1>
+
+    <footer>
+        <a class="submit" href="">Submit Your Property</a>
+        <ul class="navigation">
+            <li><a href="">About Us</a></li>
+            <li><a href="">Terms of Service</a></li>
+            <li>&copy; SweetSpot</li>
+        </ul>
+    </footer>
 
     <div id="im-the-map">
         <im-the-map></im-the-map>
     </div>
 
-</body>
+  </body>
+
 </html>

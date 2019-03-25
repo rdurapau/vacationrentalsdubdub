@@ -5,6 +5,13 @@
     transition: all ease-out .15s;
 }
 
+@mixin appearance ($value) {
+	-webkit-appearance: $value;
+       -moz-appearance: $value;
+        -ms-appearance :$value;
+	        appearance: $value;
+}
+
 /* Positions */
 @mixin abs{
     position: absolute;
