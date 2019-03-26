@@ -1,84 +1,25 @@
 // Images Ref
 $images: '../images/';
 
-@import 'reset.scss';
-@import 'tools.scss';
-@import 'colors.scss';
-@import 'fonts.scss';
-
-@import 'map';
+@import 'reset', 'mobile', 'tools', 'colors', 'fonts', 'map';
 
 body{
     background: #B7B7B6;
-}
-
-h1.logo{
-    @include abs;
-    top: 50px;
-    left: 40px;
-    width: 70px;
-    height: 17px;
-    background: url('#{$images}logo.svg');
-    background-size: contain;
-    z-index:5;
-}
-
-footer{
-    @include fxd;
-    display: flex;
-    bottom: 20px;
-    right: 20px;
-    height: 45px;
-    z-index:4;
-    a.submit{
-        background: #9080F0;
-        display: flex;
-        flex-grow: 1;
-        align-items: center;
-        @include fontBold;
-        color: #fff;
-        text-decoration: none;
-        font-size: 13px;
-        padding: 0 20px;
-        margin-right: 20px;
-        border-radius: 100px;
-        @include moveMe;
-        &:hover{
-            background: #45AEF1;
+    > h1.logo{
+        @include abs;
+        top: 50px;
+        left: 40px;
+        width: 70px;
+        height: 17px;
+        background: url('#{$images}logo.svg');
+        background-size: contain;
+        @include mq('tablet'){
+            top: 20px;
+            left: 20px;
         }
     }
-    ul.navigation{
-        display: flex;
-        flex-grow: 1;
-        background: #fff;
-        padding: 0 20px;
-        border-radius: 100px;
-        li{
-            display: flex;
-            flex-grow: 1;
-            align-items: center;
-            @include fontBold;
-            font-size: 13px;
-            margin-right: 15px;
-            &:last-child{
-                margin-right: 0;
-                @include fontBook;
-                color: rgba(0,0,0,.35);
-                &::before{
-                    content: '|';
-                    @include fontBook;
-                    color: rgba(0,0,0,.15);
-                    margin-right: 15px;
-                }
-            }
-            a{
-                text-decoration: none;
-                color: #666;
-                @include moveMe;
-                &:hover{
-                    color: #45AEF1;
-                }
-            }
-        }
-    }//end footer navigation
-}//end footer
+}//end body
+
+
+
+@import 'submit-property', 'footer';

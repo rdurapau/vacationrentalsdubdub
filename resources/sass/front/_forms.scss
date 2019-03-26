@@ -1,0 +1,9 @@
+form{
+    h1{
+        @include fontBold;
+        font-size: 40px;
+        letter-spacing: -2px;
+        border-bottom: solid 1px #ccc;
+        padding: 0 0 25px 0;
+    }
+}

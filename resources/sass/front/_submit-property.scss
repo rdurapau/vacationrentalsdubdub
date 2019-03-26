@@ -1,0 +1,100 @@
+section.modal-background{
+    background: rgba(#3461FA, .7);
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    @include abs;
+    @include z-100;
+
+    section.modal-container{
+        background: #fff;
+        margin: 40px;
+        display: flex;
+        border-radius: 10px;
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        overflow: hidden;
+        max-width: 1200px;
+        max-height: 720px;
+        min-height: 720px;
+        section.container-head{
+            background: red;
+            display: flex;
+            flex-grow: 1;
+            max-height: 60px;
+            flex-direction: row;
+            align-items: center;
+            h1.logo{
+                width: 60px;
+                height: 15px;
+                margin-left: 20px;
+                background: url('#{$images}logo.svg') no-repeat top left;
+                background-size: contain;
+                flex-grow: 1;
+                @include mq('tablet'){
+                    top: 20px;
+                    left: 20px;
+                }
+            }//end logo
+            a.close{
+                width: 40px;
+                height: 40px;
+                background: url('#{$images}icon-close.svg');
+                background-size: contain;
+                margin-right: 10px;
+                @include moveMe;
+                opacity: .35;
+                &:hover{
+                    opacity: 1;
+                }
+            }
+        }//end container head
+        section.container-body{
+            display: flex;
+            flex-grow: 1;
+            background: green;
+            flex-direction: row;
+            div.column{
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                background: blue;
+                &.progress-list{
+                    background: purple;
+                    display: flex;
+                    flex-grow: 1;
+                    max-width: 225px;
+                }
+                &.form-stuffs{
+                    background: pink;
+                }
+                &.actual-form{
+                    background: yellow;
+                    @import 'forms';
+                }
+                &.dead-space{
+                    background: orange;
+                    max-width: 250px;
+                }
+            }//end parent columns
+            div.row{
+                display: flex;
+                flex-grow: 1;
+                flex-direction: row;
+                &.form-and-null{
+                    background: blue;
+                    margin-left: 20px;
+                }
+                &.action-row{
+                    max-height: 70px;
+                }
+            }
+        }//end container-body
+    }//end container
+
+}//end submit property modal
