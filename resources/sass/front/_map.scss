@@ -89,6 +89,7 @@
             padding:0;
             background: transparent none;
             margin-right:17px;
+            position:relative;
             svg {
                 path {
                     stroke:$light-grey;
@@ -100,10 +101,73 @@
                     stroke:$grey;
                 }
             }
+            &.active, &.pending {
+                &:before {
+                    content:"";
+                    display:block;
+                    background:$blue;
+                    height:2px;
+                    width:2px;
+                    border-radius:1px;
+                    position:absolute;
+                    top:50%;
+                    left:50%;
+                    margin:-1px 0 0 -1px;
+                }
+            }
+            &.active {
+                svg path {
+                    stroke:$blue;
+                }
+            }
+            &.pending {
+                svg {
+                    -webkit-animation: rotation 3s infinite linear;
+                    -moz-animation: rotation 3s infinite linear;
+                    -o-animation: rotation 3s infinite linear;
+                    animation: rotation 3s infinite linear;
+                    path {
+                        stroke:$blue;
+                    }
+                }
+            
+                @-webkit-keyframes rotation {
+                    from {
+                            -webkit-transform: rotate(0deg);
+                    }
+                    to {
+                            -webkit-transform: rotate(359deg);
+                    }
+                }
+                @-moz-keyframes rotation {
+                    from {
+                            -webkit-transform: rotate(0deg);
+                    }
+                    to {
+                            -webkit-transform: rotate(359deg);
+                    }
+                }
+                @-o-keyframes rotation {
+                    from {
+                            -webkit-transform: rotate(0deg);
+                    }
+                    to {
+                            -webkit-transform: rotate(359deg);
+                    }
+                }
+                @keyframes rotation {
+                    from {
+                            -webkit-transform: rotate(0deg);
+                    }
+                    to {
+                            -webkit-transform: rotate(359deg);
+                    }
+                }
+            }
         }
     }
 
-    #map-search {
+    #map-search, .map-search {
         @include appearance(none);
         @include fontBook();
         background:none transparent;
@@ -116,6 +180,56 @@
         width:180px;
         flex:0 0 auto;
         // background:rgba(255,0,255,.3);
+        &.current-location {
+            color:$blue;
+        }
+    }
+
+    .button-wrapper {
+        width:24px;
+        height:24px;
+        margin-right:17px;
+    }
+
+    button#clear-search {
+        @include appearance(none);
+        height:24px;
+        width:24px;
+        border:none;
+        padding:0;
+        background: transparent none;
+        position:relative;
+        .icon-clear-css {
+            flex:0 0 auto;
+            height:2px;
+            width:22px;
+            position:relative;
+            opacity:.9;
+            display:block;
+            &:before, &:after {
+                box-sizing:border-box;
+                display:block;
+                content:"";
+                position:absolute;
+                height:2px;
+                background:$blue;
+                border-radius:2px;
+            }
+            &:before {
+                // transform:rotate(-225deg);                                                                                   
+                transform:rotate(-135deg);
+                top:0;
+                left:0;
+                width:22px;
+            }
+            &:after{
+                // transform:rotate(225deg);            
+                transform:rotate(135deg);
+                top:0;
+                left:0;
+                width:22px;
+            }
+        }
     }
 
     $filter-icon-animation-duration: .2s;
@@ -289,6 +403,14 @@
                     font-size:19px;
                     @include fontBook();
                     text-align:center;
+                    /* Hide HTML5 Up and Down arrows. */
+                    &[type="number"]::-webkit-outer-spin-button, &[type="number"]::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                    &[type="number"] {
+                        -moz-appearance: textfield;
+                    }
                 }
             }
         }

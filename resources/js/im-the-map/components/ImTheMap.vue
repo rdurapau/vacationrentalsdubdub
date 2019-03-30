@@ -41,16 +41,23 @@
                     <path d="M17.2612 18.0845L23.5092 24.3333" stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 
-                <input type="text" id="map-search" placeholder="Search" />
-                <button class="my-location">
-                    <svg class="icon-location" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5Z" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 0.75V4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M0.75 12H4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M12 23.25V19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M23.25 12H19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
+                <input type="text" class="map-search current-location" v-model="currentLocationText" v-if="geolocationStatus == 'active'"/>
+                <input type="text" id="map-search" placeholder="Search" v-model="mapSearch" v-else />
+                
+                <div class="button-wrapper">
+                    <button class="my-location" @click.prevent="getUserLocation()" v-if="showGeolocateButton" :class="geolocatorClass">
+                        <svg class="icon-location" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5Z" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 0.75V4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M0.75 12H4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 23.25V19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M23.25 12H19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button id="clear-search" @click.prevent="clearSearch" v-if="showClearSearchButton">
+                        <span class="icon-clear-css"></span>
+                    </button>
+                </div>
             </section>
 
             <button id="filter-toggle" @click.prevent="toggleFilterDropdown" :class="{close: filterDropdownIsVisible}">
@@ -66,7 +73,7 @@
                                 <path d="M1.5 7.125H12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <input type="text" class="input-increment" v-model="filterDropdownData.sleeps" />
+                        <input type="number" class="input-increment" v-model="filterDropdownData.sleeps" min="0" max="12" />
                         <button class="circle-button" @click.prevent="incFilterSleeps">
                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M1.5 7.125H12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -113,6 +120,7 @@
             return {
                 'map' : '',
                 'popups' : [],
+                'mapSearch': '',
                 'activeFilters' : {
                     'pets' : false,
                     'sleeps' : 0
@@ -122,7 +130,12 @@
                     'pets' : false,
                     'sleeps' : 0
                 },
-                'maxSleeps' : 12
+                'geolocateControl' : '',
+                'geolocationSupported' : false,
+                'geolocationStatus' : '',
+                'maxSleeps' : 12,
+
+                'currentLocationText' : 'Current Location'
             }
         },
         methods: {
@@ -160,6 +173,44 @@
                 Vue.set(this.activeFilters,'sleeps',0);
                 this.applyFilters();
             },
+            clearSearch() {
+                this.mapSearch = '';
+                if (this.geolocateControl._watchState != 'OFF') {
+                    this.geolocateControl.trigger();
+                }
+            },
+
+            /*
+             * Geolocate Methods
+             */
+            getUserLocation() {
+                if (this.geolocationSupported) {
+                    this.geolocateControl.trigger();
+                    // navigator.geolocation.getCurrentPosition(
+                    //     function success(position) {
+                    //         // for when getting location is a success
+                    //         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
+                    //     },
+                    //     function error(error_message) {
+                    //         // for when getting location results in an error
+                    //         console.error('An error has occured while retrieving location ', error_message)
+                    //     }
+                    // );
+                }
+            },
+            geolocateEvent() {
+                this.geolocationStatus = 'active';
+                console.log(Object.assign({},this.geolocateControl));
+            },
+            geolocateStart() {
+                this.geolocationStatus = 'pending';
+                console.log(Object.assign({},this.geolocateControl));
+            },
+            geolocateEnd() {
+                this.geolocationStatus = '';
+                console.log(Object.assign({},this.geolocateControl));
+            },
+            
 
             /*
              * Filter Dropdown
@@ -183,13 +234,16 @@
             },
             incFilterSleeps(){
                 if (this.filterDropdownData.sleeps < this.maxSleeps) {
-                    this.filterDropdownData.sleeps = this.filterDropdownData.sleeps + 1;
+                    this.filterDropdownData.sleeps++;
                 }
             },
             decFilterSleeps(){
                 if (this.filterDropdownData.sleeps > 0) {
-                    this.filterDropdownData.sleeps = this.filterDropdownData.sleeps - 1;
+                    this.filterDropdownData.sleeps--;
                 }
+            },
+            newGeolocate(val) {
+                console.log('geolocate', val);
             }
         },
         computed: {
@@ -205,7 +259,20 @@
                 if (this.activeFilters.sleeps && this.activeFilters.sleeps > 0) {
                     return ['>=', 'sleeps', parseInt(this.activeFilters.sleeps)]
                 }
+            },
+            geolocatorClass() {
+                return {
+                    pending : this.geolocationStatus == 'pending',
+                    active : this.geolocationStatus == 'active'
+                }
+            },
+            showClearSearchButton() {
+                return (this.geolocationStatus == 'active' || this.mapSearch.length);
+            },
+            showGeolocateButton() {
+                return (!this.showClearSearchButton && this.geolocationSupported);
             }
+
 
             // self.map.setFilter('clusters', ['>=', 'sleeps', 10]);
             // self.map.setFilter('unclustered-point', ['>=', 'sleeps', 10]);
@@ -281,8 +348,26 @@
                     minzoom: 12
                 });
 
-                // inspect a cluster on click
+                // Old geolocate method
+                this.geolocateControl = new mapboxgl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
+                    },
+                    trackUserLocation: true,
+                    fitBoundsOptions: {
+                        maxZoom : 12
+                    }
+                })
+                this.map.addControl(this.geolocateControl);
+                if ('geolocation' in navigator) {
+                    this.geolocationSupported = true;        
+                }
                 let self = this;
+                this.geolocateControl.on('geolocate', (val) => self.geolocateEvent(val));
+                this.geolocateControl.on('trackuserlocationstart', () => self.geolocateStart())
+                this.geolocateControl.on('trackuserlocationend', () => self.geolocateEnd());
+
+                // inspect a cluster on click
                 // this.map.on('click', 'clusters', function (e) {
                 //     var features = self.map.queryRenderedFeatures(e.point, {
                 //         layers: ['clusters']
@@ -329,7 +414,7 @@
             })
         },
         watch: {
-            
+            'geolocateControl.geolocate' : 'newGeolocate'
         },
     }
 </script>
@@ -339,12 +424,6 @@
         position:fixed;
         width:100vw;
         height:100vh;
-    }
-    button.run-it {
-        position:fixed;
-        top:5px;
-        right:5px;
-        z-index:1000;
     }
 </style>
 

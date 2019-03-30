@@ -1,3 +1,5 @@
+@import 'front/tools.scss';
+
 @import '~mapbox-gl/dist/mapbox-gl.css';
 @import '~mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
@@ -36,4 +38,29 @@ $green: #2BC569;
 .mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
 .mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip {
     border-top-color:$purple;
+}
+
+.mapboxgl-control-container {
+    z-index:1000;
+    position:relative;
+}
+.mapboxgl-ctrl-group {
+    z-index:100;
+    background:transparent;
+    box-shadow:none !important;
+    border:none;
+    > button.mapboxgl-ctrl-geolocate {
+        display:none;
+        @include appearance(none);
+        border:none;
+        background-color:transparent;
+        position:fixed;
+        top:39px;
+        right:107px;
+        top:200px;
+        right:0;
+        &:hover {
+            background-color:transparent;
+        }
+    }
 }
