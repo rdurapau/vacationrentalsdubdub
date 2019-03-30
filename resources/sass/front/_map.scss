@@ -199,37 +199,6 @@
         padding:0;
         background: transparent none;
         position:relative;
-        .icon-clear-css {
-            flex:0 0 auto;
-            height:2px;
-            width:22px;
-            position:relative;
-            opacity:.9;
-            display:block;
-            &:before, &:after {
-                box-sizing:border-box;
-                display:block;
-                content:"";
-                position:absolute;
-                height:2px;
-                background:$blue;
-                border-radius:2px;
-            }
-            &:before {
-                // transform:rotate(-225deg);                                                                                   
-                transform:rotate(-135deg);
-                top:0;
-                left:0;
-                width:22px;
-            }
-            &:after{
-                // transform:rotate(225deg);            
-                transform:rotate(135deg);
-                top:0;
-                left:0;
-                width:22px;
-            }
-        }
     }
 
     $filter-icon-animation-duration: .2s;

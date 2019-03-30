@@ -1,7 +1,9 @@
 // Images Ref
 $images: '../images/';
 
-@import 'reset', 'mobile', 'tools', 'colors', 'fonts', 'map';
+@import 'reset', 'mobile', 'tools';
+@import 'colors', 'fonts', 'buttons';
+@import 'map', 'details';
 
 body{
     background: #B7B7B6;

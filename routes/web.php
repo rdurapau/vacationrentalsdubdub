@@ -37,3 +37,5 @@ Route::post('/spots/{spot}/requests', 'BookingRequestController@store')->name('r
 
 Route::get('/photos/new', 'PhotoController@create');
 Route::post('/photos', 'PhotoController@store');
+
+Route::get('/static', function(){return view('static.index');});
