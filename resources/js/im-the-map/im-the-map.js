@@ -3,6 +3,9 @@ require('../bootstrap');
 import ImTheMap from './components/ImTheMap.vue';
 Vue.component('im-the-map', ImTheMap);
 
+import SpotDetails from './components/SpotDetails.vue';
+Vue.component('spot-details', SpotDetails);
+
 new Vue({
     el: '#im-the-map'
 });

@@ -1,6 +1,58 @@
 <template>
     <section class="spot-details">
         <section class="hero">
+            <button class="close"><span class="icon-clear-css"></span></button>
+            <div class="controls">
+                <a href="#" class="left"></a>
+                <a href="#" class="right"></a>
+                <nav>
+                    <a href="#">1</a>
+                    <a href="#" class="current">2</a>
+                    <a href="#">3</a>
+                </nav>
+            </div>
+            <div class="photos"> 
+                <span :style="'background-image:url('+this.photos[0]+')'"></span>
+            </div>
+        </section>
+        <section class="content">
+            <article>
+                <h2 v-text="spot.name">Lakefront Escape</h2>
+                <section class="icon-deets">
+                    <div>
+                        <img src="/images/icons/person-circle.svg" />
+                        <span>Sleeps {{spot.sleeps}}</span>
+                    </div>
+                    <div>
+                        <img src="/images/icons/bed.svg" />
+                        <span>{{spot.sleeps}} beds</span>
+                    </div>
+                    <div>
+                        <img src="/images/icons/shower.svg" />
+                        <span>{{spot.baths}} baths</span>
+                    </div>
+                </section>
+
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis.</p>
+                <p>Cras mattis consectetur purus sit amet fermentum. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+
+                <h3>Amenities</h3>
+                <ul class="amenities">
+                    <li v-for="amenity in amenities" :class="amenity.icon">
+                        <div class="icon"><img :src="'/images/icons/amenities/'+amenity.icon+'.svg'" /></div>
+                        <span v-text="amenity.name"></span>
+                    </li>
+                </ul>
+            </article>
+            <aside>
+                <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
+                <button class="btn btn-wide btn-purple btn-reservation">Make a reservation</button>
+                <ul class="contact">
+                    <li>(555) 555-5555</li>
+                    <li>Visit Property Website</li>
+                </ul>
+            </aside>
+        </section>
     </section>
 </template>
 
@@ -16,304 +68,48 @@
     export default {
         data() {
             return {
-                'map' : '',
-                'popups' : [],
-                'mapSearch': '',
-                'activeFilters' : {
-                    'pets' : false,
-                    'sleeps' : 0
-                },
-                'filterDropdownIsVisible': false,
-                'filterDropdownData': {
-                    'pets' : false,
-                    'sleeps' : 0
-                },
-                'geolocateControl' : '',
-                'geolocationSupported' : false,
-                'geolocationStatus' : '',
-                'maxSleeps' : 12,
-
-                'currentLocationText' : 'Current Location'
+                'spot' : {},
+                'photos' : [],
+                'amenities' : [],
             }
         },
         methods: {
-            applyDropdownFilters() {
-                Vue.set(this.activeFilters,'pets',this.filterDropdownData.pets);
-                Vue.set(this.activeFilters,'sleeps',this.filterDropdownData.sleeps);
-                this.applyFilters();
-                this.hideFilterDropdown();
+            getSpotDetails() {
+                axios.get('/api/spots/1/')
+                    .then((response)  => this.newSpotDetails(response.data))
+                    .catch((error) => console.log(error));
             },
-            applyFilters() {
-                let filters = [];
-                
-                if (this.filterPet) filters.push(this.filterPet);
-                if (this.filterSleeps) filters.push(this.filterSleeps);
-
-                if (filters.length) {
-                    if (filters.length === 1) {
-                        filters = filters[0];
+            newSpotDetails(newData) {
+                let topLevels = {
+                    amenities: 'amenities',
+                    photos: 'photos'
+                };
+                for (var key in topLevels) {
+                    if (newData.hasOwnProperty(key)) {
+                        this[topLevels[key]] = newData[key];
+                        // Vue.set(state, topLevels[key], initialState[key]);
+                        delete newData[key];
                     } else {
-                        filters.unshift("all");
+                        // this[topLevels[key]] = false;
+                        // state[topLevels[key]] = false;
                     }
-                } else {
-                    filters = undefined;
                 }
-
-                this.map.setFilter('clusters', filters);
-                this.map.setFilter('unclustered-point', filters);
-                this.map.setFilter('cluster-count', filters);
-            },
-            removePetFilter() {
-                Vue.set(this.activeFilters,'pets',false);
-                this.applyFilters();
-            },
-            removeSleepsFilter() {
-                Vue.set(this.activeFilters,'sleeps',0);
-                this.applyFilters();
-            },
-            clearSearch() {
-                this.mapSearch = '';
-                if (this.geolocateControl._watchState != 'OFF') {
-                    this.geolocateControl.trigger();
+                if (newData.hasOwnProperty('photo')) {
+                    this.photos.push(newData.photo);
+                    delete newData.photo
                 }
-            },
-
-            /*
-             * Geolocate Methods
-             */
-            getUserLocation() {
-                if (this.geolocationSupported) {
-                    this.geolocateControl.trigger();
-                    // navigator.geolocation.getCurrentPosition(
-                    //     function success(position) {
-                    //         // for when getting location is a success
-                    //         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
-                    //     },
-                    //     function error(error_message) {
-                    //         // for when getting location results in an error
-                    //         console.error('An error has occured while retrieving location ', error_message)
-                    //     }
-                    // );
-                }
-            },
-            geolocateEvent() {
-                this.geolocationStatus = 'active';
-                console.log(Object.assign({},this.geolocateControl));
-            },
-            geolocateStart() {
-                this.geolocationStatus = 'pending';
-                console.log(Object.assign({},this.geolocateControl));
-            },
-            geolocateEnd() {
-                this.geolocationStatus = '';
-                console.log(Object.assign({},this.geolocateControl));
-            },
-            
-
-            /*
-             * Filter Dropdown
-             */
-            toggleFilterDropdown() {
-                if (this.filterDropdownIsVisible) {
-                    this.hideFilterDropdown();
-                } else {
-                    this.showFilterDropdown();
-                }
-            },
-            showFilterDropdown() {
-                Vue.set(this.filterDropdownData,'sleeps',this.activeFilters.sleeps);
-                Vue.set(this.filterDropdownData,'pets',this.activeFilters.pets);
-                this.filterDropdownIsVisible = true;
-            },
-            hideFilterDropdown() {
-                // Vue.set(this.filterDropdownData,'sleeps',this.filters.sleeps);
-                // Vue.set(this.filterDropdownData,'pets',this.filters.pets);
-                this.filterDropdownIsVisible = false;
-            },
-            incFilterSleeps(){
-                if (this.filterDropdownData.sleeps < this.maxSleeps) {
-                    this.filterDropdownData.sleeps++;
-                }
-            },
-            decFilterSleeps(){
-                if (this.filterDropdownData.sleeps > 0) {
-                    this.filterDropdownData.sleeps--;
-                }
-            },
-            newGeolocate(val) {
-                console.log('geolocate', val);
+                this.spot = newData;
             }
         },
         computed: {
-            csrf() {
-                return window.Laravel.csrfToken;
-            },
-            filterPet() {
-                if (this.activeFilters.pets) {
-                   return  ['==', 'pets', true]
-                }
-            },
-            filterSleeps() {
-                if (this.activeFilters.sleeps && this.activeFilters.sleeps > 0) {
-                    return ['>=', 'sleeps', parseInt(this.activeFilters.sleeps)]
-                }
-            },
-            geolocatorClass() {
-                return {
-                    pending : this.geolocationStatus == 'pending',
-                    active : this.geolocationStatus == 'active'
-                }
-            },
-            showClearSearchButton() {
-                return (this.geolocationStatus == 'active' || this.mapSearch.length);
-            },
-            showGeolocateButton() {
-                return (!this.showClearSearchButton && this.geolocationSupported);
-            }
-
-
-            // self.map.setFilter('clusters', ['>=', 'sleeps', 10]);
-            // self.map.setFilter('unclustered-point', ['>=', 'sleeps', 10]);
-            // self.map.setFilter('cluster-count', ['>=', 'sleeps', 10]);
-        },
-        mounted() {
-            // console.log(mapboxgl);
-            this.map = new mapboxgl.Map({
-                container: 'map-wrapper',
-                style: 'mapbox://styles/mapbox/light-v10',
-                center: [-98.3810608, 37.9507756],
-                zoom: 4
-            });
-
-            this.map.on('load', () => {
-
-                // Taken from:
-                // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
-                this.map.addSource('places', {
-                    type: 'geojson',
-                    data: "http://sweetspot.test/api/spots?output=geojson",
-                    cluster: true,
-                    clusterMaxZoom: 12, // Max zoom to cluster points on
-                    clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
-                })
-                
-                // Adds the circles for the clusters
-                this.map.addLayer({
-                    id: "clusters",
-                    type: "circle",
-                    source: "places",
-                    paint: {
-                        "circle-color": "#45AEF1",
-                        "circle-radius": 14
-                    },
-                    maxzoom:11.999
-                });
-
-                // Adds the number labels on top of the circle clusters
-                this.map.addLayer({
-                    id: "cluster-count",
-                    type: "symbol",
-                    source: "places",
-                    layout: {
-                        "text-field": ["case",
-                            ['all', 
-                                ['has','point_count_abbreviated'], 
-                                ['>', ['get', 'point_count_abbreviated'], 1]
-                            ], ['get', 'point_count_abbreviated'],
-                            "1"
-                        ],
-                        "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
-                        "text-size": 15
-                    },
-                    paint: {
-                        "text-color": "#fff"
-                    },
-                    maxzoom:11.999
-                });
-
-                // Adds the individual spot markers
-                this.map.addLayer({
-                    id: "unclustered-point",
-                    type: "circle",
-                    source: "places",
-                    filter: ["!", ["has", "point_count"]],
-                    paint: {
-                        "circle-color": "#ff0000",
-                        "circle-radius": 0,
-                        "circle-stroke-width": 0,
-                        "circle-stroke-color": "#fff"
-                    },
-                    minzoom: 12
-                });
-
-                // Old geolocate method
-                this.geolocateControl = new mapboxgl.GeolocateControl({
-                    positionOptions: {
-                        enableHighAccuracy: true
-                    },
-                    trackUserLocation: true,
-                    fitBoundsOptions: {
-                        maxZoom : 12
-                    }
-                })
-                this.map.addControl(this.geolocateControl);
-                if ('geolocation' in navigator) {
-                    this.geolocationSupported = true;        
-                }
-                let self = this;
-                this.geolocateControl.on('geolocate', (val) => self.geolocateEvent(val));
-                this.geolocateControl.on('trackuserlocationstart', () => self.geolocateStart())
-                this.geolocateControl.on('trackuserlocationend', () => self.geolocateEnd());
-
-                // inspect a cluster on click
-                // this.map.on('click', 'clusters', function (e) {
-                //     var features = self.map.queryRenderedFeatures(e.point, {
-                //         layers: ['clusters']
-                //     });
-                //     if (features.length) {
-                //         var clusterId = features[0].properties.cluster_id;
-                //         self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
-                //             if (err)
-                //                 return;
-
-                //             self.map.easeTo({
-                //                 center: features[0].geometry.coordinates,
-                //                 zoom: zoom
-                //             });
-                //         });
-                //     }
-                // });
-
-                this.map.on('click', 'unclustered-point', function (e) {
-                    alert('SHOW ME SPOT #'+e.features[0].properties.id + ', KNAVE')
-                });
-
-                this.map.on('moveend', function() {
-                    self.popups.forEach((popup) => {
-                        popup.remove();
-                    });
-                    self.popups = [];
-
-                    var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
-
-                    if (visibleFeatures) {
-                        visibleFeatures.forEach((feature) => {
-                            self.popups.push(
-                                new mapboxgl.Popup({
-                                    closeButton: false,
-                                    closeOnClick : false
-                                }).setLngLat(feature.geometry.coordinates)
-                                .setHTML('<img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section>')
-                                .addTo(self.map)
-                            )
-                        });
-                    }
-                });
-            })
+            
         },
         watch: {
-            'geolocateControl.geolocate' : 'newGeolocate'
+            
         },
+        mounted() {
+            this.getSpotDetails();
+        }
     }
 </script>
 
