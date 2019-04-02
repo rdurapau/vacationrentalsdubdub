@@ -83,7 +83,7 @@
         },
         methods: {
             getSpotDetails() {
-                axios.get('/api/spots/1/')
+                axios.get('/api/spots/55')
                     .then((response)  => this.newSpotDetails(response.data))
                     .catch((error) => console.log(error));
             },
