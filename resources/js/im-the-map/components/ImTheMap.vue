@@ -247,8 +247,13 @@
                     this.filterDropdownData.sleeps--;
                 }
             },
-            markerClicked(id) {
-                console.log('clicked: '+id)
+            markerClicked(feature) {
+                console.log(feature.id);
+                this.map.easeTo({
+                    center: feature.geometry.coordinates,
+                    zoom: 14,
+                    duration: 2000
+                });
             },
             // newGeolocate(val) {
             //     console.log('geolocate', val);
@@ -278,8 +283,18 @@
                         el.innerHTML = '<div class="spot-marker"><div class="image" style="background-image:url('+feature.properties.photo+')"></div><section><span class="price">$'+feature.properties.price+'</span><span class="beds">'+feature.properties.sleeps+'</span><span class="baths">'+feature.properties.baths+'</span></section></div>';
 
                         marker = self.markers[id] = new mapboxgl.Marker({
-                            element: el
+                            element: el,
+                            offset: {
+                                x: 0,
+                                y: -75
+                            }
                         }).setLngLat(coords);
+
+                        el.addEventListener('click',function(){
+                            self.markerClicked(feature);
+                            console.log(el);
+                            el.classList.add('clicked')
+                        });
                     }
                     newMarkers[id] = marker;
 
@@ -369,7 +384,6 @@
                     type: 'geojson',
                     data: "http://sweetspot.test/api/spots?output=geojson",
                     cluster: true,
-                    // clusterMaxZoom: 12, // Max zoom to cluster points on
                     clusterRadius: 120, // Radius of each cluster when clustering points (defaults to 50)
                     clusterProperties: {"sum": ["+", ["get", "scalerank"]]}
                 })
@@ -409,6 +423,7 @@
                     id: "clusters",
                     type: "circle",
                     source: "places",
+                    filter: [">=", "point_count", 1],
                     paint: {
                         "circle-color": "#45AEF1",
                         "circle-radius": 14
@@ -432,6 +447,7 @@
                         "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
                         "text-size": 15
                     },
+                    filter: [">=", "point_count", 1],
                     paint: {
                         "text-color": "#fff"
                     },
@@ -439,19 +455,19 @@
                 });
 
                 // Adds the individual spot markers
-                // this.map.addLayer({
-                //     id: "unclustered-point",
-                //     type: "circle",
-                //     source: "places",
-                //     filter: ["!", ["has", "point_count"]],
-                //     paint: {
-                //         "circle-color": "#ff0000",
-                //         "circle-radius": 0,
-                //         "circle-stroke-width": 0,
-                //         "circle-stroke-color": "#fff"
-                //     },
-                //     minzoom: 12
-                // });
+                this.map.addLayer({
+                    id: "unclustered-point",
+                    type: "circle",
+                    source: "places",
+                    filter: ["!", ["has", "point_count"]],
+                    paint: {
+                        "circle-color": "#ff0000",
+                        "circle-radius": 0,
+                        "circle-stroke-width": 0,
+                        "circle-stroke-color": "#fff"
+                    },
+                    minzoom: 12
+                });
 
                 // Old geolocate method
                 this.geolocateControl = new mapboxgl.GeolocateControl({
@@ -480,31 +496,31 @@
                     self.updateMarkers();
                 });
 
-
-
                 // inspect a cluster on click
-                // this.map.on('click', 'clusters', function (e) {
-                //     var features = self.map.queryRenderedFeatures(e.point, {
-                //         layers: ['clusters']
-                //     });
-                //     if (features.length) {
-                //         var clusterId = features[0].properties.cluster_id;
-                //         self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
-                //             if (err)
-                //                 return;
+                this.map.on('click', 'clusters', function (e) {
+                    var features = self.map.queryRenderedFeatures(e.point, {
+                        layers: ['clusters']
+                    });
+                    if (features.length) {
+                        var clusterId = features[0].properties.cluster_id;
+                        self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
+                            if (err)
+                                return;
 
-                //             self.map.easeTo({
-                //                 center: features[0].geometry.coordinates,
-                //                 zoom: zoom
-                //             });
-                //         });
-                //     }
-                // });
-
-                this.map.on('click', 'unclustered-point', function (e) {
-                    alert('SHOW ME SPOT #'+e.features[0].properties.id + ', KNAVE')
+                            self.map.easeTo({
+                                center: features[0].geometry.coordinates,
+                                zoom: zoom
+                            });
+                        });
+                    }
                 });
 
+                this.map.on('mouseenter', 'clusters', function () {
+                    self.map.getCanvas().style.cursor = 'pointer';
+                });
+                this.map.on('mouseleave', 'clusters', function () {
+                    self.map.getCanvas().style.cursor = '';
+                });
 
                 // this.map.features.forEach(feature => {
                 //     var el = document.createElement('div');

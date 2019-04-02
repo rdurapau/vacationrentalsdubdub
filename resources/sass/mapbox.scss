@@ -19,6 +19,7 @@ $green: #2BC569;
 
 .mapboxgl-marker {
     .spot-marker {
+        cursor:pointer;
         font-family: "Whitney A", "Whitney B";
         font-style: normal;
         font-weight: 700;
@@ -31,6 +32,8 @@ $green: #2BC569;
         border-radius: 2px;
         position:relative;
         z-index:2;
+        opacity:1;
+        transition:opacity .2s;
         div.image  {
             display:block;
             border-top-left-radius: 2px;
@@ -39,14 +42,18 @@ $green: #2BC569;
             height:100px;
             background:center center no-repeat;
             background-size:cover;
+            opacity:.95;
+            transition:opacity .2s;
         }
         section {
+            opacity:.9;
             display:flex;
             justify-content:space-between;
             padding:3px 10px;
             align-items:center;
             height:28px;
             box-sizing:border-box;
+            transition:opacity .2s;
             span {
                 display:block;
                 font-size:11px;
@@ -103,6 +110,15 @@ $green: #2BC569;
             transform: rotate(-45deg);
             
             z-index:0;
+        }
+        &:hover {
+            opacity:1;
+            div.image, section {
+                opacity:1;
+            }
+        }
+        &.not-active {
+            opacity:.5;
         }
     }
 }
