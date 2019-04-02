@@ -1,7 +1,7 @@
 button.btn {
     @include appearance(none);
     @include fontBook();
-    border:none;
+    border: solid 1px rgba(0,0,0,0);
 
     background: $purple;
     border-radius: 4px;
@@ -10,7 +10,8 @@ button.btn {
     line-height:1.125em;
     letter-spacing:-.02em;
     color:#fff;
-    transition:background .3s;
+    @include moveMe;
+    cursor: pointer;
     &:hover {
         background:darken($purple,4%);
     }
@@ -48,6 +49,16 @@ button.btn {
     }
     &.btn-sm {
         font-size:13px;
+    }
+    &.secondary{
+        background: rgba(0,0,0,0);
+        border: solid 1px rgba(0,0,0,.15);
+        color: rgba(0,0,0,.2);
+        &:hover {
+            background:darken($purple,4%);
+            border: solid 1px rgba(0,0,0,0);
+            color: #fff;
+        }
     }
 }
 

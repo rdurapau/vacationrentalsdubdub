@@ -1,4 +1,14 @@
 form{
+    fieldset{
+        display: flex;
+        flex-direction: column;
+        &.inactive{
+            display: none;
+        }
+        &.active{
+            display: flex;
+        }
+    }
     h1{
         @include fontBold;
         font-size: 40px;
