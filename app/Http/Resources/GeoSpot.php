@@ -26,16 +26,12 @@ class GeoSpot extends JsonResource
             ],
             "properties"=> [
                 "baths" => $this->baths,
-                // "address" => $this->address1,
-                // "city" => $this->city,
                 "id" => $this->id,
-                // "name" => $this->name,
                 "pets" => $this->allowsPets(),
                 "photo" => $this->cover_photo,
                 "postal_code" => $this->postal_code,
                 "price" => $this->price,
                 "sleeps" => $this->sleeps,
-                // "state" => $this->state,
             ]
         ];
     }

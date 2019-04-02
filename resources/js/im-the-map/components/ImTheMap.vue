@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <section id="main-map">
 
         <!-- <div id="form-wrap">
             <input type="text" v-model="filters.sleeps" placeholder="How many people?" />
@@ -103,7 +103,7 @@
 
         <div id="map-wrapper"></div>
 
-    </div>
+    </section>
 </template>
 
 <script>
@@ -120,6 +120,8 @@
             return {
                 'map' : '',
                 'popups' : [],
+                'markers' : {},
+                'markersOnScreen' : {},
                 'mapSearch': '',
                 'activeFilters' : {
                     'pets' : false,
@@ -178,6 +180,9 @@
                 if (this.geolocateControl._watchState != 'OFF') {
                     this.geolocateControl.trigger();
                 }
+            },
+            resizeMap() {
+                this.map.resize();
             },
 
             /*
@@ -242,9 +247,79 @@
                     this.filterDropdownData.sleeps--;
                 }
             },
-            newGeolocate(val) {
-                console.log('geolocate', val);
-            }
+            markerClicked(id) {
+                console.log('clicked: '+id)
+            },
+            // newGeolocate(val) {
+            //     console.log('geolocate', val);
+            // }
+
+            /*
+             *  Map Methods
+             */
+
+            updateMarkers() {
+                var newMarkers = {};
+                var features = this.map.querySourceFeatures('places');
+
+                // for every cluster on the screen, create an HTML marker for it (if we didn't yet),
+                // and add it to the map if it's not there already
+                let self = this;
+                features.forEach((feature) => {
+                    var coords = feature.geometry.coordinates;
+                    var props = feature.properties;
+                    if (props.cluster) return;
+                    var id = props.id;
+
+                    var marker = self.markers[id];
+                    if (!marker) {
+                        let el = document.createElement('div');
+                        el.className = 'marker';
+                        el.innerHTML = '<div class="spot-marker"><div class="image" style="background-image:url('+feature.properties.photo+')"></div><section><span class="price">$'+feature.properties.price+'</span><span class="beds">'+feature.properties.sleeps+'</span><span class="baths">'+feature.properties.baths+'</span></section></div>';
+
+                        marker = self.markers[id] = new mapboxgl.Marker({
+                            element: el
+                        }).setLngLat(coords);
+                    }
+                    newMarkers[id] = marker;
+
+                    if (!self.markersOnScreen[id])
+                        marker.addTo(self.map);
+                });
+
+                // for every marker we've added previously, remove those that are no longer visible
+                for (let id in self.markersOnScreen) {
+                    if (!newMarkers[id])
+                        self.markersOnScreen[id].remove();
+                }
+                Vue.set(self, 'markersOnScreen', newMarkers);
+
+
+                // for (var i = 0; i < features.length; i++) {
+                //     var coords = features[i].geometry.coordinates;
+                //     var props = features[i].properties;
+                //     if (!props.cluster) continue;
+                //     var id = props.cluster_id;
+
+                //     var marker = markers[id];
+                //     if (!marker) {
+                //         var el = createDonutChart(props);
+                //         marker = markers[id] = new mapboxgl.Marker({
+                //             element: el
+                //         }).setLngLat(coords);
+                //     }
+                //     newMarkers[id] = marker;
+
+                //     if (!markersOnScreen[id])
+                //         marker.addTo(map);
+                // }
+                // // for every marker we've added previously, remove those that are no longer visible
+                // for (id in markersOnScreen) {
+                //     if (!newMarkers[id])
+                //         markersOnScreen[id].remove();
+                // }
+                // markersOnScreen = newMarkers;
+            },
         },
         computed: {
             csrf() {
@@ -273,7 +348,6 @@
                 return (!this.showClearSearchButton && this.geolocationSupported);
             }
 
-
             // self.map.setFilter('clusters', ['>=', 'sleeps', 10]);
             // self.map.setFilter('unclustered-point', ['>=', 'sleeps', 10]);
             // self.map.setFilter('cluster-count', ['>=', 'sleeps', 10]);
@@ -295,9 +369,40 @@
                     type: 'geojson',
                     data: "http://sweetspot.test/api/spots?output=geojson",
                     cluster: true,
-                    clusterMaxZoom: 12, // Max zoom to cluster points on
-                    clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
+                    // clusterMaxZoom: 12, // Max zoom to cluster points on
+                    clusterRadius: 120, // Radius of each cluster when clustering points (defaults to 50)
+                    clusterProperties: {"sum": ["+", ["get", "scalerank"]]}
                 })
+
+
+
+
+                // this.map.addLayer({
+                // "id": "earthquake_circle",
+                // "type": "circle",
+                // "source": "places",
+                // "filter": ["!=", "cluster", true],
+                // "paint": {
+                // "circle-opacity": 0.6,
+                // "circle-radius": 12
+                // }
+                // });
+                // this.map.addLayer({
+                // "id": "earthquake_label",
+                // "type": "symbol",
+                // "source": "places",
+                // "filter": ["!=", "cluster", true],
+                // "layout": {
+                // "text-field": ["number-format", ["get", "id"], {"min-fraction-digits": 1, "max-fraction-digits": 1}],
+                // "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+                // "text-size": 10
+                // },
+                // "paint": {
+                // "text-color": ["case", ["<", ["get", "mag"], 3], "black", "white"]
+                // }
+                // });
+
+
                 
                 // Adds the circles for the clusters
                 this.map.addLayer({
@@ -334,19 +439,19 @@
                 });
 
                 // Adds the individual spot markers
-                this.map.addLayer({
-                    id: "unclustered-point",
-                    type: "circle",
-                    source: "places",
-                    filter: ["!", ["has", "point_count"]],
-                    paint: {
-                        "circle-color": "#ff0000",
-                        "circle-radius": 0,
-                        "circle-stroke-width": 0,
-                        "circle-stroke-color": "#fff"
-                    },
-                    minzoom: 12
-                });
+                // this.map.addLayer({
+                //     id: "unclustered-point",
+                //     type: "circle",
+                //     source: "places",
+                //     filter: ["!", ["has", "point_count"]],
+                //     paint: {
+                //         "circle-color": "#ff0000",
+                //         "circle-radius": 0,
+                //         "circle-stroke-width": 0,
+                //         "circle-stroke-color": "#fff"
+                //     },
+                //     minzoom: 12
+                // });
 
                 // Old geolocate method
                 this.geolocateControl = new mapboxgl.GeolocateControl({
@@ -366,6 +471,16 @@
                 this.geolocateControl.on('geolocate', (val) => self.geolocateEvent(val));
                 this.geolocateControl.on('trackuserlocationstart', () => self.geolocateStart())
                 this.geolocateControl.on('trackuserlocationend', () => self.geolocateEnd());
+
+                this.map.on('data', function (e) {
+                    if (e.sourceId !== 'places' || !e.isSourceLoaded) return;
+                    
+                    self.map.on('move', self.updateMarkers);
+                    self.map.on('moveend', self.updateMarkers);
+                    self.updateMarkers();
+                });
+
+
 
                 // inspect a cluster on click
                 // this.map.on('click', 'clusters', function (e) {
@@ -390,40 +505,93 @@
                     alert('SHOW ME SPOT #'+e.features[0].properties.id + ', KNAVE')
                 });
 
-                this.map.on('moveend', function() {
-                    self.popups.forEach((popup) => {
-                        popup.remove();
-                    });
-                    self.popups = [];
 
-                    var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
+                // this.map.features.forEach(feature => {
+                //     var el = document.createElement('div');
+                //     el.className = 'marker';
+                //     el.innerHTML = '<div class="spot-marker"><img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section></div>';
+                //     el.addEventListener('click', function() {
+                //         self.markerClicked(feature.id);
+                //     });
+                //     // el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
+                //     // el.style.width = marker.properties.iconSize[0] + 'px';
+                //     // el.style.height = marker.properties.iconSize[1] + 'px';
 
-                    if (visibleFeatures) {
-                        visibleFeatures.forEach((feature) => {
-                            self.popups.push(
-                                new mapboxgl.Popup({
-                                    closeButton: false,
-                                    closeOnClick : false
-                                }).setLngLat(feature.geometry.coordinates)
-                                .setHTML('<img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section>')
-                                .addTo(self.map)
-                            )
-                        });
-                    }
-                });
+
+                //     self.markers.push(
+                //         new mapboxgl.Marker(el)
+                //             .setLngLat(feature.geometry.coordinates)
+                //             // .setHTML('')
+                //             .addTo(self.map)
+                //             // .addEventListener('click',function(){console.log('clicked')})
+                //     )
+                // });
+
+                // Markers
+                // this.map.on('moveend', function() {
+                //     self.markers.forEach((marker) => {
+                //         marker.remove();
+                //     });
+                //     self.markers = [];
+
+                //     var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
+
+                //     if (visibleFeatures) {
+                //         visibleFeatures.forEach((feature) => {
+                //             var el = document.createElement('div');
+                //             el.className = 'marker';
+                //             el.innerHTML = '<div class="spot-marker"><img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section></div>';
+                //             el.addEventListener('click', function() {
+                //                 self.markerClicked(feature.id);
+                //             });
+                //             // el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
+                //             // el.style.width = marker.properties.iconSize[0] + 'px';
+                //             // el.style.height = marker.properties.iconSize[1] + 'px';
+
+
+                //             self.markers.push(
+                //                 new mapboxgl.Marker(el)
+                //                     .setLngLat(feature.geometry.coordinates)
+                //                     // .setHTML('')
+                //                     .addTo(self.map)
+                //                     // .addEventListener('click',function(){console.log('clicked')})
+                //             )
+                //         });
+                //     }
+                // });
+
+                // Popups
+                // this.map.on('moveend', function() {
+                //     self.popups.forEach((popup) => {
+                //         popup.remove();
+                //     });
+                //     self.popups = [];
+
+                //     var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
+
+                //     if (visibleFeatures) {
+                //         visibleFeatures.forEach((feature) => {
+                //             self.popups.push(
+                //                 new mapboxgl.Popup({
+                //                     closeButton: false,
+                //                     closeOnClick : false
+                //                 }).setLngLat(feature.geometry.coordinates)
+                //                 .setHTML('<div onclick="console.log('+feature.properties.id+')"><img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section></div>')
+                //                 .addTo(self.map)
+                //                 // .addEventListener('click',function(){console.log('clicked')})
+                //             )
+                //         });
+                //     }
+                // });
             })
+            let self = this;
+            setInterval(function(){
+                self.resizeMap()
+            },1000);
         },
         watch: {
-            'geolocateControl.geolocate' : 'newGeolocate'
+            // 'geolocateControl.geolocate' : 'newGeolocate'
         },
     }
 </script>
-
-<style>
-    #map-wrapper {
-        position:fixed;
-        width:100vw;
-        height:100vh;
-    }
-</style>
 

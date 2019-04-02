@@ -1,7 +1,10 @@
 <template>
-    <section class="spot-details">
+    <section class="spot-details" :class="{out: isOut}">
+        <transition name="fade">
+            <div v-if="isLoading" @click.prevent="isLoading = false" class="loading-overlay"><span></span></div>
+        </transition>
         <section class="hero">
-            <button class="close"><span class="icon-clear-css"></span></button>
+            <button class="close" @click.prevent="isOut=true"><span class="icon-clear-css"></span></button>
             <div class="controls">
                 <a href="#" class="left"></a>
                 <a href="#" class="right"></a>
@@ -19,25 +22,24 @@
             <article>
                 <h2 v-text="spot.name">Lakefront Escape</h2>
                 <section class="icon-deets">
-                    <div>
+                    <div v-if="spot.sleeps">
                         <img src="/images/icons/person-circle.svg" />
                         <span>Sleeps {{spot.sleeps}}</span>
                     </div>
-                    <div>
+                    <div v-if="spot.sleeps">
                         <img src="/images/icons/bed.svg" />
                         <span>{{spot.sleeps}} beds</span>
                     </div>
-                    <div>
+                    <div v-if="spot.baths">
                         <img src="/images/icons/shower.svg" />
                         <span>{{spot.baths}} baths</span>
                     </div>
                 </section>
 
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis.</p>
-                <p>Cras mattis consectetur purus sit amet fermentum. Etiam porta sem malesuada magna mollis euismod. Nullam quis risus eget urna mollis ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                <p v-html="spot.desc"></p>
 
-                <h3>Amenities</h3>
-                <ul class="amenities">
+                <h3 v-if="amenities.length">Amenities</h3>
+                <ul class="amenities" v-if="amenities.length">
                     <li v-for="amenity in amenities" :class="amenity.icon">
                         <div class="icon"><img :src="'/images/icons/amenities/'+amenity.icon+'.svg'" /></div>
                         <span v-text="amenity.name"></span>
@@ -48,8 +50,12 @@
                 <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
                 <button class="btn btn-wide btn-purple btn-reservation">Make a reservation</button>
                 <ul class="contact">
-                    <li>(555) 555-5555</li>
-                    <li>Visit Property Website</li>
+                    <li class="phone" v-if="spot.phone">
+                        <a :href="'tel:'+spot.phone" v-text="spot.phone"></a>
+                    </li>
+                    <li class="link" v-if="spot.website">
+                        <a :href="spot.website" target="_blank">Visit Property Website</a>
+                    </li>
                 </ul>
             </aside>
         </section>
@@ -71,6 +77,8 @@
                 'spot' : {},
                 'photos' : [],
                 'amenities' : [],
+                'isLoading' : true,
+                'isOut' : false
             }
         },
         methods: {
@@ -99,6 +107,7 @@
                     delete newData.photo
                 }
                 this.spot = newData;
+                this.isLoading = false;
             }
         },
         computed: {
@@ -109,15 +118,11 @@
         },
         mounted() {
             this.getSpotDetails();
+            // let self = this;
+            // setInterval(function(){
+            //     self.isOut = !self.isOut;
+            // },3000);
         }
     }
 </script>
-
-<style>
-    #map-wrapper {
-        position:fixed;
-        width:100vw;
-        height:100vh;
-    }
-</style>
 

@@ -6,23 +6,109 @@
 $purple: #29304C;
 $green: #2BC569;
 
-.mapboxgl-popup-content {
-    background:$purple;
-    color:#fff;
-    width:138px;
-    padding:4px;
-    img {
-        display:block;
-        height:auto;
-        max-width:100%;
-    }
-    section {
-        display:flex;
-        justify-content:space-between;
-        span {
+
+
+// <div class="marker mapboxgl-marker mapboxgl-marker-anchor-center"
+//     style="transform: translate(-50%, -50%) translate(471px, 455px);">
+//     <div class="spot-marker"><img src="https://sweetspot.test/storage/20/b1232938399d342acba7490a2c923c73.jpg">
+//         <section><span>$331</span><span>B: 2</span><span>S: 18</span></section>
+//     </div>
+// </div>
+
+
+
+.mapboxgl-marker {
+    .spot-marker {
+        font-family: "Whitney A", "Whitney B";
+        font-style: normal;
+        font-weight: 700;
+        color: #29304C;
+        background:#fff;
+        // color:#fff;
+        width:150px;
+        padding:0;
+        filter: drop-shadow(rgba(0, 0, 0, 0.25) 0 2px 10px);
+        border-radius: 2px;
+        position:relative;
+        z-index:2;
+        div.image  {
             display:block;
+            border-top-left-radius: 2px;
+            border-top-right-radius:2px;
+            width:100%;
+            height:100px;
+            background:center center no-repeat;
+            background-size:cover;
+        }
+        section {
+            display:flex;
+            justify-content:space-between;
+            padding:3px 10px;
+            align-items:center;
+            height:28px;
+            box-sizing:border-box;
+            span {
+                display:block;
+                font-size:11px;
+                &.price {
+                    font-size:15px;
+                    flex:1 1 auto;
+                }
+                &.beds {
+                    display:flex;
+                    justify-content:flex-start;
+                    align-items:center;
+                    margin-left:6px;
+                    &:before {
+                        display:block;
+                        content:'';
+                        width:12px;
+                        height:12px;
+                        margin-right:3px;
+                        background:url('../images/icons/bed.svg') center center no-repeat;
+                        background-size:contain;
+                    }
+                }
+                &.baths {
+                    margin-left:6px;
+                    display:flex;
+                    justify-content:flex-start;
+                    align-items:center;
+                    &:before {
+                        display:block;
+                        content:'';
+                        width:12px;
+                        height:12px;
+                        margin-right:3px;
+                        background:url('../images/icons/shower.svg') center center no-repeat;
+                        background-size:contain;
+                    }
+                }
+            }
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            margin-left: -16px;
+            bottom: -20px;
+            left: 50%;
+            box-sizing: border-box;
+            
+            border: 12px solid black;
+            border-color: transparent transparent #fff #fff;
+            
+            transform-origin: 0 0;
+            transform: rotate(-45deg);
+            
+            z-index:0;
         }
     }
+}
+
+// Previous popup Style
+.mapboxgl-popup-content {
     
 }
 

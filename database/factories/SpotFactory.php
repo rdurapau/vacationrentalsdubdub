@@ -24,6 +24,7 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'owner_name' => $faker->name(),
         
         "sleeps" => rand(2,20),
+        "beds" => rand(1,8),
         "baths" => rand(1,3),
         'lat' => $coords[0],
         'lng' => $coords[1],

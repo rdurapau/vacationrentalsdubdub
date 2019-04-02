@@ -1,11 +1,51 @@
 #im-the-map {
     z-index:1;
     position:relative;
+    display:flex;
+    justify-content:flex-start;
+    align-items:stretch;
+    height:100vh;
+    width:100vw;
+    overflow:hidden;
+    #main-map {
+        flex: 1 1 auto;
+        display:flex;
+        align-items:stretch;
+        justify-content:stretch;
+        position:relative;
+        #map-wrapper {
+            flex:1 1 auto;
+        }
+        // position:fixed;
+        // width:100vw;
+        // height:100vh;
+    }
+    .spot-details {
+        flex:0 0 auto;
+        width:650px;
+        // position:fixed;
+        // height:100vh;
+        box-sizing:border-box;
+        // top:0;
+        // right:0;
+        // z-index:1000;
+
+        opacity: 1;
+        visibility:visible;
+        right:0;
+        transition: margin-right .3s, opacity .3s, visibility .3s;
+        &.out {
+            position:relative;
+            margin-right:-650px;
+            opacity:0;
+            visibility:hidden;
+        }
+    }
 }
 
 .search-and-filter {
     @include fontBook();
-    position:fixed;
+    position:absolute;
     top:30px;
     right:30px;
     display:flex;

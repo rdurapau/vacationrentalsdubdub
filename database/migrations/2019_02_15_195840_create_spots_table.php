@@ -29,6 +29,7 @@ class CreateSpotsTable extends Migration
             // $table->boolean('is_approved')->default(false);
 
             $table->integer('baths');
+            $table->integer('beds');
             $table->integer('sleeps');
             $table->decimal('lng', 10, 7)->nullable();
             $table->decimal('lat', 10, 7)->nullable();

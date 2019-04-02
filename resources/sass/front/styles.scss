@@ -15,6 +15,7 @@ body{
         height: 17px;
         background: url('#{$images}logo.svg');
         background-size: contain;
+        z-index:100;
         @include mq('tablet'){
             top: 20px;
             left: 20px;
