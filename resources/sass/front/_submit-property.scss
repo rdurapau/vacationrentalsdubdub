@@ -68,7 +68,13 @@ section.modal-background{
                     background: purple;
                     display: flex;
                     flex-grow: 1;
-                    max-width: 225px;
+                    min-width: 260px;
+                    @include mq('sm-desk'){
+                        min-width: 180px;
+                    }
+                    @include mq('tablet'){
+                        display: none;
+                    }
                 }
                 &.form-stuffs{
                     background: pink;
@@ -79,7 +85,13 @@ section.modal-background{
                 }
                 &.dead-space{
                     background: orange;
-                    max-width: 250px;
+                    min-width: 320px;
+                    @include mq('sm-desk'){
+                        min-width: 180px;
+                    }
+                    @include mq('tablet'){
+                        display: none;
+                    }
                 }
             }//end parent columns
             div.row{
@@ -89,12 +101,35 @@ section.modal-background{
                 &.form-and-null{
                     background: blue;
                     margin-left: 20px;
+                    @include mq('tablet'){
+                        margin-left: 0;
+                    }
                 }
                 &.action-row{
                     max-height: 70px;
-                }
+                    margin-left: 20px;
+                    background: white;
+                    justify-content: flex-end;
+                    align-items: center;
+                    padding-right: 10px;
+                    border-top: solid 1px #ccc;
+                    button.btn{
+                        min-height: 45px;
+                        min-width: 185px;
+                        margin-left: 10px;
+                        @include mq('tablet'){
+                            display: flex;
+                            flex-grow: 1;
+                            justify-content: center;
+                        }
+                    }
+                    @include mq('tablet'){
+                        margin-left: 0;
+                    }
+                }//end action row
             }
         }//end container-body
+
     }//end container
 
 }//end submit property modal

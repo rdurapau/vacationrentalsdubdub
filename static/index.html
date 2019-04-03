@@ -31,7 +31,12 @@
           <section class="container-body">
 
             <div class="column progress-list">
-
+              <ul>
+                <li class="personal">Personal Info</li>
+                <li class="location">Property Location</li>
+                <li class="details">Property Details</li>
+                <li class="photos">Property Photos</li> 
+              </ul>
             </div>
 
             <div class="column form-stuffs">
@@ -41,32 +46,35 @@
                 <div class="column actual-form">
 
                   <form action="">
-                      <h1>Personal Info</h1>
 
-                      <div class="section-description">
-                        <h2>Personal Info</h2>
-                        <p>The only information that will be shared with guests is your phone number so they can contact you directly.</p>
-                      </div>
+                      <fieldset class="inactive active">
 
-                      <section class="fieldset required">
-                        <input type="text" id="full-name">
-                        <label for="full-name">Full Name</label>
-                      </section>
+                        <h1>Personal Info</h1>
 
-                      <section class="fieldset">
+                        <div class="section-description">
+                          <h2>Personal Info</h2>
+                          <p>The only information that will be shared with guests is your phone number so they can contact you directly.</p>
+                        </div>
 
-                        <section class="fieldset">
-                            <input type="text" id="email-address">
-                            <label for="email-address">Email Address</label>
-                        </section>
-                        <section class="fieldset">
-                            <input type="text" id="confirm-email">
-                            <label for="confirm-email">Confirm Email Address</label>
+                        <section class="fieldset required">
+                          <input type="text" id="full-name">
+                          <label for="full-name">Full Name</label>
                         </section>
 
-                      </section>
+                        <section class="fieldset">
 
-                      <section class="fieldset">
+                          <section class="fieldset">
+                              <input type="text" id="email-address">
+                              <label for="email-address">Email Address</label>
+                          </section>
+                          <section class="fieldset">
+                              <input type="text" id="confirm-email">
+                              <label for="confirm-email">Confirm Email Address</label>
+                          </section>
+
+                        </section>
+
+                        <section class="fieldset">
 
                           <section class="fieldset">
                               <input type="text" id="phone-number">
@@ -78,6 +86,8 @@
                           </section>
   
                         </section>
+                          
+                      </fieldset>
 
                   </form>
 
@@ -89,7 +99,10 @@
 
               </div>
 
-              <div class="row action-row"></div>
+              <div class="row action-row">
+                <button class="btn secondary">Back</button>
+                <button class="btn">Save & Continue</button>
+              </div>
 
             </div>
 
