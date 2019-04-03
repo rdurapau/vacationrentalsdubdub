@@ -34,7 +34,7 @@
         visibility:visible;
         right:0;
         transition: margin-right .3s, opacity .3s, visibility .3s;
-        &.out {
+        &.slide-enter, &.slide-leave-to {
             position:relative;
             margin-right:-650px;
             opacity:0;

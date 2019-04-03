@@ -15,11 +15,10 @@ Vue.component('spot-details', SpotDetails);
 //     el: '#im-the-map'
 // });
 
+// $editGameBus for passing non-state data between components
+Vue.prototype.$mapBus = new Vue();
 const spotsMap = new Vue({
-    store,
-    mounted: function() {
-        this.$store.dispatch('init');
-    }
+    store
 }).$mount('#im-the-map');
 
 /*
