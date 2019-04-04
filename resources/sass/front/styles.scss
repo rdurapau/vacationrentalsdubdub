@@ -6,7 +6,7 @@ $images: '../images/';
 @import 'map', 'details';
 
 body{
-    background: #B7B7B6;
+    background: #f0f0ee;
     > h1.logo{
         @include abs;
         top: 50px;

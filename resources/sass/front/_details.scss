@@ -29,7 +29,7 @@
         display:flex;
         align-items:center;
         justify-content:center;
-        transition: opacity .6s, visibility .6s;
+        transition: opacity .4s, visibility .4s;
         &.fade-enter, &.fade-leave-to {
             opacity:0;
             visibility:hidden;
