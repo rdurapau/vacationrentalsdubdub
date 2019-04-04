@@ -47,55 +47,61 @@
 
                   <form action="">
 
-                      <fieldset class="inactive active">
+                      <fieldset class="progress-section-wrap inactive active">
 
                         <h1>Personal Info</h1>
 
-                        <div class="section-description">
-                          <h2>Personal Info</h2>
-                          <p>The only information that will be shared with guests is your phone number so they can contact you directly.</p>
-                        </div>
+                        <!-- Adding this nested wrap to allow me to split out floating comments -->
+                        <section class="sub-section-row">
 
-                        <section class="fieldset required">
-                          <input type="text" id="full-name">
-                          <label for="full-name">Full Name</label>
-                        </section>
+                          <div class="section-description sub-column">
+                            <h2>Personal Info</h2>
+                            <p>The only information that will be shared with guests is your phone number so they can contact you directly.</p>
+                          </div>
 
-                        <section class="fieldset">
+                          <div class="sub-column">
 
-                          <section class="fieldset">
-                              <input type="text" id="email-address">
-                              <label for="email-address">Email Address</label>
-                          </section>
-                          <section class="fieldset">
-                              <input type="text" id="confirm-email">
-                              <label for="confirm-email">Confirm Email Address</label>
-                          </section>
+                            <section class="fieldset required">
+                              <input type="text" id="full-name">
+                              <label for="full-name">Full Name</label>
+                            </section>
 
-                        </section>
+                            <section class="fieldset">
 
-                        <section class="fieldset">
+                              <section class="fieldset">
+                                  <input type="text" id="email-address">
+                                  <label for="email-address">Email Address</label>
+                              </section>
+                              <section class="fieldset">
+                                  <input type="text" id="confirm-email">
+                                  <label for="confirm-email">Confirm Email Address</label>
+                              </section>
 
-                          <section class="fieldset">
-                              <input type="text" id="phone-number">
-                              <label for="phone-number">Phone Number</label>
-                          </section>
-                          <section class="fieldset">
-                              <input type="text" id="date-of-birth">
-                              <label for="date-of-birth">Date of Birth</label>
-                          </section>
-  
-                        </section>
-                          
+                            </section>
+
+                            <section class="fieldset">
+
+                              <section class="fieldset">
+                                  <input type="text" id="phone-number">
+                                  <label for="phone-number">Phone Number</label>
+                              </section>
+                              <section class="fieldset">
+                                  <input type="text" id="date-of-birth">
+                                  <label for="date-of-birth">Date of Birth</label>
+                              </section>
+      
+                            </section>
+
+                          </div><!-- End sub column -->
+
+                        </section><!-- END sub-section-row -->
+
                       </fieldset>
 
                   </form>
 
                 </div>
 
-                <div class="column dead-space">
-
-                </div>
 
               </div>
 

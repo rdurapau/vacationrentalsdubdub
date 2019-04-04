@@ -22,11 +22,19 @@ section.modal-background{
         max-width: 1200px;
         max-height: 720px;
         min-height: 720px;
+        @include mq('tablet'){
+            min-height: 100%;
+            max-height: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            border-radius: 0;
+        }
         section.container-head{
             background: red;
             display: flex;
             flex-grow: 1;
             max-height: 60px;
+            min-height: 50px;
             flex-direction: row;
             align-items: center;
             h1.logo{
@@ -68,7 +76,7 @@ section.modal-background{
                     background: purple;
                     display: flex;
                     flex-grow: 1;
-                    min-width: 260px;
+                    max-width: 260px;
                     @include mq('sm-desk'){
                         min-width: 180px;
                     }
@@ -86,6 +94,7 @@ section.modal-background{
                 &.dead-space{
                     background: orange;
                     min-width: 320px;
+                    @include z-101;
                     @include mq('sm-desk'){
                         min-width: 180px;
                     }
@@ -100,14 +109,13 @@ section.modal-background{
                 flex-direction: row;
                 &.form-and-null{
                     background: blue;
-                    margin-left: 20px;
                     @include mq('tablet'){
                         margin-left: 0;
                     }
                 }
                 &.action-row{
                     max-height: 70px;
-                    margin-left: 20px;
+                    min-height: 70px;
                     background: white;
                     justify-content: flex-end;
                     align-items: center;
