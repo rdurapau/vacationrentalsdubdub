@@ -124,6 +124,9 @@
                 'markers' : {},
                 'markersOnScreen' : {},
                 'mapSearch': '',
+
+                'geoJson' : {},
+
                 'activeFilters' : {
                     'pets' : false,
                     'sleeps' : 0
@@ -153,6 +156,51 @@
             applyFilters() {
                 let filters = [];
                 
+                // if (this.filterPet) filters.push(this.filterPet);
+                // if (this.filterSleeps) filters.push(this.filterSleeps);
+
+                // if (this.activeFiltersSet.length) {
+                    
+                // }  else {
+                //     filters = NULL;
+                // }
+
+                // this.map.setFilter('clusters', filters);
+                // this.map.setFilter('cluster-count', filters);
+                // this.map.setFilter('unclustered-point', filters);
+                // this.map.setFilter('unclustered-point-count', filters);
+
+                if (this.hasActiveFilters) {
+                    let activeFilters = this.activeFilters;
+
+                    let filteredData = this.geoJson.features
+                        .filter(feature => {
+                            return (
+                                    activeFilters.pets === false ||
+                                    feature.properties.pets === activeFilters.pets
+                                ) && (
+                                    feature.properties.sleeps >= activeFilters.sleeps
+                                )
+                        })
+                        // .filter(feature => feature.properties.sleeps >= )
+
+                    console.log(Object.assign({},filteredData));
+
+                    this.map
+                        .getSource('places')
+                        .setData({
+                            type: 'FeatureCollection',
+                            features: filteredData
+                        });
+                } else {
+                    this.map.getSource('places').setData(this.geoJson);
+                }
+                
+                this.updateMarkers();
+            },
+            oldApplyFilters() {
+                let filters = [];
+                
                 if (this.filterPet) filters.push(this.filterPet);
                 if (this.filterSleeps) filters.push(this.filterSleeps);
 
@@ -167,8 +215,11 @@
                 }
 
                 this.map.setFilter('clusters', filters);
-                this.map.setFilter('unclustered-point', filters);
                 this.map.setFilter('cluster-count', filters);
+                this.map.setFilter('unclustered-point', filters);
+                this.map.setFilter('unclustered-point-count', filters);
+
+                this.updateMarkers();
             },
             removePetFilter() {
                 Vue.set(this.activeFilters,'pets',false);
@@ -188,6 +239,10 @@
                 console.log('resized');
                 this.map.resize();
             },
+            // testListener() {
+            //     console.log('i heard that')
+            //     this.resizeMap();
+            // },
 
             /*
              * Geolocate Methods
@@ -266,22 +321,25 @@
                 // With details sliding in animation
                 let self = this;
                 this.$store.dispatch('triggerNewActiveSpot', feature.id)
+                    .then((response) => {self.gotoCoords(feature.geometry.coordinates)});
                 // setTimeout(function(){
-                self.resizeMap();
+                // }, 400);
+            },
+            gotoCoords(coords) {
+                this.resizeMap();
                 if (this.map.getZoom() >= 10) {
-                    self.map.flyTo({
-                        center: feature.geometry.coordinates,
+                    this.map.flyTo({
+                        center: coords,
                         // zoom: 14,
                         // duration: 2000
                     })
                 } else {
-                    self.map.jumpTo({
-                        center: feature.geometry.coordinates,
+                    this.map.jumpTo({
+                        center: coords,
                         zoom: 13,
                         // duration: 2000
                     });
                 }
-                // }, 400);
             },
             // newGeolocate(val) {
             //     console.log('geolocate', val);
@@ -292,6 +350,8 @@
              */
 
             updateMarkers() {
+                // return false;
+
                 var newMarkers = {};
                 var features = this.map.querySourceFeatures('places');
 
@@ -302,7 +362,7 @@
                     var coords = feature.geometry.coordinates;
                     var props = feature.properties;
                     if (
-                        (self.map.getZoom() < 12) ||
+                        (self.map.getZoom() <= 8) ||
                         props.cluster) return;
                     var id = props.id;
 
@@ -364,69 +424,33 @@
                 // }
                 // markersOnScreen = newMarkers;
             },
-        },
-        computed: {
-            csrf() {
-                return window.Laravel.csrfToken;
-            },
-            filterPet() {
-                if (this.activeFilters.pets) {
-                   return  ['==', 'pets', true]
-                }
-            },
-            filterSleeps() {
-                if (this.activeFilters.sleeps && this.activeFilters.sleeps > 0) {
-                    return ['>=', 'sleeps', parseInt(this.activeFilters.sleeps)]
-                }
-            },
-            geolocatorClass() {
-                return {
-                    pending : this.geolocationStatus == 'pending',
-                    active : this.geolocationStatus == 'active'
-                }
-            },
-            showClearSearchButton() {
-                return (this.geolocationStatus == 'active' || this.mapSearch.length);
-            },
-            showGeolocateButton() {
-                return (!this.showClearSearchButton && this.geolocationSupported);
-            }
-
-            // self.map.setFilter('clusters', ['>=', 'sleeps', 10]);
-            // self.map.setFilter('unclustered-point', ['>=', 'sleeps', 10]);
-            // self.map.setFilter('cluster-count', ['>=', 'sleeps', 10]);
-        },
-        mounted() {
-            // console.log(mapboxgl);
-            this.map = new mapboxgl.Map({
-                container: 'map-wrapper',
-                style: 'mapbox://styles/mapbox/light-v10',
-                center: [-98.3810608, 37.9507756],
-                zoom: 4
-            });
-
-            this.map.on('load', () => {
+            initData(geoJson) {
                 let self = this;
+
+                // Assign the global geoJson to a variable so it can be filtered non-destructively
+                this.geoJson = geoJson;
 
                 // Taken from:
                 // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
                 this.map.addSource('places', {
                     type: 'geojson',
-                    data: "http://sweetspot.test/api/spots?output=geojson",
+                    data: this.geoJson,
                     cluster: true,
                     clusterRadius: 120, // Radius of each cluster when clustering points (defaults to 50)
                     clusterProperties: {"sum": ["+", ["get", "scalerank"]]}
                 })
 
-                this.geocoder = new mapboxGeocoder({
-                    accessToken: mapboxgl.accessToken,
-                    countries: 'United States',
-                    // types: 'postcode,district,place,locality,neighborhood'
-                });
-                this.map.addControl(this.geocoder);
-                this.geocoder.on('result', function (ev) {
-                    self.map.getSource('places').setData(ev.result.geometry);
-                });
+                // Add the search box
+                // TODO: Temporarily commented out until I have time to style it.
+                // this.geocoder = new mapboxGeocoder({
+                //     accessToken: mapboxgl.accessToken,
+                //     countries: 'us',
+                //     types: 'postcode,district,place,locality,neighborhood'
+                // });
+                // this.map.addControl(this.geocoder);
+                // this.geocoder.on('result', function (ev) {
+                //     self.map.getSource('places').setData(ev.result.geometry);
+                // });
 
 
                 // this.map.addLayer({
@@ -456,12 +480,13 @@
 
 
                 
-                // Adds the circles for the clusters
+                // Circles for the clusters
                 this.map.addLayer({
                     id: "clusters",
                     type: "circle",
                     source: "places",
-                    // filter: [">=", "point_count", 1],
+                    filter: [">=", "point_count", 1],
+                    // filter: ['has', 'point_count'],
                     paint: {
                         "circle-color": "#45AEF1",
                         "circle-radius": 14
@@ -469,7 +494,7 @@
                     // maxzoom:8
                 });
 
-                // Adds the number labels on top of the circle clusters
+                // Number labels on top of the circle clusters
                 this.map.addLayer({
                     id: "cluster-count",
                     type: "symbol",
@@ -485,26 +510,84 @@
                         "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
                         "text-size": 15
                     },
-                    // filter: [">=", "point_count", 1],
+                    filter: [">=", "point_count", 1],
+                    // filter: ['has', 'point_count'],
                     paint: {
                         "text-color": "#fff"
                     },
                     // maxzoom:8
                 });
 
-                // Adds the individual spot markers
+                // Single spot "clusters" while zoomed out
+                this.map.addLayer({
+                    id: "solo-clusters",
+                    type: "circle",
+                    source: "places",
+                    // filter: [">=", "point_count", 1],
+                    filter: ["==", "point_count", 1],
+                    paint: {
+                        "circle-color": "#45AEF1",
+                        "circle-radius": 14
+                    },
+                    maxzoom:8
+                });
+
+                // Labels for the single spot "clusters" while zoomed out
+                // this.map.addLayer({
+                //     id: "solo-cluster-count",
+                //     type: "symbol",
+                //     source: "places",
+                //     layout: {
+                //         "text-field": "1",
+                //         "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
+                //         "text-size": 15
+                //     },
+                //     filter: ["==", "point_count", 1],
+                //     // filter: ['has', 'point_count'],
+                //     paint: {
+                //         "text-color": "#fff"
+                //     },
+                //     maxzoom:8
+                // });
+
+                // Individual spot markers
                 this.map.addLayer({
                     id: "unclustered-point",
                     type: "circle",
                     source: "places",
-                    filter: ["!", ["has", "point_count"]],
+                    // filter: ["!has", "point_count"],
+                    filter: ["any", 
+                        ["!has", "point_count"],
+                        ["==", "point_count", 1]
+                    ],
                     paint: {
-                        "circle-color": "#ff0000",
-                        "circle-radius": 0,
+                        "circle-color": "#45AEF1",
+                        "circle-radius": 14,
                         "circle-stroke-width": 0,
                         "circle-stroke-color": "#fff"
                     },
-                    // minzoom: 8
+                    maxzoom: 8
+                });
+
+                // Number 1 on the unclustered point markers
+                this.map.addLayer({
+                    id: "unclustered-point-count",
+                    type: "symbol",
+                    source: "places",
+                    // filter: ["!has", "point_count"],
+                    filter: ["any", 
+                        ["!has", "point_count"],
+                        ["==", "point_count", 1]
+                    ],
+                    layout: {
+                        "text-field": "1",
+                        "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
+                        "text-size": 15
+                    },
+                    paint: {
+                        "text-color": "#fff"
+                    },
+                    maxzoom: 8
                 });
 
                 // Old geolocate method
@@ -518,7 +601,7 @@
                     }
                 })
                 this.map.addControl(this.geolocateControl);
-                if ('geolocation' in navigator) {
+                if ('geolocation' in navigator && location.protocol == 'https:') {
                     this.geolocationSupported = true;        
                 }
 
@@ -545,10 +628,23 @@
                             if (err)
                                 return;
 
-                            self.map.easeTo({
+                            self.map.flyTo({
                                 center: features[0].geometry.coordinates,
                                 zoom: zoom+.1
                             });
+                        });
+                    }
+                });
+
+                this.map.on('click', 'unclustered-point', function (e) {
+                    var features = self.map.queryRenderedFeatures(e.point, {
+                        layers: ['unclustered-point']
+                    });
+                    if (features.length) {
+                        // var coords = features[0].geometry.coordinates;
+                        self.map.flyTo({
+                            center: features[0].geometry.coordinates,
+                            zoom: 10
                         });
                     }
                 });
@@ -560,8 +656,17 @@
                     self.map.getCanvas().style.cursor = '';
                 });
 
-                this.map.on('flyend', function(e){
+                this.map.on('mouseenter', 'unclustered-point', function () {
+                    self.map.getCanvas().style.cursor = 'pointer';
+                });
+                this.map.on('mouseleave', 'unclustered-point', function () {
+                    self.map.getCanvas().style.cursor = '';
+                });
+
+                this.map.on('zoomend', function(e){
                     self.resizeMap();
+                    self.updateMarkers();
+                    // console.log('zoomend')
                 });
 
                 // this.map.features.forEach(feature => {
@@ -641,12 +746,88 @@
                 //         });
                 //     }
                 // });
-            })
-            this.$mapBus.$on('detailsCardShown',()=>this.resizeMap());
-            this.$mapBus.$on('detailsCardHidden',()=>this.resizeMap());
+            
+                this.$mapBus.$on('detailsCardToggled',()=>this.resizeMap());
+                // this.$mapBus.$on('detailsCardHidden',()=>this.resizeMap());
+                // setInterval(function(){
+                //     self.updateMarkers();
+                // },1500);
+
+                // Fix for the map sometimes not being full viewport height on load
+                document.onreadystatechange = () => { 
+                    if (document.readyState == "complete") { 
+                        self.resizeMap();
+                    } 
+                }
+            }
+
+        },
+        computed: {
+            csrf() {
+                return window.Laravel.csrfToken;
+            },
+            // filterPet() {
+            //     if (this.activeFilters.pets) {
+            //        return  ['==', 'pets', true]
+            //     }
+            // },
+            // filterSleeps() {
+            //     if (this.activeFilters.sleeps && this.activeFilters.sleeps > 0) {
+            //         return ['>=', 'sleeps', parseInt(this.activeFilters.sleeps)]
+            //     }
+            // },
+            
+            
+            // activeFiltersSet() {
+            //     let filters = [];
+            //     if (this.activeFilters.pets) {
+            //         filters.
+            //     }
+            // },
+            
+            hasActiveFilters() {
+                return (
+                    this.activeFilters.pets ||
+                    this.activeFilters.sleeps > 0
+                )
+            },
+            
+            geolocatorClass() {
+                return {
+                    pending : this.geolocationStatus == 'pending',
+                    active : this.geolocationStatus == 'active'
+                }
+            },
+            showClearSearchButton() {
+                return (this.geolocationStatus == 'active' || this.mapSearch.length);
+            },
+            showGeolocateButton() {
+                return (!this.showClearSearchButton && this.geolocationSupported);
+            },
+
+            // self.map.setFilter('clusters', ['>=', 'sleeps', 10]);
+            // self.map.setFilter('unclustered-point', ['>=', 'sleeps', 10]);
+            // self.map.setFilter('cluster-count', ['>=', 'sleeps', 10]);
+
+        },
+        mounted() {
+            let self = this;
+            // console.log(mapboxgl);
+            this.map = new mapboxgl.Map({
+                container: 'map-wrapper',
+                style: 'mapbox://styles/mapbox/light-v10',
+                center: [-98.3810608, 37.9507756],
+                zoom: 4
+            });
+
+            this.map.on('load', () => {
+                axios.get('http://sweetspot.test/api/spots?output=geojson')
+                    .then(response => self.initData(response.data));
+                    // .then((response) => self.geoJson = response.data);
+            });
         },
         watch: {
-            // 'geolocateControl.geolocate' : 'newGeolocate'
+            // '$store.state.spotDetailsVisible' : 'testListener'
         },
     }
 </script>

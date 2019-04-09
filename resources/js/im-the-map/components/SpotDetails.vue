@@ -1,8 +1,8 @@
 <template>
-    <transition name="slide"
+    <!-- <transition name="slide"
         v-on:after-enter="afterCardEnter"
         v-on:after-leave="afterCardExit"
-    >
+    > -->
         <section class="spot-details" v-if="spotDetailsVisible">
             <transition name="fade">
                 <div v-if="isLoading" @click.prevent="isLoading = false" class="loading-overlay"><span></span></div>
@@ -64,7 +64,7 @@
                 </aside>
             </section>
         </section>
-    </transition>
+    <!-- </transition> -->
 </template>
 
 <script>
@@ -112,12 +112,12 @@
             close() {
                 this.$store.commit('closeSpotDetails');
             },
-            afterCardEnter() {
-                this.$mapBus.$emit('detailsCardShown');
-            },
-            afterCardExit() {
-                this.$mapBus.$emit('detailsCardHidden');
-            },
+            // afterCardEnter() {
+            //     this.$mapBus.$emit('detailsCardShown');
+            // },
+            // afterCardExit() {
+            //     this.$mapBus.$emit('detailsCardHidden');
+            // },
         },
         computed: {
             spotDetailsVisible() {
@@ -152,7 +152,11 @@
             ])  
         },
         watch: {
-            
+            spotDetailsVisible: function () {
+                this.$nextTick(function () {
+                    this.$mapBus.$emit('detailsCardToggled');
+                });
+            }
         },
         mounted() {
             // this.$store.commit('triggerNewActiveSpot',55);
