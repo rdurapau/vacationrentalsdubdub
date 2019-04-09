@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>submit-details</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="submit-details" stroke="#CCCCCC" stroke-width="1.5">
+            <path d="M15.75,9.25 L15.75,14.25 C15.75,14.6642 15.4142,15 15,15 L10.5,15 C10.0858,15 9.75,14.6642 9.75,14.25 L9.75,9.25" id="Path"></path>
+            <polyline id="Path" points="8.25 10.5 12.75 6.75 17.25 10.5"></polyline>
+            <path d="M12.75,0.750021 C8.93933,0.744526 5.42568,2.80696 3.5728,6.13683 C1.71991,9.46671 1.81953,13.5397 3.833,16.775 L0.75,23.25 L7.225,20.166 C11.0112,22.521 15.8719,22.2279 19.3477,19.4349 C22.8234,16.642 24.1562,11.9584 22.6716,7.75398 C21.187,3.54953 17.2089,0.741238 12.75,0.750021 L12.75,0.750021 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>
