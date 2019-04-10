@@ -28,6 +28,7 @@ class Spot extends JsonResource
             "postal_code" => $this->postal_code,
             "phone" => $this->phone,
             "photo" => $this->cover_photo,
+            "beds" => $this->beds,
             "price" => $this->price,
             "sleeps" => $this->sleeps,
             "state" => $this->state,

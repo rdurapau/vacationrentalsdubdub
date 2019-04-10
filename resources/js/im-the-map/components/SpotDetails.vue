@@ -32,7 +32,7 @@
                         </div>
                         <div v-if="spot.sleeps">
                             <img src="/images/icons/bed.svg" />
-                            <span>{{spot.sleeps}} beds</span>
+                            <span>{{spot.beds}} beds</span>
                         </div>
                         <div v-if="spot.baths">
                             <img src="/images/icons/shower.svg" />
@@ -52,7 +52,7 @@
                 </article>
                 <aside>
                     <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
-                    <button @click.prevent="getNewSpot" class="btn btn-wide btn-purple btn-reservation">Make a reservation</button>
+                    <button class="btn btn-wide btn-purple btn-reservation">Make a reservation</button>
                     <ul class="contact">
                         <li class="phone" v-if="spot.phone">
                             <a :href="'tel:'+spot.phone" v-text="spot.phone"></a>
@@ -105,9 +105,6 @@
                 }
                 this.spot = newData;
                 this.isLoading = false;
-            },
-            getNewSpot() {
-                this.$store.dispatch('triggerNewActiveSpot',(Math.floor(Math.random() * 20)+1));
             },
             close() {
                 this.$store.commit('closeSpotDetails');

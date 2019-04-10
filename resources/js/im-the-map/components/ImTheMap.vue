@@ -370,7 +370,7 @@
                     if (!marker) {
                         let el = document.createElement('div');
                         el.className = 'marker';
-                        el.innerHTML = '<div class="spot-marker"><div class="image" style="background-image:url('+feature.properties.photo+')"></div><section><span class="price">$'+feature.properties.price+'</span><span class="beds">'+feature.properties.sleeps+'</span><span class="baths">'+feature.properties.baths+'</span></section></div>';
+                        el.innerHTML = '<div class="spot-marker"><div class="image" style="background-image:url('+feature.properties.photo+')"></div><section><span class="price">$'+feature.properties.price+'</span><span class="beds">'+feature.properties.beds+'</span><span class="baths">'+feature.properties.baths+'</span></section></div>';
 
                         marker = self.markers[id] = new mapboxgl.Marker({
                             element: el,
