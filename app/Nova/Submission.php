@@ -119,6 +119,8 @@ class Submission extends Resource
             Text::make('City')->sortable(),
             Text::make('State')->sortable(),
             Text::make('Postal Code')->hideFromIndex(),
+            Number::make('Latitude', 'lat')->onlyOnForms(),
+            Number::make('Longitude', 'lng')->onlyOnForms()
             // MapLocation::make('Map Location')
             //     ->onlyOnForms()
             //     ->env()

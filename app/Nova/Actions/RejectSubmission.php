@@ -47,7 +47,7 @@ class RejectSubmission extends DestructiveAction
     public function fields()
     {
         return [
-            Markdown::make('Optional reason'),
+            // Markdown::make('Optional reason'),
         ];
     }
 
