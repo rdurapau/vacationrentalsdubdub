@@ -821,7 +821,7 @@
             });
 
             this.map.on('load', () => {
-                axios.get('http://sweetspot.test/api/spots?output=geojson')
+                axios.get('/api/spots?output=geojson')
                     .then(response => self.initData(response.data));
                     // .then((response) => self.geoJson = response.data);
             });

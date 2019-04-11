@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Place;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Currency;
@@ -111,7 +112,9 @@ class Spot extends Resource
             Place::make('Address', 'address1')->sortable(),
             Text::make('City')->sortable(),
             Text::make('State')->sortable(),
-            Text::make('Postal Code')->hideFromIndex()
+            Text::make('Postal Code')->hideFromIndex(),
+            Number::make('Latitude', 'lat')->onlyOnForms(),
+            Number::make('Longitude', 'lng')->onlyOnForms()
         ];
     }
 
