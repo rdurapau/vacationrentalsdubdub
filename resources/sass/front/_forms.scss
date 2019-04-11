@@ -68,7 +68,7 @@ form{
                             border: solid 1px $light-grey;
                             font-size: 18px;
                             color: $light-grey;
-                            @include moveFast;
+                            @include moveFaster;
                             @include mq('sm-desk'){
                                 font-size: 14px;
                             }
@@ -78,7 +78,7 @@ form{
                                 color: $light-grey;
                                 top: 19px;
                                 left: 15px;
-                                @include moveFast;
+                                @include moveFaster;
                                 padding: 0 3px;
                                 @include mq('sm-desk'){
                                     font-size: 14px;
@@ -96,6 +96,7 @@ form{
                                 + label{
                                     top: -4px;
                                     left: 9px;
+                                    @include fontBold;
                                     font-size: 12px;
                                     color: $dark;
                                     background: white;
@@ -110,6 +111,7 @@ form{
                                 + label{
                                     top: -4px;
                                     left: 9px;
+                                    @include fontBold;
                                     font-size: 12px;
                                     color: $dark;
                                     background: white;

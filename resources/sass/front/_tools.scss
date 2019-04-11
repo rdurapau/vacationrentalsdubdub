@@ -4,6 +4,9 @@
 @mixin moveFast(){
     transition: all ease-out .15s;
 }
+@mixin moveFaster(){
+    transition: all ease-out .1s;
+}
 
 @mixin appearance ($value) {
 	-webkit-appearance: $value;
