@@ -42,8 +42,10 @@
                 </svg>
 
                 <input type="text" class="map-search current-location" v-model="currentLocationText" v-if="geolocationStatus == 'active'"/>
-                <input type="text" id="map-search" placeholder="Search" v-model="mapSearch" v-else />
+                <!-- <input type="text" id="map-search" placeholder="Search" v-model="mapSearch" v-else /> -->
                 
+                <div id="geocoder"></div>
+
                 <div class="button-wrapper">
                     <button class="my-location" @click.prevent="getUserLocation()" v-if="showGeolocateButton" :class="geolocatorClass">
                         <svg class="icon-location" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -442,15 +444,18 @@
 
                 // Add the search box
                 // TODO: Temporarily commented out until I have time to style it.
-                // this.geocoder = new mapboxGeocoder({
-                //     accessToken: mapboxgl.accessToken,
-                //     countries: 'us',
-                //     types: 'postcode,district,place,locality,neighborhood'
-                // });
+                this.geocoder = new mapboxGeocoder({
+                    accessToken: mapboxgl.accessToken,
+                    countries: 'usa',
+                    types: 'postcode,district,place,locality,neighborhood'
+                });
                 // this.map.addControl(this.geocoder);
-                // this.geocoder.on('result', function (ev) {
-                //     self.map.getSource('places').setData(ev.result.geometry);
-                // });
+                document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
+                console.log('geocoder');
+                this.geocoder.on('mounted', function(){console.log('loaded')});
+                this.geocoder.on('result', function (ev) {
+                    self.map.getSource('places').setData(ev.result.geometry);
+                });
 
 
                 // this.map.addLayer({

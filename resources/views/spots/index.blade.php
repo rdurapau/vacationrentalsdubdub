@@ -31,7 +31,7 @@
 
     <h1 class="logo"></h1>
 
-    <footer style="display:none">
+    <footer>
         <a class="submit" href="">Submit Your Property</a>
         <ul class="navigation">
             <li><a href="">About Us</a></li>

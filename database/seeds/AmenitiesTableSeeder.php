@@ -15,115 +15,115 @@ class AmenitiesTableSeeder extends Seeder
             [
                 'id' => 1,
                 'name' => 'Towels',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 2,
                 'name' => 'Bed sheets',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 3,
                 'name' => 'Wi-fi',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 4,
                 'name' => 'Soap & Shampoo',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 5,
                 'name' => 'TV',
-                'icon' => NULL,
+                'icon' => NUL'washer'L,
                 'type' => 'essentials'
             ],
             [
                 'id' => 6,
                 'name' => 'Heat',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 7,
                 'name' => 'Air Conditioning',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 8,
                 'name' => 'Coffee / tea',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 9,
                 'name' => 'Desk / workplace',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 10,
                 'name' => 'Dishwasher',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 11,
                 'name' => 'Iron',
-                'icon' => NULL,
+                'icon' => 'iron',
                 'type' => 'essentials'
             ],
             [
                 'id' => 12,
                 'name' => 'Fireplace',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 13,
                 'name' => 'Hairdryer',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 14,
                 'name' => 'Pets in the house',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
                 'id' => 15,
                 'name' => 'Swimming pool',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'outdoors',
             ],
             [
                 'id' => 16,
                 'name' => 'Boat',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'outdoors',
             ],
             [
                 'id' => 17,
                 'name' => 'Paddle boat',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'outdoors',
             ],
             [
                 'id' => 18,
                 'name' => 'ATV',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'outdoors',
             ],
             [
                 'id' => 19,
                 'name' => 'Outdoor shower',
-                'icon' => NULL,
+                'icon' => 'washer',
                 'type' => 'outdoors',
             ]
         ];

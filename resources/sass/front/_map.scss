@@ -207,7 +207,7 @@
         }
     }
 
-    #map-search, .map-search {
+    #map-search, .map-search, .mapboxgl-ctrl-geocoder input[type="text"] {
         @include appearance(none);
         @include fontBook();
         background:none transparent;
@@ -219,9 +219,24 @@
         line-height:1em;
         width:180px;
         flex:0 0 auto;
+        padding:0;
         // background:rgba(255,0,255,.3);
         &.current-location {
             color:$blue;
+        }
+    }
+
+    // Mapbox geocoder search box
+    .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+        @include appearance(none);
+        @include fontBook();
+        width:auto;
+        border:none;
+        background: none transparent;
+        box-shadow:none;
+        background:rgba(255,255,0,.2);
+        .geocoder-icon.geocoder-icon-search {
+            display:none;
         }
     }
 

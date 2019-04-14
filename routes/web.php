@@ -39,3 +39,5 @@ Route::get('/photos/new', 'PhotoController@create');
 Route::post('/photos', 'PhotoController@store');
 
 Route::get('/static', function(){return view('static.index');});
+Route::get('/static/form', function(){return view('static.form');});
+Route::get('/static/done', function(){return view('static.done');});
