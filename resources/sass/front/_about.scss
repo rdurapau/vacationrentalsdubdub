@@ -1,0 +1,42 @@
+div.about-us{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    ul{
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        flex-basis: 50%;
+        li{
+            display: flex;
+            flex-grow: 1;
+            flex-basis: 50%;
+            flex-direction: column;
+            @include rlt;
+            
+            span.house{
+                margin: 0 auto;    
+                width: 400px;
+                height: 560px;
+                background: url('#{$images}house.svg') no-repeat center center;
+                background-size: contain;
+
+            }//end span.house
+
+            h1{
+
+            }
+            h2{
+
+            }
+            h3{
+                
+            }
+            p{
+
+            }
+
+        }//end li
+    }//end ul
+    
+}//end tos
