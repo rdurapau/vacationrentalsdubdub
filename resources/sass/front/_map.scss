@@ -130,6 +130,7 @@
             background: transparent none;
             margin-right:17px;
             position:relative;
+            cursor:pointer;
             svg {
                 path {
                     stroke:$light-grey;
@@ -234,9 +235,84 @@
         border:none;
         background: none transparent;
         box-shadow:none;
-        background:rgba(255,255,0,.2);
+        // background:rgba(255,255,0,.2);
         .geocoder-icon.geocoder-icon-search {
             display:none;
+        }
+        .suggestions {
+            top:calc(100% + 10px);
+            // right:0;
+            font-size:19px;
+            line-height:20px;
+            width:330px;
+            left:auto;
+            right:-40px;
+            border-radius:7px;
+            box-shadow:none;
+            padding:7px 0;
+            li {
+                a {
+                    padding:15px 20px;
+                    strong {
+                        color:$blue;
+                        // @include fontBold();
+                    }
+                }
+            }
+        }
+        .geocoder-icon.geocoder-icon-close {
+            background:#fff;
+            height:22px;
+            width:22px;
+            opacity:.9;
+            top:50%;
+            margin-top:-11px;
+            &:before, &:after {
+                box-sizing:border-box;
+                display:block;
+                content:"";
+                position:absolute;
+                height:2px;
+                background:$light-grey;
+                border-radius:2px;
+                transition:background .2s;
+                top:10px;
+                left:0;
+                transform:rotate(-135deg);
+                width:22px;
+            }
+            &:after{
+                transform:rotate(135deg);
+            }
+            &:hover {
+                &:after, &:before {
+                    background:$grey;
+                }
+            }
+        }
+        .geocoder-icon.geocoder-icon-loading {
+            background:none transparent;
+            background:#fff;
+            animation:none;
+            width:40px;
+            height:40px;
+            top:50%;
+            margin-top:-20px;
+            right:0;
+            &:after {
+                content:"";
+                position:absolute;
+                top:50%;
+                left:50%;
+                margin-left:-3px;
+                margin-top:-3px;
+                display:block;
+                @include loader07(
+                    $color:$purple, 
+                    // $duration: .3s, 
+                    $size: 5px
+                );
+            }
         }
     }
 

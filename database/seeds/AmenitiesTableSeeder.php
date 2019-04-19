@@ -39,7 +39,7 @@ class AmenitiesTableSeeder extends Seeder
             [
                 'id' => 5,
                 'name' => 'TV',
-                'icon' => NUL'washer'L,
+                'icon' => 'washer',
                 'type' => 'essentials'
             ],
             [
