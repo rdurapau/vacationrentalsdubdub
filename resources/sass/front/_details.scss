@@ -1,5 +1,3 @@
-@import '../../../node_modules/spinthatshit/src/loaders';
-
 .spot-details {
     background:#fff;
 
@@ -41,7 +39,11 @@
             // height:120px;
             // width:80px;
             // $color: $purple;
-            @include loader11($color:$purple, $duration: .5s, $size: 30px);
+            @include loader11(
+                $color:$purple, 
+                $duration: .5s, 
+                $size: 30px
+            );
         }
     }
 

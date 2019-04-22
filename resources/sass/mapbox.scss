@@ -120,8 +120,28 @@ $green: #2BC569;
         &.not-active {
             opacity:.5;
         }
+        &.active {
+            opacity:1;
+        }
     }
 }
+
+.spot-selected {
+    .mapboxgl-marker {
+        .spot-marker {
+            opacity:.5;
+            &.active {
+                opacity:1;
+            }
+        }
+        &.active {
+            .spot-marker {
+                opacity:1;
+            }
+        }
+    }
+}
+
 
 // Previous popup Style
 .mapboxgl-popup-content {

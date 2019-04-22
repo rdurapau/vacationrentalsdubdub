@@ -12,7 +12,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-    activeSpot: {},
+    activeSpot: 0,
     spotDetailsVisible : false,
     detailsLoading: false
 }
@@ -36,8 +36,8 @@ const mutations = {
         state.spotDetailsVisible = true;
     },
     closeSpotDetails() {
-        state.spotDetailsVisible = false;;
-        state.activeSpot = {};
+        state.spotDetailsVisible = false;
+        Vue.set(state, 'activeSpot', 0);
     },
     detailsAreLoading() {
         state.detailsLoading = true;

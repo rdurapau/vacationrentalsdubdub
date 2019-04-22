@@ -1,5 +1,5 @@
 <template>
-    <section id="main-map">
+    <section id="main-map" :class="wrapperClass">
 
         <!-- <div id="form-wrap">
             <input type="text" v-model="filters.sleeps" placeholder="How many people?" />
@@ -35,7 +35,7 @@
                     </div>
                 </transition>
             </section>
-            <section class="search-wrapper">
+            <section class="search-wrapper" v-show="searchBarVisible">
                 <svg class="icon-search" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7161 19.8028C18.8109 18.0626 20.7196 13.3324 18.9794 9.23761C17.2392 5.14285 12.509 3.23413 8.41421 4.97436C4.31946 6.71459 2.41074 11.4448 4.15097 15.5395C5.8912 19.6343 10.6214 21.543 14.7161 19.8028Z" stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M17.2612 18.0845L23.5092 24.3333" stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -46,8 +46,10 @@
                 
                 <div id="geocoder"></div>
 
-                <div class="button-wrapper">
-                    <button class="my-location" @click.prevent="getUserLocation()" v-if="showGeolocateButton" :class="geolocatorClass">
+                <span class="test-loading"></span>
+
+                <div class="button-wrapper" v-if="showGeolocateButton">
+                    <button class="my-location" @click.prevent="getUserLocation()" :class="geolocatorClass">
                         <svg class="icon-location" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5Z" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M12 0.75V4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -121,31 +123,35 @@
     export default {
         data() {
             return {
-                'map' : '',
-                'popups' : [],
-                'markers' : {},
-                'markersOnScreen' : {},
-                'mapSearch': '',
+                map : '',
+                popups : [],
+                markers : {},
+                markersOnScreen : {},
+                mapSearch: '',
 
-                'geoJson' : {},
+                geoJson : {},
 
-                'activeFilters' : {
-                    'pets' : false,
-                    'sleeps' : 0
+                searchBarVisible: false,
+                activeFilters : {
+                    pets : false,
+                    sleeps : 0
                 },
-                'filterDropdownIsVisible': false,
-                'filterDropdownData': {
-                    'pets' : false,
-                    'sleeps' : 0
+                filterDropdownIsVisible: false,
+                filterDropdownData: {
+                    pets : false,
+                    sleeps : 0
                 },
-                'geolocateControl' : '',
-                'geolocationSupported' : false,
-                'geolocationStatus' : '',
+
+                // activeSpot: 0,
                 
-                'geocoder' : {},
+                geolocateControl : '',
+                geolocationSupported : false,
+                geolocationStatus : '',
+                
+                geocoder : {},
 
-                'maxSleeps' : 12,
-                'currentLocationText' : 'Current Location'
+                maxSleeps : 12,
+                currentLocationText : 'Current Location'
             }
         },
         methods: {
@@ -323,7 +329,7 @@
                 // With details sliding in animation
                 let self = this;
                 this.$store.dispatch('triggerNewActiveSpot', feature.id)
-                    .then((response) => {self.gotoCoords(feature.geometry.coordinates)});
+                    .then((response) => {self.newActiveSpot(feature)});
                 // setTimeout(function(){
                 // }, 400);
             },
@@ -342,6 +348,21 @@
                         // duration: 2000
                     });
                 }
+            },
+            newActiveSpot(feature) {
+                // this.activeSpot = feature.id;
+                this.$store.commit('newActiveSpot', feature.id)
+                
+                let markerArr = Object.entries(this.markers);
+                for (const [id, marker] of markerArr) {
+                    if (id == feature.id) {
+                        marker.getElement().classList.add('active');
+                    } else {
+                        marker.getElement().classList.remove('active');
+                    }
+                }
+
+                this.gotoCoords(feature.geometry.coordinates)
             },
             // newGeolocate(val) {
             //     console.log('geolocate', val);
@@ -451,11 +472,12 @@
                 });
                 // this.map.addControl(this.geocoder);
                 document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
-                console.log('geocoder');
                 this.geocoder.on('mounted', function(){console.log('loaded')});
                 this.geocoder.on('result', function (ev) {
                     self.map.getSource('places').setData(ev.result.geometry);
                 });
+
+                this.searchBarVisible = true;
 
 
                 // this.map.addLayer({
@@ -606,8 +628,11 @@
                     }
                 })
                 this.map.addControl(this.geolocateControl);
+                
+                // this.geolocationSupported = true;
+                
                 if ('geolocation' in navigator && location.protocol == 'https:') {
-                    this.geolocationSupported = true;        
+                    this.geolocationSupported = true;
                 }
 
                 this.geolocateControl.on('geolocate', (val) => self.geolocateEvent(val));
@@ -770,6 +795,15 @@
         computed: {
             csrf() {
                 return window.Laravel.csrfToken;
+            },
+            wrapperClass() {
+                return {
+                    'spot-selected' : this.activeSpot
+                }
+            },
+
+            activeSpot() {
+                return this.$store.state.activeSpot;
             },
             // filterPet() {
             //     if (this.activeFilters.pets) {
