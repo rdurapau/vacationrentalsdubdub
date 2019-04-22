@@ -39,6 +39,20 @@ class RealSpotsSeeder extends Seeder
                 'sleeps' => 8,
                 'lng' => -96.6266870,
                 'lat' => 33.0995580
+            ],
+            [
+                'name' => 'Cute little thing',
+                'desc' => 'Cras mattis consectetur purus sit amet fermentum. Maecenas faucibus mollis interdum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.',
+                'price' => 98,
+                'address1' => '2408 Winona Dr',
+                'city' => 'Plano',
+                'state' => 'TX',
+                'postal_code' => '75074',
+                'beds' => 4,
+                'baths' => 2,
+                'sleeps' => 6,
+                'lng' => -96.681375,
+                'lat' => 33.041242
             ]
         ];
         foreach ($spots as $spot) {

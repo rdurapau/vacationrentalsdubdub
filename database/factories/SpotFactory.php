@@ -55,6 +55,23 @@ $factory->afterCreating(App\Spot::class, function($spot, $faker) {
     if ($amenities) {
         $spot->amenities()->sync($faker->randomElements($amenities,rand(3,8)));
     }
+
+    // Add one of the 19 exterior photos as the primary photo for this spot
+    $mainPhotoNum = rand(1,19);
+    $spot
+        ->addMedia(storage_path('seeding-photos/exterior-'.$mainPhotoNum.'.jpeg'))
+        ->preservingOriginal()
+        ->toMediaCollection();
+
+    // Add some additional photos from the 39 interior photos
+    $altPhotoNums = range(1,37);
+    $altPhotos = $faker->randomElements($altPhotoNums,rand(0,6));
+    foreach($altPhotos as $num) {
+        $spot
+            ->addMedia(storage_path('seeding-photos/interior-'.$num.'.jpeg'))
+            ->preservingOriginal()
+            ->toMediaCollection();
+    }
 });
 
 $factory->afterCreatingState(App\Spot::class, 'has-photo', function ($spot, $faker) {

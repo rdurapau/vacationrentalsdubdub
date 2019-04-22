@@ -17,13 +17,11 @@ class Spot extends JsonResource
     {
         return [
             "id" => $this->id,
-            // "address" => $this->address1,
             "baths" => $this->baths,
             "city" => $this->city,
             "desc" => $this->desc,
             "email" => $this->email,
             "name" => $this->name,
-            // "photo" => "https://picsum.photos/300/200?image={$this->id}",
             "pets" => $this->allowsPets(),
             "postal_code" => $this->postal_code,
             "phone" => $this->phone,
@@ -34,6 +32,9 @@ class Spot extends JsonResource
             "state" => $this->state,
             "website" => $this->website,
             'amenities' => Amenity::collection($this->whenLoaded('amenities')),
+            'photos' => $this->getMedia()->map(function($photo){
+                return url($photo->getUrl());
+            })
         ];
     }
 }

@@ -10,16 +10,21 @@
             <section class="hero">
                 <button class="close" @click.prevent="close"><span class="icon-clear-css"></span></button>
                 <div class="controls">
-                    <a href="#" class="left"></a>
-                    <a href="#" class="right"></a>
+                    <a href="#" class="left" @click.prevent="prevPhoto"></a>
+                    <a href="#" class="right" @click.prevent="nextPhoto"></a>
                     <nav>
-                        <a href="#">1</a>
-                        <a href="#" class="current">2</a>
-                        <a href="#">3</a>
+                        <a href="#" 
+                            v-for="(photo, index) in photos"
+                            @click.prevent="goToPhoto(index)"
+                            :class="{current: currentPhotoIndex == index}"
+                            v-text="index + 1"
+                        >
+                        </a>
                     </nav>
                 </div>
-                <div class="photos"> 
-                    <span :style="'background-image:url('+this.photo+')'"></span>
+                <div class="photos" v-if="photos && photos.length">
+                    <!-- <span v-for="photo in photos" :style="'background-image:url('+photo+')'"></span> -->
+                    <span :style="'background-image:url('+photos[currentPhotoIndex]+')'"></span>
                 </div>
             </section>
             <section class="content">
@@ -78,6 +83,11 @@
     mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
 
     export default {
+        data() {
+            return {
+                currentPhotoIndex: 0
+            }
+        },
         methods: {
             getSpotDetails() {
                 axios.get('/api/spots/55')
@@ -103,12 +113,32 @@
                     this.photos.push(newData.photo);
                     delete newData.photo
                 }
+                this.currentPhoto = this.photos[0];
+
                 this.spot = newData;
                 this.isLoading = false;
             },
             close() {
                 this.$store.commit('closeSpotDetails');
             },
+
+            nextPhoto() {
+                if ((this.currentPhotoIndex + 1) == this.photos.length) {
+                    this.currentPhotoIndex = 0;
+                } else {
+                    this.currentPhotoIndex++;
+                }
+            },
+            prevPhoto() {
+                if (this.currentPhotoIndex == 0){
+                    this.currentPhotoIndex = (this.photos.length - 1);
+                } else {
+                    this.currentPhotoIndex--;
+                }
+            },
+            goToPhoto(index) {
+                this.currentPhotoIndex = index;
+            }
             // afterCardEnter() {
             //     this.$mapBus.$emit('detailsCardShown');
             // },
@@ -153,7 +183,7 @@
                 this.$nextTick(function () {
                     this.$mapBus.$emit('detailsCardToggled');
                 });
-            }
+            },
         },
         mounted() {
             // this.$store.commit('triggerNewActiveSpot',55);
@@ -161,6 +191,20 @@
             // setInterval(function(){
             //     self.isOut = !self.isOut;
             // },3000);
+            let self = this;
+            document.addEventListener('keyup', function (evt) {
+                switch(evt.keyCode) {
+                    case 27:
+                        self.close();
+                        break;
+                    case 39:
+                        self.nextPhoto();
+                        break;
+                    case 37:
+                        self.prevPhoto();
+                        break;
+                }
+            });
         }
     }
 </script>

@@ -34,13 +34,13 @@
     <footer>
         <a class="submit" href="">Submit Your Property</a>
         <ul class="navigation">
-            <li><a href="">About Us</a></li>
-            <li><a href="">Terms of Service</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/terms">Terms of Service</a></li>
             <li>&copy; SweetSpot</li>
         </ul>
     </footer>
 
-    <div id="im-the-map">   
+    <div id="im-the-map">
         <im-the-map></im-the-map>
 
         <spot-details></spot-details>

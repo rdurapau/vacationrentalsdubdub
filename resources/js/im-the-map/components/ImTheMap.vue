@@ -142,7 +142,7 @@
                     sleeps : 0
                 },
 
-                activeSpot: 0,
+                // activeSpot: 0,
                 
                 geolocateControl : '',
                 geolocationSupported : false,
@@ -350,7 +350,8 @@
                 }
             },
             newActiveSpot(feature) {
-                this.activeSpot = feature.id;
+                // this.activeSpot = feature.id;
+                this.$store.commit('newActiveSpot', feature.id)
                 
                 let markerArr = Object.entries(this.markers);
                 for (const [id, marker] of markerArr) {
@@ -799,6 +800,10 @@
                 return {
                     'spot-selected' : this.activeSpot
                 }
+            },
+
+            activeSpot() {
+                return this.$store.state.activeSpot;
             },
             // filterPet() {
             //     if (this.activeFilters.pets) {

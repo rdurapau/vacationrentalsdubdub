@@ -12,7 +12,7 @@ class DatabaseReset extends Command
      *
      * @var string
      */
-    protected $signature = 'sweet:dbreset {count?} {--P|photo}';
+    protected $signature = 'sweet:dbreset {count?}';
 
     /**
      * The console command description.
@@ -39,12 +39,8 @@ class DatabaseReset extends Command
     public function handle()
     {
         $count = $this->argument('count') ? $this->argument('count') : 50;
-        $photo = $this->option('photo') ? $this->option('photo') : false;
 
         $confirmStr = 'Drop the database and seed '.$count. ' spots';
-        if ($photo) {
-            $confirmStr.= ' with photos';
-        }
         $confirmStr.='?';
 
         if ($this->confirm($confirmStr)) {
@@ -57,7 +53,6 @@ class DatabaseReset extends Command
             // $this->call('db:seed --class=AmenitiesTableSeeder');
             $this->call('sweet:fakespots', [
                 'count' => $count,
-                '--photo' => $photo
             ]);
         }
     }
