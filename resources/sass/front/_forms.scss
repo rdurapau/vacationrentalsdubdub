@@ -160,20 +160,22 @@ form{
                         }
                     }//end section.fieldset
                     ul.amenities{
-                        column-count: 3;
-                        vertical-align: top;
-                        @include mq('sm-desk'){
-                            column-count: 2;
-                        }
-                        @include mq('tablet'){
-                            column-count: 1;
-                        }
+                        display: flex;
+                        flex-wrap: wrap;
+                        
                         li{
                             @include rlt;
                             display: flex;
+                            flex: 0 0 33.3333%;
                             flex-direction: row;
                             align-items: center;
                             justify-content: center;
+                            @include mq('sm-desk'){
+                                flex: 0 0 50%;
+                            }
+                            @include mq('tablet'){
+                                flex: 0 0 100%;
+                            }
 
                             input[type=checkbox]{
                                 appearance: none;
