@@ -9,6 +9,9 @@ section.modal-background{
     justify-content: center;
     @include abs;
     @include z-100;
+    &.whoa-there{
+        @include z-110;
+    }
 
     section.modal-container{
         background: #fff;
