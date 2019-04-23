@@ -89,35 +89,6 @@
             }
         },
         methods: {
-            getSpotDetails() {
-                axios.get('/api/spots/55')
-                    .then((response)  => this.newSpotDetails(response.data))
-                    .catch((error) => console.log(error));
-            },
-            newSpotDetails(newData) {
-                let topLevels = {
-                    amenities: 'amenities',
-                    photos: 'photos',
-                };
-                for (var key in topLevels) {
-                    if (newData.hasOwnProperty(key)) {
-                        this[topLevels[key]] = newData[key];
-                        // Vue.set(state, topLevels[key], initialState[key]);
-                        delete newData[key];
-                    } else {
-                        // this[topLevels[key]] = false;
-                        // state[topLevels[key]] = false;
-                    }
-                }
-                if (newData.hasOwnProperty('photo')) {
-                    this.photos.push(newData.photo);
-                    delete newData.photo
-                }
-                this.currentPhoto = this.photos[0];
-
-                this.spot = newData;
-                this.isLoading = false;
-            },
             close() {
                 this.$store.commit('closeSpotDetails');
             },
@@ -138,6 +109,9 @@
             },
             goToPhoto(index) {
                 this.currentPhotoIndex = index;
+            },
+            resetNewSpot() {
+                this.currentPhotoIndex = 0;
             }
             // afterCardEnter() {
             //     this.$mapBus.$emit('detailsCardShown');
@@ -184,6 +158,7 @@
                     this.$mapBus.$emit('detailsCardToggled');
                 });
             },
+            spot: 'resetNewSpot'
         },
         mounted() {
             // this.$store.commit('triggerNewActiveSpot',55);

@@ -122,6 +122,42 @@ form{
                                 }
                             }
                         }//end input
+                        span.errors{
+                            background: #F94874;
+                            @include radius;
+                            font-size: 12px;
+                            align-items: center;
+                            justify-content: center;
+                            margin-top: 3px;
+                            padding: 7px 16px;
+                            color:#fff;
+                            display: none;
+                            box-sizing:border-box;
+                            display: none;
+                            border-radius:5px;
+                            margin-bottom:-5px;
+                        }
+                        &.single-field {
+                            flex-direction:column;
+                        }
+                        &.half-width {
+                            width: calc(50% - 10px);
+                            flex: 0 0 auto;
+                            @include mq('sm-desk'){
+                                width:calc(50% - 5px);
+                            }
+                        }
+                        &.has-error {
+                            input, textarea {
+                                border-color:#f94874;
+                                + label {
+                                    color:#f94874;
+                                }
+                            }
+                            span.errors {
+                                display:block;
+                            }
+                        }
                     }//end section.fieldset
                     ul.amenities{
                         column-count: 3;

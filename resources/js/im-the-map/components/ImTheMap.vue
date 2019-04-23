@@ -141,8 +141,6 @@
                     pets : false,
                     sleeps : 0
                 },
-
-                // activeSpot: 0,
                 
                 geolocateControl : '',
                 geolocationSupported : false,
@@ -163,20 +161,6 @@
             },
             applyFilters() {
                 let filters = [];
-                
-                // if (this.filterPet) filters.push(this.filterPet);
-                // if (this.filterSleeps) filters.push(this.filterSleeps);
-
-                // if (this.activeFiltersSet.length) {
-                    
-                // }  else {
-                //     filters = NULL;
-                // }
-
-                // this.map.setFilter('clusters', filters);
-                // this.map.setFilter('cluster-count', filters);
-                // this.map.setFilter('unclustered-point', filters);
-                // this.map.setFilter('unclustered-point-count', filters);
 
                 if (this.hasActiveFilters) {
                     let activeFilters = this.activeFilters;
@@ -244,13 +228,8 @@
                 }
             },
             resizeMap() {
-                console.log('resized');
                 this.map.resize();
             },
-            // testListener() {
-            //     console.log('i heard that')
-            //     this.resizeMap();
-            // },
 
             /*
              * Geolocate Methods

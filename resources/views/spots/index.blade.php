@@ -16,8 +16,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ mix('js/manifest.js') }}"></script>
     <script src="{{ mix('js/vendor.js') }}"></script>
-    <script src="{{ mix('js/spots-map.js') }}" defer></script>
-    {{-- <script src="{{ mix('js/im-the-map.js') }}" defer></script> --}}
+    {{-- <script src="{{ mix('js/spots-map.js') }}" defer></script> --}}
+    <script src="{{ mix('js/im-the-map.js') }}" defer></script>
 
     <!-- Styles -->
     <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7601296/6583212/css/fonts.css" />
@@ -29,21 +29,25 @@
 
 <body>
 
-    <h1 class="logo"></h1>
-
-    <footer>
-        <a class="submit" href="">Submit Your Property</a>
-        <ul class="navigation">
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/terms">Terms of Service</a></li>
-            <li>&copy; SweetSpot</li>
-        </ul>
-    </footer>
-
     <div id="im-the-map">
+        <h1 class="logo"></h1>
+        
+        <submit-spot
+            :amenities='{!! json_encode($amenities) !!}'
+        ></submit-spot>
+
         <im-the-map></im-the-map>
 
         <spot-details></spot-details>
+
+        <footer>
+            <a class="submit" href="">Submit Your Property</a>
+            <ul class="navigation">
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/terms">Terms of Service</a></li>
+                <li>&copy; SweetSpot</li>
+            </ul>
+        </footer>
     </div>
 
 </body>

@@ -23,7 +23,8 @@ class SpotController extends Controller
      */
     public function index()
     {
-        return view('spots.index');
+        $amenities = Amenity::all();
+        return view('spots.index', compact('amenities'));
     }
 
     /**
