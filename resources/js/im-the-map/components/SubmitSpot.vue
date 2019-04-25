@@ -13,7 +13,7 @@
                 <div class="column progress-list-column">
 
                     <ul class="progress-list">
-                        <li class="personal" :class="{'current' : visibleSection == 1, 'complete' : visibleSection > 1}">
+                        <li class="personal" :class="{'current' : visibleSection == 1, 'complete' : visibleSection > 1}" @click.prevent="goToSection(1)">
                             <span>
                                 <svg>
                                     <g>
@@ -26,7 +26,7 @@
                                 </svg>
                             </span>
                             Personal Info</li>
-                        <li class="location"  :class="{'current' : visibleSection == 2, 'complete' : visibleSection > 2}">
+                        <li class="location"  :class="{'current' : visibleSection == 2, 'complete' : visibleSection > 2}" @click.prevent="goToSection(2)">
                             <span>
                                 <svg>
                                     <g>
@@ -49,7 +49,7 @@
                                 </svg>
                             </span>
                             Property Location</li>
-                        <li class="details" :class="{'current' : visibleSection == 3, 'complete' : visibleSection > 3}">
+                        <li class="details" :class="{'current' : visibleSection == 3, 'complete' : visibleSection > 3}" @click.prevent="goToSection(3)">
                             <span>
                                 <svg>
                                     <g>
@@ -70,7 +70,7 @@
                                 </svg>
                             </span>
                             Property Details</li>
-                        <li class="photos" :class="{'current' : visibleSection == 4, 'complete' : visibleSection > 4}">
+                        <li class="photos" :class="{'current' : visibleSection == 4, 'complete' : visibleSection > 4}" @click.prevent="goToSection(4)">
                             <span>
                                 <svg>
                                     <g>
@@ -102,7 +102,7 @@
 
                         <div class="column actual-form">
 
-                            <form action="">
+                            <form method="POST" action="/spots" @submit="submitForm">
 
                                 <!-- Personal Info Section -->
                                 <fieldset class="section-wrap" v-show="visibleSection == 1">
@@ -133,7 +133,7 @@
                                                 :class="{'has-error': errors.has('owner_name')}">
                                                 <input type="text" id="full-name" name="owner_name" v-model="owner_name"
                                                     :class="{'filled': (owner_name.length || owner_name > 0), 'ouch': errors.has('owner_name')}"
-                                                    v-validate="'required|numeric'" data-vv-as="Full Name" />
+                                                    v-validate="'required|max:100'" data-vv-as="Full Name" />
                                                 <label for="full-name">Full Name</label>
                                                 <span class="errors"
                                                     v-if="errors.has('owner_name')">{{ errors.first('owner_name') }}</span>
@@ -183,9 +183,63 @@
 
                                 </fieldset>
 
+                                <!-- Property Location Section -->
+                                <fieldset class="section-wrap" v-show="visibleSection == 2">
+
+                                    <section class="sub-section-row">
+                                        <div class="sub-column">
+
+                                        </div>
+                                        <div class="sub-column">
+                                            <h1>Property Location</h1>
+                                        </div>
+                                    </section>
+
+                                    <section class="sub-section-row">
+
+                                        <div class="section-description sub-column">
+                                            <section class="description-detail">
+                                                <h2>Property address</h2>
+                                                <p>The property address will be used to place a pin on the map for users browsing listing. The precise location will not be shared until booking.</p>
+                                            </section>
+                                        </div>
+
+                                        <div class="sub-column">
+                                            <div id="submit-property-geocoder" class="geocoder">
+                                                <label for="property-location-input">Property Address</label>
+                                            </div>
+                                
+                                            <div id="submit-property-map" style="height: 350px;width: 100%;">
+                                                <svg width="16" height="26" viewBox="0 0 16 26" fill="none" xmlns="http://www.w3.org/2000/svg" class="marker" v-if="addressIsSelected">
+                                                    <ellipse cx="8" cy="24.5" rx="5" ry="1.5" fill="black" fill-opacity="0.1"/>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.0244141 8C0.0293565 3.58378 3.59557 0.00495989 7.99625 0C12.3969 0.00495989 15.9631 3.58378 15.9681 8C15.9681 11.514 10.9857 20.026 8.84525 23.523C8.66536 23.8206 8.34308 24.0017 7.99625 24C7.65007 24.0001 7.32864 23.8199 7.14725 23.524C5.00681 20.025 0.0244141 11.51 0.0244141 8ZM4.50854 8C4.50854 9.933 6.07004 11.5 7.99623 11.5C9.92243 11.5 11.4839 9.933 11.4839 8C11.4839 6.067 9.92243 4.5 7.99623 4.5C6.07004 4.5 4.50854 6.067 4.50854 8Z" fill="#9080F0"/>
+                                                </svg>
+                                            </div>
+
+                                            <div class="icon-message" :class="{visible: addressIsSelected}">
+                                                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 15.75C13.6569 15.75 15 14.4069 15 12.75C15 11.0931 13.6569 9.75 12 9.75C10.3431 9.75 9 11.0931 9 12.75C9 14.4069 10.3431 15.75 12 15.75Z" stroke="#9080F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.75C15.3137 6.75 18 9.43629 18 12.75C18 15.422 14.1 21.055 12.589 22.965C12.4468 23.145 12.2299 23.2501 12.0005 23.2501C11.7711 23.2501 11.5542 23.145 11.412 22.965C9.9 21.054 6 15.422 6 12.75C6 9.43629 8.68629 6.75 12 6.75Z" stroke="#9080F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M12 0.75V3.75" stroke="#9080F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M19 3.00293L17.25 5.43993" stroke="#9080F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M5 3.00293L6.75 5.43993" stroke="#9080F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M0.75 9L3.472 9.875" stroke="#9080F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M23.2498 9L20.5278 9.875" stroke="#9080F0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                <span>Drag the map around for a more precise pin location.</span>
+                                            </div>
+
+                                        </div>
+
+                                        <input type="hidden" name="address1" v-model="address_street" />
+                                        <input type="hidden" name="city" v-model="address_city" />
+                                        <input type="hidden" name="state"  v-model="address_state" />
+                                        <input type="hidden" name="postal_code" v-model="address_zip" />
+                                    </section><!-- END sub-section-row -->
+                                </fieldset>
 
                                 <!-- Property Details Section -->
-                                <fieldset class="section-wrap" v-show="visibleSection == 2">
+                                <fieldset class="section-wrap" v-show="visibleSection == 3">
 
                                     <section class="sub-section-row">
 
@@ -200,6 +254,58 @@
 
                                     </section>
 
+                                    <section class="sub-section-row">
+
+                                        <div class="section-description sub-column">
+                                            <section class="description-detail">
+                                                <h2>Property Title</h2>
+                                                <p>The property title is a short, memorable description of your spot. It will appear at the top of your spot’s listing.</p>
+                                            </section>
+                                        </div>
+
+                                        <div class="sub-column">
+                                            <section class="fieldset required single-field"
+                                                :class="{'has-error': errors.has('name')}">
+                                                <input type="text" id="property-title" name="name" v-model="name"
+                                                    :class="{'filled': (name.length || name > 0), 'ouch': errors.has('name')}"
+                                                    v-validate="'required|max:100'" data-vv-as="Property Title" />
+                                                <label for="property-title">Property Title</label>
+                                                <span class="errors"
+                                                    v-if="errors.has('name')">{{ errors.first('name') }}</span>
+                                            </section>
+                                            <section class="fieldset required single-field"
+                                                :class="{'has-error': errors.has('website')}">
+                                                <input type="url" id="property-website" name="website" v-model="website"
+                                                    :class="{'filled': (website.length || website > 0), 'ouch': errors.has('website')}"
+                                                    v-validate="'url'" data-vv-as="Property Website" />
+                                                <label for="property-website">Property Website</label>
+                                                <span class="errors"
+                                                    v-if="errors.has('website')">{{ errors.first('website') }}</span>
+                                            </section>
+                                        </div>
+                                    </section>
+
+                                    <section class="sub-section-row">
+
+                                        <div class="section-description sub-column">
+                                            <section class="description-detail">
+                                                <h2>Property description</h2>
+                                                <p>To help people understand why they should choose your property during
+                                                    their time off, write as detailed a description as you desire.</p>
+                                            </section>
+                                        </div>
+
+                                        <div class="sub-column">
+
+                                            <section class="fieldset required">
+                                                <textarea type="text" id="property-description" v-model="desc"
+                                                    :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('desc')}"></textarea>
+                                                <label for="property-description">Property Description</label>
+                                            </section>
+
+                                        </div><!-- End sub column -->
+
+                                    </section><!-- END sub-section-row -->
 
                                     <h2 class="section-title">Amenities</h2>
 
@@ -229,30 +335,11 @@
 
                                     </section><!-- END sub-section-row -->
 
-                                    <!-- Adding this nested wrap to allow me to split out floating comments -->
-                                    <section class="sub-section-row">
-
-                                        <div class="section-description sub-column">
-                                            <section class="description-detail">
-                                                <h2>Property description</h2>
-                                                <p>To help people understand why they should choose your property during
-                                                    their time off, write as detailed a description as you desire.</p>
-                                            </section>
-                                        </div>
-
-                                        <div class="sub-column">
-
-                                            <section class="fieldset required">
-                                                <textarea type="text" id="property-description" v-model="desc"
-                                                    :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('desc')}"></textarea>
-                                                <label for="property-description">Property Description</label>
-                                            </section>
-
-                                        </div><!-- End sub column -->
-
-                                    </section><!-- END sub-section-row -->
-
                                 </fieldset>
+
+                                <input type="hidden" name="lat" :value="lat" />
+                                <input type="hidden" name="lng" :value="lng" />
+                                <input type="hidden" name="_token" :value="csrf" />
 
                             </form>
 
@@ -271,8 +358,6 @@
             </section>
 
         </section>
-
-        <div id="map" style="display:none"></div>
 
     </section>
 </template>
@@ -301,6 +386,7 @@
                 'dob': '',
                 'terms_agree': false,
 
+                'addressIsSelected' : false,
                 'address_street' : '',
                 'address_city' : '',
                 'address_state' : '',
@@ -311,28 +397,77 @@
 
                 'map' : '',
                 'geocoder': '',
-                'visibleSection' : 1
+                'visibleSection' : 2,
             }
         },
         methods: {
             addressSelected(ev) {
                 let context = ev.result.context;
-                this.map.getSource('single-point').setData(ev.result.geometry);
+                // this.map.getSource('single-point').setData(ev.result.geometry);
+                let coords = ev.result.geometry.coordinates;
 
                 this.address_street = ((ev.result.address) ? ev.result.address + ' ' : '') + ev.result.text;
                 this.address_city = context.find(e => e.id.includes('place')).text;
                 this.address_zip = context.find(e => e.id.includes('postcode')).text;
                 this.address_state = context.find(e => e.id.includes('region')).text;
-
-                let coords = ev.result.geometry.coordinates;
                 this.lng = coords[0];
                 this.lat = coords[1];
+                
+                this.addressIsSelected = true;
+                this.map.jumpTo({
+                    center: coords,
+                    zoom: 16
+                })
+            },
+            addressCleared(ev) {
+                this.address_street = '';
+                this.address_city = '';
+                this.address_zip = '';
+                this.address_state = '';
+
+                this.map.jumpTo({
+                    center: [-98.5833, 39.833333],
+                    zoom: 2
+                })
+                this.lng = '';
+                this.lat = '';
+                
+                this.addressIsSelected = false;
+            },
+            mapMoved(ev) {
+                if (this.addressIsSelected) {
+                    let coords = this.map.getCenter();
+                    this.lat = coords.lat;
+                    this.lng = coords.lng;
+                }
             },
             saveAndContinue() {
                 this.visibleSection = 2;
+                this.map.resize();
+                if (this.visibleSection == 2) {
+                    let self = this;
+                    setTimeout(function(){self.map.resize();},100);
+                }
             },
             backButtonClicked() {
                 this.visibleSection = 1;
+                this.map.resize();
+                if (this.visibleSection == 2) {
+                    let self = this;
+                    setTimeout(function(){self.map.resize();},100);
+                }
+            },
+            goToSection(num) {
+                this.visibleSection = num;
+                this.map.resize();
+                if (this.visibleSection == 2) {
+                    let self = this;
+                    setTimeout(function(){self.map.resize();},100);
+                }
+            },
+
+            submitForm(event) {
+                event.preventDefault();
             }
         },
         computed: {
@@ -343,7 +478,7 @@
         mounted() {
             // console.log(mapboxgl);
             this.map = new mapboxgl.Map({
-                container: 'map',
+                container: 'submit-property-map',
                 style: 'mapbox://styles/mapbox/light-v10',
                 center: [-98.5833, 39.833333],
                 zoom: 2
@@ -351,28 +486,40 @@
             this.geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
                 country : 'US',
-                types: 'address'
+                types: 'address',
+                placeholder: '',
+                flyTo: false
             });
-            document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
+            document.getElementById('submit-property-geocoder').appendChild(this.geocoder.onAdd(this.map));
+            document.querySelector('#submit-property-geocoder .mapboxgl-ctrl-geocoder input').id = 'property-location-input';
+            
+            // let label = document.createElement('label');
+            // label.setAttribute("for", "property-location-input");
+            // label.appendChild(document.createTextNode('Property Address'));
+            // document.querySelector('#submit-property-geocoder .mapboxgl-ctrl-geocoder').appendChild(label);
 
             this.map.on('load', () => {
-                this.map.addSource('single-point', {
-                    "type": "geojson",
-                    "data": {
-                    "type": "FeatureCollection",
-                    "features": []
-                    }
-                })
-                this.map.addLayer({
-                    "id": "point",
-                    "source": "single-point",
-                    "type": "circle",
-                    "paint": {
-                    "circle-radius": 10,
-                    "circle-color": "#007cbf"
-                    }
-                });
+                // this.map.addSource('single-point', {
+                //     "type": "geojson",
+                //     "data": {
+                //     "type": "FeatureCollection",
+                //     "features": []
+                //     }
+                // })
+                // this.map.addLayer({
+                //     "id": "point",
+                //     "source": "single-point",
+                //     "type": "circle",
+                //     "paint": {
+                //     "circle-radius": 10,
+                //     "circle-color": "#007cbf"
+                //     }
+                // });
                 this.geocoder.on('result', this.addressSelected);
+                this.geocoder.on('clear', this.addressCleared);
+
+                this.map.on('dragend', this.mapMoved);
+                this.map.on('zoomend', this.mapMoved);
             })
             
         },

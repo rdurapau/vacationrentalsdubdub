@@ -549,3 +549,212 @@
         }
     }
 }
+
+#submit-property-geocoder {
+    position:relative;
+    .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+        max-width:none;
+        margin-bottom:20px;
+    }
+    input.text {
+        display:block;
+    }
+
+    label{
+        z-index:20;
+        @include abs;
+        font-size: 16px;
+        color: $light-grey;
+        top: 19px;
+        left: 15px;
+        @include moveFaster;
+        padding: 0 3px;
+        @include mq('sm-desk'){
+            font-size: 14px;
+        }
+        @include mq('tablet'){
+            font-size: 14px;
+            top: 18px;
+            left: 13px;
+            max-width: 98%;
+        }
+
+        top: -4px;
+        left: 9px;
+        @include fontBold;
+        font-size: 12px;
+        color: $dark;
+        background: white;
+        @include mq('tablet'){
+            top: -5px;
+            left: 7px;
+        }
+    }
+
+
+
+    .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+        @include appearance(none);
+        @include fontBook();
+        
+        display:block;
+        border-radius: 4px;
+        border: solid 1px $light-grey;
+        height:53px;
+        box-shadow:none;
+        input {
+            @include appearance(none);
+            @include fontBook();
+            width: calc(100% - 32px);
+            padding: 15px;           
+            font-size: 18px;
+            height:53px;
+            @include moveFaster;
+            @include mq('sm-desk'){
+                font-size: 14px;
+            }
+            // ~ label{
+            //     @include abs;
+            //     font-size: 16px;
+            //     color: $light-grey;
+            //     top: 19px;
+            //     left: 15px;
+            //     @include moveFaster;
+            //     padding: 0 3px;
+            //     @include mq('sm-desk'){
+            //         font-size: 14px;
+            //     }
+            //     @include mq('tablet'){
+            //         font-size: 14px;
+            //         top: 18px;
+            //         left: 13px;
+            //         max-width: 98%;
+            //     }
+            // }
+            // &:focus{
+            //     color: $dark;
+            //     border: solid 1px $purple;
+            //     ~ label{
+            //         top: -4px;
+            //         left: 9px;
+            //         @include fontBold;
+            //         font-size: 12px;
+            //         color: $dark;
+            //         background: white;
+            //         @include mq('tablet'){
+            //             top: -5px;
+            //             left: 7px;
+            //         }
+            //     }
+            // }//end focused
+            // &.filled{
+            //     color: $dark;
+            //     ~ label{
+            //         top: -4px;
+            //         left: 9px;
+            //         @include fontBold;
+            //         font-size: 12px;
+            //         color: $dark;
+            //         background: white;
+            //         @include mq('tablet'){
+            //             top: -5px;
+            //             left: 7px;
+            //         }
+            //     }
+            // }
+        }
+        
+        .geocoder-icon.geocoder-icon-search {
+            display:none;
+        }
+        .suggestions {
+            top:calc(100% + 10px);
+            // right:0;
+            font-size:19px;
+            line-height:20px;
+            width:100%;
+            left:0;
+            
+            border-radius:7px;
+            box-shadow:none;
+            padding:7px 0;
+            li {
+                a {
+                    padding:15px 20px;
+                    strong {
+                        color:$blue;
+                        // @include fontBold();
+                    }
+                }
+            }
+        }
+        .geocoder-icon.geocoder-icon-close {
+            background:#fff;
+            height:22px;
+            width:22px;
+            opacity:.9;
+            top:50%;
+            margin-top:-11px;
+            &:before, &:after {
+                box-sizing:border-box;
+                display:block;
+                content:"";
+                position:absolute;
+                height:2px;
+                background:$light-grey;
+                border-radius:2px;
+                transition:background .2s;
+                top:10px;
+                left:0;
+                transform:rotate(-135deg);
+                width:22px;
+            }
+            &:after{
+                transform:rotate(135deg);
+            }
+            &:hover {
+                &:after, &:before {
+                    background:$grey;
+                }
+            }
+        }
+        .geocoder-icon.geocoder-icon-loading {
+            background:none transparent;
+            background:#fff;
+            animation:none;
+            width:40px;
+            height:40px;
+            top:50%;
+            margin-top:-20px;
+            right:0;
+            &:after {
+                content:"";
+                position:absolute;
+                top:50%;
+                left:50%;
+                margin-left:-3px;
+                margin-top:-3px;
+                display:block;
+                @include loader07(
+                    $color:$purple, 
+                    // $duration: .3s, 
+                    $size: 5px
+                );
+            }
+        }
+    }
+}
+
+#submit-property-map {
+    position:relative;
+    height: 350px;
+    width: 100%;
+    .marker {
+        position:absolute;
+        left:50%;
+        margin-left:-8px;
+        top:50%;
+        margin-top:-22px;
+        z-index:20;
+    }
+}
