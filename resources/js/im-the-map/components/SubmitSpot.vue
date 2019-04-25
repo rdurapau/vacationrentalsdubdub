@@ -122,8 +122,8 @@
                                         <div class="section-description sub-column">
                                             <section class="description-detail">
                                                 <h2>Nice to meet you!</h2>
-                                                <p>The only information that will be shared with guests is your name
-                                                    phone number so they can contact you directly.</p>
+                                                <p>The only information that will be shared with guests is your name and phone number so they can contact you directly.</p>
+                                                <p>Your email will be used for communication with us and for booking requests.</p>
                                             </section>
                                         </div>
 
@@ -254,7 +254,7 @@
 
                                     </section>
 
-                                    <section class="sub-section-row">
+                                    <section class="sub-section-row margin-bottom-none">
 
                                         <div class="section-description sub-column">
                                             <section class="description-detail">
@@ -307,6 +307,56 @@
 
                                     </section><!-- END sub-section-row -->
 
+                                    <h2 class="section-title">Accommodations</h2>
+
+                                    <section class="sub-section-row">
+
+                                        <div class="section-description sub-column">
+                                            <section class="description-detail">
+                                                <h2>Accommodations</h2>
+                                                <p>How many guests can your spot be expected to comfortably accomodate?</p>
+                                            </section>
+                                        </div>
+
+                                        <div class="sub-column">
+                                            <section class="fieldset">
+
+                                                <section class="fieldset single-field"
+                                                    :class="{'has-error': errors.has('beds')}">
+                                                    <input type="text" id="property-beds" name="beds" v-model="beds"
+                                                        :class="{'filled': (beds.length || beds > 0), 'ouch': errors.has('beds')}"
+                                                        v-validate="'required|numeric|min:0|max:10'" data-vv-as="Number of Beds" />
+                                                    <label for="property-beds">Number of Beds</label>
+                                                    <span class="errors"
+                                                        v-if="errors.has('beds')">{{ errors.first('beds') }}</span>
+                                                </section>
+
+                                                <section class="fieldset single-field"
+                                                    :class="{'has-error': errors.has('baths')}">
+                                                    <input type="baths" name="baths" id="property-baths" v-model="baths"
+                                                        :class="{'filled': (baths.length || baths > 0), 'ouch': errors.has('baths')}"
+                                                        v-validate="'required|numeric|min:0|max:10'" data-vv-as="Number of Baths">
+                                                    <label for="property-baths">Number of Baths</label>
+                                                    <span class="errors"
+                                                        v-if="errors.has('baths')">{{ errors.first('baths') }}</span>
+                                                </section>
+
+                                            </section>
+
+                                            <section class="fieldset">
+                                                <section class="fieldset single-field half-width"
+                                                    :class="{'has-error': errors.has('sleeps')}">
+                                                    <input type="url" id="property-sleeps" name="sleeps" v-model="sleeps"
+                                                        :class="{'filled': (sleeps.length || sleeps > 0), 'ouch': errors.has('sleeps')}"
+                                                        v-validate="'required|numeric|min:0|max:30'" data-vv-as="Comfortably Sleeps" />
+                                                    <label for="property-sleeps">Comfortably Sleeps</label>
+                                                    <span class="errors"
+                                                        v-if="errors.has('sleeps')">{{ errors.first('sleeps') }}</span>
+                                                </section>
+                                            </section>
+                                        </div>
+                                    </section>
+
                                     <h2 class="section-title">Amenities</h2>
 
                                     <!-- Adding this nested wrap to allow me to split out floating comments -->
@@ -316,7 +366,7 @@
                                             <section class="description-detail">
                                                 <h2>Amenities</h2>
                                                 <p>Amenities are not required, but the more the merrier - Help your
-                                                    guests feel more at home.</p>
+                                                    guests feel more at home by selecting all that your spot offers.</p>
                                             </section>
                                         </div>
 
@@ -381,9 +431,11 @@
                 'email_confirmation' : '',
                 'phone' : '',
                 'name' : '',
-                'price' : '',
                 'desc' : '',
-                'dob': '',
+                'price' : '',
+                'sleeps' : '',
+                'baths' : '',
+                'beds' : '',
                 'terms_agree': false,
 
                 'addressIsSelected' : false,
@@ -397,7 +449,7 @@
 
                 'map' : '',
                 'geocoder': '',
-                'visibleSection' : 2,
+                'visibleSection' : 1,
             }
         },
         methods: {
@@ -442,19 +494,21 @@
                 }
             },
             saveAndContinue() {
-                this.visibleSection = 2;
-                this.map.resize();
-                if (this.visibleSection == 2) {
-                    let self = this;
-                    setTimeout(function(){self.map.resize();},100);
+                let newSection = this.visibleSection + 1;
+                console.log(newSection);
+                if (newSection > 4) {
+                    // TODO Submit the form
+                    return false;
+                } else {
+                    this.goToSection(newSection);
                 }
             },
             backButtonClicked() {
-                this.visibleSection = 1;
-                this.map.resize();
-                if (this.visibleSection == 2) {
-                    let self = this;
-                    setTimeout(function(){self.map.resize();},100);
+                let newSection = this.visibleSection - 1;
+                if (newSection < 1) {
+                    return false;
+                } else {
+                    this.goToSection(newSection);
                 }
             },
             goToSection(num) {
@@ -462,7 +516,7 @@
                 this.map.resize();
                 if (this.visibleSection == 2) {
                     let self = this;
-                    setTimeout(function(){self.map.resize();},100);
+                    setTimeout(function(){self.map.resize();},10);
                 }
             },
 

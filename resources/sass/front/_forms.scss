@@ -271,13 +271,21 @@ form{
                             font-size: 14px;
                             color: $grey;
                             line-height: 20px;
+                            & + p {
+                                margin-top:10px;
+                            }
                         }
                     }//end description detail
                 }//end section description
                 @include mq('tablet'){
                     flex-direction: column;
                 }
-            }//end sub-section rown
+                &.margin-bottom-none {
+                    div.sub-column {
+                        margin-bottom:0;
+                    }
+                }
+            }//end sub-section row
         }
         &.inactive{
             display: none;
