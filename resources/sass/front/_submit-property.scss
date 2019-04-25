@@ -11,7 +11,76 @@ section.modal-background{
     @include z-100;
     &.whoa-there{
         @include z-110;
-    }
+        div.warning-modal{
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #D0D2D4;
+            box-shadow: 0px 4.64627px 9.29254px rgba(31, 32, 65, 0.1);
+            border-radius: 3.71702px;
+            h1{
+                @include fontBold;
+                font-size: 28px;
+                padding: 20px 0;
+            }
+            p{
+                @include fontBook;
+                font-size: 14px;
+                line-height: 22px;
+                text-align: center;
+                padding-bottom: 20px;
+            }
+            ul.warning-controls{
+                display: flex;
+                width: 100%;
+                flex-direction: row;
+                li{
+                    display: flex;
+                    flex-grow: 1;
+                    flex-basis: 50%;
+                    a{
+                        display: flex;
+                        flex-grow: 1;
+                        justify-content: center;
+                        background: $purple;
+                        padding: 10px 0;
+                        border-radius: 3px;
+                        @include fontBook;
+                        text-decoration: none;
+                        color: #fff;
+                        font-size: 16px;
+                        @include moveMe;
+                        &:hover{
+                            background: $blue;
+                            color: #fff;
+                        }
+                    }
+                    &:first-child{
+                        padding-right: 15px;
+                        a{
+                            background: #fff;
+                            color: #ccc;
+                            border: solid 1px #ccc;
+                            &:hover{
+                                background: $blue;
+                                color: #fff;
+                                border: solid 1px $blue;
+                            }
+                        }
+                    }
+                }//end li
+            }//end ul
+            h2.icon{
+                width: 45px;
+                height: 45px;
+                background: url('#{$images}icon-warning.svg') no-repeat center center;
+                background-size: contain;
+            }
+        }//end warning label
+    }//end whoa there
 
     section.modal-container{
         background: #fff;

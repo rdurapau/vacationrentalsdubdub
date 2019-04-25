@@ -28,6 +28,7 @@ form{
                     flex-grow: 1;
                     margin-bottom: 35px;
                     @include fontBook;
+                    max-width: 65%;
                     &:first-child{
                         max-width: 35%;
                         @include mq('tablet'){
@@ -166,10 +167,11 @@ form{
                         li{
                             @include rlt;
                             display: flex;
-                            flex: 0 0 33.3333%;
+                            flex: 0 0 31%;
                             flex-direction: row;
                             align-items: center;
                             justify-content: center;
+                            padding: 0 1.5% 0 0;
                             @include mq('sm-desk'){
                                 flex: 0 0 50%;
                             }
