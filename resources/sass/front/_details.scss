@@ -40,11 +40,11 @@
             // height:120px;
             // width:80px;
             // $color: $purple;
-            /*@include loader11(
+            @include loader11(
                 $color:$purple, 
                 $duration: .5s, 
                 $size: 30px
-            );*/
+            );
         }
     }
 
