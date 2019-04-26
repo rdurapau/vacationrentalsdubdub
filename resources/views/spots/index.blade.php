@@ -34,22 +34,15 @@
     <div id="im-the-map">
         <h1 class="logo"></h1>
         
-        <submit-spot
+        <modals
             :amenities='{!! json_encode($amenities) !!}'
-        ></submit-spot>
+        ></modals>
 
         <im-the-map></im-the-map>
 
         <spot-details></spot-details>
 
-        <footer>
-            <a class="submit" href="">Submit Your Property</a>
-            <ul class="navigation">
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/terms">Terms of Service</a></li>
-                <li>&copy; SweetSpot</li>
-            </ul>
-        </footer>
+        <map-footer></map-footer>
     </div>
 
 </body>

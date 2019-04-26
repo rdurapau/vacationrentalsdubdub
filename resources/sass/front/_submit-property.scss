@@ -94,6 +94,7 @@ section.modal-background{
         max-width: 1200px;
         max-height: 720px;
         min-height: 720px;
+        position:relative;
         @include moveMe;
         @include mq('sm-desk'){
             max-height: 600px;
@@ -105,6 +106,30 @@ section.modal-background{
             min-width: 100%;
             max-width: 100%;
             border-radius: 0;
+        }
+        .loading-overlay {
+            width:100%;
+            height:100%;
+            position:absolute;
+            z-index:1000;
+            background:transparentize(lighten($purple,15%),.1);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            opacity:0;
+            visibility:hidden;
+            transition:opacity .2s, visibility .2s;
+            span {
+                @include loader11(
+                    $color:$purple, 
+                    $duration: .5s, 
+                    $size: 30px
+                );
+            }
+            &.visible {
+                opacity:1;
+                visibility:visible;
+            }
         }
         section.container-head{
             display: flex;

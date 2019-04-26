@@ -53,6 +53,7 @@ abstract class TestCase extends BaseTestCase
             'owner_name' => $this->faker->name(),
             'sleeps' => rand(2,18),
             'baths' => rand(2,4),
+            'beds' => rand(1,8),
             'lat' => $coords[0],
             'lng' => $coords[1]
         ], $overrides);

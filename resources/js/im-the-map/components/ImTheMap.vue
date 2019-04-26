@@ -10,7 +10,6 @@
             <button class="run-it" @click="applyFilters">Filter</button>
         </div> -->
 
-
         <section class="search-and-filter">
             <section class="filters">
                 <transition name="slide">
@@ -190,29 +189,29 @@
                 
                 this.updateMarkers();
             },
-            oldApplyFilters() {
-                let filters = [];
+            // oldApplyFilters() {
+            //     let filters = [];
                 
-                if (this.filterPet) filters.push(this.filterPet);
-                if (this.filterSleeps) filters.push(this.filterSleeps);
+            //     if (this.filterPet) filters.push(this.filterPet);
+            //     if (this.filterSleeps) filters.push(this.filterSleeps);
 
-                if (filters.length) {
-                    if (filters.length === 1) {
-                        filters = filters[0];
-                    } else {
-                        filters.unshift("all");
-                    }
-                } else {
-                    filters = undefined;
-                }
+            //     if (filters.length) {
+            //         if (filters.length === 1) {
+            //             filters = filters[0];
+            //         } else {
+            //             filters.unshift("all");
+            //         }
+            //     } else {
+            //         filters = undefined;
+            //     }
 
-                this.map.setFilter('clusters', filters);
-                this.map.setFilter('cluster-count', filters);
-                this.map.setFilter('unclustered-point', filters);
-                this.map.setFilter('unclustered-point-count', filters);
+            //     this.map.setFilter('clusters', filters);
+            //     this.map.setFilter('cluster-count', filters);
+            //     this.map.setFilter('unclustered-point', filters);
+            //     this.map.setFilter('unclustered-point-count', filters);
 
-                this.updateMarkers();
-            },
+            //     this.updateMarkers();
+            // },
             removePetFilter() {
                 Vue.set(this.activeFilters,'pets',false);
                 this.applyFilters();

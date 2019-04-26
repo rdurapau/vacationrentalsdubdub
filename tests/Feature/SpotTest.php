@@ -22,15 +22,20 @@ class SpotTest extends TestCase
     /** @test */
     public function a_spot_can_be_submitted()
     {
+        // TODO: This was moved to the API, so this functionality will be removed
+        
         $this->get('/spots/new')
             ->assertStatus(200);
 
         $data = $this->getFakeSpotData();
         $data['email_confirmation'] = $data['email'];
 
+        // dd($data);
+
         $r = $this->post('/spots', $data)
             ->assertSessionHasNoErrors()
             ->assertRedirect();
+            // ;dd($r->decodeResponseJson());
 
         $this->assertDatabaseHas('spots', [
             'email' => $data['email'],

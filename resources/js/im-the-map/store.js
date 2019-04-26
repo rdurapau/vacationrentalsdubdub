@@ -14,7 +14,8 @@ Vue.use(Vuex)
 const state = {
     activeSpot: 0,
     spotDetailsVisible : false,
-    detailsLoading: false
+    detailsLoading: false,
+    submitPropertyModalVisible: false
 }
 
 const getters = {
@@ -44,7 +45,15 @@ const mutations = {
     },
     detailsFinishedLoading() {
         state.detailsLoading = false;
+    },
+
+    showSubmitPropertyModal() {
+        state.submitPropertyModalVisible = true;
+    },
+    hideSubmitPropertyModal() {
+        state.submitPropertyModalVisible = false;
     }
+
 }
 
 //     #                                        

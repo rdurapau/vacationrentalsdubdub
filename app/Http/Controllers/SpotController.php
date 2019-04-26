@@ -46,6 +46,7 @@ class SpotController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         // $values = $request->all();
         // dd($values['amenities']);
 
@@ -64,6 +65,7 @@ class SpotController extends Controller
             'amenities' => 'array',
             'sleeps' => 'required|numeric',
             'baths' => 'required|numeric',
+            'beds' => 'required|numeric',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric'
         ]);

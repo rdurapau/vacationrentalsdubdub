@@ -24,6 +24,56 @@ class SpotApiTest extends TestCase
     }
 
     /** @test */
+    public function a_spot_can_be_submitted()
+    {       
+        $data = $this->getFakeSpotData();
+        $data['email_confirmation'] = $data['email'];
+
+        $r = $this->json(
+                'POST',
+                "{$this->apiRoot}/spots"
+                , $data
+            )->assertSessionHasNoErrors()
+            ->assertStatus(201);
+            // );dd($r->getContent());
+
+        $this->assertDatabaseHas('spots', [
+            'email' => $data['email'],
+            'desc' => $data['desc'],
+            'price' => $data['price'],
+            'moderated_by' => NULL,
+            'moderated_at' => NULL,
+            'moderation_status' => ModerationStatus::PENDING
+        ]);
+
+    }
+
+    /** @test */
+    public function when_a_spot_is_submitted_a_confirmation_email_is_sent_to_the_owner()
+    {
+        Mail::fake();
+
+        $data = $this->getFakeSpotData();
+        $data['email_confirmation'] = $data['email'];
+
+        $r = $this->json(
+                'POST',
+                "{$this->apiRoot}/spots"
+                , $data
+            )->assertSessionHasNoErrors()
+            ->assertStatus(201);
+            // );dd($r->decodeResponseJson());
+            // );dd($r->getContent());
+
+        $spot = BaseSpot::where('desc', $data['desc'])->first();
+        
+        Mail::assertSent(\App\Mail\SpotSubmitted::class, function ($mail) use ($spot) {
+            return ($mail->spot->id === $spot->id)
+                && $mail->hasTo($spot->email);
+        });
+    }
+
+    /** @test */
     public function all_active_spots_can_be_publically_listed()
     {
         $activeSpotCount = 5;
@@ -96,7 +146,7 @@ class SpotApiTest extends TestCase
             )->assertStatus(200)
             ->assertJsonStructure([
                 'name',
-                'address',
+                'desc',
                 'price',
                 'pets',
                 'sleeps',

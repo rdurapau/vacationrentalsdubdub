@@ -39,6 +39,7 @@ class BaseSpot extends Model implements HasMedia
         'owner_name',
         'sleeps',
         'baths',
+        'beds',
         'lat',
         'lng'
     ];
