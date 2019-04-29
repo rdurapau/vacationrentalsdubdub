@@ -24,3 +24,5 @@ Route::get('spots/{spot}', 'Api\SpotController@show');
 Route::post('spots/{spot}/edit-token/email', 'Api\EditTokenEmailController@create');
 
 Route::put('spots/{spot}/moderate', 'Api\SpotModerationController@update');
+
+Route::post('images', 'Api\ImageController@store');

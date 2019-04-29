@@ -164,65 +164,13 @@ form{
                         display: flex;
                         flex-wrap: wrap;
                         
-                        li{
-                            @include rlt;
-                            display: flex;
+                        li.check-group{
                             flex: 0 0 31%;
-                            flex-direction: row;
-                            align-items: center;
-                            justify-content: center;
-                            padding: 0 1.5% 0 0;
                             @include mq('sm-desk'){
                                 flex: 0 0 50%;
                             }
                             @include mq('tablet'){
                                 flex: 0 0 100%;
-                            }
-
-                            input[type=checkbox]{
-                                appearance: none;
-                                -webkit-appearance: none;
-                                cursor: pointer;
-                                &::after{
-                                    content: '';
-                                    display: inline-block;
-                                    width: 16px;
-                                    height: 16px;
-                                    border: solid 2px $light-grey;
-                                    border-radius: 2px;
-                                }
-                                + label{
-                                    display: flex;
-                                    flex-grow: 1;
-                                    flex-direction: row;
-                                    padding: 15px 0 15px 8px;
-                                    margin-top: -2px;
-                                    font-size: 15px;
-                                    cursor: pointer;
-                                    -webkit-user-select: none; /* Safari 3.1+ */
-                                    -moz-user-select: none; /* Firefox 2+ */
-                                    -ms-user-select: none; /* IE 10+ */
-                                    user-select: none; /* Standard syntax */
-                                }
-                                &:checked{
-                                    &::after{
-                                        background: $blue url('#{$images}icons/check-mark.svg') no-repeat center center;
-                                        border: solid 2px $blue;
-                                    }
-                                }
-                            }//end checkbox
-                            &:hover{
-                                input[type=checkbox]{
-                                    &::after{
-                                        border: solid 2px $blue;
-                                    }
-                                    &:checked{
-                                        &::after{
-                                            background: $blue url('#{$images}icons/check-mark.svg') no-repeat center center;
-                                            border: solid 2px $blue;
-                                        }
-                                    }
-                                }//end hover checkbox
                             }
                         }//end li
                         @include mq('tablet'){

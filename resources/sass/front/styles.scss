@@ -2,10 +2,11 @@
 $images: '../images/';
 
 @import '../../../node_modules/spinthatshit/src/loaders';
+@import '../../../node_modules/vue2-dropzone/dist/vue2Dropzone.min.css';
 
 @import 'reset', 'mobile', 'tools';
-@import 'colors', 'fonts', 'buttons';
-@import 'map', 'details';
+@import 'colors', 'fonts', 'buttons', 'components';
+@import 'map', 'details', 'uploads';
 
 body{
     background: #f0f0ee;

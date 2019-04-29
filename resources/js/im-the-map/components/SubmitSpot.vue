@@ -261,7 +261,7 @@
                                             :class="{'has-error': errors.has('name')}">
                                             <input type="text" id="property-title" name="name" v-model="name" :disabled="isSubmitting"
                                                 :class="{'filled': (name.length || name > 0), 'ouch': errors.has('name')}"
-                                                v-validate="'required|max:100'" data-vv-as="Property Title" />
+                                                v-validate="'required|max:100'" data-vv-as="Property Title" placeholder="eg Gorgeous Cabin on Lake Travis" />
                                             <label for="property-title">Property Title</label>
                                             <span class="errors"
                                                 v-if="errors.has('name')">{{ errors.first('name') }}</span>
@@ -375,7 +375,7 @@
                                     <div class="sub-column">
 
                                         <ul class="amenities">
-                                            <li v-for="amenity in amenities">
+                                            <li class="check-group" v-for="amenity in amenities">
                                                 <input type="checkbox" :name="'amenities['+amenity.id+']'" :disabled="isSubmitting"
                                                     :id="'check-amenity-'+amenity.id">
                                                 <label :for="'check-amenity-'+amenity.id"
@@ -389,6 +389,11 @@
 
                             </fieldset>
 
+                            <!-- Property Photos Section -->
+                            <property-photos
+                                v-show="visibleSection == 4"
+                            ></property-photos>
+
                             <input type="hidden" name="lat" :value="lat" />
                             <input type="hidden" name="lng" :value="lng" />
                             <input type="hidden" name="_token" :value="csrf" />
@@ -401,9 +406,13 @@
                 </div>
 
                 <div class="row action-row">
+                    <div v-show="visibleSection === 4" class="check-group rounded">
+                        <input type="checkbox" name="terms_agree" id="terms_agree" />
+                        <label for="terms_agree">I have read and agree to the SweetSpot terms of service</label>
+                    </div>
                     <button class="btn secondary" @click.prevent="backButtonClicked" type="button">Back</button>
-                    <button v-if="visibleSection < 3" class="btn" @click.prevent="saveAndContinue" type="button">Save & Continue</button>
-                    <button v-if="visibleSection == 3" class="btn" id="new-property-submit" name="new-property-submit" @click.prevent="submitForm">Submit</button>
+                    <button v-if="visibleSection < 4" class="btn" @click.prevent="saveAndContinue" type="button">Save & Continue</button>
+                    <button v-if="visibleSection == 4" class="btn" id="new-property-submit" name="new-property-submit" @click.prevent="submitForm">Submit</button>
                 </div>
             
             <!-- </form> -->
@@ -432,6 +441,9 @@
     Validator.localize(dict);
     import VeeValidateLaravel from 'vee-validate-laravel';
     Vue.use(VeeValidateLaravel);
+
+    import PropertyPhotos from './PropertyPhotos.vue';
+    Vue.component('property-photos', PropertyPhotos);
 
     let mapboxgl = require('mapbox-gl');
     let MapboxGeocoder = require('mapbox-gl-geocoder');
@@ -467,7 +479,7 @@
                 'map' : '',
                 'geocoder': '',
 
-                'visibleSection' : 1,
+                'visibleSection' : 4,
                 'isSubmitting': false,
             }
         },
@@ -515,7 +527,7 @@
             saveAndContinue() {
                 let newSection = this.visibleSection + 1;
                 console.log(newSection);
-                if (newSection > 3) {
+                if (newSection > 4) {
                     // TODO Submit the form
                     return false;
                 } else {
@@ -567,7 +579,8 @@
                     'postal_code',
 
                     'lat',
-                    'lng'
+                    'lng',
+                    'photos'
                 ];
                 let self = this;
                 let formData = {}
@@ -613,6 +626,9 @@
             csrf() {
                 return window.Laravel.csrfToken;
             },
+            photos() {
+                return this.$store.state.uploads;
+            }
         },
         mounted() {
             // console.log(mapboxgl);

@@ -15,7 +15,9 @@ const state = {
     activeSpot: 0,
     spotDetailsVisible : false,
     detailsLoading: false,
-    submitPropertyModalVisible: false
+    submitPropertyModalVisible: true,
+
+    uploads: []
 }
 
 const getters = {
@@ -52,6 +54,13 @@ const mutations = {
     },
     hideSubmitPropertyModal() {
         state.submitPropertyModalVisible = false;
+    },
+
+    addUploadToList(state, payload) {
+        state.uploads.push(payload);
+    },
+    removeUploadFromList(state, payload) {
+        state.uploads.splice(state.uploads.indexOf(payload), 1);
     }
 
 }
