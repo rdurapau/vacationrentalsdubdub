@@ -107,7 +107,7 @@
                 // template: uploadThumbnailTemplate,
 
                 mainDropOptions: {
-                    url: '/api/images',
+                    url: '/api/temp-uploads',
                     thumbnailWidth: 600,
                     maxFilesize: 2,
                     maxFiles: 1,
@@ -116,7 +116,7 @@
                     previewTemplate: this.template()
                 },
                 secondaryDropOptions: {
-                    url: '/api/images',
+                    url: '/api/temp-uploads',
                     thumbnailWidth: 200,
                     maxFilesize: 2,
                     addRemoveLinks: true,
