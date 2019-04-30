@@ -4,7 +4,7 @@
         <div class="column progress-list-column">
 
             <ul class="progress-list">
-                <li class="personal" :class="{'current' : visibleSection == 1, 'complete' : visibleSection > 1}" @click.prevent="goToSection(1)">
+                <li class="personal" :class="{'current' : visibleSection == 1, 'complete' : visibleSection > 1}" @click.prevent="'return false; goToSection(1)'">
                     <span>
                         <svg>
                             <g>
@@ -17,7 +17,7 @@
                         </svg>
                     </span>
                     Personal Info</li>
-                <li class="location"  :class="{'current' : visibleSection == 2, 'complete' : visibleSection > 2}" @click.prevent="goToSection(2)">
+                <li class="location"  :class="{'current' : visibleSection == 2, 'complete' : visibleSection > 2}" @click.prevent="'return false; goToSection(2)'">
                     <span>
                         <svg>
                             <g>
@@ -40,7 +40,7 @@
                         </svg>
                     </span>
                     Property Location</li>
-                <li class="details" :class="{'current' : visibleSection == 3, 'complete' : visibleSection > 3}" @click.prevent="goToSection(3)">
+                <li class="details" :class="{'current' : visibleSection == 3, 'complete' : visibleSection > 3}" @click.prevent="'return false; goToSection(3)'">
                     <span>
                         <svg>
                             <g>
@@ -61,7 +61,7 @@
                         </svg>
                     </span>
                     Property Details</li>
-                <li class="photos" :class="{'current' : visibleSection == 4, 'complete' : visibleSection > 4}" @click.prevent="goToSection(4)">
+                <li class="photos" :class="{'current' : visibleSection == 4, 'complete' : visibleSection > 4}" @click.prevent="'return false; goToSection(4)'">
                     <span>
                         <svg>
                             <g>
@@ -123,37 +123,39 @@
                                     <div class="sub-column">
 
                                         <section class="fieldset required single-field"
-                                            :class="{'has-error': errors.has('owner_name')}">
+                                            :class="{'has-error': errors.has('scope-1.owner_name')}">
                                             <input type="text" id="full-name" name="owner_name" v-model="owner_name" :disabled="isSubmitting"
                                                 :class="{'filled': (owner_name.length || owner_name > 0), 'ouch': errors.has('owner_name')}"
+                                                data-vv-scope="scope-1"
                                                 v-validate="'required|max:100'" data-vv-as="Full Name" />
-                                            <label for="full-name">Full Name</label>
+                                            <label for="full-name">Your Full Name</label>
                                             <span class="errors"
-                                                v-if="errors.has('owner_name')">{{ errors.first('owner_name') }}</span>
+                                                v-if="errors.has('scope-1.owner_name')">{{ errors.first('scope-1.owner_name') }}</span>
                                         </section>
 
                                         <section class="fieldset">
 
                                             <section class="fieldset single-field"
-                                                :class="{'has-error': errors.has('email')}">
+                                                :class="{'has-error': errors.has('scope-1.email')}">
                                                 <input type="text" id="email-address" name="email" v-model="email" :disabled="isSubmitting"
-                                                    :class="{'filled': (email.length || email > 0), 'ouch': errors.has('email')}"
-                                                    v-validate="'required|email'" data-vv-as="Email" />
+                                                    :class="{'filled': (email.length || email > 0), 'ouch': errors.has('scope-1.email')}"
+                                                    v-validate="'required|email'" data-vv-as="Email" data-vv-scope="scope-1" />
                                                 <label for="email-address">Email Address</label>
                                                 <span class="errors"
-                                                    v-if="errors.has('email')">{{ errors.first('email') }}</span>
+                                                    v-if="errors.has('scope-1.email')">{{ errors.first('scope-1.email') }}</span>
                                             </section>
 
                                             <section class="fieldset single-field"
-                                                :class="{'has-error': errors.has('email_confirmation')}">
+                                                :class="{'has-error': errors.has('scope-1.email_confirmation')}">
                                                 <input type="text" id="confirm-email" name="email_confirmation" :disabled="isSubmitting"
                                                     v-model="email_confirmation"
-                                                    :class="{'filled': (email_confirmation.length || email_confirmation > 0), 'ouch': errors.has('email_confirmation')}"
+                                                    :class="{'filled': (email_confirmation.length || email_confirmation > 0), 'ouch': errors.has('scope-1.email_confirmation')}"
+                                                    data-vv-scope="scope-1"
                                                     v-validate="{ is: email, required: true }"
                                                     data-vv-as="Email Confirmation" />
                                                 <label for="confirm-email">Confirm Email</label>
                                                 <span class="errors"
-                                                    v-if="errors.has('email_confirmation')">{{ errors.first('email_confirmation') }}</span>
+                                                    v-if="errors.has('scope-1.email_confirmation')">{{ errors.first('scope-1.email_confirmation') }}</span>
                                             </section>
 
                                         </section>
@@ -161,11 +163,13 @@
                                         <section class="fieldset">
 
                                             <section class="fieldset single-field half-width"
-                                                :class="{'has-error': errors.has('phone')}">
+                                                :class="{'has-error': errors.has('scope-1.phone')}">
                                                 <input type="phone" name="phone" id="phone-number" v-model="phone" :disabled="isSubmitting"
-                                                    :class="{'filled': (phone.length || phone > 0), 'ouch': errors.has('phone')}"
-                                                    v-validate="'required'" data-vv-as="Phone">
+                                                    :class="{'filled': (phone.length || phone > 0), 'ouch': errors.has('scope-1.phone')}"
+                                                    v-validate="'required'" data-vv-as="Phone" data-vv-scope="scope-1" />
                                                 <label for="phone-number">Phone Number</label>
+                                                                                                <span class="errors"
+                                                    v-if="errors.has('scope-1.phone')">{{ errors.first('scope-1.phone') }}</span>
                                             </section>
 
                                         </section>
@@ -258,31 +262,31 @@
 
                                     <div class="sub-column">
                                         <section class="fieldset required single-field"
-                                            :class="{'has-error': errors.has('name')}">
+                                            :class="{'has-error': errors.has('scope-3.name')}">
                                             <input type="text" id="property-title" name="name" v-model="name" :disabled="isSubmitting"
-                                                :class="{'filled': (name.length || name > 0), 'ouch': errors.has('name')}"
-                                                v-validate="'required|max:100'" data-vv-as="Property Title" placeholder="eg Gorgeous Cabin on Lake Travis" />
+                                                :class="{'filled': (name.length || name > 0), 'ouch': errors.has('scope-3.name')}"
+                                                v-validate="'required|max:100'" data-vv-as="Property Title" data-vv-scope="scope-3" placeholder="eg Gorgeous Cabin on Lake Travis" />
                                             <label for="property-title">Property Title</label>
                                             <span class="errors"
-                                                v-if="errors.has('name')">{{ errors.first('name') }}</span>
+                                                v-if="errors.has('scope-3.name')">{{ errors.first('scope-3.name') }}</span>
                                         </section>
                                         <section class="fieldset required single-field"
-                                            :class="{'has-error': errors.has('website')}">
+                                            :class="{'has-error': errors.has('scope-3.website')}">
                                             <input type="url" id="property-website" name="website" v-model="website" :disabled="isSubmitting"
-                                                :class="{'filled': (website.length || website > 0), 'ouch': errors.has('website')}"
-                                                v-validate="{url: {require_protocol: true }}" data-vv-as="Property Website" />
+                                                :class="{'filled': (website.length || website > 0), 'ouch': errors.has('scope-3.website')}"
+                                                v-validate="{url: {require_protocol: true }}" data-vv-as="Property Website" data-vv-scope="scope-3" />
                                             <label for="property-website">Property Website</label>
                                             <span class="errors"
-                                                v-if="errors.has('website')">{{ errors.first('website') }}</span>
+                                                v-if="errors.has('scope-3.website')">{{ errors.first('scope-3.website') }}</span>
                                         </section>
                                         <section class="fieldset required single-field"
-                                            :class="{'has-error': errors.has('price')}">
+                                            :class="{'has-error': errors.has('scope-3.price')}">
                                             <input type="url" id="property-price" name="price" v-model="price" :disabled="isSubmitting"
-                                                :class="{'filled': (price.length || price > 0), 'ouch': errors.has('price')}"
-                                                v-validate="'required|between:1,5000'" data-vv-as="Price per Night" />
+                                                :class="{'filled': (price.length || price > 0), 'ouch': errors.has('scope-3.price')}"
+                                                v-validate="'required|between:1,5000'" data-vv-as="Price per Night" data-vv-scope="scope-3" />
                                             <label for="property-price">Price per Night</label>
                                             <span class="errors"
-                                                v-if="errors.has('price')">{{ errors.first('price') }}</span>
+                                                v-if="errors.has('scope-3.price')">{{ errors.first('scope-3.price') }}</span>
                                         </section>
                                     </div>
                                 </section>
@@ -301,7 +305,7 @@
 
                                         <section class="fieldset required">
                                             <textarea type="text" id="property-description" v-model="desc" :disabled="isSubmitting"
-                                                :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('desc')}"></textarea>
+                                                :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('scope-3.desc')}" data-vv-scope="scope-3"></textarea>
                                             <label for="property-description">Property Description</label>
                                         </section>
 
@@ -324,36 +328,36 @@
                                         <section class="fieldset">
 
                                             <section class="fieldset single-field"
-                                                :class="{'has-error': errors.has('beds')}">
+                                                :class="{'has-error': errors.has('scope-3.beds')}">
                                                 <input type="text" id="property-beds" name="beds" v-model="beds" :disabled="isSubmitting"
-                                                    :class="{'filled': (beds.length || beds > 0), 'ouch': errors.has('beds')}"
-                                                    v-validate="'required|between:0,10'" data-vv-as="Number of Beds" />
+                                                    :class="{'filled': (beds.length || beds > 0), 'ouch': errors.has('scope-3.beds')}"
+                                                    v-validate="'required|between:0,10'" data-vv-as="Number of Beds" data-vv-scope="scope-3" />
                                                 <label for="property-beds">Number of Beds</label>
                                                 <span class="errors"
-                                                    v-if="errors.has('beds')">{{ errors.first('beds') }}</span>
+                                                    v-if="errors.has('scope-3.beds')">{{ errors.first('scope-3.beds') }}</span>
                                             </section>
 
                                             <section class="fieldset single-field"
-                                                :class="{'has-error': errors.has('baths')}">
+                                                :class="{'has-error': errors.has('scope-3.baths')}">
                                                 <input type="baths" name="baths" id="property-baths" v-model="baths" :disabled="isSubmitting"
-                                                    :class="{'filled': (baths.length || baths > 0), 'ouch': errors.has('baths')}"
-                                                    v-validate="'required|between:0,10'" data-vv-as="Number of Baths">
+                                                    :class="{'filled': (baths.length || baths > 0), 'ouch': errors.has('scope-3.baths')}"
+                                                    v-validate="'required|between:0,10'" data-vv-as="Number of Baths" data-vv-scope="scope-3" />
                                                 <label for="property-baths">Number of Baths</label>
                                                 <span class="errors"
-                                                    v-if="errors.has('baths')">{{ errors.first('baths') }}</span>
+                                                    v-if="errors.has('scope-3.baths')">{{ errors.first('scope-3.baths') }}</span>
                                             </section>
 
                                         </section>
 
                                         <section class="fieldset">
                                             <section class="fieldset single-field half-width"
-                                                :class="{'has-error': errors.has('sleeps')}">
+                                                :class="{'has-error': errors.has('scope-3.sleeps')}">
                                                 <input type="url" id="property-sleeps" name="sleeps" v-model="sleeps" :disabled="isSubmitting"
-                                                    :class="{'filled': (sleeps.length || sleeps > 0), 'ouch': errors.has('sleeps')}"
-                                                    v-validate="'required|between:0,30'" data-vv-as="Comfortably Sleeps" />
+                                                    :class="{'filled': (sleeps.length || sleeps > 0), 'ouch': errors.has('scope-3.sleeps')}"
+                                                    v-validate="'required|between:0,30'" data-vv-as="Comfortably Sleeps" data-vv-scope="scope-3" />
                                                 <label for="property-sleeps">Comfortably Sleeps</label>
                                                 <span class="errors"
-                                                    v-if="errors.has('sleeps')">{{ errors.first('sleeps') }}</span>
+                                                    v-if="errors.has('scope-3.sleeps')">{{ errors.first('scope-3.sleeps') }}</span>
                                             </section>
                                         </section>
                                     </div>
@@ -410,7 +414,9 @@
                         <input type="checkbox" name="terms_agree" id="terms_agree" />
                         <label for="terms_agree">I have read and agree to the SweetSpot terms of service</label>
                     </div>
-                    <button class="btn secondary" @click.prevent="backButtonClicked" type="button">Back</button>
+
+                    <button class="btn secondary" @click.prevent="backButtonClicked" type="button" v-if="visibleSection > 1">Back</button>
+
                     <button v-if="visibleSection < 4" class="btn" @click.prevent="saveAndContinue" type="button">Save & Continue</button>
                     <button v-if="visibleSection == 4" class="btn" id="new-property-submit" name="new-property-submit" @click.prevent="submitForm">Submit</button>
                 </div>
@@ -428,14 +434,14 @@
     Vue.use(VeeValidate);
     const dict = {
         en: {
-            messages: {
-                required: () => 'This field is required'
-            },
-            custom: {
-                scheduled_time: {
-                    scheduled_time: 'You must select a date and time'
-                },
-            }
+            // messages: {
+            //     required: () => 'This field is required'
+            // },
+            // custom: {
+            //     scheduled_time: {
+            //         scheduled_time: 'You must select a date and time'
+            //     },
+            // }
         },
     };
     Validator.localize(dict);
@@ -479,7 +485,7 @@
                 'map' : '',
                 'geocoder': '',
 
-                'visibleSection' : 4,
+                'visibleSection' : 1,
                 'isSubmitting': false,
             }
         },
@@ -525,14 +531,28 @@
                 }
             },
             saveAndContinue() {
-                let newSection = this.visibleSection + 1;
-                console.log(newSection);
-                if (newSection > 4) {
-                    // TODO Submit the form
-                    return false;
-                } else {
-                    this.goToSection(newSection);
-                }
+                this.validateVisibleFields()
+                    .then(() => {
+                        if (!this.errors.items.length) {
+                            let newSection = this.visibleSection + 1;
+                            if (newSection > 4) {
+                               return false;
+                            } else {
+                                this.goToSection(newSection);
+                            }
+                        } else {
+                            console.log('error!');
+                        }
+                    }
+                )
+
+                
+                // if (newSection > 4) {
+                //     // TODO Submit the form
+                //     return false;
+                // } else {
+                //     this.goToSection(newSection);
+                // }
             },
             backButtonClicked() {
                 let newSection = this.visibleSection - 1;
@@ -549,6 +569,9 @@
                     let self = this;
                     setTimeout(function(){self.map.resize();},10);
                 }
+            },
+            validateVisibleFields() {
+                return this.$validator.validate('scope-'+this.visibleSection+'.*')
             },
             submitForm(event) {
                 if (event.target.id == 'new-property-submit') {
@@ -587,6 +610,9 @@
                 fields.forEach((field) => {
                     formData[field] = self[field];
                 });
+
+                // formData.photos = this.photos.map(p => p.id);
+
                 axios.post('/api/spots', formData)
                     .then(response => {
                         console.log(response)
@@ -676,7 +702,11 @@
                 this.map.on('dragend', this.mapMoved);
                 this.map.on('zoomend', this.mapMoved);
             })
-            this.fillFakeData();
+            // this.fillFakeData();
+            let self = this;
+            setInterval(function() {
+                console.log(self.errors.has('scope-1.email'));
+            },1000);
         },
         watch: {
             'geocoder.result' : 'addressSelected'

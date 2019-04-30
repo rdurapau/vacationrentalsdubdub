@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TempUpload extends JsonResource
+class TempMedia extends JsonResource
 {
     /**
      * Transform the resource into an array.

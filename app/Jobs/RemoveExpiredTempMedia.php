@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\TempUpload;
+use App\TempMedia;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class RemoveExpiredTempUploads implements ShouldQueue
+class RemoveExpiredTempMedia implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -22,7 +22,7 @@ class RemoveExpiredTempUploads implements ShouldQueue
     public function handle()
     {
         // Get all temp-uploads that are expired
-        $expiredUploads = TempUpload::expired()->get();
+        $expiredUploads = TempMedia::expired()->get();
 
         foreach($expiredUploads as $upload) {
             $upload->delete();

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\TempUpload;
+use App\TempMedia;
 
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class TempUploadTest extends TestCase
+class TempMediaTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
     
@@ -20,7 +20,7 @@ class TempUploadTest extends TestCase
     }
 
     /** @test */
-    public function a_temp_upload_can_be_uploaded()
+    public function a_temp_media_can_be_uploaded()
     {   
         Storage::fake('local');
  
@@ -31,7 +31,7 @@ class TempUploadTest extends TestCase
 
         $responseContent = $r->decodeResponseJson();
 
-        $this->assertDatabaseHas('temp_uploads',[
+        $this->assertDatabaseHas('temp_media',[
             'filename' => $responseContent['filename']
         ]);
 
@@ -40,7 +40,7 @@ class TempUploadTest extends TestCase
     }
 
     /** @test */
-    public function a_temp_upload_can_only_be_an_image()
+    public function a_temp_media_can_only_be_an_image()
     {
         Storage::fake('local');
  
@@ -52,10 +52,10 @@ class TempUploadTest extends TestCase
             'file' => 'nah-brah'
         ])->assertStatus(422);
 
-        $this->assertEquals(0,TempUpload::count());
+        $this->assertEquals(0,TempMedia::count());
     }
 
-    public function temp_uploads_are_deleted_after_their_expires_at_datetime()
+    public function temp_medias_are_deleted_after_their_expires_at_datetime()
     {
 
     }

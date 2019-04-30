@@ -30,6 +30,8 @@
                     :options="mainDropOptions"
                     :useCustomSlot="true"
                     v-on:vdropzone-thumbnail="thumbnail"
+                    v-on:vdropzone-success="mainUploadSuccess"
+                    v-on:vdropzone-removed-file="fileRemoved"
                     class="spot-photos-upload single-image"
                     >
                     
@@ -68,7 +70,7 @@
                     :options="secondaryDropOptions"
                     :useCustomSlot="true"
                     v-on:vdropzone-thumbnail="thumbnail"
-                    v-on:vdropzone-success="uploadSuccess"
+                    v-on:vdropzone-success="secondaryUploadSuccess"
                     v-on:vdropzone-removed-file="fileRemoved"
                     class="spot-photos-upload"
                     >
@@ -96,7 +98,6 @@
 
 <script>
     import vue2Dropzone from 'vue2-dropzone';
-    // import uploadThumbnailTemplate from './upload-thumbnail';
 
     export default {
         components: {
@@ -137,12 +138,11 @@
                     </div>
                     <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
                     <div class="dz-error-message"><span data-dz-errormessage></span></div>
-                    <div class="dz-success-mark"><i class="fa fa-check"></i></div>
-                    <div class="dz-error-mark"><i class="fa fa-close"></i></div>
+                    <div class="dz-success-mark"><span></span></div>
+                    <div class="dz-error-mark"><span>!</span></div>
                 </div>`;
             },
             thumbnail(file, dataUrl) {
-                console.log('ok');
                 var j, len, ref, thumbnailElement;
                 if (file.previewElement) {
                     file.previewElement.classList.remove("dz-file-preview");
@@ -159,18 +159,25 @@
                     })(this)), 1);
                 }
             },
-            uploadSuccess(file, response) {
-                this.addUpload(response.name)
-                console.log('uploaded');
-                console.log(file);
+            mainUploadSuccess(file, response) {
+                this.addUpload({
+                    id : response.id,
+                    filename : file.name
+                }, true)
+            },
+            secondaryUploadSuccess(file, response) {
+                this.addUpload({
+                    id : response.id,
+                    filename : file.name
+                }, false)
             },
             fileRemoved(file) {
-                console.log('removed')
                 console.log(file);
                 this.removeUpload(file);
             },
-            addUpload(path) {
-                this.$store.commit('addUploadToList', path);
+            addUpload(path, isPrimary = false) {
+                let mutation = isPrimary ? 'addUploadToTopOfList' : 'addUploadToList';
+                this.$store.commit(mutation, path);
             },
             removeUpload(path) {
                 this.$store.commit('removeUploadFromList', path);

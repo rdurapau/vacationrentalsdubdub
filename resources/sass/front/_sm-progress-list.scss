@@ -34,7 +34,8 @@ ul.progress-list{
         &.active{
             color: #29304C;
         }
-        &:hover, &.current{
+        // &:hover, &.current{
+        &.current{
             color: #29304C;
             span {
                 svg{

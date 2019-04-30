@@ -15,7 +15,7 @@ const state = {
     activeSpot: 0,
     spotDetailsVisible : false,
     detailsLoading: false,
-    submitPropertyModalVisible: true,
+    submitPropertyModalVisible: false,
 
     uploads: []
 }
@@ -56,11 +56,22 @@ const mutations = {
         state.submitPropertyModalVisible = false;
     },
 
+    addUploadToTopOfList(state, payload) {
+        state.uploads.unshift(payload);
+        console.log(state.uploads);
+    },
     addUploadToList(state, payload) {
         state.uploads.push(payload);
+        console.log(state.uploads);
     },
     removeUploadFromList(state, payload) {
-        state.uploads.splice(state.uploads.indexOf(payload), 1);
+        console.log(payload);
+        // console.log(state.uploads.indexOf(payload));
+        state.uploads.splice(
+            state.uploads.findIndex(item => item.filename === payload.name),
+            1
+        );
+        // state.uploads.splice(state.uploads.indexOf(payload), 1);
     }
 
 }

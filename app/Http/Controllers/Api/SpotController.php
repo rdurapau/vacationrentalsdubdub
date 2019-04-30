@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Spot;
+use App\TempMedia;
 use App\Http\Resources\GeoSpot as GeoSpotResource;
 use App\Http\Resources\GeoSpotCollection;
 use App\Http\Resources\Spot as SpotResource;
@@ -13,7 +14,6 @@ use App\Events\SpotWasSubmitted;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-
 
 class SpotController extends ApiController
 {
@@ -64,12 +64,14 @@ class SpotController extends ApiController
             'state' => 'required|string',
             'postal_code' => 'required',
             'owner_name' => 'required',
-            'amenities' => 'array',
             'sleeps' => 'required|numeric',
             'baths' => 'required|numeric',
             'beds' => 'required|numeric',
             'lat' => 'required|numeric',
-            'lng' => 'required|numeric'
+            'lng' => 'required|numeric',
+            
+            'amenities' => 'array',
+            'photos' => 'array'
         ]);
 
         // dump($validated);
@@ -78,6 +80,21 @@ class SpotController extends ApiController
 
         if (array_key_exists('amenities', $validated) && count($validated['amenities'])) {
             $spot->amenities()->sync(array_keys($validated['amenities']));
+        }
+
+        if (array_key_exists('photos', $validated) && count($validated['photos'])) {
+            // Move the TempPhotos over
+            $photos = TempMedia::whereIn('id',$validated['photos'])
+                ->with('media')
+                ->get();
+
+            foreach($photos as $photo) {
+                $photo->getFirstMedia()->move($spot);
+                
+                // $spot
+                //     ->addMedia($photo->filepath())
+                //     ->toMediaCollection();
+            }
         }
 
         Mail::to($spot->email)->send(new SpotSubmitted($spot->id));

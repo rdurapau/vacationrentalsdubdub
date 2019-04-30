@@ -10,7 +10,7 @@
             <button class="run-it" @click="applyFilters">Filter</button>
         </div> -->
 
-        <section class="search-and-filter">
+        <section class="search-and-filter" v-show="mapIsLoaded">
             <section class="filters">
                 <transition name="slide">
                     <div v-if="activeFilters.pets" @click.prevent="removePetFilter">
@@ -130,6 +130,7 @@
 
                 geoJson : {},
 
+                mapIsLoaded : false,
                 searchBarVisible: false,
                 activeFilters : {
                     pets : false,
@@ -767,6 +768,7 @@
                         self.resizeMap();
                     } 
                 }
+                this.mapIsLoaded = true;
             }
 
         },
@@ -838,10 +840,20 @@
             });
 
             this.map.on('load', () => {
+                self.resizeMap();
                 axios.get('/api/spots?output=geojson')
                     .then(response => self.initData(response.data));
                     // .then((response) => self.geoJson = response.data);
             });
+
+            window.addEventListener("load", function(event) {
+                self.resizeMap();
+            });
+            document.onreadystatechange = () => { 
+                if (document.readyState == "complete") { 
+                    self.resizeMap();
+                } 
+            }
         },
         watch: {
             // '$store.state.spotDetailsVisible' : 'testListener'

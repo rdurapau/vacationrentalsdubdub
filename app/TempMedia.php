@@ -5,10 +5,16 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
+use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\Image\Manipulations;
+
 use Carbon\Carbon;
 
-class TempUpload extends Model
+class TempMedia extends Model implements HasMedia
 {
+    use HasMediaTrait;
 
     protected $fillable = ['expires_at','filename'];
     public $timestamps = false;
@@ -32,11 +38,11 @@ class TempUpload extends Model
 
         });
 
-        static::deleting(function($photo) {
+        // static::deleting(function($photo) {
             
-            Storage::delete($photo->filePath());
+        //     Storage::delete($photo->filePath());
 
-        });
+        // });
     }
 
     /**
@@ -51,14 +57,25 @@ class TempUpload extends Model
     }
 
     /** 
-     * Get the full relative path to the file for this TempUpload
+     * Get the full relative path to the file for this TempMedia
      * 
      * @param @void
      * @return json
      */
-    public function filePath() {
+    // public function filePath() {
 
-        return $this->storagePath .'/'. $this->filename;
+    //     return $this->storagePath .'/'. $this->filename;
 
+    // }
+
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')
+             ->crop(
+                Manipulations::CROP_CENTER,
+                300,
+                300
+             );
     }
 }

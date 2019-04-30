@@ -60,7 +60,7 @@
         props: ['amenities'],
         data() {
             return {
-                visibleScreen : 'newPropertyForm',
+                visibleScreen : 'intro',
                 isSubmitting: false
             }
         },

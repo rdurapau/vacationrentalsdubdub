@@ -25,4 +25,4 @@ Route::post('spots/{spot}/edit-token/email', 'Api\EditTokenEmailController@creat
 
 Route::put('spots/{spot}/moderate', 'Api\SpotModerationController@update');
 
-Route::post('temp-uploads', 'Api\TempUploadController@store');
+Route::post('temp-uploads', 'Api\TempMediaController@store');

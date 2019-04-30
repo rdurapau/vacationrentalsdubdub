@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTempUploadsTable extends Migration
+class CreateTempMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTempUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('temp_uploads', function (Blueprint $table) {
+        Schema::create('temp_media', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('filename',200);
+            // $table->string('filename',200);
             $table->datetime('expires_at');
         });
     }
@@ -27,6 +27,6 @@ class CreateTempUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temp_uploads');
+        Schema::dropIfExists('temp_media');
     }
 }

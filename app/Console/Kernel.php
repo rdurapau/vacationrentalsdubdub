@@ -5,7 +5,7 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
-use App\Jobs\RemoveExpiredTempUploads;
+use App\Jobs\RemoveExpiredTempMedia;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->job(new RemoveExpiredTempUploads)->everyFifteenMinutes();
+        $schedule->job(new RemoveExpiredTempMedia)->everyFifteenMinutes();
     }
 
     /**
