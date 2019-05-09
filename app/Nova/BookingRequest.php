@@ -27,7 +27,7 @@ class BookingRequest extends Resource
     public static $title = 'name';
 
     public static function label() {
-        return 'Requests';
+        return 'Bookings';
     }
 
     public static $group = 'z';

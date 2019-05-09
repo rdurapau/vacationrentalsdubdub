@@ -128,14 +128,27 @@ $green: #2BC569;
 .spot-selected {
     .mapboxgl-marker {
         .spot-marker {
-            opacity:.5;
+            img, div.image, section {
+                opacity:.5;
+            }
+
+            &:hover {
+                img, div.image, section {
+                    opacity:.5;
+                }       
+            }
+            
             &.active {
-                opacity:1;
+                img, div.image, section {
+                    opacity:1;
+                }
             }
         }
         &.active {
             .spot-marker {
-                opacity:1;
+                img, div.image, section {
+                    opacity:1;
+                }
             }
         }
     }
