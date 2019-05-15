@@ -85,28 +85,7 @@ class EditTokenController extends Controller
 
         // return $amenities;
         // return $spotJson;
-        return view('spots.edit-new', compact('spotJson', 'editToken','amenities'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\EditToken  $editToken
-     * @return \Illuminate\Http\Response
-     */
-    public function editOld(BaseSpot $spot, EditToken $editToken)
-    {
-        if ($editToken->spot_id != $spot->id) {
-            return false;
-        }
-        $amenities = Amenity::all();
-        $selectedAmenities = $spot->amenities()->pluck('id');
-        $amenities->each(function($a) use ($selectedAmenities) {
-            // $a->selected = (in_array($a->id, $spot->amenity_ids));
-            $a->selected = $selectedAmenities->contains($a->id);
-        });
-        // dd($amenities);
-        return view('spots.edit', compact('spot', 'editToken','amenities'));
+        return view('spots.edit', compact('spotJson', 'editToken','amenities'));
     }
 
     /**

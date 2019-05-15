@@ -59,55 +59,55 @@ class EditTokenTest extends TestCase
         });
     }
 
-    /** @test */
-    public function a_spot_can_be_edited_with_the_correct_edit_url()
-    {
-        $spot = Spot::create($this->getFakeSpotData());
+    // /** @test */
+    // public function a_spot_can_be_edited_with_the_correct_edit_url()
+    // {
+    //     $spot = Spot::create($this->getFakeSpotData());
 
-        $this->get($spot->edit_url)
-            ->assertStatus(200);
+    //     $this->get($spot->edit_url)
+    //         ->assertStatus(200);
         
-        $spotData = $spot->toArray();
-        $spotData['address1'] = '1600 Pennsylvania Ave';
-        $spotData['edit_token'] = $spot->editToken->token;
+    //     $spotData = $spot->toArray();
+    //     $spotData['address1'] = '1600 Pennsylvania Ave';
+    //     $spotData['edit_token'] = $spot->editToken->token;
 
-        $r = $this->patch("/spots/{$spot->id}", $spotData)
-            ->assertRedirect();
-            // ;dd($r->decodeResponseJson());
+    //     $r = $this->patch("/spots/{$spot->id}", $spotData)
+    //         ->assertRedirect();
+    //         // ;dd($r->decodeResponseJson());
         
-        $this->assertDatabaseHas('spots', [
-            'id' => $spot->id,
-            'address1' => '1600 Pennsylvania Ave'
-        ]);
-    }
+    //     $this->assertDatabaseHas('spots', [
+    //         'id' => $spot->id,
+    //         'address1' => '1600 Pennsylvania Ave'
+    //     ]);
+    // }
 
-    /** @test */
-    public function a_spot_cannot_be_edited_without_the_correct_edit_token()
-    {
-        $spot = Spot::create($this->getFakeSpotData());
-        $altSpot = factory('App\Spot')->create();
+    // /** @test */
+    // public function a_spot_cannot_be_edited_without_the_correct_edit_token()
+    // {
+    //     $spot = Spot::create($this->getFakeSpotData());
+    //     $altSpot = factory('App\Spot')->create();
 
-        $this->get($spot->edit_url)
-            ->assertStatus(200);
+    //     $this->get($spot->edit_url)
+    //         ->assertStatus(200);
         
-        $spotData = $spot->toArray();
-        $spotData['address1'] = '350 Fifth Avenue';
-        $spotData['edit_token'] = $altSpot->editToken->token;
+    //     $spotData = $spot->toArray();
+    //     $spotData['address1'] = '350 Fifth Avenue';
+    //     $spotData['edit_token'] = $altSpot->editToken->token;
 
-        $r = $this->patch("/spots/{$spot->id}", $spotData)
-            ->assertSessionHasErrors('edit_token');
-            // ;dd($r->decodeResponseJson());
+    //     $r = $this->patch("/spots/{$spot->id}", $spotData)
+    //         ->assertSessionHasErrors('edit_token');
+    //         // ;dd($r->decodeResponseJson());
         
-        $this->assertDatabaseMissing('spots', [
-            'id' => $spot->id,
-            'address1' => '350 Fifth Avenue'
-        ]);
+    //     $this->assertDatabaseMissing('spots', [
+    //         'id' => $spot->id,
+    //         'address1' => '350 Fifth Avenue'
+    //     ]);
 
-        $this->assertDatabaseHas('spots', [
-            'id' => $spot->id,
-            'address1' => $spot->address1
-        ]);
-    }
+    //     $this->assertDatabaseHas('spots', [
+    //         'id' => $spot->id,
+    //         'address1' => $spot->address1
+    //     ]);
+    // }
 
     public function playground()
     {

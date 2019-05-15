@@ -128,7 +128,16 @@ class SpotController extends ApiController
             'lng' => 'required|numeric',
             
             'amenity_ids' => 'array',
-            'photos' => 'array'
+            'photos' => 'array',
+
+            'edit_token' => [
+                'required',
+                function ($attribute, $value, $fail) use ($spot) {
+                    if ($value !== $spot->editToken->token) {
+                        $fail('The edit token is invalid.');
+                    }
+                }
+            ]
         ]);
 
         // dump($validated);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Spot;
 use App\BaseSpot;
 use App\Amenity;
+use App\EditToken;
+use App\Http\Resources\Spot as SpotResource;
 
 use App\Mail\SpotSubmitted;
 use App\Events\SpotWasSubmitted;
@@ -40,6 +42,7 @@ class SpotController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * ! This is deprecated in favor of an API endpoint
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -97,15 +100,29 @@ class SpotController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Spot  $spot
+     * @param  \App\EditToken  $editToken
      * @return \Illuminate\Http\Response
      */
-    public function edit(Spot $spot)
+    public function edit(Spot $spot, EditToken $editToken)
     {
-        //
+        if ($editToken->spot_id != $spot->id) {
+            return false;
+        }
+
+        // return $spot->getFirstMedia()->toArray();
+
+        $amenities = Amenity::all();
+        $spotJson = $spot->append('amenity_ids')->append('images')->toJson();
+        $spotJson = new SpotResource($spot, true);
+
+        // return $amenities;
+        // return $spotJson;
+        return view('spots.edit', compact('spotJson', 'editToken', 'amenities'));
     }
 
     /**
      * Update the specified resource in storage.
+     * ! This is deprecated in favor of an API endpoint
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Spot  $spot

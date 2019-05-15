@@ -217,22 +217,78 @@ class SpotApiTest extends TestCase
         )->assertStatus(404);
     }
 
+    /** @test */
+    public function a_spot_can_be_edited_with_the_correct_edit_token()
+    {
+        // $spot = Spot::create($this->getFakeSpotData());
+        $spot = factory('App\Spot')->states('pending')->create();
+
+        $this->get($spot->edit_url)
+            ->assertStatus(200);
+        
+        $spotData = $spot->toArray();
+        $spotData['address1'] = '1600 Pennsylvania Ave';
+        $spotData['email_confirmation'] = $spot->email;
+        $spotData['edit_token'] = $spot->editToken->token;
+
+        $r = $this->json(
+            'PATCH',
+            "{$this->apiRoot}/spots/{$spot->id}",
+            $spotData
+        )->assertStatus(204);
+        // );dd($r->decodeResponseJson());
+        
+        // $r = $this->patch("/spots/{$spot->id}", $spotData)
+        //     ->assertRedirect();
+        //     ;dd($r->decodeResponseJson());
+        
+        $this->assertDatabaseHas('spots', [
+            'id' => $spot->id,
+            'address1' => '1600 Pennsylvania Ave'
+        ]);
+    }
+
+    /** @test */
+    public function a_spot_cannot_be_edited_without_the_correct_edit_token()
+    {
+        // $spot = Spot::create($this->getFakeSpotData());
+        $spot = factory('App\Spot')->states('pending')->create();
+        $altSpot = factory('App\Spot')->create();
+
+        $this->get($spot->edit_url)
+            ->assertStatus(200);
+        
+        $spotData = $spot->toArray();
+        $spotData['address1'] = '350 Fifth Avenue';
+        $spotData['email_confirmation'] = $spot->email;
+        $spotData['edit_token'] = $altSpot->editToken->token;
+
+        // $r = $this->patch("/spots/{$spot->id}", $spotData)
+        //     ->assertSessionHasErrors('edit_token');
+        //     // ;dd($r->decodeResponseJson());
+
+        $r = $this->json(
+            'PATCH',
+            "{$this->apiRoot}/spots/{$spot->id}",
+            $spotData
+        )->assertJsonValidationErrors('edit_token');
+        // );dd($r->decodeResponseJson());
+        
+        $this->assertDatabaseMissing('spots', [
+            'id' => $spot->id,
+            'address1' => '350 Fifth Avenue'
+        ]);
+
+        $this->assertDatabaseHas('spots', [
+            'id' => $spot->id,
+            'address1' => $spot->address1
+        ]);
+    }
+
+
     public function rejected_spots_can_be_viewed_with_auth()
     {
 
     }
-
-
-    // Maybe
-    public function a_spot_can_be_updated_with_auth()
-    {
-
-    }
-
-    public function a_spot_cannot_be_updated_without_auth()
-    {
-
-    }
-
 
 }
