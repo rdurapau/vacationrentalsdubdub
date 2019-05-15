@@ -169,6 +169,62 @@
         height:66%;
     }
 
+    .spot-description {
+        // line-height:1.214285 !important;
+        div, ul, ol, li, blockquote, pre {
+            line-height:1.2857142857;
+        }
+        strong {
+            font-weight:bold;
+        }
+        em {
+            font-style:italic;
+        }
+        h1 {
+            font-size:1.2em !important;
+            letter-spacing:0 !important;
+            border-bottom:none !important;
+            padding:0 !important;
+            font-weight:bolder;
+            margin-bottom:.3em;
+        }
+        del {
+            text-decoration: line-through;
+        }
+        strong {
+            font-weight:inherit;
+            font-weight:bolder;
+        }
+        ul {
+            list-style:disc outside;
+            margin-left: 1em;
+        }
+        ol {
+            list-style: decimal outside;
+            margin-left: 1em;
+        }
+        blockquote {
+            margin: 0 0 0 .3em;
+            padding: 0 0 0 .6em;
+            border-left: .3em solid #ccc;
+        }
+        pre {
+            display: inline-block;
+            width: 100%;
+            vertical-align: top;
+            font-family: monospace;
+            font-size: .9em;
+            margin: 0;
+            padding: .5em;
+            white-space: pre;
+            background-color: #eee;
+            overflow-x: auto;
+        }
+        & + h3 {
+            margin-top:20px;
+        }
+    }
+
     article {
         padding-top:26px;
         box-sizing:border-box;

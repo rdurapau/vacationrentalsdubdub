@@ -251,7 +251,7 @@
 
                                 </section>
 
-                                <section class="sub-section-row margin-bottom-none">
+                                <section class="sub-section-row">
 
                                     <div class="section-description sub-column">
                                         <section class="description-detail">
@@ -290,28 +290,6 @@
                                         </section>
                                     </div>
                                 </section>
-
-                                <section class="sub-section-row">
-
-                                    <div class="section-description sub-column">
-                                        <section class="description-detail">
-                                            <h2>Property description</h2>
-                                            <p>To help people understand why they should choose your property during
-                                                their time off, write as detailed a description as you desire.</p>
-                                        </section>
-                                    </div>
-
-                                    <div class="sub-column">
-
-                                        <section class="fieldset required">
-                                            <textarea type="text" id="property-description" v-model="desc" :disabled="isSubmitting"
-                                                :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('scope-3.desc')}" data-vv-scope="scope-3"></textarea>
-                                            <label for="property-description">Property Description</label>
-                                        </section>
-
-                                    </div><!-- End sub column -->
-
-                                </section><!-- END sub-section-row -->
 
                                 <h2 class="section-title">Accommodations</h2>
 
@@ -380,12 +358,33 @@
 
                                         <ul class="amenities">
                                             <li class="check-group" v-for="amenity in amenities">
-                                                <input type="checkbox" :name="'amenities['+amenity.id+']'" :disabled="isSubmitting"
-                                                    :id="'check-amenity-'+amenity.id">
+                                                <input type="checkbox" :name="'amenities['+amenity.id+']'" :value="amenity.id" :disabled="isSubmitting"
+                                                    :id="'check-amenity-'+amenity.id" v-model="selectedAmenities">
                                                 <label :for="'check-amenity-'+amenity.id"
                                                     v-text="amenity.name"></label>
                                             </li>
                                         </ul>
+
+                                    </div><!-- End sub column -->
+
+                                </section><!-- END sub-section-row -->
+
+                                <section class="sub-section-row">
+
+                                    <div class="section-description sub-column">
+                                        <section class="description-detail">
+                                            <h2>Property description</h2>
+                                            <p>To help people understand why they should choose your property during
+                                                their time off, write as detailed a description as you desire.</p>
+                                        </section>
+                                    </div>
+
+                                    <div class="sub-column">
+
+                                        <trix id="property-description":value="desc" :disabled="isSubmitting" :withFiles="false"
+                                            :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('scope-3.desc')}" data-vv-scope="scope-3"
+                                            @change="trixChange"
+                                            />
 
                                     </div><!-- End sub column -->
 
@@ -447,6 +446,9 @@
     Validator.localize(dict);
     import VeeValidateLaravel from 'vee-validate-laravel';
     Vue.use(VeeValidateLaravel);
+    
+    import Trix from "../../components/Trix";
+    Vue.component('trix', Trix);
 
     import PropertyPhotos from './PropertyPhotos.vue';
     Vue.component('property-photos', PropertyPhotos);
@@ -478,6 +480,7 @@
                 'city' : '',
                 'state' : '',
                 'postal_code' : '',
+                'selectedAmenities' : [],
 
                 'lat': '',
                 'lng': '',
@@ -570,6 +573,9 @@
                     setTimeout(function(){self.map.resize();},10);
                 }
             },
+            trixChange(ev) {
+                this.desc = ev;
+            },
             validateVisibleFields() {
                 return this.$validator.validate('scope-'+this.visibleSection+'.*')
             },
@@ -611,7 +617,7 @@
                     formData[field] = self[field];
                 });
 
-                // formData.photos = this.photos.map(p => p.id);
+                formData.amenity_ids = this.selectedAmenities;
 
                 axios.post('/api/spots', formData)
                     .then(response => {
@@ -702,11 +708,6 @@
                 this.map.on('dragend', this.mapMoved);
                 this.map.on('zoomend', this.mapMoved);
             })
-            // this.fillFakeData();
-            let self = this;
-            setInterval(function() {
-                console.log(self.errors.has('scope-1.email'));
-            },1000);
         },
         watch: {
             'geocoder.result' : 'addressSelected'

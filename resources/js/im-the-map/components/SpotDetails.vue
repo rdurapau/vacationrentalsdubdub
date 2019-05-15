@@ -45,7 +45,7 @@
                         </div>
                     </section>
 
-                    <p v-html="spot.desc"></p>
+                    <div class="spot-description" v-html="spot.desc"></div>
 
                     <h3 v-if="amenities && amenities.length">Amenities</h3>
                     <ul class="amenities" v-if="amenities && amenities.length">

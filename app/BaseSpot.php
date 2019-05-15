@@ -48,6 +48,8 @@ class BaseSpot extends Model implements HasMedia
         'moderated_at'
     ];
 
+    // protected $appends = ['amenity_ids'];
+
     /**
      * The "booting" method of the model.
      *
@@ -175,6 +177,13 @@ class BaseSpot extends Model implements HasMedia
         return route('editTokens.edit', ['spots' => $this, 'editToken' => $this->editToken]);
     }
 
+    public function getImagesAttribute()
+    {
+        return $this->getMedia()->map(function($media) {
+            return $media->getFullUrl();
+        });
+    }
+
     public function allowsPets()
     {
         // $this->loadMissing('amenities');
@@ -213,6 +222,15 @@ class BaseSpot extends Model implements HasMedia
     public function getCoverPhotoAttribute()
     {
         return $this->getFirstMediaUrl() ? url($this->getFirstMediaUrl()) : NULL;
+    }
+
+    public function getOtherPhotosAttribute()
+    {
+        $allMedia = $this->getMedia();
+        return ($allMedia->count() > 1)
+            ? $allMedia->slice(1)->map(function($m){return $m->getFullUrl();})->toArray()
+            : NULL;
+        // return $this->getFirstMediaUrl() ? url($this->getFirstMediaUrl()) : NULL;
     }
 
     //  #     #                                          

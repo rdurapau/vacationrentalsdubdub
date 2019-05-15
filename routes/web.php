@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/map', 'HomeController@map')->name('map');
 
 Route::get('/s/{spot}/{editToken}', 'EditTokenController@edit')->name('editTokens.edit');
+Route::get('/o/{spot}/{editToken}', 'EditTokenController@editOld');
 Route::patch('/spots/{spot}', 'SpotController@update')->name('spots.update');
     
 Route::get('/spots', 'SpotController@index')->name('spots.index');

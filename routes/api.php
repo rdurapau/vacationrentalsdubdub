@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('spots', 'Api\SpotController@index');
 Route::post('spots', 'Api\SpotController@store');
 Route::get('spots/{spot}', 'Api\SpotController@show');
+Route::patch('spots/{spot}', 'Api\SpotController@update');
 
 Route::post('spots/{spot}/edit-token/email', 'Api\EditTokenEmailController@create');
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class TempMedia extends JsonResource
+class SpotPhoto extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,9 +16,12 @@ class TempMedia extends JsonResource
     {
         return [
             "id" => $this->id,
-            "media_id" => $this->getFirstMedia()->id,
-            "name" => $this->getFirstMedia()->name,
-            "size" => $this->getFirstMedia()->size
+            "url" => $this->getFullUrl(),
+            "thumbnail" => $this->getFullUrl('thumb'),
+            "name" => $this->name,
+            "size" => $this->size,
+            "type" => $this->mime_type,
+            "order_column" => $this->order_column
         ];
     }
 }

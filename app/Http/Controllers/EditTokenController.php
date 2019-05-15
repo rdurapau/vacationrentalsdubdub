@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Amenity;
 use App\BaseSpot;
 use App\EditToken;
+
+use App\Http\Resources\Spot as SpotResource;
+
 use Illuminate\Http\Request;
 
 class EditTokenController extends Controller
@@ -69,6 +72,29 @@ class EditTokenController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(BaseSpot $spot, EditToken $editToken)
+    {
+        if ($editToken->spot_id != $spot->id) {
+            return false;
+        }
+
+        // return $spot->getFirstMedia()->toArray();
+
+        $amenities = Amenity::all();
+        $spotJson = $spot->append('amenity_ids')->append('images')->toJson();
+        $spotJson = new SpotResource($spot, true);
+
+        // return $amenities;
+        // return $spotJson;
+        return view('spots.edit-new', compact('spotJson', 'editToken','amenities'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\EditToken  $editToken
+     * @return \Illuminate\Http\Response
+     */
+    public function editOld(BaseSpot $spot, EditToken $editToken)
     {
         if ($editToken->spot_id != $spot->id) {
             return false;

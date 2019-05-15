@@ -38,7 +38,7 @@ class TempMediaController extends ApiController
         // $file->storeAs($photo->storagePath, $name);
 
         return response()
-            // ->json(new TempMediaResource($photo), 201);
-            ->json(['id' => $photo->id], 201);
+            ->json(new TempMediaResource($photo), 201);
+            // ->json(['id' => $photo->id], 201);
     }
 }

@@ -443,7 +443,6 @@
                 })
 
                 // Add the search box
-                // TODO: Temporarily commented out until I have time to style it.
                 this.geocoder = new mapboxGeocoder({
                     accessToken: mapboxgl.accessToken,
                     countries: 'usa',
@@ -457,34 +456,6 @@
                 });
 
                 this.searchBarVisible = true;
-
-
-                // this.map.addLayer({
-                // "id": "earthquake_circle",
-                // "type": "circle",
-                // "source": "places",
-                // "filter": ["!=", "cluster", true],
-                // "paint": {
-                // "circle-opacity": 0.6,
-                // "circle-radius": 12
-                // }
-                // });
-                // this.map.addLayer({
-                // "id": "earthquake_label",
-                // "type": "symbol",
-                // "source": "places",
-                // "filter": ["!=", "cluster", true],
-                // "layout": {
-                // "text-field": ["number-format", ["get", "id"], {"min-fraction-digits": 1, "max-fraction-digits": 1}],
-                // "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-                // "text-size": 10
-                // },
-                // "paint": {
-                // "text-color": ["case", ["<", ["get", "mag"], 3], "black", "white"]
-                // }
-                // });
-
-
                 
                 // Circles for the clusters
                 this.map.addLayer({
@@ -537,24 +508,6 @@
                     },
                     maxzoom:8
                 });
-
-                // Labels for the single spot "clusters" while zoomed out
-                // this.map.addLayer({
-                //     id: "solo-cluster-count",
-                //     type: "symbol",
-                //     source: "places",
-                //     layout: {
-                //         "text-field": "1",
-                //         "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
-                //         "text-size": 15
-                //     },
-                //     filter: ["==", "point_count", 1],
-                //     // filter: ['has', 'point_count'],
-                //     paint: {
-                //         "text-color": "#fff"
-                //     },
-                //     maxzoom:8
-                // });
 
                 // Individual spot markers
                 this.map.addLayer({
@@ -677,90 +630,8 @@
                     self.updateMarkers();
                     // console.log('zoomend')
                 });
-
-                // this.map.features.forEach(feature => {
-                //     var el = document.createElement('div');
-                //     el.className = 'marker';
-                //     el.innerHTML = '<div class="spot-marker"><img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section></div>';
-                //     el.addEventListener('click', function() {
-                //         self.markerClicked(feature.id);
-                //     });
-                //     // el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-                //     // el.style.width = marker.properties.iconSize[0] + 'px';
-                //     // el.style.height = marker.properties.iconSize[1] + 'px';
-
-
-                //     self.markers.push(
-                //         new mapboxgl.Marker(el)
-                //             .setLngLat(feature.geometry.coordinates)
-                //             // .setHTML('')
-                //             .addTo(self.map)
-                //             // .addEventListener('click',function(){console.log('clicked')})
-                //     )
-                // });
-
-                // Markers
-                // this.map.on('moveend', function() {
-                //     self.markers.forEach((marker) => {
-                //         marker.remove();
-                //     });
-                //     self.markers = [];
-
-                //     var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
-
-                //     if (visibleFeatures) {
-                //         visibleFeatures.forEach((feature) => {
-                //             var el = document.createElement('div');
-                //             el.className = 'marker';
-                //             el.innerHTML = '<div class="spot-marker"><img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section></div>';
-                //             el.addEventListener('click', function() {
-                //                 self.markerClicked(feature.id);
-                //             });
-                //             // el.style.backgroundImage = 'url(https://placekitten.com/g/' + marker.properties.iconSize.join('/') + '/)';
-                //             // el.style.width = marker.properties.iconSize[0] + 'px';
-                //             // el.style.height = marker.properties.iconSize[1] + 'px';
-
-
-                //             self.markers.push(
-                //                 new mapboxgl.Marker(el)
-                //                     .setLngLat(feature.geometry.coordinates)
-                //                     // .setHTML('')
-                //                     .addTo(self.map)
-                //                     // .addEventListener('click',function(){console.log('clicked')})
-                //             )
-                //         });
-                //     }
-                // });
-
-                // Popups
-                // this.map.on('moveend', function() {
-                //     self.popups.forEach((popup) => {
-                //         popup.remove();
-                //     });
-                //     self.popups = [];
-
-                //     var visibleFeatures = self.map.queryRenderedFeatures({layers:['unclustered-point']});
-
-                //     if (visibleFeatures) {
-                //         visibleFeatures.forEach((feature) => {
-                //             self.popups.push(
-                //                 new mapboxgl.Popup({
-                //                     closeButton: false,
-                //                     closeOnClick : false
-                //                 }).setLngLat(feature.geometry.coordinates)
-                //                 .setHTML('<div onclick="console.log('+feature.properties.id+')"><img src="'+feature.properties.photo+'"/><section><span>$'+feature.properties.price+'</span><span>B: '+feature.properties.baths+'</span><span>S: '+feature.properties.sleeps+'</span></section></div>')
-                //                 .addTo(self.map)
-                //                 // .addEventListener('click',function(){console.log('clicked')})
-                //             )
-                //         });
-                //     }
-                // });
             
                 this.$mapBus.$on('detailsCardToggled',()=>this.resizeMap());
-                // this.$mapBus.$on('detailsCardHidden',()=>this.resizeMap());
-                // setInterval(function(){
-                //     self.updateMarkers();
-                // },1500);
 
                 // Fix for the map sometimes not being full viewport height on load
                 document.onreadystatechange = () => { 
@@ -769,6 +640,7 @@
                     } 
                 }
                 this.mapIsLoaded = true;
+
             }
 
         },
