@@ -17,6 +17,8 @@ const state = {
     detailsLoading: false,
     submitPropertyModalVisible: false,
 
+    cancelConfirmationModalVisible: false,
+
     uploads: []
 }
 
@@ -54,6 +56,13 @@ const mutations = {
     },
     hideSubmitPropertyModal() {
         state.submitPropertyModalVisible = false;
+    },
+
+    showCancelConfirmationModal() {
+        state.cancelConfirmationModalVisible = true;
+    },
+    hideCancelConfirmationModal() {
+        state.cancelConfirmationModalVisible = false;
     },
 
     addUploadToTopOfList(state, payload) {
