@@ -1,4 +1,4 @@
-form{
+form.sweetspot-form {
     height: 100%;
     min-width: 50%;
     @include z-105;
@@ -44,131 +44,6 @@ form{
                             margin: 0 20px 10px 20px;
                         }
                     }//end fieldset
-                    section.fieldset{
-                        @include rlt;
-                        display: flex;
-                        flex-grow: 1;
-                        > section.fieldset{
-                            &:first-child{
-                                margin-right: 20px;
-                                @include mq('sm-desk'){
-                                    margin-right: 10px;
-                                }
-                            }
-                        }
-                        textarea{
-                            resize: none;
-                            min-height: 110px;
-                            font-size: 16px !important;
-                            line-height: 20px;
-                        }
-                        input, textarea {
-                            width: calc(100% - 32px);
-                            padding: 15px;
-                            border-radius: 4px;
-                            border: solid 1px $light-grey;
-                            font-size: 18px;
-                            color: $light-grey;
-                            @include moveFaster;
-                            @include mq('sm-desk'){
-                                font-size: 14px;
-                            }
-                            + label{
-                                @include abs;
-                                font-size: 16px;
-                                color: $light-grey;
-                                top: 19px;
-                                left: 15px;
-                                @include moveFaster;
-                                padding: 0 3px;
-                                @include mq('sm-desk'){
-                                    font-size: 14px;
-                                }
-                                @include mq('tablet'){
-                                    font-size: 14px;
-                                    top: 18px;
-                                    left: 13px;
-                                    max-width: 98%;
-                                }
-                            }
-                            &:focus{
-                                color: $dark;
-                                border: solid 1px $purple;
-                                + label{
-                                    top: -4px;
-                                    left: 9px;
-                                    @include fontBold;
-                                    font-size: 12px;
-                                    color: $dark;
-                                    background: white;
-                                    @include mq('tablet'){
-                                        top: -5px;
-                                        left: 7px;
-                                    }
-                                }
-                                &::-webkit-input-placeholder { color: #ccc; }
-                                &::-moz-placeholder { color: #ccc; }
-                                &:-ms-input-placeholder { color: #ccc; }
-                                &:-moz-placeholder { color: #ccc; }
-                            }//end focused
-                            &.filled{
-                                color: $dark;
-                                + label{
-                                    top: -4px;
-                                    left: 9px;
-                                    @include fontBold;
-                                    font-size: 12px;
-                                    color: $dark;
-                                    background: white;
-                                    @include mq('tablet'){
-                                        top: -5px;
-                                        left: 7px;
-                                    }
-                                }
-                            }
-
-                            &::-webkit-input-placeholder { color: #fff; transition:color .2s;}
-                            &::-moz-placeholder { color: #fff; transition:color .2s; }
-                            &:-ms-input-placeholder { color: #fff; transition:color .2s; }
-                            &:-moz-placeholder { color: #fff; transition:color .2s; }
-                        }//end input
-                        span.errors{
-                            background: #F94874;
-                            @include radius;
-                            font-size: 12px;
-                            align-items: center;
-                            justify-content: center;
-                            margin-top: 3px;
-                            padding: 7px 16px;
-                            color:#fff;
-                            display: none;
-                            box-sizing:border-box;
-                            display: none;
-                            border-radius:5px;
-                            margin-bottom:-5px;
-                        }
-                        &.single-field {
-                            flex-direction:column;
-                        }
-                        &.half-width {
-                            width: calc(50% - 10px);
-                            flex: 0 0 auto;
-                            @include mq('sm-desk'){
-                                width:calc(50% - 5px);
-                            }
-                        }
-                        &.has-error {
-                            input, textarea {
-                                border-color:#f94874;
-                                + label {
-                                    color:#f94874;
-                                }
-                            }
-                            span.errors {
-                                display:block;
-                            }
-                        }
-                    }//end section.fieldset
                     ul.amenities{
                         display: flex;
                         flex-wrap: wrap;
@@ -251,6 +126,182 @@ form{
             display: flex;
         }
     }
+    section.fieldset{
+        @include rlt;
+        display: flex;
+        flex-grow: 1;
+        > section.fieldset{
+            &:first-child{
+                margin-right: 20px;
+                @include mq('sm-desk'){
+                    margin-right: 10px;
+                }
+                &:only-child {
+                    margin-right:0;
+                }
+            }
+        }
+        textarea{
+            resize: none;
+            min-height: 110px;
+            font-size: 16px !important;
+            line-height: 20px;
+        }
+        input, textarea {
+            width: calc(100% - 32px);
+            padding: 15px;
+            border-radius: 4px;
+            border: solid 1px $light-grey;
+            font-size: 18px;
+            color: $light-grey;
+            @include moveFaster;
+            @include mq('sm-desk'){
+                font-size: 14px;
+            }
+            + label{
+                @include abs;
+                font-size: 16px;
+                color: $light-grey;
+                top: 19px;
+                left: 15px;
+                @include moveFaster;
+                padding: 0 3px;
+                @include mq('sm-desk'){
+                    font-size: 14px;
+                }
+                @include mq('tablet'){
+                    font-size: 14px;
+                    top: 18px;
+                    left: 13px;
+                    max-width: 98%;
+                }
+            }
+            &:focus{
+                color: $dark;
+                border: solid 1px $purple;
+                + label{
+                    top: -4px;
+                    left: 9px;
+                    @include fontBold;
+                    font-size: 12px;
+                    color: $dark;
+                    background: white;
+                    @include mq('tablet'){
+                        top: -5px;
+                        left: 7px;
+                    }
+                }
+                &::-webkit-input-placeholder { color: #ccc; }
+                &::-moz-placeholder { color: #ccc; }
+                &:-ms-input-placeholder { color: #ccc; }
+                &:-moz-placeholder { color: #ccc; }
+            }//end focused
+            &.filled{
+                color: $dark;
+                + label{
+                    top: -4px;
+                    left: 9px;
+                    @include fontBold;
+                    font-size: 12px;
+                    color: $dark;
+                    background: white;
+                    @include mq('tablet'){
+                        top: -5px;
+                        left: 7px;
+                    }
+                }
+            }
+
+            &::-webkit-input-placeholder { color: #fff; transition:color .2s;}
+            &::-moz-placeholder { color: #fff; transition:color .2s; }
+            &:-ms-input-placeholder { color: #fff; transition:color .2s; }
+            &:-moz-placeholder { color: #fff; transition:color .2s; }
+        }//end input
+        span.errors{
+            background: #F94874;
+            @include radius;
+            font-size: 12px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 3px;
+            padding: 7px 16px;
+            color:#fff;
+            display: none;
+            box-sizing:border-box;
+            display: none;
+            border-radius:5px;
+            margin-bottom:-5px;
+        }
+        &.single-field {
+            flex-direction:column;
+            &.has-prefix {
+                position:relative;
+                .prefix {
+                    position:absolute;
+                    left:10px;
+                    top:50%;
+                    z-index:50;
+                    &.calendar {
+                        background:url('#{$images}icon-calendar.svg') center center no-repeat;
+                        width:20px;
+                        height:20px;
+                        background-size:contain;
+                        top:50%;
+                        margin-top:-11px;
+                    }
+                }
+                input {
+                    padding-left:38px;
+                    & + label {
+                        left:38px;
+                    }
+                    &:focus + label {
+                        left:15px;
+                    }
+                }
+                &.filled {
+                    input + label  {
+                        left: 15px;
+                    }
+                }
+            }
+        }
+        &.half-width {
+            width: calc(50% - 10px);
+            flex: 0 0 auto;
+            @include mq('sm-desk'){
+                width:calc(50% - 5px);
+            }
+        }
+        &.has-error {
+            input, textarea {
+                border-color:#f94874;
+                + label {
+                    color:#f94874;
+                }
+            }
+            span.errors {
+                display:block;
+            }
+        }
+        &.filled {
+            input, textarea {
+                color: $dark;
+                + label{
+                    top: -4px;
+                    left: 9px;
+                    @include fontBold;
+                    font-size: 12px;
+                    color: $dark;
+                    background: white;
+                    @include mq('tablet'){
+                        top: -5px;
+                        left: 7px;
+                    }
+                }
+            }
+        }
+    }//end section.fieldset
     h1{
         @include fontBold;
         font-size: 40px;
@@ -268,3 +319,7 @@ form{
     }//
     
 }//end form
+
+.flatpickr-calendar {
+    @include fontBook;
+}

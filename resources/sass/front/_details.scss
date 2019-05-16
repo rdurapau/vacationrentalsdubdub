@@ -1,4 +1,4 @@
-.spot-details {
+.spot-slideout {
     background:#fff;
 
     border-left: 1px solid #D0D2D4;
@@ -46,6 +46,139 @@
                 $size: 30px
             );
         }
+    }
+    .spot-details {
+        // display:flex;
+        position:relative;
+        height:100%;
+        flex:1 0 auto;
+        // flex-direction:column;
+    }
+
+    .reservation-form {
+        // display:flex;
+        position:relative;
+        height:100%;
+        flex:1 0 auto;
+        // flex-direction:column;
+        padding:25px 30px;
+        h2 {
+            margin:0;
+        }
+        button.back-btn {
+            @include appearance(none);
+            padding:0;
+            border:none;
+            background:none transparent;
+            display:block;
+            width:52px;
+            height:52px;
+            box-sizing:border-box;
+
+            position:absolute;
+            top:20px;
+            right:20px;
+            cursor:pointer;
+            svg {
+                circle, path {
+                    transition: stroke .2s;
+                }
+            }
+            &:hover {
+                svg {
+                    circle, path {
+                        stroke:$purple;
+                    }
+                }
+            }
+        } 
+
+        .spot-deets {
+            margin-top:42px;   
+            border-radius:5px;
+            display:flex;
+            justify-content:space-between;
+            align-items:stretch;
+            > div {
+                width:50%;
+            }
+            div.img {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+                background-size:cover;
+                background-position:center center;
+                background-repeat:no-repeat;
+                min-height:208px;
+            }
+            div.text {
+                border:1px solid $light-grey;
+                border-left:none;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                box-sizing:border-box;
+                
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                
+                // display:flex;
+                // align-items:flex-start;
+                // justify-content:center;
+                // flex-direction:column;
+                text-align:left;
+                padding:20px 32px;
+                > div {
+                    display:block;
+                }
+                ul {
+                    list-style:none outside;
+                    margin:0;
+                    padding:0;
+                    letter-spacing:-.02em;
+                    li {
+                        display:inline-block;
+                        & + li {
+                            margin-left:3px;
+                            &:before {
+                                display:inline-block;
+                                content:'•';
+                                margin-right:3px;
+                                // content:'';
+                                // width:4px;
+                                // height:4px;
+                                // border-radius:2px;
+                                // background:$dark;
+                                // vertical-align:center;
+                            }
+                        }
+                    }
+                }
+            }
+        } //.spot-deets
+
+        .reservation-disclaimer {
+            color:$grey;
+            margin:30px 0 25px;
+        }
+
+        form.sweetspot-form {
+            padding-top:10px;
+            .form-row {
+                margin-bottom:20px;
+            }
+        }
+
+
+        // <div class="spot-deets">
+        //     <div class="img" :style="'background-image:url('+spot.photo+')'"></div>
+        //     <div class="text">
+        //         <small v-text="'$' + spot.price + ' per night'"></small>
+        //         <h2 v-text="spot.name"></h2>
+        //         <ul>
+        //             <li v-for="deet in spotDeets" v-text="deet"></li>
+        //         </ul>
+        //     </div>
+        // </div>
     }
 
     button.close {
@@ -171,6 +304,9 @@
 
     .spot-description {
         // line-height:1.214285 !important;
+        a {
+            color:$purple;
+        }
         div, ul, ol, li, blockquote, pre {
             line-height:1.2857142857;
         }

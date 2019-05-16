@@ -1,12 +1,14 @@
 <template>
-    <!-- <transition name="slide"
-        v-on:after-enter="afterCardEnter"
-        v-on:after-leave="afterCardExit"
-    > -->
-        <section class="spot-details" v-if="spotDetailsVisible">
-            <transition name="fade">
-                <div v-if="isLoading" @click.prevent="isLoading = false" class="loading-overlay"><span></span></div>
-            </transition>
+    <section class="spot-slideout" v-if="spotDetailsVisible">
+        <transition name="fade">
+            <div v-if="isLoading" @click.prevent="isLoading = false" class="loading-overlay"><span></span></div>
+        </transition>
+
+        <reservation-form v-if="reservationFormVisible && spot" :spot="spot"
+            v-on:close="hideReservationForm"
+            />
+
+        <section class="spot-details" v-else>
             <section class="hero">
                 <button class="close" @click.prevent="close"><span class="icon-clear-css"></span></button>
                 <div class="controls">
@@ -29,7 +31,7 @@
             </section>
             <section class="content">
                 <article>
-                    <h2 v-text="spot.name">Lakefront Escape</h2>
+                    <h2 v-text="spot.name"></h2>
                     <section class="icon-deets">
                         <div v-if="spot.sleeps">
                             <img src="/images/icons/person-circle.svg" />
@@ -57,7 +59,7 @@
                 </article>
                 <aside>
                     <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
-                    <button class="btn btn-wide btn-purple btn-reservation">Make a reservation</button>
+                    <button class="btn btn-wide btn-purple btn-reservation" @click.prevent="showReservationForm">Make a reservation</button>
                     <ul class="contact">
                         <li class="phone" v-if="spot.phone">
                             <a :href="'tel:'+spot.phone" v-text="spot.phone"></a>
@@ -69,23 +71,21 @@
                 </aside>
             </section>
         </section>
-    <!-- </transition> -->
+    </section>
 </template>
 
 <script>
     let mapboxgl = require('mapbox-gl');
     import { mapState, mapGetters } from 'vuex';
-    // let geoJSON = require('geojson')
 
-    // console.log(geoJSON);
-    // GeoJSON.parse(data, {Point: ['lat', 'lng']});
-
-    mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
+    import ReservationForm from './ReservationForm.vue';
+    Vue.component('reservation-form', ReservationForm);
 
     export default {
         data() {
             return {
-                currentPhotoIndex: 0
+                currentPhotoIndex: 0,
+                reservationFormVisible: true
             }
         },
         methods: {
@@ -112,6 +112,13 @@
             },
             resetNewSpot() {
                 this.currentPhotoIndex = 0;
+            },
+
+            showReservationForm() {
+                this.reservationFormVisible = true;
+            },
+            hideReservationForm() {
+                this.reservationFormVisible = false;
             }
             // afterCardEnter() {
             //     this.$mapBus.$emit('detailsCardShown');

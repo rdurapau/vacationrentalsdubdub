@@ -107,7 +107,7 @@
 
                             <div class="column actual-form">
 
-                                <form method="POST" action="/spots" @submit="submitForm" id="submit-property-form" :disabled="isWorking">
+                                <form method="POST" class="sweetspot-form" action="/spots" @submit="submitForm" id="submit-property-form" :disabled="isWorking">
 
                                     <!-- Personal Info Section -->
                                     <fieldset class="section-wrap" v-show="visibleSection == 1">

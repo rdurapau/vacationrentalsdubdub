@@ -3,10 +3,14 @@ $images: '../images/';
 
 @import '../../../node_modules/spinthatshit/src/loaders';
 @import '../../../node_modules/vue2-dropzone/dist/vue2Dropzone.min.css';
+@import '../../../node_modules/flatpickr/dist/flatpickr.css';
+
 
 @import 'reset', 'mobile', 'tools';
 @import 'colors', 'fonts', 'buttons', 'components';
-@import 'map', 'details', 'uploads';
+@import 'forms', 'flatpickr', 'map', 'details', 'uploads';
+
+
 
 body{
     background: #f0f0ee;

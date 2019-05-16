@@ -641,6 +641,8 @@
                 }
                 this.mapIsLoaded = true;
 
+                this.$store.dispatch('triggerNewActiveSpot', 8)
+
             }
 
         },
