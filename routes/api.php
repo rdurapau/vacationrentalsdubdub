@@ -22,6 +22,8 @@ Route::post('spots', 'Api\SpotController@store');
 Route::get('spots/{spot}', 'Api\SpotController@show');
 Route::patch('spots/{spot}', 'Api\SpotController@update');
 
+Route::post('spots/{spot}/requests', 'Api\BookingRequestController@store');
+
 Route::post('spots/{spot}/edit-token/email', 'Api\EditTokenEmailController@create');
 
 Route::put('spots/{spot}/moderate', 'Api\SpotModerationController@update');

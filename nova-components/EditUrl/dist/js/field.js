@@ -388,7 +388,7 @@ var render = function() {
     { attrs: { field: _vm.field } },
     [
       _c("template", { slot: "value" }, [
-        _c("div", { staticClass: "flex align-center justify-start" }, [
+        _c("div", { staticClass: "flex items-center justify-start" }, [
           _c(
             "a",
             {
@@ -404,7 +404,7 @@ var render = function() {
             "button",
             {
               staticClass:
-                "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex align-center justify-start",
+                "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex items-center justify-start",
               attrs: { disabled: _vm.isWorking },
               on: {
                 click: function($event) {
@@ -524,7 +524,7 @@ var render = function() {
                   )
                 : _c(
                     "span",
-                    { staticClass: "flex align-center justify-start" },
+                    { staticClass: "flex items-center justify-start" },
                     [
                       _c(
                         "svg",
@@ -10918,7 +10918,7 @@ var render = function() {
     { attrs: { field: _vm.field, errors: _vm.errors, fullWidthContent: true } },
     [
       _c("template", { slot: "field" }, [
-        _c("div", { staticClass: "flex align-center justify-start pt-2" }, [
+        _c("div", { staticClass: "flex items-center justify-start pt-2" }, [
           _c(
             "a",
             {
@@ -10935,7 +10935,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex align-center justify-start"
+                    "bg-primary hover:bg-primary-dark text-white font-bold text-sm py-1 px-2 mt-2 rounded flex items-center justify-start"
                 },
                 [
                   _c(

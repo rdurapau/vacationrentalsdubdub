@@ -18,6 +18,7 @@ class TempMedia extends JsonResource
             "id" => $this->id,
             "media_id" => $this->getFirstMedia()->id,
             "name" => $this->getFirstMedia()->name,
+            "file_name" => $this->getFirstMedia()->file_name,
             "size" => $this->getFirstMedia()->size
         ];
     }

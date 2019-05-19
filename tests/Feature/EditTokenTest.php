@@ -24,13 +24,6 @@ class EditTokenTest extends TestCase
 
         // $this->faker = Faker::class;
     }
-
-    /** @test */
-    public function example()
-    {
-        $this->get('/spots/new')
-            ->assertStatus(200);
-    }
     
     /** @test */
     public function when_a_spot_is_created_an_edit_token_is_also_created()

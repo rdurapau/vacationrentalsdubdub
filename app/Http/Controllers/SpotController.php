@@ -103,7 +103,7 @@ class SpotController extends Controller
      * @param  \App\EditToken  $editToken
      * @return \Illuminate\Http\Response
      */
-    public function edit(Spot $spot, EditToken $editToken)
+    public function edit(BaseSpot $spot, EditToken $editToken)
     {
         if ($editToken->spot_id != $spot->id) {
             return false;

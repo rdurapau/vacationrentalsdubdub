@@ -211,6 +211,10 @@ form.sweetspot-form {
                     }
                 }
             }
+            &.flatpickr-input {
+                width:100%;
+                box-sizing:border-box;
+            }
 
             &::-webkit-input-placeholder { color: #fff; transition:color .2s;}
             &::-moz-placeholder { color: #fff; transition:color .2s; }
@@ -246,8 +250,7 @@ form.sweetspot-form {
                         width:20px;
                         height:20px;
                         background-size:contain;
-                        top:50%;
-                        margin-top:-11px;
+                        top:16px;
                     }
                 }
                 input {

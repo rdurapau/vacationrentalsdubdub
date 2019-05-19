@@ -174,7 +174,7 @@ class BaseSpot extends Model implements HasMedia
 
     public function getEditUrlAttribute()
     {
-        return route('editTokens.edit', ['spots' => $this, 'editToken' => $this->editToken]);
+        return route('spots.edit', ['spots' => $this, 'editToken' => $this->editToken]);
     }
 
     public function getImagesAttribute()

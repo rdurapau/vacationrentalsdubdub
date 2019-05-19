@@ -6,6 +6,7 @@
 
         <reservation-form v-if="reservationFormVisible && spot" :spot="spot"
             v-on:close="hideReservationForm"
+            v-on:close-details="close"
             />
 
         <section class="spot-details" v-else>

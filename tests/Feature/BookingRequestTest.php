@@ -22,10 +22,12 @@ class BookingRequestTest extends TestCase
         $spot = factory('App\Spot')->create();
         $data = $this->getFakeBookingRequestData();
 
-        $r = $this->post("/spots/{$spot->id}/requests", $data)
-            ->assertSessionHasNoErrors()    
-            ->assertRedirect();
-            // ]); dd($r->decodeResponseJson());
+        $r = $this->json(
+            "POST",
+            "{$this->apiRoot}/spots/{$spot->id}/requests",
+            $data
+        )->assertStatus(201);
+        // ); dd($r->getContent());
 
         unset($data['email_confirmation']);
         $dbdata = array_merge($data, [
@@ -41,12 +43,13 @@ class BookingRequestTest extends TestCase
         Mail::fake();
 
         $spot = factory('App\Spot')->create();
-        
         $data = $this->getFakeBookingRequestData();
-        $r = $this->post("/spots/{$spot->id}/requests", $data)
-            ->assertSessionHasNoErrors()
-            ->assertRedirect();
-            // ]); dd($r->decodeResponseJson());
+
+        $r = $this->json(
+            "POST",
+            "{$this->apiRoot}/spots/{$spot->id}/requests",
+            $data
+        )->assertStatus(201);
         
         $bookingRequest = $spot->bookingRequests()->first();
         // dd($bookingRequest->toArray());
@@ -62,10 +65,13 @@ class BookingRequestTest extends TestCase
         Mail::fake();
 
         $spot = factory('App\Spot')->create();
-
         $data = $this->getFakeBookingRequestData();
-        $r = $this->post("/spots/{$spot->id}/requests", $data)->assertRedirect();
-            // ]); dd($r->decodeResponseJson());
+
+        $r = $this->json(
+            "POST",
+            "{$this->apiRoot}/spots/{$spot->id}/requests",
+            $data
+        )->assertStatus(201);
         
         $bookingRequest = $spot->bookingRequests()->first();
         

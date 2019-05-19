@@ -1,5 +1,17 @@
 <template>
     <section class="reservation-form">
+        <transition name="fade">
+            <div v-if="isSubmitting" class="loading-overlay"><span></span></div>
+        </transition>
+        <transition name="fade">
+            <section class="success-message" v-if="showSuccessMessage">
+                <div class="messages"></div>
+                <h1>Reservation request sent!</h1>
+                <p>Your request has been sent directly to the property owner.<br />You should hear from them shortly!</p>
+                <a class="btn btn-special" href="#" @click.prevent="closeDetails">Sweet! Take me home.</a>
+            </section>
+        </transition>
+
         <h2>Make a reservation</h2>
         <button class="back-btn" @click.prevent="goBack">
             <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,6 +112,16 @@
 
                 </section>
                 
+                <div class="check-group rounded">
+                    <input type="checkbox" name="terms_agree" id="terms_agree" v-model="terms_agree" />
+                    <label for="terms_agree">I have read and agree to the SweetSpot terms of service</label>
+                </div>
+
+                <div class="row action-row">
+                    <button class="btn secondary" @click.prevent="goBack" type="button">Cancel</button>
+
+                    <button class="btn" id="new-property-submit" name="new-property-submit" @click.prevent="submitForm">Send Request</button>
+                </div>
         </form>
     </section>
 </template>
@@ -125,37 +147,82 @@
                 'terms_agree' : false,
 
                 'isSubmitting' : false,
+                'showSuccessMessage' : false,
 
                 'flatPickrConfig': {
                     enableTime: false,
-                    altInput: true,
-                    dateFormat: "Y-m-d",
-                    altFormat: "M j, Y",
+                    // altInput: true,
+                    dateFormat: "M j, Y",
+                    // dateFormat: "Y-m-d",
+                    // altFormat: "M j, Y",
                     minDate: 'today',
                     mode: 'range',
                     position: 'bottom center',
                 },
             }
         },
-        methods: {
-            goBack() {
-                this.$emit('close');
-            },
-            focusDatesField(ev) {
-                this.$refs['dates-field'].fp.open()
-            }
-        },
         computed: {
             spotDeets() {
                 return [
-                    'Sleeps 12',
-                    '5 Beds',
-                    '4 Baths'
+                    'Sleeps ' + this.spot.sleeps,
+                    this.spot.beds + ' Bed' + (this.spot.beds !== 1 ? 's' : ''),
+                    this.spot.baths + ' Bath' + (this.spot.baths !== 1 ? 's' : '')
                 ]
             },
             checkoutDateConfig() {
                 let obj = Object.assign({},this.flatPickrConfig);
                 obj.minDate = this.dates
+            },
+            formattedDate() {
+                return this.dates.replace(" to ", " - ");
+            }
+        },
+        methods: {
+            goBack() {
+                this.$emit('close');
+            },
+            closeDetails() {
+                this.$emit('close-details')
+            },
+            focusDatesField(ev) {
+                this.$refs['dates-field'].fp.open()
+            },
+            submitForm(event) {
+                this.$validator.validateAll().then(() => {
+                    if (!this.errors.items.length) {
+                        this.sendRequest();
+                    }
+                });
+            },
+            sendRequest() {
+                this.isSubmitting = true;
+                // this.$emit('submitting');
+                let fields = [
+                    'name',
+                    'phone',
+                    'email',
+                    'email_confirmation',
+                    'terms_agree',
+                ];
+                let self = this;
+                let formData = {}
+                fields.forEach((field) => {
+                    formData[field] = self[field];
+                });
+                formData.dates = this.formattedDate;
+                
+                axios.post('/api/spots/'+this.spot.id+'/requests', formData)
+                    .then(response => {
+                        this.showSuccessMessage = true;
+                        this.isSubmitting = false;
+                        // this.$emit('not-submitting');
+                        // this.$emit('success');
+                    })
+                    .catch(err => {
+                        this.$setLaravelValidationErrorsFromResponse(err.response.data)
+                        this.isSubmitting = false;
+                        // this.$emit('not-submitting');
+                    });
             }
         },
         watch: {

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\TempMedia;
+use Spatie\MediaLibrary\Models\Media;
 
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
@@ -22,20 +23,26 @@ class TempMediaTest extends TestCase
     /** @test */
     public function a_temp_media_can_be_uploaded()
     {   
-        Storage::fake('local');
+        // Storage::fake('local');
  
         $r = $this->json('post', 'api/temp-uploads', [
             'file' => $file = UploadedFile::fake()->image('spot-photo.jpg')
         ])->assertStatus(201);
-        // ]);dd($r->decodeResponseJson());
 
         $responseContent = $r->decodeResponseJson();
+        // dd($responseContent);
 
-        $this->assertDatabaseHas('temp_media',[
-            'filename' => $responseContent['filename']
-        ]);
+        $media = Media::find($responseContent['media_id']);
+        $this->assertEquals('spot-photo', $media->name);
+        // dd($media);
 
-        Storage::disk('local')->assertExists('temp/uploads/' . $responseContent['filename']);
+        // $this->assertDatabaseHas('media',[
+        //     'name' => $responseContent['name']
+        // ]);
+        // $path = $media->getPath();
+        // $relative = strstr($path, '/storage/app/');
+
+        // Storage::disk('local')->assertExists($relative);
 
     }
 

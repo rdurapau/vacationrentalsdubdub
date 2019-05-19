@@ -37,6 +37,6 @@ class EditToken extends Model
 
     public function getUrlAttribute()
     {
-        return route('editTokens.edit', ['spots' => $this->spot, 'editToken' => $this]);
+        return route('spots.edit', ['spots' => $this->spot, 'editToken' => $this]);
     }
 }
