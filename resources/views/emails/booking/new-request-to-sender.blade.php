@@ -1,8 +1,14 @@
 @component('mail::message')
 # You've Requested a Booking!
 
-Thank you for reaching out regarding the SweetSpot at **{{$spot->full_address}}**!
+![{{$spot->name}}]({{$spot->cover_photo}} "{{$spot->name}}")
+@component('mail::panel')
+**{{$spot->name}}**  
+{{$spot->address1}}  
+{{$spot->address_line_2}}
+@endcomponent
 
-The owner will be reaching out to you shortly. Thanks for using SweetSpot!
+Thank you for reaching out regarding this spot! The owner will be reaching out to you shortly.
 
+Thanks for using SweetSpot!
 @endcomponent

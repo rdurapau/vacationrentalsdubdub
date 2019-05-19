@@ -8,7 +8,7 @@ Thank you for submitting your Sweet Spot at **{{$spot->full_address}}**. Our Qua
 This is the unique URL for your listing. Keep it secret. Keep it safe. It can be used to update your listing at any time.
 
 @component('mail::panel')
-{{$spot->edit_url}}
+##### {{$spot->edit_url}}
 @endcomponent
 
 Thanks,<br>

@@ -30,7 +30,7 @@ blockquote {
 }
 
 a {
-    color: #3869D4;
+    color: #9080F0;
 }
 
 a img {
@@ -218,31 +218,39 @@ img {
     -webkit-text-size-adjust: none;
 }
 
-.button-blue,
+.button-purple,
 .button-primary {
-    background-color: #3490DC;
-    border-top: 10px solid #3490DC;
-    border-right: 18px solid #3490DC;
-    border-bottom: 10px solid #3490DC;
-    border-left: 18px solid #3490DC;
+    background-color: #9080F0;
+    border-top: 10px solid #9080F0;
+    border-right: 18px solid #9080F0;
+    border-bottom: 10px solid #9080F0;
+    border-left: 18px solid #9080F0;
+}
+
+.button-blue {
+    background-color: #45AEF1;
+    border-top: 10px solid #45AEF1;
+    border-right: 18px solid #45AEF1;
+    border-bottom: 10px solid #45AEF1;
+    border-left: 18px solid #45AEF1;
 }
 
 .button-green,
 .button-success {
-    background-color: #38C172;
-    border-top: 10px solid #38C172;
-    border-right: 18px solid #38C172;
-    border-bottom: 10px solid #38C172;
-    border-left: 18px solid #38C172;
+    background-color: #4BE981;
+    border-top: 10px solid #4BE981;
+    border-right: 18px solid #4BE981;
+    border-bottom: 10px solid #4BE981;
+    border-left: 18px solid #4BE981;
 }
 
 .button-red,
 .button-error {
-    background-color: #E3342F;
-    border-top: 10px solid #E3342F;
-    border-right: 18px solid #E3342F;
-    border-bottom: 10px solid #E3342F;
-    border-left: 18px solid #E3342F;
+    background-color: #F69158;
+    border-top: 10px solid #F69158;
+    border-right: 18px solid #F69158;
+    border-bottom: 10px solid #F69158;
+    border-left: 18px solid #F69158;
 }
 
 /* Panels */
@@ -258,6 +266,11 @@ img {
 
 .panel-item {
     padding: 0;
+}
+
+.panel-item h5 {
+    margin:10px 0;
+    text-align:center;
 }
 
 .panel-item p:last-of-type {

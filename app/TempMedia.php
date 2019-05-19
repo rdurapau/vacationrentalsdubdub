@@ -77,5 +77,12 @@ class TempMedia extends Model implements HasMedia
                 300,
                 300
              );
+
+        $this->addMediaConversion('banner')
+            ->crop(
+                Manipulations::CROP_CENTER,
+                800,
+                320
+            );
     }
 }

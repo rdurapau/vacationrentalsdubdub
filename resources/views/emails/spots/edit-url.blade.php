@@ -1,10 +1,14 @@
 @component('mail::message')
+![{{$spot->name}}]({{$spot->cover_photo_banner}} "{{$spot->name}}")
+
+**{{$spot->name}}**  
+{{$spot->address1}}  
+{{$spot->address_line_2}}
+
 # Here's the link to manage your spot!
 
-**{{$spot->full_address}}**
-
 @component('mail::panel')
-{{$token->url}}
+##### {{$token->url}}
 @endcomponent
 
 Thanks,<br>

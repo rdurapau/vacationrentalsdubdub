@@ -158,6 +158,13 @@ class BaseSpot extends Model implements HasMedia
                 300,
                 300
              );
+
+        $this->addMediaConversion('banner')
+             ->fit(
+                 Manipulations::FIT_CONTAIN,
+                 800,
+                 320
+             );
     }
 
     //     #                                                            
@@ -170,6 +177,11 @@ class BaseSpot extends Model implements HasMedia
     public function getFullAddressAttribute()
     {
         return "{$this->address1}, {$this->city}, {$this->state} {$this->postal_code}";
+    }
+
+    public function getAddressLine2Attribute()
+    {
+        return "{$this->city}, {$this->state} {$this->postal_code}";
     }
 
     public function getEditUrlAttribute()
@@ -222,6 +234,12 @@ class BaseSpot extends Model implements HasMedia
     public function getCoverPhotoAttribute()
     {
         return $this->getFirstMediaUrl() ? url($this->getFirstMediaUrl()) : NULL;
+    }
+
+    public function getCoverPhotoBannerAttribute()
+    {
+        $media = $this->getFirstMedia();
+        return ($media->hasGeneratedConversion('banner') && $media->getUrl('banner')) ? url($media->getUrl('banner')) : $this->cover_photo;
     }
 
     public function getOtherPhotosAttribute()
