@@ -1,10 +1,7 @@
 @component('mail::message')
 # Your Spot was Not Approved
 
-@component('mail::panel')
-**{{$spot->name}}**  
-{{$spot->address1}}  
-{{$spot->address_line_2}}
+@component('mail::spot', ['spot' => $spot])
 @endcomponent
 
 Our Quality Approval team reviewed your spot and unforuntately, are unable to approve it for listing on our site at this time.

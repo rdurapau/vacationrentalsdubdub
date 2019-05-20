@@ -7,7 +7,7 @@
 
 # Here's the link to manage your spot!
 
-@component('mail::panel')
+@component('mail::editurl')
 ##### {{$token->url}}
 @endcomponent
 

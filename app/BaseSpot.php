@@ -160,8 +160,8 @@ class BaseSpot extends Model implements HasMedia
              );
 
         $this->addMediaConversion('banner')
-             ->fit(
-                 Manipulations::FIT_CONTAIN,
+             ->crop(
+                 Manipulations::CROP_CENTER,
                  800,
                  320
              );

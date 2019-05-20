@@ -9,7 +9,7 @@ Someone is interested in your spot!
 {{$spot->address_line_2}}
 @endcomponent
 
-## Requester Details
+## Request Details
 
 * **Name:** {{$bookingRequest->name}}
 * **Email:** [{{$bookingRequest->email}}](mailto:{{$bookingRequest->email}})

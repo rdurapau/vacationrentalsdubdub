@@ -268,11 +268,6 @@ img {
     padding: 0;
 }
 
-.panel-item h5 {
-    margin:10px 0;
-    text-align:center;
-}
-
 .panel-item p:last-of-type {
     margin-bottom: 0;
     padding-bottom: 0;
@@ -300,4 +295,18 @@ img {
 .promotion p {
     font-size: 15px;
     text-align: center;
+}
+
+.promotion.edit-url h5 {
+    margin:10px 0;
+    text-align:center;
+    text-overflow:ellipsis;
+    /* white-space: nowrap; */
+    /* overflow: hidden; */
+    display:block;
+    width:100%:
+}
+
+.spot-image p {
+    margin-bottom:0;
 }
