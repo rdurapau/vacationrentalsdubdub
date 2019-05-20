@@ -29,6 +29,10 @@
             -moz-user-select: none; /* Firefox 2+ */
             -ms-user-select: none; /* IE 10+ */
             user-select: none; /* Standard syntax */
+            a {
+                margin-left:3px;
+                color:$purple;
+            }
         }
         &:checked{
             &::after{

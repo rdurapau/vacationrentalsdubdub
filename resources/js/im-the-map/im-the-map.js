@@ -8,6 +8,9 @@ Vue.component('im-the-map', ImTheMap);
 import SpotDetails from './components/SpotDetails.vue';
 Vue.component('spot-details', SpotDetails);
 
+import SubmitSpot from './components/SubmitSpot.vue';
+Vue.component('submit-spot', SubmitSpot);
+
 import Modals from './components/Modals.vue';
 Vue.component('modals', Modals);
 

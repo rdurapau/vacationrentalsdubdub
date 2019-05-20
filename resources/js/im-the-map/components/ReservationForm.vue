@@ -114,7 +114,7 @@
                 
                 <div class="check-group rounded">
                     <input type="checkbox" name="terms_agree" id="terms_agree" v-model="terms_agree" />
-                    <label for="terms_agree">I have read and agree to the SweetSpot terms of service</label>
+                    <label for="terms_agree">I have read and agree to the <a href="#" @click.prevent="showTerms">SweetSpot terms of service</a></label>
                 </div>
 
                 <div class="row action-row">
@@ -175,6 +175,9 @@
             },
             formattedDate() {
                 return this.dates.replace(" to ", " - ");
+            },
+            showTerms() {
+                this.$store.commit('showInformationalModal', 'terms');
             }
         },
         methods: {

@@ -86,7 +86,7 @@
         data() {
             return {
                 currentPhotoIndex: 0,
-                reservationFormVisible: true
+                reservationFormVisible: false
             }
         },
         methods: {

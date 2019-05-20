@@ -35,10 +35,12 @@
 
     <div id="im-the-map">
         <h1 class="logo"></h1>
-        
-        <modals
+
+        <modals></modals>
+
+        <submit-spot
             :amenities='{!! json_encode($amenities) !!}'
-        ></modals>
+        ></submit-spot>
 
         <im-the-map></im-the-map>
 
