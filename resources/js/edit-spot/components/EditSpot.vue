@@ -299,12 +299,13 @@
                                                     <span class="errors"
                                                         v-if="errors.has('scope-3.website')">{{ errors.first('scope-3.website') }}</span>
                                                 </section>
-                                                <section class="fieldset required single-field"
-                                                    :class="{'has-error': errors.has('scope-3.price')}">
+                                                <section class="fieldset required single-field has-prefix prefix-sm"
+                                                    :class="{'has-error': errors.has('scope-3.price'), 'filled': (price.length || price > 0)}">
                                                     <input type="url" id="property-price" name="price" v-model="price" :disabled="isWorking"
                                                         :class="{'filled': (price.length || price > 0), 'ouch': errors.has('scope-3.price')}"
                                                         v-validate="'required|between:1,5000'" data-vv-as="Price per Night" data-vv-scope="scope-3" />
                                                     <label for="property-price">Price per Night</label>
+                                                    <label for="property-price" class="prefix text">$</label>
                                                     <span class="errors"
                                                         v-if="errors.has('scope-3.price')">{{ errors.first('scope-3.price') }}</span>
                                                 </section>

@@ -245,6 +245,7 @@ form.sweetspot-form {
                     left:10px;
                     top:50%;
                     z-index:50;
+                    transition:color .1s;
                     &.calendar {
                         background:url('#{$images}icon-calendar.svg') center center no-repeat;
                         width:20px;
@@ -252,19 +253,61 @@ form.sweetspot-form {
                         background-size:contain;
                         top:16px;
                     }
+                    &.dollar {
+                        background:url('#{$images}icon-dollar.svg') center center no-repeat;
+                        width:20px;
+                        height:17px;
+                        background-size:contain;
+                        top:18px;
+                    }
+                    &.text {
+                        width:20px;
+                        // background-size:contain;
+                        top:17px;
+                        text-align:center;
+                        line-height:20px;
+                        font-size:18px;
+                        line-height:20px;
+                        @include fontBold;
+                        color:#ccc;
+                        // color:$purple;
+                        // color:#aaa;
+                    }
                 }
                 input {
                     padding-left:38px;
                     & + label {
                         left:38px;
                     }
-                    &:focus + label {
-                        left:15px;
+                    &:focus + label, &.filled + label {
+                        left:9px;
+                    }
+                    &:focus ~ .prefix {
+                        color:#74788A;
                     }
                 }
                 &.filled {
                     input + label  {
-                        left: 15px;
+                        left: 9px;
+                    }
+                    .prefix {
+                        color:#74788A;
+                    }
+                }
+                &.prefix-sm {
+                    input {
+                        padding-left:30px;
+                        & + label {
+                            left:30px;
+                        }
+                        &:focus + label, &.filled + label {
+                            left:9px;
+                        }
+                    }
+                    &.filled {
+                        input + label  {
+                            left: 9px;
+                        }
                     }
                 }
             }
