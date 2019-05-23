@@ -68,7 +68,7 @@ class Spot extends Resource
     {
         return [
             Text::make('Name')->sortable()->hideFromIndex(),
-            Trix::make('Description', 'desc')->hideFromIndex(),
+            Trix::make('Description', 'desc')->hideFromIndex()->alwaysShow(),
             Currency::make('Price')->hideFromIndex(),
             BelongsToManyChecks::make('Amenities')
                 ->populateWith(\App\Amenity::all())

@@ -74,7 +74,7 @@ class Submission extends Resource
     {
         return [
             Text::make('Name')->sortable()->hideFromIndex(),
-            Trix::make('Description', 'desc')->hideFromIndex(),
+            Trix::make('Description', 'desc')->hideFromIndex()->alwaysShow(),
             Number::make('Sleeps')->hideFromIndex(),
             Number::make('Baths')->hideFromIndex(),
             Currency::make('Price')->sortable(),
