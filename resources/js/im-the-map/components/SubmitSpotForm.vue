@@ -671,6 +671,9 @@
                 center: [-98.5833, 39.833333],
                 zoom: 2
             });
+            this.map.addControl(new mapboxgl.NavigationControl({
+                showCompass: false
+            }));
             this.geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
                 country : 'US',

@@ -21,6 +21,13 @@ class Spot extends BaseSpot
         static::addGlobalScope('approved', function (Builder $builder) {
             $builder->where('moderation_status', ModerationStatus::APPROVED);
         });
+
+        // These should _only_ occur for Spots being created from within the Nova admin
+        static::creating(function($spot) {
+            $spot->moderation_status = ModerationStatus::APPROVED;
+            $spot->moderated_by = (auth()->check()) ? auth()->user()->id : NULL;
+            $spot->moderated_at = now();
+        });
     }
 
 

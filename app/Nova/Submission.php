@@ -58,6 +58,7 @@ class Submission extends Resource
      * @var array
      */
     public static $search = [
+        'name',
         'address1',
         'city',
         'state',

@@ -19,7 +19,7 @@ class CreateSpotsTable extends Migration
             $table->text('desc');
             $table->string('email');
             $table->string('phone');
-            $table->string('website');
+            $table->string('website')->nullable();
             $table->integer('price');
             $table->string('address1');
             $table->string('city');

@@ -431,14 +431,7 @@
 
                             </div>
 
-
                         </div>
-
-                        <input type="hidden" name="lat" :value="lat" />
-                        <input type="hidden" name="lng" :value="lng" />
-                        <input type="hidden" name="_token" :value="csrf" />
-                        <input type="hidden" name="_method" :value="'PATCH'" />
-                        <input type="hidden" name="edit_token" :value="edit_token" />
 
                         <div class="row action-row">
                             <button class="btn secondary" @click.prevent="backButtonClicked" type="button" v-if="visibleSection > 1">Back</button>
@@ -541,12 +534,18 @@
                 this.email_confirmation = this.email
                 this.edit_token = this.token;
 
+                let lng = this.lng || -98.3810608;
+                let lat = this.lat || 37.9507756;
+
                 this.map = new mapboxgl.Map({
                     container: 'submit-property-map',
                     style: 'mapbox://styles/mapbox/light-v10',
-                    center: [this.lng, this.lat],
-                    zoom: 16
+                    center: [lng, lat],
+                    zoom: 4
                 });
+                this.map.addControl(new mapboxgl.NavigationControl({
+                    showCompass: false
+                }));
                 this.map.on('load', () => {
                     this.map.on('dragend', this.mapMoved);
                     this.map.on('zoomend', this.mapMoved);

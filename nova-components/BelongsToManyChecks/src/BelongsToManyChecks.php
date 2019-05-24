@@ -70,8 +70,13 @@ class BelongsToManyChecks extends Field
             } else {
                 $ids = [];
             }
-            
-            $model->amenities()->sync($ids);
+
+            if ($model->exists) {
+                $model->$attribute()->sync($ids);
+            } else {
+                $model->setSelectedAmenities($ids); // This is managed in the saving event on BaseSpot
+            }
+
             unset($request[$requestAttribute]);
         }
     }

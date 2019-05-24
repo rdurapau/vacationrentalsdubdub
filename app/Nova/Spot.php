@@ -52,6 +52,7 @@ class Spot extends Resource
      * @var array
      */
     public static $search = [
+        'name',
         'address1',
         'city',
         'state',
@@ -67,52 +68,89 @@ class Spot extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')->sortable()->hideFromIndex(),
-            Trix::make('Description', 'desc')->hideFromIndex()->alwaysShow(),
-            Currency::make('Price')->hideFromIndex(),
+            Text::make('Name')
+                ->sortable()
+                ->hideFromIndex()
+                ->rules('required','max:100'),
+            Trix::make('Description', 'desc')
+                ->alwaysShow()
+                ->rules('required'),
+            Currency::make('Price')
+                ->hideFromIndex()
+                ->rules('required','integer','min:1','max:1000'),
+            EditUrl::make('Edit Url')
+                ->onlyOnDetail(),
+            DateTime::make('Approved', 'moderated_at')
+                ->hideWhenCreating()
+                ->hideWhenUpdating()
+                ->format('YYYY-MM-DD @ HH:mm')
+                ->sortable(),
+
+            new Panel('Accomodations', $this->accomodationsFields()),
+
+            new Panel('Owner Contact Information', $this->contactFields()),
+
+            new Panel('Address Information', $this->addressFields()),
+
+            new Panel('Photos', $this->photoFields()),
+
+            HasMany::make('Booking Requests', 'bookingRequests')->hideFromIndex(),
+        ];
+    }
+
+    protected function accomodationsFields()
+    {
+        return [
+            Number::make('Sleeps')
+                ->hideFromIndex()
+                ->rules('required', 'integer'),
+            Number::make('Beds')
+                ->hideFromIndex()
+                ->rules('required', 'integer'),
+            Number::make('Baths')
+                ->hideFromIndex()
+                ->rules('required', 'integer'),
             BelongsToManyChecks::make('Amenities')
                 ->populateWith(\App\Amenity::all())
                 ->groupBy('type')
                 ->selected($this->amenities->pluck('id')->toArray())
                 ->hideFromIndex(),
-            EditUrl::make('Edit Url')
-                ->hideWhenCreating()
-                ->hideFromIndex(),
-            DateTime::make('Approved', 'moderated_at')
-                ->onlyOnIndex()
-                ->format('YYYY-MM-DD @ HH:mm')
-                ->sortable(),
-            new Panel('Owner Contact Information', $this->contactFields()),
-            new Panel('Address Information', $this->addressFields()),
-            new Panel('Photos', $this->photoFields()),
-            // Text::make('Edit Url', function () {
-            //     return $this->edit_url;
-            // })->onlyOnDetail(),
-            // (new ManageLink)->editUrl(function(){return $this->edit_url;}),
-            HasMany::make('Booking Requests', 'bookingRequests')->hideFromIndex(),
-            // Checkboxes::make('Amenities', 'selected_amenities')
-            //     ->options(\App\Amenity::all()->pluck('name','id')),
-            // BelongsToMany::make('Amenities')->hideFromIndex()
         ];
     }
 
     protected function contactFields()
     {
         return [
-            Text::make('Owner Name')->hideFromIndex(),
-            Text::make('Website')->hideFromIndex(),
-            Text::make('Email')->hideFromIndex(),
-            Text::make('Phone Number', 'phone')->hideFromIndex()
+            Text::make('Owner Name')
+                ->hideFromIndex()
+                ->rules('required', 'max:70'),
+            Text::make('Website')
+                ->hideFromIndex(),
+                // ->rules('required'),
+            Text::make('Email')
+                ->hideFromIndex()
+                ->rules('required','email'),
+            Text::make('Phone Number', 'phone')
+                ->hideFromIndex()
+                ->rules('required')
         ];
     }
 
     protected function addressFields()
     {
         return [
-            Place::make('Address', 'address1')->sortable(),
-            Text::make('City')->sortable(),
-            Text::make('State')->sortable(),
-            Text::make('Postal Code')->hideFromIndex(),
+            Place::make('Address', 'address1')
+                ->sortable()
+                ->rules('required'),
+            Text::make('City')
+                ->sortable()
+                ->rules('required'),
+            Text::make('State')
+                ->sortable()
+                ->rules('required'),
+            Text::make('Postal Code')
+                ->hideFromIndex()
+                ->rules('required'),
             // Number::make('Latitude', 'lat')->onlyOnForms(),
             // Number::make('Longitude', 'lng')->onlyOnForms()
         ];

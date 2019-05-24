@@ -48,6 +48,13 @@ class BaseSpot extends Model implements HasMedia
         'moderated_at'
     ];
 
+    // Hacky way to get Nova to be able to pass selected amenities to new Spot
+    protected $selectedAmenities;
+    public function setSelectedAmenities($amenityIds)
+    {
+        $this->selectedAmenities = $amenityIds;
+    }
+
     // protected $appends = ['amenity_ids'];
 
     /**
@@ -59,6 +66,13 @@ class BaseSpot extends Model implements HasMedia
     {
         parent::boot();
 
+        // static::saved(function($spot) {
+        //     if ($spot->isDirty('amenities')) {
+        //         $spot->amenities()->sync($spot->amenities);
+        //         unset($spot->amenities);
+        //     }
+        // });
+
         static::created(function($spot) {
             do {
                 $token = str_random(30);
@@ -69,7 +83,15 @@ class BaseSpot extends Model implements HasMedia
             ]);
             $editToken->spot()->associate($spot);
             $editToken->save();
+
+            if (isset($spot->selectedAmenities)) {
+                $spot->amenities()->sync($spot->selectedAmenities);
+            }
         });
+
+        // static::creating(function($spot) {
+            
+        // }
 
         // Relation::morphMap([
         //     'spots' => 'App\BaseSpot',
