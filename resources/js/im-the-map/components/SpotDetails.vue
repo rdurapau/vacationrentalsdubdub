@@ -31,6 +31,20 @@
                 </div>
             </section>
             <section class="content">
+                <aside>
+                    <div class="cost-row">
+                        <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
+                        <button class="btn btn-wide btn-purple btn-reservation" @click.prevent="showReservationForm">Make a reservation</button>
+                    </div>
+                    <ul class="contact">
+                        <li class="phone" v-if="spot.phone">
+                            <a :href="'tel:'+spot.phone" v-text="spot.phone"></a>
+                        </li>
+                        <li class="link" v-if="spot.website">
+                            <a :href="spot.website" target="_blank">Visit Property Website</a>
+                        </li>
+                    </ul>
+                </aside>
                 <article>
                     <h2 v-text="spot.name"></h2>
                     <section class="icon-deets">
@@ -58,18 +72,6 @@
                         </li>
                     </ul>
                 </article>
-                <aside>
-                    <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
-                    <button class="btn btn-wide btn-purple btn-reservation" @click.prevent="showReservationForm">Make a reservation</button>
-                    <ul class="contact">
-                        <li class="phone" v-if="spot.phone">
-                            <a :href="'tel:'+spot.phone" v-text="spot.phone"></a>
-                        </li>
-                        <li class="link" v-if="spot.website">
-                            <a :href="spot.website" target="_blank">Visit Property Website</a>
-                        </li>
-                    </ul>
-                </aside>
             </section>
         </section>
     </section>

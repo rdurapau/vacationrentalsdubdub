@@ -1,6 +1,8 @@
 <template>
     <section id="main-map" :class="wrapperClass">
 
+        <h1 class="logo"></h1>
+
         <!-- <div id="form-wrap">
             <input type="text" v-model="filters.sleeps" placeholder="How many people?" />
             <label for="filter-pets">
@@ -43,9 +45,7 @@
                 <input type="text" class="map-search current-location" v-model="currentLocationText" v-if="geolocationStatus == 'active'"/>
                 <!-- <input type="text" id="map-search" placeholder="Search" v-model="mapSearch" v-else /> -->
                 
-                <div id="geocoder"></div>
-
-                <span class="test-loading"></span>
+                <div id="geocoder" ref="geocoder-wrap"></div>
 
                 <div class="button-wrapper" v-if="showGeolocateButton">
                     <button class="my-location" @click.prevent="getUserLocation()" :class="geolocatorClass">
@@ -62,6 +62,13 @@
                     </button>
                 </div>
             </section>
+
+            <button id="search-toggle" @click.prevent="toggleMobileSearch">
+                <svg class="icon-search" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7161 19.8028C18.8109 18.0626 20.7196 13.3324 18.9794 9.23761C17.2392 5.14285 12.509 3.23413 8.41421 4.97436C4.31946 6.71459 2.41074 11.4448 4.15097 15.5395C5.8912 19.6343 10.6214 21.543 14.7161 19.8028Z" stroke="#45AEF1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.2612 18.0845L23.5092 24.3333" stroke="#45AEF1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
 
             <button id="filter-toggle" @click.prevent="toggleFilterDropdown" :class="{close: filterDropdownIsVisible}">
                 <span class="icon-toggle-css"></span>
@@ -142,6 +149,8 @@
                     pets : false,
                     sleeps : 0
                 },
+
+                mobileSearchIsVisible : false,
                 
                 geolocateControl : '',
                 geolocationSupported : false,
@@ -284,6 +293,24 @@
                 // Vue.set(this.filterDropdownData,'pets',this.filters.pets);
                 this.filterDropdownIsVisible = false;
             },
+            
+            toggleMobileSearch() {
+                if (this.mobileSearchIsVisible) {
+                    this.hideMobileSearch();
+                } else {
+                    this.showMobileSearch();
+                }
+            },
+            showMobileSearch() {
+                this.mobileSearchIsVisible = true;
+                Vue.nextTick(() => {
+                    this.$refs['geocoder-wrap'].querySelector('input[type="text"]').focus();
+                })
+            },
+            hideMobileSearch() {
+                this.mobileSearchIsVisible = false;
+            },
+
             incFilterSleeps(){
                 if (this.filterDropdownData.sleeps < this.maxSleeps) {
                     this.filterDropdownData.sleeps++;
@@ -453,9 +480,10 @@
                 // this.map.addControl(this.geocoder);
                 document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
                 this.geocoder.on('mounted', function(){console.log('loaded')});
-                this.geocoder.on('result', function (ev) {
-                    self.map.getSource('places').setData(ev.result.geometry);
-                });
+                // this.geocoder.on('result', function (ev) {
+                //     // self.map.getSource('places').setData(ev.result.geometry);
+                //     // self.mobileSearchIsVisible = true;
+                // });
 
                 this.searchBarVisible = true;
                 
@@ -651,7 +679,8 @@
             },
             wrapperClass() {
                 return {
-                    'spot-selected' : this.activeSpot
+                    'spot-selected' : this.activeSpot,
+                    'mobile-search-visible' : this.mobileSearchIsVisible
                 }
             },
 

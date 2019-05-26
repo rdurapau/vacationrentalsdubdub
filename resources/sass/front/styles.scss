@@ -14,22 +14,6 @@ $images: '../images/';
 
 body{
     background: #f0f0ee;
-    #im-the-map {
-        > h1.logo{
-            @include abs;
-            top: 50px;
-            left: 40px;
-            width: 70px;
-            height: 17px;
-            background: url('#{$images}logo.svg');
-            background-size: contain;
-            z-index:5;
-            @include mq('tablet'){
-                top: 20px;
-                left: 20px;
-            }
-        }
-    }
 }//end body
 
 

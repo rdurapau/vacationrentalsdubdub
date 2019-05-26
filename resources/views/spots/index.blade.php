@@ -34,8 +34,6 @@
 <body>
 
     <div id="im-the-map">
-        <h1 class="logo"></h1>
-
         <modals></modals>
 
         <submit-spot
