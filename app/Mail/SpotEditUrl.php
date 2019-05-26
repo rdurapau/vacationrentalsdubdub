@@ -33,6 +33,7 @@ class SpotEditUrl extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.spots.edit-url');
+        return $this->subject("Here's your Sweet Spot edit URL")
+            ->markdown('emails.spots.edit-url');
     }
 }

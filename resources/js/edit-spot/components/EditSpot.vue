@@ -541,7 +541,7 @@
                     container: 'submit-property-map',
                     style: 'mapbox://styles/mapbox/light-v10',
                     center: [lng, lat],
-                    zoom: 4
+                    zoom: 11
                 });
                 this.map.addControl(new mapboxgl.NavigationControl({
                     showCompass: false

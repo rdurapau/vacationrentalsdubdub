@@ -9,22 +9,20 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SpotRejected extends Mailable
+class SpotCreatedAndApproved extends Mailable
 {
     use Queueable, SerializesModels;
-
+    
     public $spot;
-    public $reason;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($spotId, $reason = NULL)
+    public function __construct($spotId)
     {
         $this->spot = BaseSpot::find($spotId);
-        $this->reason = $reason;
     }
 
     /**
@@ -34,7 +32,7 @@ class SpotRejected extends Mailable
      */
     public function build()
     {
-        return $this->subject('Your Sweet Spot has been rejected')
-            ->markdown('emails.spots.rejected');
+        return $this->subject('Your spot has been added to Sweet Spot')
+            ->markdown('emails.spots.created-and-approved');
     }
 }

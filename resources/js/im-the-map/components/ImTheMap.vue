@@ -111,6 +111,7 @@
 
 <script>
     let mapboxgl = require('mapbox-gl');
+    // let mapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
     let mapboxGeocoder = require('mapbox-gl-geocoder');
     // let geoJSON = require('geojson')
 
@@ -445,7 +446,8 @@
                 // Add the search box
                 this.geocoder = new mapboxGeocoder({
                     accessToken: mapboxgl.accessToken,
-                    countries: 'usa',
+                    mapboxgl: mapboxgl,
+                    countries: 'us',
                     types: 'postcode,district,place,locality,neighborhood'
                 });
                 // this.map.addControl(this.geocoder);

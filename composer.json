@@ -23,13 +23,13 @@
         "silvanite/novafieldcheckboxes": "^1.1",
         "spatie/laravel-medialibrary": "^7.0.0",
         "sweet-spot/belongs-to-many-checks": "*",
+        "sweet-spot/edit-url": "*",
+        "sweet-spot/map-location": "*",
         "sweet-spot/moderate-spot": "*",
+        "sweet-spot/moderate-submission": "*",
         "sweet-spot/pending-submissions": "*",
         "sweet-spot/sweet-theme": "*",
-        "sweet-spot/edit-url": "*",
-        "sweet-spot/moderate-submission": "*",
-        "test/test": "*",
-        "sweet-spot/map-location": "*"
+        "test/test": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

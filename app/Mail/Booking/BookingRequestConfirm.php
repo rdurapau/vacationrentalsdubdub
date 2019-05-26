@@ -34,6 +34,7 @@ class BookingRequestConfirm extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.booking.new-request-to-sender');
+        return $this->subject('Sweet Spot: Your reservation request has been received!')
+            ->markdown('emails.booking.new-request-to-sender');
     }
 }

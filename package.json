@@ -23,8 +23,8 @@
         "build-test-prod": "cd nova-components/Test && npm run prod",
         "build-map-location": "cd nova-components/MapLocation && npm run dev",
         "build-map-location-prod": "cd nova-components/MapLocation && npm run prod",
-        "build-all-prod":  "npm run build-moderate-spot-prod && npm run build-pending-submissions-prod && npm run build-belongs-to-many-checks-prod && build-edit-url-prod && build-moderate-submission-prod",
-        "build-all":  "npm run build-moderate-spot && npm run build-pending-submissions && npm run build-belongs-to-many-checks && build-edit-url && build-moderate-submission"
+        "build-all-prod": "npm run build-moderate-spot-prod && npm run build-pending-submissions-prod && npm run build-belongs-to-many-checks-prod && build-edit-url-prod && build-moderate-submission-prod",
+        "build-all": "npm run build-moderate-spot && npm run build-pending-submissions && npm run build-belongs-to-many-checks && build-edit-url && build-moderate-submission"
     },
     "devDependencies": {
         "axios": "^0.18",
@@ -44,6 +44,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@mapbox/mapbox-gl-geocoder": "^4.3.0",
         "@turf/turf": "^5.1.6",
         "geojson": "^0.5.0",
         "spinthatshit": "^1.0.4",

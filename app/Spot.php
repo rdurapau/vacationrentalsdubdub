@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
+use App\Mail\SpotCreatedAndApproved;
+
+use Illuminate\Support\Facades\Mail;
+
 class Spot extends BaseSpot
 {
     protected $table = 'spots';
@@ -27,6 +31,10 @@ class Spot extends BaseSpot
             $spot->moderation_status = ModerationStatus::APPROVED;
             $spot->moderated_by = (auth()->check()) ? auth()->user()->id : NULL;
             $spot->moderated_at = now();
+        });
+
+        static::created(function($spot) {
+            Mail::to($spot->email)->queue(new SpotCreatedAndApproved($spot->id));
         });
     }
 

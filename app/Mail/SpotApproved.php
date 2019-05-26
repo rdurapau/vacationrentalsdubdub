@@ -32,6 +32,7 @@ class SpotApproved extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.spots.approved');
+        return $this->subject('Your Sweet Spot has been approved!')
+            ->markdown('emails.spots.approved');
     }
 }

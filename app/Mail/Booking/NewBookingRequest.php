@@ -34,6 +34,7 @@ class NewBookingRequest extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.booking.new-request-to-owner');
+        return $this->subject('New Booking Request for your Sweet Spot')
+            ->markdown('emails.booking.new-request-to-owner');
     }
 }

@@ -13,9 +13,11 @@
         "cross-env": "^5.0.0",
         "laravel-mix": "^1.0",
         "laravel-nova": "^1.0",
-        "mapbox-gl": "^0.53.0"
+        "mapbox-gl": "^0.53.1"
     },
     "dependencies": {
+        "@mapbox/mapbox-gl-geocoder": "^4.3.0",
+        "mapbox-gl-geocoder": "^2.0.1",
         "vue": "^2.5.0"
     }
 }

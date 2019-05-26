@@ -261,7 +261,7 @@ class BaseSpot extends Model implements HasMedia
     public function getCoverPhotoBannerAttribute()
     {
         $media = $this->getFirstMedia();
-        return ($media->hasGeneratedConversion('banner') && $media->getUrl('banner')) ? url($media->getUrl('banner')) : $this->cover_photo;
+        return ($media && $media->hasGeneratedConversion('banner') && $media->getUrl('banner')) ? url($media->getUrl('banner')) : $this->cover_photo;
     }
 
     public function getOtherPhotosAttribute()

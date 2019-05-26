@@ -32,7 +32,8 @@ class EditToken extends Model
 
     public function resendEmail()
     {
-        Mail::to($this->spot->email)->send(new SpotEditUrl($this));
+        Mail::to($this->spot->email)
+            ->send(new SpotEditUrl($this));
     }
 
     public function getUrlAttribute()

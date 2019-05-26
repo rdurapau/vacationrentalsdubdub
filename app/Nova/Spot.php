@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\BelongsToMany;
 
 use SweetSpot\BelongsToManyChecks\BelongsToManyChecks;
+use SweetSpot\MapLocation\MapLocation;
 use SweetSpot\EditUrl\EditUrl;
 // use Fourstacks\NovaCheckboxes\Checkboxes;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
@@ -68,7 +69,7 @@ class Spot extends Resource
     public function fields(Request $request)
     {
         return [
-            Text::make('Name')
+            Text::make('Spot Name', 'name')
                 ->sortable()
                 ->hideFromIndex()
                 ->rules('required','max:100'),
@@ -90,7 +91,7 @@ class Spot extends Resource
 
             new Panel('Owner Contact Information', $this->contactFields()),
 
-            new Panel('Address Information', $this->addressFields()),
+            new Panel('Location Information', $this->addressFields()),
 
             new Panel('Photos', $this->photoFields()),
 
@@ -139,18 +140,29 @@ class Spot extends Resource
     protected function addressFields()
     {
         return [
-            Place::make('Address', 'address1')
+            MapLocation::make('Location')
+                ->lat($this->lat)
+                ->lng($this->lng)
+                // ->help(
+                //     'Drag the map to change the location'
+                // )
+                ->hideFromIndex(),
+            Text::make('Address', 'address1')
                 ->sortable()
-                ->rules('required'),
+                ->rules('required')
+                ->hideWhenCreating(),
             Text::make('City')
                 ->sortable()
-                ->rules('required'),
+                ->rules('required')
+                ->hideWhenCreating(),
             Text::make('State')
                 ->sortable()
-                ->rules('required'),
+                ->rules('required')
+                ->hideWhenCreating(),
             Text::make('Postal Code')
                 ->hideFromIndex()
-                ->rules('required'),
+                ->rules('required')
+                ->hideWhenCreating()
             // Number::make('Latitude', 'lat')->onlyOnForms(),
             // Number::make('Longitude', 'lng')->onlyOnForms()
         ];

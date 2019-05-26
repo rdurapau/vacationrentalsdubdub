@@ -32,6 +32,7 @@ class SpotSubmitted extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.spots.submitted');
+        return $this->subject('Your Sweet Spot has been submitted for review')
+            ->markdown('emails.spots.submitted');
     }
 }

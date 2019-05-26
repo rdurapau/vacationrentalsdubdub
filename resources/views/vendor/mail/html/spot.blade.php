@@ -1,5 +1,7 @@
 <div class="spot-image">
+@if($spot->cover_photo_banner)
 {{ Illuminate\Mail\Markdown::parse('!['.$spot->name.']('.$spot->cover_photo_banner.' "'.$spot->name.'")') }}
+@endif
 </div>
 <table class="panel spot-content" width="100%" cellpadding="0" cellspacing="0">
     <tr>
