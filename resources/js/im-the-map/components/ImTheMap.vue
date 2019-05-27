@@ -737,8 +737,9 @@
             this.map = new mapboxgl.Map({
                 container: 'map-wrapper',
                 style: 'mapbox://styles/mapbox/light-v10',
-                center: [-98.3810608, 37.9507756],
-                zoom: 4
+                // center: [-98.3810608, 37.9507756],
+                center: [-99.169510, 31.417772],
+                zoom:5.5
             });
 
             this.map.on('load', () => {
