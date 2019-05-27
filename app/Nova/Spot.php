@@ -79,6 +79,11 @@ class Spot extends Resource
             Currency::make('Price')
                 ->hideFromIndex()
                 ->rules('required','integer','min:1','max:1000'),
+            Text::make('Link', 'view_url')
+                ->withMeta(['extraAttributes' => [
+                    'readonly' => true,
+                ]])
+                ->onlyOnDetail(),
             EditUrl::make('Edit Url')
                 ->onlyOnDetail(),
             DateTime::make('Approved', 'moderated_at')

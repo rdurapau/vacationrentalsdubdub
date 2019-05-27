@@ -39,6 +39,7 @@ Route::get('/static/warn', function(){return view('static.warn');});
 
 
 Route::get('/emails/spot-approved', 'EmailTestController@spotApproved');
+Route::get('/emails/spot-created-and-approved', 'EmailTestController@spotCreatedAndApproved');
 Route::get('/emails/spot-rejected', 'EmailTestController@spotRejected');
 Route::get('/emails/spot-submitted', 'EmailTestController@spotSubmitted');
 Route::get('/emails/spot-edit-url', 'EmailTestController@spotEditUrl');

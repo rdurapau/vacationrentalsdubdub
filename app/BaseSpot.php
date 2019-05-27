@@ -211,6 +211,11 @@ class BaseSpot extends Model implements HasMedia
         return route('spots.edit', ['spots' => $this, 'editToken' => $this->editToken]);
     }
 
+    public function getViewUrlAttribute()
+    {
+        return url('?spot='.$this->id);
+    }
+
     public function getImagesAttribute()
     {
         return $this->getMedia()->map(function($media) {

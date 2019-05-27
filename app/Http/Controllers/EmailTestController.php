@@ -16,6 +16,12 @@ class EmailTestController extends Controller
         return (new \App\Mail\SpotApproved($spot->id))->render();
     }
 
+    public function spotCreatedAndApproved()
+    {
+        $spot = Spot::first();
+        return (new \App\Mail\SpotCreatedAndApproved($spot->id))->render();
+    }
+
     public function spotRejected(Request $request)
     {
         $withReason = $request->input('r');

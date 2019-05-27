@@ -428,7 +428,6 @@
                 }
                 Vue.set(self, 'markersOnScreen', newMarkers);
 
-
                 // for (var i = 0; i < features.length; i++) {
                 //     var coords = features[i].geometry.coordinates;
                 //     var props = features[i].properties;
@@ -453,6 +452,59 @@
                 //         markersOnScreen[id].remove();
                 // }
                 // markersOnScreen = newMarkers;
+            },
+            checkForInitSpot() {
+                // console.log(this.$route.query.spot);
+                let uri = window.location.search.substring(1); 
+                let params = new URLSearchParams(uri);
+
+                let id = params.get('spot');
+                if (id) {
+                    var feature = this.geoJson.features.find(feature => feature.id == id);
+                    if (!feature) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                
+                let coords = feature.geometry.coordinates;
+                let props = feature.properties;
+
+                this.map.jumpTo({
+                    center: coords,
+                    zoom: 13,
+                });
+                
+                Vue.nextTick(() => {
+                    let el = document.createElement('div');
+                    el.className = 'marker';
+                    el.classList.add('active');
+                    el.innerHTML = '<div class="spot-marker"><div class="image" style="background-image:url('+feature.properties.photo+')"></div><section><span class="price">$'+feature.properties.price+'</span><span class="beds">'+feature.properties.beds+'</span><span class="baths">'+feature.properties.baths+'</span></section></div>';
+                    
+                    let marker = this.markers[id] = new mapboxgl.Marker({
+                        element: el,
+                        offset: {
+                            x: 0,
+                            y: -75
+                        }
+                    }).setLngLat(coords);
+
+                    el.addEventListener('click',()=>{
+                        this.markerClicked(feature);
+                    });
+
+                    marker.addTo(this.map);
+                    this.$store.dispatch('triggerNewActiveSpot', feature.id)
+                        .then((response) => {this.newActiveSpot(feature)});
+                    
+                    el.classList.add('active');
+
+                    let obj = {};
+                    obj[id] = marker;
+                    Vue.set(self, 'markersOnScreen', obj);
+                });
+
             },
             initData(geoJson) {
                 let self = this;
@@ -669,7 +721,10 @@
                         self.resizeMap();
                     } 
                 }
+
                 this.mapIsLoaded = true;
+                this.checkForInitSpot()
+                // setTimeout(() => this.checkForInitSpot(), 1000);
             }
 
         },

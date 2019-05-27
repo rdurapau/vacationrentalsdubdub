@@ -5,7 +5,7 @@
 
 # Welcome to Sweet Spot!
 
-Your spot has been added to Sweet Spot and is visible to all of our visitors. Congratulations!
+Your spot has been added to Sweet Spot and is visible to all of our visitors. Congratulations! Take a look: {{$spot->view_url}}
 
 Expect to see inquiries and site visits as people discover your spot.
 
