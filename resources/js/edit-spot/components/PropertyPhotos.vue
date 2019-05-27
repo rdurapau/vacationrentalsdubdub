@@ -23,7 +23,7 @@
                 </section>
             </div>
 
-            <div class="sub-column">
+            <div class="sub-column main-photo-wrap photo-wrap">
                 <dropzone
                     ref="mainDropzone"
                     id="main-photo-upload"
@@ -62,7 +62,7 @@
                 </section>
             </div>
 
-            <div class="sub-column">
+            <div class="sub-column secondary-photos-wrap photo-wrap">
                 <dropzone
                     ref="secondaryDropzone"
                     id="other-photos-upload"

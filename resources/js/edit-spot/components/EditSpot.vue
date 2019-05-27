@@ -214,7 +214,7 @@
                                                 </section>
                                             </div>
 
-                                            <div class="sub-column">
+                                            <div class="sub-column map-wrap">
                                                 <section class="fieldset required single-field"
                                                     :class="{'has-error': errors.has('scope-3.address1')}">
                                                     <input type="text" id="full-name" name="address1" v-model="address1" :disabled="isWorking"
@@ -402,7 +402,7 @@
                                                 </section>
                                             </div>
 
-                                            <div class="sub-column">
+                                            <div class="sub-column mob-pad">
 
                                                 <trix id="property-description":value="desc" :disabled="isWorking" :withFiles="false"
                                                     :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('scope-3.desc')}" data-vv-scope="scope-3"
@@ -434,10 +434,10 @@
                         </div>
 
                         <div class="row action-row">
-                            <button class="btn secondary" @click.prevent="backButtonClicked" type="button" v-if="visibleSection > 1">Back</button>
+                            <button class="btn secondary" @click.prevent="backButtonClicked" type="button" :disabled="visibleSection <= 1">Back</button>
 
-                            <button v-if="visibleSection < 4" class="btn" @click.prevent="nextSection" type="button">Next</button>
-                            <button v-if="visibleSection == 4" class="btn" id="new-property-submit" name="new-property-submit" @click.prevent="submitForm">Save</button>
+                            <button :disabled="visibleSection >= 4" class="btn btn-blue" @click.prevent="nextSection" type="button">Next</button>
+                            <button class="btn" id="new-property-submit" name="new-property-submit" @click.prevent="submitForm">Save</button>
                         </div>
                     
                     <!-- </form> -->

@@ -201,7 +201,7 @@
                                         </section>
                                     </div>
 
-                                    <div class="sub-column">
+                                    <div class="sub-column map-wrap">
                                         <div id="submit-property-geocoder" class="geocoder">
                                             <label for="property-location-input">Property Address</label>
                                         </div>
@@ -380,7 +380,7 @@
                                         </section>
                                     </div>
 
-                                    <div class="sub-column">
+                                    <div class="sub-column mob-pad">
 
                                         <trix id="property-description":value="desc" :disabled="isSubmitting" :withFiles="false"
                                             :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('scope-3.desc')}" data-vv-scope="scope-3"

@@ -66,6 +66,20 @@ button.btn , a.btn{
             border: solid 1px rgba(0,0,0,0);
             color: #fff;
         }
+        &:disabled {
+            &:hover {
+                background: rgba(0,0,0,0);
+                border: solid 1px rgba(0,0,0,.15);
+                color: rgba(0,0,0,.2);
+            }
+        }
+    }
+    &:disabled {
+        opacity:.5;
+        cursor:not-allowed;
+        &:hover {
+            opacity:.5;
+        }
     }
 }
 
