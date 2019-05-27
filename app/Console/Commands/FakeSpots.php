@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Mail;
 
 class FakeSpots extends Command
 {
@@ -48,6 +49,8 @@ class FakeSpots extends Command
         } else {
             $a = $b = $c = intval($count);
         }
+
+        Mail::fake();
 
         if ($type == 'approved' || $type == 'a' || $type == 'all') {
             $aState = $states;

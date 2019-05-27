@@ -632,26 +632,26 @@
                 });
 
                 // Old geolocate method
-                this.geolocateControl = new mapboxgl.GeolocateControl({
-                    positionOptions: {
-                        enableHighAccuracy: true
-                    },
-                    trackUserLocation: true,
-                    fitBoundsOptions: {
-                        maxZoom : 12
-                    }
-                })
-                this.map.addControl(this.geolocateControl);
+                // this.geolocateControl = new mapboxgl.GeolocateControl({
+                //     positionOptions: {
+                //         enableHighAccuracy: true
+                //     },
+                //     trackUserLocation: true,
+                //     fitBoundsOptions: {
+                //         maxZoom : 12
+                //     }
+                // })
+                // this.map.addControl(this.geolocateControl);
                 
                 // this.geolocationSupported = true;
                 
-                if ('geolocation' in navigator && location.protocol == 'https:') {
-                    this.geolocationSupported = true;
-                }
+                // if ('geolocation' in navigator && location.protocol == 'https:') {
+                //     this.geolocationSupported = true;
+                // }
 
-                this.geolocateControl.on('geolocate', (val) => self.geolocateEvent(val));
-                this.geolocateControl.on('trackuserlocationstart', () => self.geolocateStart())
-                this.geolocateControl.on('trackuserlocationend', () => self.geolocateEnd());
+                // this.geolocateControl.on('geolocate', (val) => self.geolocateEvent(val));
+                // this.geolocateControl.on('trackuserlocationstart', () => self.geolocateStart())
+                // this.geolocateControl.on('trackuserlocationend', () => self.geolocateEnd());
 
                 this.map.on('data', function (e) {
                     if (e.sourceId !== 'places' || !e.isSourceLoaded) return;

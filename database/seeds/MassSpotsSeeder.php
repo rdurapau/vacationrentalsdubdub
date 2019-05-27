@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Mail;
 
 class MassSpotsSeeder extends Seeder
 {
@@ -11,6 +12,7 @@ class MassSpotsSeeder extends Seeder
      */
     public function run()
     {
+        Mail::fake();
         factory(App\Spot::class, 200)->create();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Mail;
 
 class RealSpotsSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class RealSpotsSeeder extends Seeder
      */
     public function run()
     {
+        Mail::fake();
+        
         $spots = [
             [
                 'name' => 'Gorgeous Modern Farmhouse',
