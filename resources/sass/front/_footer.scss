@@ -26,7 +26,9 @@ footer{
         margin-right: 20px;
         border-radius: 100px;
         letter-spacing: -.5px;
+        border: none;
         @include moveMe;
+        cursor: pointer;
         &:hover{
             background: #45AEF1;
         }
