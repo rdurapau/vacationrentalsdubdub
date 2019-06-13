@@ -141,14 +141,16 @@ section.modal-background{
             align-items: center;
             h1.logo{
                 width: 60px;
-                height: 15px;
+                height: 25px;
                 margin-left: 20px;
                 background: url('#{$images}logo.svg') no-repeat top left;
                 background-size: contain;
                 flex-grow: 1;
+                margin-top: 10px;
                 @include mq('tablet'){
                     top: 20px;
                     left: 20px;
+                    margin-top: 0px;
                     background: url('#{$images}logo-white.svg') no-repeat top left;
                     background-size: contain;
                 }

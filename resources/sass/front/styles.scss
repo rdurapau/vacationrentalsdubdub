@@ -8,12 +8,12 @@ $images: '../images/';
 
 @import 'reset', 'mobile', 'tools';
 @import 'colors', 'fonts', 'buttons', 'components';
-@import 'forms', 'flatpickr', 'map', 'details', 'uploads';
+@import 'forms', 'flatpickr', 'map', 'details', 'uploads', 'welcome';
 
 
 
 body{
-    background: #f0f0ee;
+    background: black;
 }//end body
 
 
