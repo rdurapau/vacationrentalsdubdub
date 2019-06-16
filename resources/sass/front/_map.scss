@@ -18,10 +18,10 @@
         }
         > h1.logo{
             @include abs;
-            top: 50px;
+            top: 40px;
             left: 40px;
-            width: 70px;
-            height: 17px;
+            width: 120px;
+            height: 32px;
             background: url('#{$images}logo.svg');
             background-size: contain;
             z-index:5;

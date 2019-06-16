@@ -358,7 +358,7 @@
             },
             newActiveSpot(feature) {
                 // this.activeSpot = feature.id;
-                this.$store.commit('newActiveSpot', feature.id)
+                // this.$store.commit('newActiveSpot', feature.id)
                 
                 let markerArr = Object.entries(this.markers);
                 for (const [id, marker] of markerArr) {

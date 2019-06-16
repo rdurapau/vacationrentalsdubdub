@@ -23,10 +23,24 @@ class SpotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $amenities = Amenity::all();
-        return view('spots.index', compact('amenities'));
+
+        // dump($request->input('spot'));
+
+        if ($request->session()->has('seen-welcome') || ($request->input('spot')) ) {
+            $welcome = 'false';
+            // dump('false');
+        } else {
+            $welcome = 'true';
+            $request->session()->put('seen-welcome', true);
+            // dump('true');
+        }        
+
+        // $welcome = 'true';
+
+        return view('spots.index', compact('amenities','welcome'));
     }
 
     /**

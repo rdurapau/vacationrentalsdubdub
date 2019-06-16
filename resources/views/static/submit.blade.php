@@ -18,24 +18,31 @@
   </head>
 
   <body>
-    <section class="welcome-background">
+    <section class="modal-background">
 
-        <section class="welcome-container">
+        <section class="modal-container">
 
-            <section class="logo"></section>
-            <div class="welcome-home"></div>
+          <section class="container-head">
+            <h1 class="logo"></h1>
+            <a href="" class="close"></a>
+          </section>
 
-            <h1>True vacation rentals for the perfect getaway.</h1>
+          <section class="container-body submit-intro-outro">
 
-            <p>Looking for a orem ipsum dolor sit amet, consectetur adipiscing elit. Mauris luctus semper nunc a aliquam. Cras id dapibus nisi. Suspendisse tristique nec velit vitae molestie. Vivamus convallis ipsum ac porta finibus.</p>
+            <div class="modal-intro-outro">
+                <ul class="intro-outro-columns">
+                    <li>
+                        <h1>Join the SweetSpot fam</h1>
+                        <p>You’re just a few steps away from listing your property for the world to find! Nunc tristique at massa sed ultrices. Nulla facilisi. Curabitur at est sit amet metus fringilla dictum a tincidunt urna.</p>
+                        <a class="btn btn-special" href="form.html">Sweet! Let’s get started.</a>
+                    </li>
+                    <li class="homestead">
+                        <span class="house"></span>
+                    </li>
+                </ul>
+            </div>
 
-            <a class="btn btn-special" href="">Sweet! Let’s get started.</a>
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+          </section>
 
         </section>
 

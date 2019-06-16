@@ -21,6 +21,8 @@ const state = {
 
     visibleInformationalModal: '',
 
+    welcomeWindowVisible: false,
+
     uploads: []
 }
 
@@ -38,6 +40,14 @@ const getters = {
 const mutations = {
     newActiveSpot(state, payload) {
         state.activeSpot = payload;
+
+        // Update query string
+        if ('URLSearchParams' in window) {
+            var searchParams = new URLSearchParams(window.location.search)
+            searchParams.set("spot", payload.id);
+            var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+            history.pushState(null, '', newRelativePathQuery);
+        }
     },
     showDetailsCard() {
         state.spotDetailsVisible = true;
@@ -45,6 +55,17 @@ const mutations = {
     closeSpotDetails() {
         state.spotDetailsVisible = false;
         Vue.set(state, 'activeSpot', 0);
+
+        // Update query string
+        if ('URLSearchParams' in window) {
+            var searchParams = new URLSearchParams(window.location.search)
+            searchParams.delete("spot");
+
+            var newRelativePathQuery = (searchParams.toString())
+                ? window.location.pathname + '?' + searchParams.toString()
+                : window.location.pathname;
+            history.pushState(null, '', newRelativePathQuery);
+        }
     },
     detailsAreLoading() {
         state.detailsLoading = true;
@@ -65,6 +86,13 @@ const mutations = {
     },
     hideCancelConfirmationModal() {
         state.cancelConfirmationModalVisible = false;
+    },
+
+    showWelcomeWindow() {
+        state.welcomeWindowVisible = true;
+    },
+    hideWelcomeWindow() {
+        state.welcomeWindowVisible = false;
     },
 
     showInformationalModal(state, which) {

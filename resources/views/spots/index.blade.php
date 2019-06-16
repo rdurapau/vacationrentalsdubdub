@@ -36,6 +36,10 @@
     <div id="im-the-map">
         <modals></modals>
 
+        <welcome
+            v-if="{{$welcome}}"
+        ></welcome>
+
         <submit-spot
             :amenities='{!! json_encode($amenities) !!}'
         ></submit-spot>
