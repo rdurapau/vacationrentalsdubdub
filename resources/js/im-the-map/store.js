@@ -138,13 +138,13 @@ const actions = {
     triggerNewActiveSpot({commit, dispatch},id) {
         commit('detailsAreLoading');
         commit('showDetailsCard');
-        dispatch('getSpotData',id)
+        return dispatch('getSpotData',id)
             .then(response => {
                 commit('detailsFinishedLoading');
                 commit('newActiveSpot',response.data);
             })
             .catch(error => console.log(error));
-        return new Promise((resolve) => resolve());
+        // return new Promise((resolve) => resolve());
     }
 } // ACTIONS
 

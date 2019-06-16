@@ -33,9 +33,9 @@ class Spot extends BaseSpot
             $spot->moderated_at = now();
         });
 
-        static::created(function($spot) {
-            Mail::to($spot->email)->queue(new SpotCreatedAndApproved($spot->id));
-        });
+        // static::created(function($spot) {
+        //     Mail::to($spot->email)->queue(new SpotCreatedAndApproved($spot->id));
+        // });
     }
 
 

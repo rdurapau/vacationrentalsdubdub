@@ -64,13 +64,22 @@
 
                     <div class="spot-description" v-html="spot.desc"></div>
 
-                    <h3 v-if="amenities && amenities.length">Amenities</h3>
-                    <ul class="amenities" v-if="amenities && amenities.length">
-                        <li v-for="amenity in amenities" :class="amenity.icon">
+                    <h3 v-if="amenities && amenities.length">Featured Amenities</h3>
+                    <ul class="amenities" v-if="featuredAmenities && featuredAmenities.length">
+                        <li v-for="amenity in featuredAmenities" :class="amenity.icon">
                             <div class="icon"><img :src="'/images/icons/amenities/'+amenity.icon+'.svg'" /></div>
                             <span v-text="amenity.name"></span>
                         </li>
                     </ul>
+
+                    <div v-for="(group, title) in groupedAmenities" class="amenity-group">
+                        <h4 v-text="title"></h4>
+                        <ul class="amenities">
+                            <li v-for="amenity in group">
+                                <span v-text="amenity.name"></span>
+                            </li>
+                        </ul>
+                    </div>
                 </article>
             </section>
         </section>
@@ -140,6 +149,26 @@
             amenities() {
                 if (this.spot && this.spot.hasOwnProperty('amenities')) {
                     return this.spot.amenities;   
+                }
+            },
+            featuredAmenities() {
+                if (this.amenities) {
+                    return this.amenities.filter(a => a.is_featured);
+                }
+                // return this.amenities.reduce((objectsByKeyValue, obj) => {
+                //     const value = obj['is_featured'];
+                //     objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                //     return objectsByKeyValue;
+                // }, {});
+            },
+            groupedAmenities() {
+                if (this.amenities) {
+                    let nonfeatured = this.amenities.filter(a => !a.is_featured);
+                    return nonfeatured.reduce((objectsByKeyValue, obj) => {
+                        const value = obj['type'];
+                        objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                        return objectsByKeyValue;
+                    }, {});
                 }
             },
             photos() {

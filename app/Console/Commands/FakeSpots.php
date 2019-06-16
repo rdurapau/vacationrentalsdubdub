@@ -61,9 +61,8 @@ class FakeSpots extends Command
 
         if ($type == 'pending' || $type == 'p' || $type == 'all') {
             $pState = $states;
-            $pState[] = 'pending';
             $this->info("Seeding {$b} pending spots");
-            factory('App\Spot', $b)->states($pState)->create();
+            factory('App\Submission', $b)->states($pState)->create();
         }
 
         if ($type == 'rejected' || $type == 'r' || $type == 'all') {

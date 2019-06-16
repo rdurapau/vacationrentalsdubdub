@@ -23,13 +23,9 @@ abstract class TestCase extends BaseTestCase
 
     protected function signIn($user = null, $guard = null)
     {
-        $user = $user ? $user : create('App\User');
+        $user = $user ? $user : factory('App\User')->create();
 
         $this->actingAs($user, $guard);
-        
-        Passport::actingAs(
-            $user
-        );
 
         return $this;
     }

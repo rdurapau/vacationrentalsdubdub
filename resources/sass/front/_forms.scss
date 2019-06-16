@@ -44,6 +44,17 @@ form.sweetspot-form {
                             margin: 0 20px 10px 20px;
                         }
                     }//end fieldset
+                    h3 {
+                        @include fontBold;
+                        font-size: 20px;
+                        padding:10px 0 3px;
+                        letter-spacing: -0.02em;
+                        text-transform:capitalize;
+                        @include mq('tablet'){
+                            margin-top: 0px;
+                            padding-left: 20px;
+                        }
+                    }
                     ul.amenities{
                         display: flex;
                         flex-wrap: wrap;

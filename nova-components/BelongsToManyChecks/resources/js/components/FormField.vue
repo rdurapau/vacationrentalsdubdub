@@ -6,7 +6,7 @@
                 <div class="flex flex-wrap w-full pt-3">
                     <span v-for="option in group" class="w-1/4 mb-2">
                         <checkbox
-                            class="pb-2"
+                            class="pb-2 items-start"
                             @input="toggle(option)"
                             :id="'belongs-to-check-'+option.value"
                             :name="field.name"

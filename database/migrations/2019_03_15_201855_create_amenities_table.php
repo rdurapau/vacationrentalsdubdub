@@ -18,6 +18,7 @@ class CreateAmenitiesTable extends Migration
             $table->string('name', 100);
             $table->string('icon', 50)->nullable();
             $table->string('type', 50)->nullable();
+            $table->boolean('is_featured')->default(false);
         });
     }
 

@@ -22,7 +22,7 @@ class SubmissionTest extends TestCase
     
     public function test_it_can_query_pending_spots()
     {
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
 
         $this->assertEquals($spot->id, Submission::first()->id);
         $this->assertEquals($spot->id, Submission::find($spot->id)->id);

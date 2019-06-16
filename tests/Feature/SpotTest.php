@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Spot;
 use App\BaseSpot;
 use App\ModerationStatus;
 
@@ -10,6 +11,7 @@ use GeoJson\Exception\UnserializationException;
 
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -21,56 +23,8 @@ class SpotTest extends TestCase
     public function setUp() : void 
     {
         parent::setUp();
-    }
 
-    /** @test */
-    public function a_spot_can_be_submitted()
-    {       
-        $data = $this->getFakeSpotData();
-        $data['email_confirmation'] = $data['email'];
-
-        $r = $this->json(
-                'POST',
-                "{$this->apiRoot}/spots",
-                $data
-            )->assertSessionHasNoErrors()
-            ->assertStatus(201);
-            // );dd($r->getContent());
-
-        $this->assertDatabaseHas('spots', [
-            'email' => $data['email'],
-            'desc' => $data['desc'],
-            'price' => $data['price'],
-            'moderated_by' => NULL,
-            'moderated_at' => NULL,
-            'moderation_status' => ModerationStatus::PENDING
-        ]);
-
-    }
-
-    /** @test */
-    public function when_a_spot_is_submitted_a_confirmation_email_is_sent_to_the_owner()
-    {
-        Mail::fake();
-
-        $data = $this->getFakeSpotData();
-        $data['email_confirmation'] = $data['email'];
-
-        $r = $this->json(
-                'POST',
-                "{$this->apiRoot}/spots"
-                , $data
-            )->assertSessionHasNoErrors()
-            ->assertStatus(201);
-            // );dd($r->decodeResponseJson());
-            // );dd($r->getContent());
-
-        $spot = BaseSpot::where('desc', $data['desc'])->first();
-        
-        Mail::assertSent(\App\Mail\SpotSubmitted::class, function ($mail) use ($spot) {
-            return ($mail->spot->id === $spot->id)
-                && $mail->hasTo($spot->email);
-        });
+        // Storage::fake('testing');
     }
 
     /** @test */
@@ -80,7 +34,7 @@ class SpotTest extends TestCase
         factory('App\Spot',$activeSpotCount)->create();
         
         // Create pending and rejected spots to ensure they don't show up in the geoJSON
-        factory('App\Spot')->states('pending')->create();
+        factory('App\Submission')->create();
         factory('App\Spot')->states('rejected')->create();
 
         $response = $this->json(
@@ -105,7 +59,7 @@ class SpotTest extends TestCase
         $spots = factory('App\Spot',$activeSpotCount)->create();
         
         // Create pending and rejected spots to ensure they don't show up in the geoJSON
-        factory('App\Spot')->states('pending')->create();
+        factory('App\Submission')->create();
         factory('App\Spot')->states('rejected')->create();
 
         $response = $this->json(
@@ -119,6 +73,7 @@ class SpotTest extends TestCase
 
         $data = json_decode($response->getContent());
         $geoJson = GeoJson::jsonUnserialize($data);
+        // dd($data);
 
         $this->assertInstanceOf('GeoJson\Feature\FeatureCollection', $geoJson);
         $this->assertEquals($activeSpotCount, $geoJson->count());
@@ -193,17 +148,12 @@ class SpotTest extends TestCase
     /** @test */
     public function pending_spots_cannot_be_publically_viewed()
     {
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
 
         $this->json(
             'GET',
             "{$this->apiRoot}/spots/{$spot->id}"
         )->assertStatus(404);
-    }
-
-    public function pending_spots_can_be_viewed_with_auth()
-    {
-
     }
 
     /** @test */
@@ -221,7 +171,7 @@ class SpotTest extends TestCase
     public function a_spot_can_be_edited_with_the_correct_edit_token()
     {
         // $spot = Spot::create($this->getFakeSpotData());
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
 
         $this->get($spot->edit_url)
             ->assertStatus(200);
@@ -238,10 +188,6 @@ class SpotTest extends TestCase
         )->assertStatus(204);
         // );dd($r->decodeResponseJson());
         
-        // $r = $this->patch("/spots/{$spot->id}", $spotData)
-        //     ->assertRedirect();
-        //     ;dd($r->decodeResponseJson());
-        
         $this->assertDatabaseHas('spots', [
             'id' => $spot->id,
             'address1' => '1600 Pennsylvania Ave'
@@ -252,7 +198,7 @@ class SpotTest extends TestCase
     public function a_spot_cannot_be_edited_without_the_correct_edit_token()
     {
         // $spot = Spot::create($this->getFakeSpotData());
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
         $altSpot = factory('App\Spot')->create();
 
         // dd($spot->edit_url);
@@ -288,8 +234,12 @@ class SpotTest extends TestCase
         ]);
     }
 
-
     public function rejected_spots_can_be_viewed_with_auth()
+    {
+
+    }
+
+    public function pending_spots_can_be_viewed_with_auth()
     {
 
     }

@@ -18,7 +18,8 @@ class Amenity extends JsonResource
             "id" => $this->id,
             "icon" => $this->icon,
             "name" => $this->name,
-            "type" => $this->type
+            "type" => $this->type,
+            "is_featured" => (boolean) $this->is_featured
         ];
     }
 }

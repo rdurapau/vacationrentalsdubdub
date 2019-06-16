@@ -377,14 +377,26 @@
 
                                             <div class="sub-column">
 
-                                                <ul class="amenities">
+                                                <!-- <ul class="amenities">
                                                     <li class="check-group" v-for="amenity in amenities">
                                                         <input type="checkbox" :name="'amenities['+amenity.id+']'" :value="amenity.id" :disabled="isWorking"
                                                             :id="'check-amenity-'+amenity.id" v-model="selectedAmenities">
                                                         <label :for="'check-amenity-'+amenity.id"
                                                             v-text="amenity.name"></label>
                                                     </li>
-                                                </ul>
+                                                </ul> -->
+
+                                                <div v-for="(group, title) in groupedAmenities">
+                                                    <h3 v-text="title"></h3>
+                                                    <ul class="amenities">
+                                                        <li class="check-group" v-for="amenity in group">
+                                                            <input type="checkbox" :name="'amenities['+amenity.id+']'" :value="amenity.id" :disabled="isSubmitting"
+                                                                :id="'check-amenity-'+amenity.id" v-model="selectedAmenities">
+                                                            <label :for="'check-amenity-'+amenity.id"
+                                                                v-text="amenity.name"></label>
+                                                        </li>
+                                                    </ul>
+                                                </div>
 
                                             </div><!-- End sub column -->
 
@@ -670,6 +682,13 @@
             csrf() {
                 return window.Laravel.csrfToken;
             },
+            groupedAmenities() {
+                return this.amenities.reduce((objectsByKeyValue, obj) => {
+                    const value = obj['type'];
+                    objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                    return objectsByKeyValue;
+                }, {});
+            }
         },
         mounted() {
             this.initSetup();

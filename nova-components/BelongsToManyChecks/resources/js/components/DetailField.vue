@@ -3,10 +3,10 @@
         <template slot="value">
             <div class="flex flex-wrap" v-if="field.selected.length">
                 <span v-for="option in field.populateWith"
-                    class="w-1/4 mb-1"
+                    class="w-1/4 mb-1 flex justify-start items-start"
                     v-if="field.selected.includes(option.id)"
                 >
-                    <span class="inline-block mr-1 text-success">
+                    <span class="inline-block mr-2 text-success">
                         <svg
                             class="block fill-current h-4 w-4"
                             version="1.1"

@@ -21,7 +21,7 @@ class SpotTest extends TestCase
     
     public function test_it_cannot_query_pending_spots()
     {
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
 
         $this->assertNull(Spot::find($spot->id));
         $this->assertCount(0,Spot::all());

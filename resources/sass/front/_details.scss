@@ -548,12 +548,33 @@
                     max-width:24px;
                     max-height:24px;
                     height:auto;
+                    margin:0 auto;
                 }
             }
             span {
                 padding-bottom:1px;
             }
         }
+    }
+
+    .amenity-group {
+        padding-bottom:6px;
+        h4 {
+            @include fontBold();
+            font-size:16px;
+            text-transform:capitalize;
+            margin-bottom:18px;
+        }
+        ul.amenities {
+            li {
+                margin-bottom:15px;
+            }
+        }
+    }
+
+    .amenity-group + .amenity-group, ul.amenities + .amenity-group {
+        border-top:1px solid #dedede;
+        padding-top:22px;
     }
 
     aside {

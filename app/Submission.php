@@ -22,10 +22,6 @@ class Submission extends BaseSpot
             $builder->where('moderation_status', ModerationStatus::PENDING);
         });
 
-        // Relation::morphMap([
-        //     'spots' => 'App\Submission',
-        // ]);
-        // static::withoutGlobalScope('approved');
     }
 
     /**

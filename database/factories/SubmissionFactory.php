@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 
 use App\ModerationStatus;
 
-$factory->define(App\Spot::class, function (Faker $faker) {
+$factory->define(App\Submission::class, function (Faker $faker) {
     
     $h = new \App\Helpers\RandomCoordinates;
     $coords = $h->getPoint();
@@ -29,18 +29,14 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'lat' => $coords[0],
         'lng' => $coords[1],
         
-        'moderated_by' => 1,
-        'moderated_at' => $faker->dateTimeBetween('-1 years', $endDate = 'now'),
-        'moderation_status' => ModerationStatus::APPROVED,
-        'created_at' => $faker->dateTimeBetween('-1 years', $endDate = 'now')
+        'moderated_by' => NULL,
+        'moderated_at' => NULL,
+        'moderation_status' => ModerationStatus::PENDING,
+        'created_at' => $faker->dateTimeBetween('-2 weeks', $endDate = 'now')
     ];
 });
 
-$factory->state(App\Spot::class, 'rejected', [
-    'moderation_status' => ModerationStatus::REJECTED
-]);
-
-$factory->afterCreating(App\Spot::class, function($spot, $faker) {
+$factory->afterCreating(App\Submission::class, function($spot, $faker) {
     // $amenities = range(1,19);
     $amenities = \App\Amenity::pluck('id')->toArray();
     if ($amenities) {
@@ -63,17 +59,6 @@ $factory->afterCreating(App\Spot::class, function($spot, $faker) {
             ->preservingOriginal()
             ->toMediaCollection();
     }
-});
-
-$factory->afterCreatingState(App\Spot::class, 'has-photo', function ($spot, $faker) {
-    $spot
-        ->addMediaFromUrl($faker->image('/tmp', 640, 480, 'city'))
-        ->toMediaCollection();
-});
-
-$factory->afterCreatingState(App\Spot::class, 'rejected', function ($spot, $faker) {
-    $spot->moderation_status = ModerationStatus::REJECTED;
-    $spot->save();
 });
 
 $factory->afterCreatingState(App\Spot::class, 'has-requests', function ($spot, $faker) {

@@ -397,42 +397,48 @@ var render = function() {
               { staticClass: "flex flex-wrap" },
               _vm._l(_vm.field.populateWith, function(option) {
                 return _vm.field.selected.includes(option.id)
-                  ? _c("span", { staticClass: "w-1/4 mb-1" }, [
-                      _c(
-                        "span",
-                        { staticClass: "inline-block mr-1 text-success" },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass: "block fill-current h-4 w-4",
-                              attrs: {
-                                version: "1.1",
-                                xmlns: "http://www.w3.org/2000/svg",
-                                width: "28",
-                                height: "28",
-                                viewBox: "0 0 28 28"
-                              }
-                            },
-                            [
-                              _c("title", [_vm._v("check")]),
-                              _vm._v(" "),
-                              _c("path", {
+                  ? _c(
+                      "span",
+                      {
+                        staticClass: "w-1/4 mb-1 flex justify-start items-start"
+                      },
+                      [
+                        _c(
+                          "span",
+                          { staticClass: "inline-block mr-2 text-success" },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "block fill-current h-4 w-4",
                                 attrs: {
-                                  d:
-                                    "M26.109 8.844c0 0.391-0.156 0.781-0.438 1.062l-13.438 13.438c-0.281 0.281-0.672 0.438-1.062 0.438s-0.781-0.156-1.062-0.438l-7.781-7.781c-0.281-0.281-0.438-0.672-0.438-1.062s0.156-0.781 0.438-1.062l2.125-2.125c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l4.594 4.609 10.25-10.266c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l2.125 2.125c0.281 0.281 0.438 0.672 0.438 1.062z"
+                                  version: "1.1",
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  width: "28",
+                                  height: "28",
+                                  viewBox: "0 0 28 28"
                                 }
-                              })
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(
-                        "\n                " +
-                          _vm._s(option.name) +
-                          "\n            "
-                      )
-                    ])
+                              },
+                              [
+                                _c("title", [_vm._v("check")]),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    d:
+                                      "M26.109 8.844c0 0.391-0.156 0.781-0.438 1.062l-13.438 13.438c-0.281 0.281-0.672 0.438-1.062 0.438s-0.781-0.156-1.062-0.438l-7.781-7.781c-0.281-0.281-0.438-0.672-0.438-1.062s0.156-0.781 0.438-1.062l2.125-2.125c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l4.594 4.609 10.25-10.266c0.281-0.281 0.672-0.438 1.062-0.438s0.781 0.156 1.062 0.438l2.125 2.125c0.281 0.281 0.438 0.672 0.438 1.062z"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(
+                          "\n                " +
+                            _vm._s(option.name) +
+                            "\n            "
+                        )
+                      ]
+                    )
                   : _vm._e()
               }),
               0
@@ -10924,7 +10930,7 @@ var render = function() {
                     _c(
                       "checkbox",
                       {
-                        staticClass: "pb-2",
+                        staticClass: "pb-2 items-start",
                         attrs: {
                           id: "belongs-to-check-" + option.value,
                           name: _vm.field.name,

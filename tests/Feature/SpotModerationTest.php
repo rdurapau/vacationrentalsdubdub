@@ -19,17 +19,10 @@ class SpotModerationTest extends TestCase
         parent::setUp();
     }
 
-    public function example()
-    {
-        $this->get('/spots/new')
-            ->assertStatus(200)
-            ->assertSee('Submit Your Property');
-    }
-
     /** @test */
     public function a_submitted_spot_can_be_approved()
     {
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
         $spot->approve();
 
         $this->assertDatabaseHas('spots', [
@@ -43,7 +36,7 @@ class SpotModerationTest extends TestCase
     {
         Mail::fake();
 
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
         $spot->approve();
         
         Mail::assertSent(\App\Mail\SpotApproved::class, function ($mail) use ($spot) {
@@ -54,7 +47,7 @@ class SpotModerationTest extends TestCase
     /** @test */
     public function a_spot_can_be_rejected()
     {
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
         $spot->reject();
 
         $this->assertDatabaseHas('spots', [
@@ -68,7 +61,7 @@ class SpotModerationTest extends TestCase
     {
         Mail::fake();
 
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
         $spot->reject();
         
         Mail::assertSent(\App\Mail\SpotRejected::class, function ($mail) use ($spot) {
@@ -79,7 +72,7 @@ class SpotModerationTest extends TestCase
     /** @test */
     public function a_spot_can_be_approved_via_the_api()
     {
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
         $r = $this->json(
             'POST',
             "{$this->apiRoot}/spots/{$spot->id}/moderate",
@@ -101,7 +94,7 @@ class SpotModerationTest extends TestCase
     /** @test */
     public function a_spot_can_be_rejected_via_the_api()
     {
-        $spot = factory('App\Spot')->states('pending')->create();
+        $spot = factory('App\Submission')->create();
         $r = $this->json(
             'POST',
             "{$this->apiRoot}/spots/{$spot->id}/moderate",

@@ -66,13 +66,6 @@ class BaseSpot extends Model implements HasMedia
     {
         parent::boot();
 
-        // static::saved(function($spot) {
-        //     if ($spot->isDirty('amenities')) {
-        //         $spot->amenities()->sync($spot->amenities);
-        //         unset($spot->amenities);
-        //     }
-        // });
-
         static::created(function($spot) {
             do {
                 $token = str_random(30);
@@ -88,31 +81,7 @@ class BaseSpot extends Model implements HasMedia
                 $spot->amenities()->sync($spot->selectedAmenities);
             }
         });
-
-        // static::creating(function($spot) {
-            
-        // }
-
-        // Relation::morphMap([
-        //     'spots' => 'App\BaseSpot',
-        // ]);
-
-        // static::saving(function ($spot) {
-        //     dump('hmm');
-        //     dump($spot->selected_amenities);
-        //     if ($spot->isDirty('selected_amenities')) {
-        //         $spot->amenities()->sync($spot->selected_amenities);
-        //         unset($spot->selected_amenities);
-        //     }
-        // });
     }
-
-    // protected static function loadMorphMap()
-    // {
-    //     Relation::morphMap([
-    //         'users' => 'App\Models\User',
-    //     ]);
-    // }
 
     public function getMorphClass()
     {

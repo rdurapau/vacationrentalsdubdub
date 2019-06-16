@@ -369,7 +369,7 @@
                     }
                 }
 
-                this.gotoCoords(feature.geometry.coordinates)
+                this.gotoCoords(feature.geometry.coordinates);
             },
             // newGeolocate(val) {
             //     console.log('geolocate', val);
@@ -502,7 +502,8 @@
 
                     let obj = {};
                     obj[id] = marker;
-                    Vue.set(self, 'markersOnScreen', obj);
+                    console.log(marker);
+                    Vue.set(self.markersOnScreen, id, marker);
                 });
 
             },
@@ -511,6 +512,13 @@
 
                 // Assign the global geoJson to a variable so it can be filtered non-destructively
                 this.geoJson = geoJson;
+
+                this.map.on('sourcedata', () => {
+                    if (!self.mapIsLoaded && self.map.getSource('places') && self.map.isSourceLoaded('places')) {
+                        self.mapIsLoaded = true;
+                        self.checkForInitSpot()
+                    }
+                });
 
                 // Taken from:
                 // https://docs.mapbox.com/mapbox-gl-js/example/cluster/
@@ -722,8 +730,6 @@
                     } 
                 }
 
-                this.mapIsLoaded = true;
-                this.checkForInitSpot()
                 // setTimeout(() => this.checkForInitSpot(), 1000);
             }
 
