@@ -527,7 +527,7 @@
                     accessToken: mapboxgl.accessToken,
                     mapboxgl: mapboxgl,
                     countries: 'us',
-                    types: 'postcode,district,place,locality,neighborhood'
+                    // types: 'postcode,district,place,locality,neighborhood'
                 });
                 // this.map.addControl(this.geocoder);
                 document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
