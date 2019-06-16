@@ -31,8 +31,8 @@ class SpotTest extends TestCase
 
         $r = $this->json(
                 'POST',
-                "{$this->apiRoot}/spots"
-                , $data
+                "{$this->apiRoot}/spots",
+                $data
             )->assertSessionHasNoErrors()
             ->assertStatus(201);
             // );dd($r->getContent());

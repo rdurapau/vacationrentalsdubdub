@@ -15,9 +15,10 @@ return [
     */
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
-        'secret' => env('MAILGUN_SECRET'),
+        'domain' => env('MAILGUN_DOMAIN', 'mg.vacationsweetspot.com'),
+        'secret' => env('MAILGUN_SECRET', '12204deaa8dff1bc565107bf52e5d36c-16ffd509-3757fea8'),
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        // Maybe https://api.mailgun.net/v3/mg.vacationsweetspot.com
     ],
 
     'ses' => [
