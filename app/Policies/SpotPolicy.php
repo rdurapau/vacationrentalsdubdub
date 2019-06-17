@@ -54,7 +54,7 @@ class SpotPolicy
      */
     public function delete(User $user, Spot $spot)
     {
-        return false;
+        return true;
     }
 
     /**
