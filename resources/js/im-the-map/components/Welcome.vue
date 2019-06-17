@@ -8,7 +8,7 @@
 
             <h1>True vacation rentals for the perfect getaway.</h1>
 
-            <p>Looking for a orem ipsum dolor sit amet, consectetur adipiscing elit. Mauris luctus semper nunc a aliquam. Cras id dapibus nisi. Suspendisse tristique nec velit vitae molestie. Vivamus convallis ipsum ac porta finibus.</p>
+            <p>Find <strong>a place to go</strong>, not just to stay. That’s what you'll find here at SweetSpot — true vacation rentals and direct communication with the owners. We aim to provide a great experience online so you can get to your great experiences <em>out there</em>. No fuss.</p>
 
             <a class="btn btn-special" href="#" @click.prevent="close">Sweet! Let’s get started.</a>
 

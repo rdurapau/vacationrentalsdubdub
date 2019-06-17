@@ -22,7 +22,7 @@
             left: 40px;
             width: 120px;
             height: 32px;
-            background: url('#{$images}logo.svg');
+            background: url('#{$images}logo.svg') left top no-repeat;
             background-size: contain;
             z-index:5;
             @include mq('tablet'){
