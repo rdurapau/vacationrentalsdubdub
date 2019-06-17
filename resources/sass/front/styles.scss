@@ -18,6 +18,7 @@ body{
         @include fxd;
         height: 100%;
         width: 100%;
+        -webkit-overflow-scrolling: touch;
     }
 }//end body
 
