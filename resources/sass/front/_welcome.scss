@@ -5,6 +5,7 @@ section.welcome-background{
     height: 100%;
     background: rgba(255,255,255,.7);
     overflow: hidden;
+    -webkit-overflow-scrolling: touch;
 }
 
 section.welcome-container{
@@ -26,6 +27,11 @@ section.welcome-container{
         height: 40px;
         background: url('#{$images}logo.svg') no-repeat top left;
         background-size: contain;
+        @include mq('tablet'){
+            top: 30px;
+            left: 30px;
+            width: 120px;
+        }
     }//end logo
 
     div.welcome-home{
@@ -33,13 +39,21 @@ section.welcome-container{
         height: 430px;
         background: url('#{$images}welcome-home.svg') no-repeat top left;
         margin-left: calc(50% - 245px);
+        @include mq('tablet'){
+            width: 300px;
+            margin-left: calc(50% - 150px);
+            height: 300px;
+            background-size: contain;
+        }
     }
     h1{
         @include fontBold;
         font-size: 42px;
         padding: 20px 60px;
         @include mq('tablet'){
-            font-size: 32px;
+            font-size: 22px;
+            padding: 20px 50px 0px 50px;
+            margin-top: -30px;
         }
     }
     p{
@@ -48,12 +62,26 @@ section.welcome-container{
         line-height: 22px;
         padding: 20px 60px 0 60px;
         margin-bottom: 60px;
+        strong{
+            font-weight: bold;
+        }
+        em{
+            font-style: italic;
+        }
+        @include mq('tablet'){
+            padding: 20px 50px 0 50px;
+            margin-bottom: 50px;
+        }
     }
     a.btn-special{
         margin-left: 60px;
+        @include mq('tablet'){
+            margin-left: 50px;
+        }
     }
 
     @include mq('tablet'){
         min-width: 100%;
+        max-width: 100%;
     }
 }//end welcome container
