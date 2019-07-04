@@ -125,34 +125,35 @@ $green: #2BC569;
     }
 }
 
-.spot-selected {
-    .mapboxgl-marker {
-        .spot-marker {
-            img, div.image, section {
-                opacity:.5;
-            }
+// Old styles for when multiple markers were visible at once
+// .spot-selected {
+//     .mapboxgl-marker {
+//         .spot-marker {
+//             img, div.image, section {
+//                 opacity:.5;
+//             }
 
-            &:hover {
-                img, div.image, section {
-                    opacity:.5;
-                }       
-            }
+//             &:hover {
+//                 img, div.image, section {
+//                     opacity:.5;
+//                 }       
+//             }
             
-            &.active {
-                img, div.image, section {
-                    opacity:1;
-                }
-            }
-        }
-        &.active {
-            .spot-marker {
-                img, div.image, section {
-                    opacity:1;
-                }
-            }
-        }
-    }
-}
+//             &.active {
+//                 img, div.image, section {
+//                     opacity:1;
+//                 }
+//             }
+//         }
+//         &.active {
+//             .spot-marker {
+//                 img, div.image, section {
+//                     opacity:1;
+//                 }
+//             }
+//         }
+//     }
+// }
 
 
 // Previous popup Style
