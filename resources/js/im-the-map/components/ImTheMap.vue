@@ -555,6 +555,7 @@
                     accessToken: mapboxgl.accessToken,
                     mapboxgl: mapboxgl,
                     countries: 'us',
+                    zoom: 12
                     // types: 'postcode,district,place,locality,neighborhood'
                 });
                 // this.map.addControl(this.geocoder);
