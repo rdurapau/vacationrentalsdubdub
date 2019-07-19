@@ -1,6 +1,11 @@
 // Images Ref
 $images: '../images/';
 
+// border-radius
+@mixin radius() {
+    border-radius: 4px;
+}
+
 @import '../../../node_modules/spinthatshit/src/loaders';
 @import '../../../node_modules/vue2-dropzone/dist/vue2Dropzone.min.css';
 @import '../../../node_modules/flatpickr/dist/flatpickr.css';
@@ -8,12 +13,12 @@ $images: '../images/';
 
 @import 'reset', 'mobile', 'tools';
 @import 'colors', 'fonts', 'buttons', 'components';
-@import 'forms', 'flatpickr', 'map', 'details', 'uploads', 'welcome';
+@import 'header', 'forms', 'flatpickr', 'map', 'details', 'uploads', 'welcome';
 
 
 
 body{
-    background: black;
+    background: #ccc;
     @include mq('tablet'){
         @include fxd;
         height: 100%;

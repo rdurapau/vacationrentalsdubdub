@@ -8,9 +8,7 @@ footer{
     height: 45px;
     flex-direction: row;
     @include mq('tablet'){
-        flex-direction: column;
-        width: calc(100% - 20px);
-        height: auto;
+        display: none;
     }
     .submit{
         @include appearance(none);
@@ -44,7 +42,7 @@ footer{
         flex-grow: 1;
         background: #fff;
         padding: 0 20px;
-        border-radius: 100px;
+        border-radius: 4px;
         @include moveMe;
         li{
             display: flex;
