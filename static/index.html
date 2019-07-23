@@ -19,17 +19,32 @@
 
   <body>
 
+    <mobile-nav class="">
+
+      <ul>
+        <li>
+          <a href="">About Us</a>
+        </li>
+        <li>
+          <a href="">Terms of Service</a>
+        </li>
+      </ul>
+
+      <button>List Your Spot</button>
+
+    </mobile-nav>
+
     <header>
 
       <logo-and-menu>
-        
+
         <logo></logo>
 
-        <hamburger>
+        <bun>
           <pickles></pickles>
           <cheese></cheese>
           <meat></meat>
-        </hamburger>
+        </bun>
 
       </logo-and-menu>
 
@@ -78,10 +93,12 @@
 
     <script>
   
-      var hamburger = document.querySelector('hamburger');
+      var hamburger = document.querySelector('bun');
+      var mobileMenu = document.querySelector('mobile-nav');
 
       hamburger.onclick = function() {
         hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
       }
 
     </script>
