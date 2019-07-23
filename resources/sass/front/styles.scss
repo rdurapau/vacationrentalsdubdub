@@ -30,7 +30,7 @@ mobile-nav{
     overflow: hidden;
     flex-direction: column;
     @include abs;
-    @include z-10;
+    @include z-110;
     background: $purple;
     width: 100%;
     height: auto;
