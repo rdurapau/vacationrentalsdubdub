@@ -1,19 +1,22 @@
 // Images Ref
 $images: '../images/';
 
+// border-radius
+@mixin radius() {
+    border-radius: 4px;
+}
+
 @import '../../../node_modules/spinthatshit/src/loaders';
 @import '../../../node_modules/vue2-dropzone/dist/vue2Dropzone.min.css';
 @import '../../../node_modules/flatpickr/dist/flatpickr.css';
 
-
 @import 'reset', 'mobile', 'tools';
 @import 'colors', 'fonts', 'buttons', 'components';
-@import 'forms', 'flatpickr', 'map', 'details', 'uploads', 'welcome';
-
-
+@import 'header', 'forms', 'flatpickr', 'map', 'details', 'uploads', 'welcome';
 
 body{
-    background: black;
+    background: #ccc;
+    @include rlt;
     @include mq('tablet'){
         @include fxd;
         height: 100%;
@@ -22,6 +25,63 @@ body{
     }
 }//end body
 
-
+mobile-nav{
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    @include abs;
+    @include z-110;
+    background: $purple;
+    width: 100%;
+    height: auto;
+    max-height: 0px;
+    min-height: 0px;
+    top: 60px;
+    @include moveFast;
+    ul{
+        padding: 60px 40px 30px 40px;
+        display: block;
+        flex-direction: column;
+        li{
+            display: block;
+            a{
+                display: block;
+                text-decoration: none;
+                @include fontMedium;
+                color: $bright;
+                font-size: 35px;
+                padding: 10px 0;
+                @include moveFast;
+                &:hover{
+                    color: $dark;
+                }//end hover
+            }//end a
+        }//end li
+    }//end mobile-nav ul
+    button{
+        background: none;
+        border: solid 1px $bright;
+        @include radius;
+        @include fontMedium;
+        font-size: 25px;
+        color: $bright;
+        width: 200px;
+        padding: 15px;
+        margin-left: 40px;
+        cursor: pointer;
+        @include moveFast;
+        &:hover{
+            background: $bright;
+            color: $purple;
+        }//end hover
+    }//end button
+    &.active{
+        @include mq('tablet'){
+            height: auto;
+            min-height: calc(100% - 60px);
+            max-height: calc(100% - 60px);
+        }
+    }
+}//end mobile-nav
 
 @import 'submit-property', 'footer';

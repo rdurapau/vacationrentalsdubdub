@@ -2,86 +2,142 @@ section.welcome-background{
     @include z-100;
     @include abs;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 80px);
     background: rgba(255,255,255,.7);
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
+    @include mq('sm-desk'){
+        height: calc(100% - 50px);        
+    }
+    @include mq('tablet'){
+        height: calc(100% - 125px);        
+    }
 }
 
 section.welcome-container{
     @include abs;
-    
-    min-width: 560px;
-    max-width: 560px;
-    height: 100%;
+    left: calc(50% - 437px);
+    top: calc(50% - 275px);
+    border-radius: 10px;
+    max-width: 874px;
+    min-width: 874px;
+    max-height: 550px;
+    min-height: 550px;
     background: white;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
-    overflow: auto;
-
-    section.logo{
-        @include abs;
-        @include z-110;
-        top: 41px;
-        left: 46px;
-        width: 150px;
-        height: 40px;
-        background: url('#{$images}logo.svg') no-repeat top left;
-        background-size: contain;
-        @include mq('tablet'){
-            top: 30px;
-            left: 30px;
-            width: 120px;
-        }
-    }//end logo
-
-    div.welcome-home{
-        width: 490px;
-        height: 430px;
-        background: url('#{$images}welcome-home.svg') no-repeat top left;
-        margin-left: calc(50% - 245px);
-        @include mq('tablet'){
-            width: 300px;
-            margin-left: calc(50% - 150px);
-            height: 300px;
-            background-size: contain;
-        }
+    overflow: hidden;
+    @include mq('sm-desk'){
+        transform: scale(.8);
     }
-    h1{
-        @include fontBold;
-        font-size: 42px;
-        padding: 20px 60px;
-        @include mq('tablet'){
-            font-size: 22px;
-            padding: 20px 50px 0px 50px;
-            margin-top: -30px;
-        }
-    }
-    p{
-        @include fontBook;
-        font-size: 14px;
-        line-height: 22px;
-        padding: 20px 60px 0 60px;
-        margin-bottom: 60px;
-        strong{
-            font-weight: bold;
-        }
-        em{
-            font-style: italic;
-        }
-        @include mq('tablet'){
-            padding: 20px 50px 0 50px;
-            margin-bottom: 50px;
-        }
-    }
-    a.btn-special{
-        margin-left: 60px;
-        @include mq('tablet'){
-            margin-left: 50px;
-        }
-    }
-
     @include mq('tablet'){
-        min-width: 100%;
+        transform: scale(1);
         max-width: 100%;
+        min-width: 100%;
+        max-height: 100%;
+        min-height: 100%;
+        border-radius: 0px;
+        left: 0;
+        top: 1px;
+        overflow: auto;
     }
+    a.close-welcome{
+        @include z-8;
+        @include abs;
+        width: 50px;
+        height: 50px;
+        background: url('#{$images}icon-close.svg') no-repeat center center;
+        background-size: contain;
+        top: 20px;
+        right: 20px;
+        opacity: .5;
+        @include moveFast;
+        &:hover{
+            opacity: 1;
+        }
+        @include mq('tablet'){
+            width: 40px;
+            height: 40px;
+            top: 15px;
+            right: 15px;
+        }
+    }
+    div.welcome-home{
+        @include abs;
+        width: 500px;
+        height: 500px;
+        background: url('#{$images}welcome-home-2.svg') no-repeat top left;
+        background-size: contain;
+        left: -210px;
+        top: 30px;
+        @include mq('tablet'){
+            @include fxd;
+            left: -10px;
+            top: -80px;
+            width: 150px;
+            height: 150px;
+        }
+    }
+    section.welcome-message{
+        padding: 0 50px 0 340px;
+        > h1{
+            @include fontBold;
+            font-size: 42px;
+            padding: 60px 0 35px 0;
+            @include mq('tablet'){
+                font-size: 22px;
+                padding: 80px 0 30px 0;
+            }
+        }
+        ul{
+            padding-bottom: 40px;
+            li{
+                padding-left: 120px;
+                h1{
+                    @include fontBold;
+                    font-size: 20px;
+                    padding-bottom: 10px;
+                    @include mq('tablet'){
+                        font-size: 16px;
+                    }
+                }
+                p{
+                    @include fontBook;
+                    color: $grey;
+                    line-height: 24px;
+                    padding-right: 20px;
+                    @include mq('tablet'){
+                        font-size: 14px;
+                        line-height: 18px;
+                    }
+                }
+                &:first-child{
+                    background: url('#{$images}icons/icon-welcome-compass.svg') no-repeat top left;
+                    background-size: 75px;
+                    margin-bottom: 40px;
+                    @include mq('tablet'){
+                        background-size: 40px;
+                    }
+                }
+                &:last-child{
+                    background: url('#{$images}icons/icon-welcome-lantern.svg') no-repeat top left;
+                    background-size: 80px;
+                    @include mq('tablet'){
+                        background-size: 40px;
+                    }
+                }
+                @include mq('tablet'){
+                    padding-left: 60px;
+                }
+            }//emd li
+        }//end ul
+        
+        button.btn-welcome{
+            min-width: 100%;
+            padding: 20px 0;
+        }
+        @include mq('tablet'){
+            padding: 0 30px;
+            overflow: scroll;
+        }
+    }//end welcome messahe
 }//end welcome container

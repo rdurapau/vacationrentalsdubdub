@@ -2,12 +2,17 @@
     font-family: "Whitney A", "Whitney B";
     font-style: normal;
     font-weight: 400;
-    color: #29304C;
+    color: $dark;
 }
-
+@mixin fontMedium() {
+    font-family: "Whitney A", "Whitney B";
+    font-style: normal;
+    font-weight: 600;
+    color: $dark;
+}
 @mixin fontBold() {
     font-family: "Whitney A", "Whitney B";
     font-style: normal;
     font-weight: 700;
-    color: #29304C;
+    color: $dark;
 }
