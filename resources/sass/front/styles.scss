@@ -84,4 +84,50 @@ mobile-nav{
     }
 }//end mobile-nav
 
+ul.style-switcher{
+    @include abs;
+    bottom: 25px;
+    left: 25px;
+    max-height: 30px;
+    width: 30px;
+    overflow: hidden;
+    @include moveFast;
+    li{
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        background: $bright;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        @include moveFast;
+        @include z-1;
+        svg{
+            path{
+                @include moveFast;
+            }
+        }
+        &.active{
+            display: flex;
+        }
+        &:hover{
+            background: $purple;
+            display: flex;
+            svg{
+                path{
+                    fill: $bright;
+                }
+            }
+        }
+    }//end li
+    &.open{
+        max-height: 130px;
+        li{
+            display: flex;
+            margin-top: 10px;
+        }
+    }
+}//end style switcher
+
 @import 'submit-property', 'footer';
