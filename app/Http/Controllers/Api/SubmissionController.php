@@ -31,7 +31,7 @@ class SubmissionController extends ApiController
             'phone' => 'required',
             'website' => 'nullable',
             'desc' => 'required',
-            'price' => 'required|numeric|min:10|max:1000',
+            'price' => 'required|numeric|min:10',
             'address1' => 'required|string|max:255',
             'city' => 'required|string',
             'state' => 'required|string',
