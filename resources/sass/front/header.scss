@@ -4,6 +4,10 @@ header{
     align-items: center;
     background: $bright;
     height: 80px;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
     @include rlt;
 
     @include mq('sm-desk'){
@@ -15,14 +19,14 @@ header{
         height: 125px;
     }
 
-    logo-and-menu{
+    .logo-and-menu {
 
         display: flex;
         flex-direction: row;
         flex-basis: 180px;
         align-items: center;
         
-        logo{
+        .logo{
             display: flex;
             flex-grow: 1;
             height: 30px;
@@ -46,7 +50,7 @@ header{
             flex-basis: 60px;
         }
 
-        bun{
+        .bun{
             display: none;
             flex-direction: column;
             justify-content: space-between;
@@ -58,7 +62,7 @@ header{
             @include mq('tablet'){
                 display: flex;
             }
-            meat, cheese, pickles{
+            .meat, .cheese, .pickles{
                 
                 height: 2px;
                 width: 100%;
@@ -69,21 +73,21 @@ header{
                 @include rlt;
             }
             &:hover{
-                meat, cheese, pickles{
+                .meat, .cheese, .pickles{
                     opacity: 1;
                 }
             }
             &.active{
-                meat, cheese, pickles{
+                .meat, .cheese, .pickles{
                     background: #000;
                 }
-                pickles{
+                .pickles{
                     transform: rotate(45deg) translate(4px, 4px);
                 }
-                cheese{
+                .cheese{
                     opacity: 0;
                 }
-                meat{
+                .meat{
                     transform: rotate(-45deg) translate(5px, -5px);
                     
                 }
@@ -92,11 +96,11 @@ header{
 
     }//end logo and menu
     
-    search-and-filters{
+    .search-and-filters{
         display: flex;
         flex-direction: row;
         align-items: center;
-        search{
+        .search{
             display: flex;
             @include rlt;
             svg{
@@ -156,7 +160,7 @@ header{
                 flex-grow: 1;
             }
         }//end search
-        filters{
+        .filters{
             display: flex;
             align-items: center;
             justify-content: center;
@@ -179,7 +183,7 @@ header{
                     @include moveFast;
                 }
             }
-            count{
+            .count{
                 @include fontBook;
                 font-size: 18px;
                 padding-left: 7px;

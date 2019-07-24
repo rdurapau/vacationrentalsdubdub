@@ -37,6 +37,7 @@ Route::get('/static/about', function(){return view('static.about');});
 Route::get('/static/tos', function(){return view('static.tos');});
 Route::get('/static/warn', function(){return view('static.warn');});
 Route::get('/static/submit', function(){return view('static.submit');});
+Route::get('/static/welcome', function(){return view('static.welcome');});
 
 
 Route::get('/emails/spot-approved', 'EmailTestController@spotApproved');

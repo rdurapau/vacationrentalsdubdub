@@ -1,7 +1,7 @@
 <template>
     <section id="main-map" :class="wrapperClass">
 
-        <h1 class="logo"></h1>
+        <h1 class="logo" style="display:none"></h1>
 
         <!-- <div id="form-wrap">
             <input type="text" v-model="filters.sleeps" placeholder="How many people?" />
@@ -111,6 +111,114 @@
             </section>
         </section>
 
+        <section class="mobile-nav">
+
+            <ul>
+                <li>
+                    <a href="">About Us</a>
+                </li>
+                <li>
+                    <a href="">Terms of Service</a>
+                </li>
+            </ul>
+
+            <button>List Your Spot</button>
+
+        </section>
+
+        <header>
+
+            <section class="logo-and-menu">
+
+                <div class="logo"></div>
+
+                <div class="bun">
+                    <div class="pickles"></div>
+                    <div class="cheese"></div>
+                    <div class="meat"></div>
+                </div>
+
+            </section>
+
+            <section class="search-and-filters">
+                <div class="search">
+
+                    <input type="text" id="location-search" name="location-search" v-model="currentLocationText" placeholder="Search">
+
+                    <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M12.2792 16.6084C15.6465 15.1773 17.2161 11.2875 15.785 7.92028C14.354 4.55303 10.4642 2.98343 7.09695 4.41448C3.7297 5.84552 2.16009 9.73531 3.59114 13.1026C5.02219 16.4698 8.91198 18.0394 12.2792 16.6084Z"
+                            stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M14.3721 15.1953L19.51 20.334" stroke="#29304C" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+
+                    <button id="clear-search" @click.prevent="clearSearch" v-if="showClearSearchButton">
+                        <span class="icon-clear-css"></span>
+                    </button>
+
+
+                    <section class="search-wrapper" v-show="searchBarVisible">
+                        <svg class="icon-search" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7161 19.8028C18.8109 18.0626 20.7196 13.3324 18.9794 9.23761C17.2392 5.14285 12.509 3.23413 8.41421 4.97436C4.31946 6.71459 2.41074 11.4448 4.15097 15.5395C5.8912 19.6343 10.6214 21.543 14.7161 19.8028Z" stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17.2612 18.0845L23.5092 24.3333" stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                        <input type="text" class="map-search current-location" v-model="currentLocationText" v-if="geolocationStatus == 'active'" />
+                        <!-- <input type="text" id="map-search" placeholder="Search" v-model="mapSearch" v-else /> -->
+                        
+                        <div id="geocoder" ref="geocoder-wrap"></div>
+
+                        <div class="button-wrapper" v-if="showGeolocateButton">
+                            <button class="my-location" @click.prevent="getUserLocation()" :class="geolocatorClass">
+                                <svg class="icon-location" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5Z" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 0.75V4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M0.75 12H4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 23.25V19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M23.25 12H19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                            <button id="clear-search" @click.prevent="clearSearch" v-if="showClearSearchButton">
+                                <span class="icon-clear-css"></span>
+                            </button>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="filters">
+                    <svg width="21" height="12" viewBox="0 0 21 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M7.24902 4.5C6.28253 4.5 5.49902 3.7165 5.49902 2.75C5.49902 1.7835 6.28253 1 7.24902 1C8.21552 1 8.99902 1.7835 8.99902 2.75C8.99902 3.21413 8.81465 3.65925 8.48646 3.98744C8.15827 4.31563 7.71315 4.5 7.24902 4.5Z"
+                            stroke="#666666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M1 2.75H2.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M12 2.75H19.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path fill-rule="evenodd" clip-rule="evenodd"
+                            d="M13.249 10.5C12.2825 10.5 11.499 9.7165 11.499 8.75C11.499 7.7835 12.2825 7 13.249 7C14.2155 7 14.999 7.7835 14.999 8.75C14.999 9.21413 14.8146 9.65925 14.4865 9.98744C14.1583 10.3156 13.7132 10.5 13.249 10.5Z"
+                            stroke="#666666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M1 8.75H8.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M18 8.75H19.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                    <span class="count">2</span>
+                </div>
+            </section>
+
+            <nav>
+                <a href="">About Us</a>
+                <button>List Your Spot</button>
+            </nav>
+
+        </header>
+
+
+
+
+
         <div id="map-wrapper"></div>
 
     </section>
@@ -118,8 +226,8 @@
 
 <script>
     let mapboxgl = require('mapbox-gl');
-    // let mapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
-    let mapboxGeocoder = require('mapbox-gl-geocoder');
+    let mapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
+    // let mapboxGeocoder = require('mapbox-gl-geocoder');
     // let geoJSON = require('geojson')
 
     // console.log(geoJSON);
@@ -202,29 +310,6 @@
                 
                 this.updateMarkers();
             },
-            // oldApplyFilters() {
-            //     let filters = [];
-                
-            //     if (this.filterPet) filters.push(this.filterPet);
-            //     if (this.filterSleeps) filters.push(this.filterSleeps);
-
-            //     if (filters.length) {
-            //         if (filters.length === 1) {
-            //             filters = filters[0];
-            //         } else {
-            //             filters.unshift("all");
-            //         }
-            //     } else {
-            //         filters = undefined;
-            //     }
-
-            //     this.map.setFilter('clusters', filters);
-            //     this.map.setFilter('cluster-count', filters);
-            //     this.map.setFilter('unclustered-point', filters);
-            //     this.map.setFilter('unclustered-point-count', filters);
-
-            //     this.updateMarkers();
-            // },
             removePetFilter() {
                 Vue.set(this.activeFilters,'pets',false);
                 this.applyFilters();

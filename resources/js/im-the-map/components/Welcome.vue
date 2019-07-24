@@ -2,25 +2,32 @@
     <section class="welcome-background" v-show="visible">
 
         <section class="welcome-container">
+          <a href="#" class="close-welcome" @click.prevent="close"></a>
+          <div class="welcome-home"></div>
 
-            <section class="logo"></section>
-            <div class="welcome-home"></div>
+          <section class="welcome-message">
 
-            <h1>True vacation rentals for the perfect getaway.</h1>
+            <h1>Better search. Better find.</h1>
 
-            <p>Find <strong>a place to go</strong>, not just to stay. That’s what you'll find here at SweetSpot — true vacation rentals and direct communication with the owners. We aim to provide a great experience online so you can get to your great experiences <em>out there</em>. No fuss.</p>
+            <ul>
+              <li>
+                <h1>Zoom. Hover. Click. Go.</h1>
+                <p>Searching has never been easier. Zoom, hover, and click. Easy, fast map-based search. No long-running lists.</p>
+              </li>
+              <li>
+                <h1>Places to go, not just to stay.</h1>
+                <p>Find yourself a True Vacation Rental - A place a go, not just to stay. Better places. Better owners. No hidden fees.</p>
+              </li>
+            </ul>
 
-            <a class="btn btn-special" href="#" @click.prevent="close">Sweet! Let’s get started.</a>
+            <button class="btn btn-welcome" @click.prevent="close">Ok, let's get searching</button>
 
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
+          </section>
 
-        </section>
+      </section>
 
     </section>
+
 </template>
 
 <script>
