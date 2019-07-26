@@ -24,7 +24,7 @@
 
                 <div class="logo"></div>
 
-                <div class="bun" @click.prevent="mobileNavIsVisible = !mobileNavIsVisible">
+                <div class="bun" :class="{active: mobileNavIsVisible}" @click.prevent="mobileNavIsVisible = !mobileNavIsVisible">
                     <div class="pickles"></div>
                     <div class="cheese"></div>
                     <div class="meat"></div>
