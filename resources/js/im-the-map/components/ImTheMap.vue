@@ -3,18 +3,18 @@
 
         <h1 class="logo" style="display:none"></h1>
 
-        <section class="mobile-nav">
+        <section class="mobile-nav" :class="{active: mobileNavIsVisible}">
 
             <ul>
                 <li>
-                    <a href="">About Us</a>
+                    <a href="" @click.prevent="showAboutModal">About Us</a>
                 </li>
                 <li>
-                    <a href="">Terms of Service</a>
+                    <a href="" @click.prevent="showTermsModal">Terms of Service</a>
                 </li>
             </ul>
 
-            <button>List Your Spot</button>
+            <button @click.prevent="showSubmitPropertyModal">List Your Spot</button>
 
         </section>
 
@@ -24,7 +24,7 @@
 
                 <div class="logo"></div>
 
-                <div class="bun">
+                <div class="bun" @click.prevent="mobileNavIsVisible = !mobileNavIsVisible">
                     <div class="pickles"></div>
                     <div class="cheese"></div>
                     <div class="meat"></div>
@@ -179,6 +179,7 @@
                 styleSwitcherIsOpen : false,
 
                 mobileSearchIsVisible : false,
+                mobileNavIsVisible: false,
                 
                 geolocateControl : '',
                 geolocationSupported : false,
@@ -425,6 +426,9 @@
             },
             showAboutModal(which) {
                 this.$store.commit('showInformationalModal', 'about');
+            },
+            showTermsModal() {
+                this.$store.commit('showInformationalModal', 'terms');
             },
             // newGeolocate(val) {
             //     console.log('geolocate', val);

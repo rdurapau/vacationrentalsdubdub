@@ -11,7 +11,6 @@
     export default {
         methods: {
             showTermsModal() {
-                console.log('terms')
                 this.$store.commit('showInformationalModal', 'terms');
             }
         }

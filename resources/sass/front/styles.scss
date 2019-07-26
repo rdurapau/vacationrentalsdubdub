@@ -30,13 +30,13 @@ body{
     overflow: hidden;
     flex-direction: column;
     @include abs;
-    @include z-110;
+    z-index:410;
     background: $purple;
     width: 100%;
     height: auto;
     max-height: 0px;
     min-height: 0px;
-    top: 60px;
+    top: -60px;
     @include moveFast;
     ul{
         padding: 60px 40px 30px 40px;
@@ -80,6 +80,8 @@ body{
             height: auto;
             min-height: calc(100% - 60px);
             max-height: calc(100% - 60px);
+            min-height: calc(100% + 60px);
+            max-height: calc(100% + 60px);
         }
     }
 }//end mobile-nav
