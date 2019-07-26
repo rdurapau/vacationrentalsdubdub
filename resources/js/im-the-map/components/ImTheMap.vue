@@ -3,113 +3,6 @@
 
         <h1 class="logo" style="display:none"></h1>
 
-        <!-- <div id="form-wrap">
-            <input type="text" v-model="filters.sleeps" placeholder="How many people?" />
-            <label for="filter-pets">
-                <input type="checkbox" v-model="filters.pets" id="filter-pets" />
-                Allows Pets
-            </label>
-            <button class="run-it" @click="applyFilters">Filter</button>
-        </div> -->
-
-        <!-- <section class="search-and-filter" v-show="mapIsLoaded">
-            <section class="filters">
-                <transition name="slide">
-                    <div v-if="activeFilters.pets" @click.prevent="removePetFilter">
-                        <svg class="icon-pets icon" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.7305 9.76367C12.7799 9.81315 12.8789 9.92448 13.0273 10.0977C13.2005 10.2461 13.3118 10.3451 13.3613 10.3945C13.4108 10.444 13.5098 10.5553 13.6582 10.7285C13.8314 10.9017 13.9303 11.0254 13.9551 11.0996C14.0046 11.1491 14.1035 11.2604 14.252 11.4336C14.4004 11.6068 14.4746 11.7305 14.4746 11.8047C14.4993 11.8789 14.5612 12.015 14.6602 12.2129C14.7839 12.4108 14.821 12.5592 14.7715 12.6582C14.7467 12.7324 14.7591 12.8809 14.8086 13.1035C14.8828 13.3014 14.8828 13.4499 14.8086 13.5488C14.5365 14.5879 13.918 15.2064 12.9531 15.4043C12.7799 15.429 12.1738 15.3796 11.1348 15.2559C10.1204 15.1322 9.26693 15.0703 8.57422 15.0703H8.42578C7.73307 15.0703 6.86719 15.1322 5.82812 15.2559C4.8138 15.3796 4.22005 15.429 4.04688 15.4043C3.08203 15.2064 2.46354 14.5879 2.19141 13.5488C2.11719 13.054 2.20378 12.5469 2.45117 12.0273C2.69857 11.5078 2.92122 11.1367 3.11914 10.9141C3.3418 10.6914 3.72526 10.3079 4.26953 9.76367C4.51693 9.49154 4.83854 9.10807 5.23438 8.61328C5.65495 8.11849 5.98893 7.73503 6.23633 7.46289C6.68164 6.91862 7.13932 6.57227 7.60938 6.42383C7.70833 6.37435 7.79492 6.34961 7.86914 6.34961C8.01758 6.32487 8.22786 6.3125 8.5 6.3125C8.79688 6.3125 9.00716 6.32487 9.13086 6.34961C9.20508 6.34961 9.29167 6.37435 9.39062 6.42383C9.86068 6.57227 10.3184 6.91862 10.7637 7.46289C10.9863 7.73503 11.3079 8.11849 11.7285 8.61328C12.1491 9.10807 12.4831 9.49154 12.7305 9.76367ZM13.0273 6.94336C12.6562 6.54753 12.4707 6.07747 12.4707 5.5332C12.4707 4.98893 12.6562 4.51888 13.0273 4.12305C13.4232 3.72721 13.8932 3.5293 14.4375 3.5293C14.9818 3.5293 15.4395 3.72721 15.8105 4.12305C16.2064 4.51888 16.4043 4.98893 16.4043 5.5332C16.4043 6.07747 16.2064 6.54753 15.8105 6.94336C15.4395 7.31445 14.9818 7.5 14.4375 7.5C13.8932 7.5 13.4232 7.31445 13.0273 6.94336ZM9.46484 3.75195C9.09375 3.35612 8.9082 2.88607 8.9082 2.3418C8.9082 1.79753 9.09375 1.33984 9.46484 0.96875C9.86068 0.572917 10.3307 0.375 10.875 0.375C11.4193 0.375 11.877 0.572917 12.248 0.96875C12.6439 1.33984 12.8418 1.79753 12.8418 2.3418C12.8418 2.88607 12.6439 3.35612 12.248 3.75195C11.877 4.14779 11.4193 4.3457 10.875 4.3457C10.3307 4.3457 9.86068 4.14779 9.46484 3.75195ZM4.71484 3.75195C4.34375 3.35612 4.1582 2.88607 4.1582 2.3418C4.1582 1.79753 4.34375 1.33984 4.71484 0.96875C5.11068 0.572917 5.58073 0.375 6.125 0.375C6.66927 0.375 7.12695 0.572917 7.49805 0.96875C7.89388 1.33984 8.0918 1.79753 8.0918 2.3418C8.0918 2.88607 7.89388 3.35612 7.49805 3.75195C7.12695 4.14779 6.66927 4.3457 6.125 4.3457C5.58073 4.3457 5.11068 4.14779 4.71484 3.75195ZM1.15234 6.94336C0.78125 6.54753 0.595703 6.07747 0.595703 5.5332C0.595703 4.98893 0.78125 4.51888 1.15234 4.12305C1.54818 3.72721 2.01823 3.5293 2.5625 3.5293C3.10677 3.5293 3.56445 3.72721 3.93555 4.12305C4.33138 4.51888 4.5293 4.98893 4.5293 5.5332C4.5293 6.07747 4.33138 6.54753 3.93555 6.94336C3.56445 7.31445 3.10677 7.5 2.5625 7.5C2.01823 7.5 1.54818 7.31445 1.15234 6.94336Z" fill="white"/>
-                        </svg>
-                        <svg class="icon icon-remove" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.65625 1.28125L5.9375 5L9.65625 8.71875L8.71875 9.65625L5 5.9375L1.28125 9.65625L0.34375 8.71875L4.0625 5L0.34375 1.28125L1.28125 0.34375L5 4.0625L8.71875 0.34375L9.65625 1.28125Z" fill="white"/>
-                        </svg>
-                    </div>
-                </transition>
-                <transition name="slide">
-                    <div v-if="activeFilters.sleeps" @click.prevent="removeSleepsFilter">
-                        <svg class="icon icon-people" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M2.30664 8.98633C3.76628 8.39258 5.16406 8.0957 6.5 8.0957C7.83594 8.0957 9.22135 8.39258 10.6562 8.98633C12.1159 9.55534 12.8457 10.3099 12.8457 11.25V12.8457H0.154297V11.25C0.154297 10.3099 0.871745 9.55534 2.30664 8.98633ZM8.72656 5.57227C8.10807 6.19076 7.36589 6.5 6.5 6.5C5.63411 6.5 4.89193 6.19076 4.27344 5.57227C3.65495 4.95378 3.3457 4.21159 3.3457 3.3457C3.3457 2.47982 3.65495 1.73763 4.27344 1.11914C4.89193 0.475911 5.63411 0.154297 6.5 0.154297C7.36589 0.154297 8.10807 0.475911 8.72656 1.11914C9.34505 1.73763 9.6543 2.47982 9.6543 3.3457C9.6543 4.21159 9.34505 4.95378 8.72656 5.57227Z" fill="white"/>
-                        </svg>
-                        <span v-text="activeFilters.sleeps"></span>
-                        <svg class="icon icon-remove" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M9.65625 1.28125L5.9375 5L9.65625 8.71875L8.71875 9.65625L5 5.9375L1.28125 9.65625L0.34375 8.71875L4.0625 5L0.34375 1.28125L1.28125 0.34375L5 4.0625L8.71875 0.34375L9.65625 1.28125Z" fill="white"/>
-                        </svg>
-                    </div>
-                </transition>
-            </section>
-            <section class="search-wrapper" v-show="searchBarVisible">
-                <svg class="icon-search" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7161 19.8028C18.8109 18.0626 20.7196 13.3324 18.9794 9.23761C17.2392 5.14285 12.509 3.23413 8.41421 4.97436C4.31946 6.71459 2.41074 11.4448 4.15097 15.5395C5.8912 19.6343 10.6214 21.543 14.7161 19.8028Z" stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M17.2612 18.0845L23.5092 24.3333" stroke="#29304C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-
-                <input type="text" class="map-search current-location" v-model="currentLocationText" v-if="geolocationStatus == 'active'"/>
-                
-                <div id="geocoder" ref="geocoder-wrap"></div>
-
-                <div class="button-wrapper" v-if="showGeolocateButton">
-                    <button class="my-location" @click.prevent="getUserLocation()" :class="geolocatorClass">
-                        <svg class="icon-location" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 19.5C16.1421 19.5 19.5 16.1421 19.5 12C19.5 7.85786 16.1421 4.5 12 4.5C7.85786 4.5 4.5 7.85786 4.5 12C4.5 16.1421 7.85786 19.5 12 19.5Z" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 0.75V4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M0.75 12H4.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 23.25V19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M23.25 12H19.5" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </button>
-                    <button id="clear-search" @click.prevent="clearSearch" v-if="showClearSearchButton">
-                        <span class="icon-clear-css"></span>
-                    </button>
-                </div>
-            </section>
-
-            <button id="search-toggle" @click.prevent="toggleMobileSearch">
-                <svg class="icon-search" width="25" height="26" viewBox="0 0 25 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7161 19.8028C18.8109 18.0626 20.7196 13.3324 18.9794 9.23761C17.2392 5.14285 12.509 3.23413 8.41421 4.97436C4.31946 6.71459 2.41074 11.4448 4.15097 15.5395C5.8912 19.6343 10.6214 21.543 14.7161 19.8028Z" stroke="#45AEF1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M17.2612 18.0845L23.5092 24.3333" stroke="#45AEF1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-            </button>
-
-            <button id="filter-toggle" @click.prevent="toggleFilterDropdown" :class="{close: filterDropdownIsVisible}">
-                <span class="icon-toggle-css"></span>
-            </button>
-
-            <section id="filters-dropdown" :class="{'visible' : filterDropdownIsVisible}">
-                <div>
-                    <label>Guests</label>
-                    <div class="number-with-buttons">
-                        <button class="circle-button" @click.prevent="decFilterSleeps">
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.5 7.125H12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                        <input type="number" class="input-increment" v-model="filterDropdownData.sleeps" min="0" max="12" />
-                        <button class="circle-button" @click.prevent="incFilterSleeps">
-                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.5 7.125H12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M7.125 1.5V12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div>
-                    <label for="toggle-pet-friendly">Pet Friendly?</label>
-                    <div class="check-group">
-                        <input type="checkbox" id="toggle-pet-friendly" v-model="filterDropdownData.pets" />
-                        <label class="circle-button" for="toggle-pet-friendly">
-                            <svg class="icon icon-check" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 7.395L3.45 10.872C3.63855 11.1537 3.95158 11.3268 4.29037 11.337C4.62916 11.3471 4.95197 11.1929 5.157 10.923L13 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </label>
-                    </div>
-                </div>
-                <div class="apply-row">
-                    <a class="apply" href="#" @click.prevent="applyDropdownFilters">
-                        Apply
-                    </a>
-                </div>
-            </section>
-        </section> -->
-
         <section class="mobile-nav">
 
             <ul>
@@ -211,11 +104,35 @@
             </section>
 
             <nav>
-                <a href="">About Us</a>
-                <button>List Your Spot</button>
+                <a href="#" @click.prevent="showAboutModal">About Us</a>
+                <button @click.prevent="showSubmitPropertyModal">List Your Spot</button>
             </nav>
 
         </header>
+
+        <ul class="style-switcher" :class="{open: styleSwitcherIsOpen}" v-if="false">
+            <li class="default active" @click.prevent="changeMapStyle('light-v10')">
+                <svg width="16" height="16" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.7576 0.24538C15.4987 -0.0160459 15.0983 -0.0752622 14.7748 0.100015L0.438937 7.7677C0.102706 7.94845 -0.0677694 8.3345 0.0251477 8.70475C0.118065 9.075 0.450625 9.33482 0.832357 9.33538H6.66698V15.17C6.66688 15.5522 6.92697 15.8855 7.29778 15.9782C7.36323 15.9945 7.43038 16.003 7.49783 16.0035C7.80492 16.0032 8.08688 15.8338 8.23132 15.5628L15.8997 1.22626C16.0746 0.903888 16.0168 0.504907 15.7576 0.24538Z" fill="#29304C"></path>
+                </svg>
+            </li>
+            <li class="streets" @click.prevent="changeMapStyle('streets-v11')">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8941 15.3513L11.2274 0.351334C11.1625 0.142246 10.969 -0.000191338 10.7501 1.92923e-07H8.91674C8.82469 1.92923e-07 8.75007 0.0746196 8.75007 0.166667V1C8.75007 1.36819 8.4516 1.66667 8.08341 1.66667C7.71522 1.66667 7.41674 1.36819 7.41674 1V0.166667C7.41674 0.0746196 7.34212 1.92923e-07 7.25007 1.92923e-07H5.41674C5.19781 -0.000191338 5.00429 0.142246 4.93941 0.351334L0.272739 15.3513C0.225474 15.5031 0.253195 15.6683 0.347411 15.7963C0.441627 15.9244 0.59111 16 0.750073 16H7.25007C7.34212 16 7.41674 15.9254 7.41674 15.8333V13.3333C7.41674 12.9651 7.71522 12.6667 8.08341 12.6667C8.4516 12.6667 8.75007 12.9651 8.75007 13.3333V15.8333C8.75007 15.9254 8.82469 16 8.91674 16H15.4167C15.5757 16 15.7252 15.9244 15.8194 15.7963C15.9136 15.6683 15.9413 15.5031 15.8941 15.3513ZM8.08337 2.83333C8.45156 2.83333 8.75004 3.13181 8.75004 3.5V5C8.75004 5.36819 8.45156 5.66667 8.08337 5.66667C7.71518 5.66667 7.41671 5.36819 7.41671 5V3.5C7.41671 3.13181 7.71518 2.83333 8.08337 2.83333ZM7.41671 10.3333C7.41671 10.7015 7.71518 11 8.08337 11C8.45156 11 8.75004 10.7015 8.75004 10.3333V8C8.75004 7.63181 8.45156 7.33333 8.08337 7.33333C7.71518 7.33333 7.41671 7.63181 7.41671 8V10.3333Z" fill="#29304C"></path>
+                </svg>          
+            </li>
+            <li class="satellite" @click.prevent="changeMapStyle('satellite-streets-v9')">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.64976 5.58781C5.05047 5.98464 5.69698 5.9816 6.09393 5.581L7.05262 4.61414C7.2434 4.42168 7.34987 4.16129 7.34859 3.8903C7.34732 3.61932 7.2384 3.35994 7.04581 3.16929L4.14454 0.29458C3.74326 -0.100571 3.0983 -0.0978339 2.70038 0.300708L1.74169 1.26825C1.34485 1.66896 1.3479 2.31547 1.7485 2.71242L4.64976 5.58781Z" fill="#29304C"></path>
+                    <path d="M15.6993 11.8696L12.7966 8.99416C12.395 8.59957 11.7504 8.60261 11.3525 9.00097L10.3938 9.96851C9.99695 10.3692 10 11.0157 10.4006 11.4127L13.3032 14.2881C13.7039 14.6849 14.3504 14.6819 14.7474 14.2813L15.7054 13.311C16.1006 12.9108 16.0979 12.2664 15.6993 11.8696Z" fill="#29304C"></path>
+                    <path d="M13.897 3.44986H13.9018C14.6677 3.44855 15.2877 2.82693 15.287 2.06102C15.2864 1.29511 14.6653 0.674561 13.8994 0.674561C13.1335 0.674561 12.5124 1.29511 12.5117 2.06102C12.5111 2.82693 13.1311 3.44855 13.897 3.44986Z" fill="#29304C"></path>
+                    <path d="M4.76628 12.5964C4.01419 12.5964 3.4045 11.9867 3.4045 11.2346C3.4045 10.8586 3.09966 10.5537 2.72361 10.5537C2.34757 10.5537 2.04272 10.8586 2.04272 11.2346C2.04272 12.7388 3.2621 13.9582 4.76628 13.9582C5.14232 13.9582 5.44717 13.6533 5.44717 13.2773C5.44717 12.9012 5.14232 12.5964 4.76628 12.5964Z" fill="#29304C"></path>
+                    <path d="M4.42578 14.6389C2.73358 14.6389 1.36178 13.2671 1.36178 11.5749C1.36178 11.1989 1.05693 10.894 0.680889 10.894C0.304844 10.894 0 11.1989 0 11.5749C0.00300129 14.018 1.98273 15.9977 4.42578 16.0007C4.80182 16.0007 5.10666 15.6959 5.10666 15.3198C5.10666 14.9438 4.80182 14.6389 4.42578 14.6389Z" fill="#29304C"></path>
+                    <path d="M12.0954 3.87947C11.2941 3.08561 10.0011 3.0914 9.20702 3.8924L6.1546 6.97479C6.02773 7.10349 5.95723 7.27735 5.95864 7.45807C5.96004 7.63878 6.03323 7.81153 6.16209 7.93824L8.09649 9.85495C8.36361 10.119 8.7941 10.1169 9.05859 9.85018L12.111 6.7678C12.9041 5.96582 12.8971 4.6728 12.0954 3.87947Z" fill="#29304C"></path>
+                    <path d="M3.72177 8.68112C3.52255 8.77711 3.38235 8.96387 3.3458 9.18197C3.30925 9.40007 3.38089 9.62233 3.53793 9.77803L6.27442 12.49C6.43138 12.6459 6.65426 12.7157 6.8721 12.6774C7.08994 12.6391 7.2756 12.4974 7.36997 12.2973C7.86374 11.2534 7.64545 10.0115 6.82526 9.1985C6.00508 8.38551 4.76133 8.17816 3.72177 8.68112Z" fill="#29304C"></path>
+                </svg>
+            </li>
+        </ul>
 
         <div id="map-wrapper"></div>
 
@@ -257,6 +174,9 @@
                     pets : false,
                     sleeps : 0
                 },
+                
+                mapStyle: 'mapbox://styles/mapbox/streets-v11',
+                styleSwitcherIsOpen : false,
 
                 mobileSearchIsVisible : false,
                 
@@ -271,6 +191,21 @@
             }
         },
         methods: {
+            changeMapStyle(style) {
+                if (!this.styleSwitcherIsOpen) {
+                    this.styleSwitcherIsOpen = true;
+                    return false;
+                }
+
+                this.styleSwitcherIsOpen = false;
+                if (this.mapStyle === style) {
+                    return false;
+                }
+                this.mapStyle = style;
+                this.map.setStyle('mapbox://styles/mapbox/' + style);
+                this.addDataLayers();
+
+            },
             applyDropdownFilters() {
                 console.log('apply');
                 Vue.set(this.activeFilters,'pets',this.filterDropdownData.pets);
@@ -341,16 +276,6 @@
             getUserLocation() {
                 if (this.geolocationSupported) {
                     this.geolocateControl.trigger();
-                    // navigator.geolocation.getCurrentPosition(
-                    //     function success(position) {
-                    //         // for when getting location is a success
-                    //         console.log('latitude', position.coords.latitude, 'longitude', position.coords.longitude);
-                    //     },
-                    //     function error(error_message) {
-                    //         // for when getting location results in an error
-                    //         console.error('An error has occured while retrieving location ', error_message)
-                    //     }
-                    // );
                 }
             },
             geolocateEvent() {
@@ -383,8 +308,6 @@
                 this.filterDropdownIsVisible = true;
             },
             hideFilterDropdown() {
-                // Vue.set(this.filterDropdownData,'sleeps',this.filters.sleeps);
-                // Vue.set(this.filterDropdownData,'pets',this.filters.pets);
                 this.filterDropdownIsVisible = false;
             },
             
@@ -416,23 +339,9 @@
                 }
             },
             markerClicked(feature) {
-                // Without details sliding in animation
-                // this.$store.dispatch('triggerNewActiveSpot', feature.id)
-                //     .then(() => {
-                //         this.resizeMap();
-                //         this.map.jumpTo({
-                //             center: feature.geometry.coordinates,
-                //             zoom: 14,
-                //             duration: 2000
-                //         })
-                //     });
-
-                // With details sliding in animation
                 let self = this;
                 this.$store.dispatch('triggerNewActiveSpot', feature.id)
                     .then((response) => {self.newActiveSpot(feature)});
-                // setTimeout(function(){
-                // }, 400);
             },
             gotoCoords(coords) {
                 this.resizeMap();
@@ -509,6 +418,13 @@
                 if(!(Object.entries(this.hoverMarker).length === 0 && this.hoverMarker.constructor === Object)) {
                     this.hoverMarker.remove();
                 }
+            },
+
+            showSubmitPropertyModal() {
+                this.$store.commit('showSubmitPropertyModal');
+            },
+            showAboutModal(which) {
+                this.$store.commit('showInformationalModal', 'about');
             },
             // newGeolocate(val) {
             //     console.log('geolocate', val);
@@ -624,11 +540,37 @@
                 });
 
             },
+            addDataLayers() {
+                this.map.addLayer({
+                    id: "single-spot-border",
+                    type: "circle",
+                    source: "places",
+                    paint: {
+                        "circle-color": "#fff",
+                        "circle-radius": 11
+                    }
+                });
+                this.map.addLayer({
+                    id: "single-spot",
+                    type: "circle",
+                    source: "places",
+                    paint: {
+                        "circle-color": "#9080F0",
+                        "circle-radius": 7
+                    }
+                });
+            },
             initData(geoJson) {
                 let self = this;
 
                 // Assign the global geoJson to a variable so it can be filtered non-destructively
                 this.geoJson = geoJson;
+                this.map.addSource('places', {
+                    type: 'geojson',
+                    data: this.geoJson,
+                })
+
+                this.addDataLayers();
 
                 this.map.on('sourcedata', () => {
                     if (!self.mapIsLoaded && self.map.getSource('places') && self.map.isSourceLoaded('places')) {
@@ -636,12 +578,6 @@
                         self.checkForInitSpot()
                     }
                 });
-
-                // Taken from:
-                this.map.addSource('places', {
-                    type: 'geojson',
-                    data: this.geoJson,
-                })
 
                 // Add the search box
                 this.geocoder = new mapboxGeocoder({
@@ -652,140 +588,10 @@
                     marker: false
                     // types: 'postcode,district,place,locality,neighborhood'
                 });
-                // this.map.addControl(this.geocoder);
                 document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
                 this.geocoder.on('mounted', function(){console.log('loaded')});
-                // this.geocoder.on('result', function (ev) {
-                //     // self.map.getSource('places').setData(ev.result.geometry);
-                //     // self.mobileSearchIsVisible = true;
-                // });
 
                 this.searchBarVisible = true;
-
-                this.map.addLayer({
-                    id: "single-spot",
-                    type: "circle",
-                    source: "places",
-                    paint: {
-                        "circle-color": "#45AEF1",
-                        "circle-radius": 8
-                    }
-                });
-                
-                // Circles for the clusters
-                
-                // this.map.addLayer({
-                //     id: "clusters",
-                //     type: "circle",
-                //     source: "places",
-                //     filter: [">=", "point_count", 1],
-                //     // filter: ['has', 'point_count'],
-                //     paint: {
-                //         "circle-color": "#45AEF1",
-                //         "circle-radius": 14
-                //     },
-                //     // maxzoom:8
-                // });
-
-                // // Number labels on top of the circle clusters
-                // this.map.addLayer({
-                //     id: "cluster-count",
-                //     type: "symbol",
-                //     source: "places",
-                //     layout: {
-                //         "text-field": ["case",
-                //             ['all', 
-                //                 ['has','point_count_abbreviated'], 
-                //                 ['>', ['get', 'point_count_abbreviated'], 1]
-                //             ], ['get', 'point_count_abbreviated'],
-                //             "1"
-                //         ],
-                //         "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
-                //         "text-size": 15
-                //     },
-                //     filter: [">=", "point_count", 1],
-                //     // filter: ['has', 'point_count'],
-                //     paint: {
-                //         "text-color": "#fff"
-                //     },
-                //     // maxzoom:8
-                // });
-
-                // // Single spot "clusters" while zoomed out
-                // this.map.addLayer({
-                //     id: "solo-clusters",
-                //     type: "circle",
-                //     source: "places",
-                //     // filter: [">=", "point_count", 1],
-                //     filter: ["==", "point_count", 1],
-                //     paint: {
-                //         "circle-color": "#45AEF1",
-                //         "circle-radius": 14
-                //     },
-                //     maxzoom:8
-                // });
-
-                // // Individual spot markers
-                // this.map.addLayer({
-                //     id: "unclustered-point",
-                //     type: "circle",
-                //     source: "places",
-                //     // filter: ["!has", "point_count"],
-                //     filter: ["any", 
-                //         ["!has", "point_count"],
-                //         ["==", "point_count", 1]
-                //     ],
-                //     paint: {
-                //         "circle-color": "#45AEF1",
-                //         "circle-radius": 14,
-                //         "circle-stroke-width": 0,
-                //         "circle-stroke-color": "#fff"
-                //     },
-                //     maxzoom: 8
-                // });
-
-                // // Number 1 on the unclustered point markers
-                // this.map.addLayer({
-                //     id: "unclustered-point-count",
-                //     type: "symbol",
-                //     source: "places",
-                //     // filter: ["!has", "point_count"],
-                //     filter: ["any", 
-                //         ["!has", "point_count"],
-                //         ["==", "point_count", 1]
-                //     ],
-                //     layout: {
-                //         "text-field": "1",
-                //         "text-font": ["DIN Offc Pro Black", "Arial Unicode MS Bold"],
-                //         "text-size": 15
-                //     },
-                //     paint: {
-                //         "text-color": "#fff"
-                //     },
-                //     maxzoom: 8
-                // });
-
-                // Old geolocate method
-                // this.geolocateControl = new mapboxgl.GeolocateControl({
-                //     positionOptions: {
-                //         enableHighAccuracy: true
-                //     },
-                //     trackUserLocation: true,
-                //     fitBoundsOptions: {
-                //         maxZoom : 12
-                //     }
-                // })
-                // this.map.addControl(this.geolocateControl);
-                
-                // this.geolocationSupported = true;
-                
-                // if ('geolocation' in navigator && location.protocol == 'https:') {
-                //     this.geolocationSupported = true;
-                // }
-
-                // this.geolocateControl.on('geolocate', (val) => self.geolocateEvent(val));
-                // this.geolocateControl.on('trackuserlocationstart', () => self.geolocateStart())
-                // this.geolocateControl.on('trackuserlocationend', () => self.geolocateEnd());
 
                 this.map.on('data', function (e) {
                     if (e.sourceId !== 'places' || !e.isSourceLoaded) return;
@@ -814,68 +620,14 @@
                         layers: ['single-spot']
                     });
                     if (features.length) {
-                        // var coords = features[0].geometry.coordinates;
-                        // self.map.jumpTo({
-                        //     center: features[0].geometry.coordinates,
-                        //     zoom: 16
-                        // });
                         self.$store.dispatch('triggerNewActiveSpot', features[0].id)
                             .then((response) => {self.newActiveSpot(features[0])});
-                        // self.map.flyTo({
                     }
                 });
-
-
-                // inspect a cluster on click
-                // this.map.on('click', 'clusters', function (e) {
-                //     var features = self.map.queryRenderedFeatures(e.point, {
-                //         layers: ['clusters']
-                //     });
-                //     if (features.length) {
-                //         var clusterId = features[0].properties.cluster_id;
-                //         self.map.getSource('places').getClusterExpansionZoom(clusterId, function (err, zoom) {
-                //             if (err)
-                //                 return;
-
-                //             self.map.flyTo({
-                //                 center: features[0].geometry.coordinates,
-                //                 zoom: zoom+.1
-                //             });
-                //         });
-                //     }
-                // });
-
-                // this.map.on('click', 'unclustered-point', function (e) {
-                //     var features = self.map.queryRenderedFeatures(e.point, {
-                //         layers: ['unclustered-point']
-                //     });
-                //     if (features.length) {
-                //         // var coords = features[0].geometry.coordinates;
-                //         self.map.flyTo({
-                //             center: features[0].geometry.coordinates,
-                //             zoom: 10
-                //         });
-                //     }
-                // });
-
-                // this.map.on('mouseenter', 'clusters', function () {
-                //     self.map.getCanvas().style.cursor = 'pointer';
-                // });
-                // this.map.on('mouseleave', 'clusters', function () {
-                //     self.map.getCanvas().style.cursor = '';
-                // });
-
-                // this.map.on('mouseenter', 'unclustered-point', function () {
-                //     self.map.getCanvas().style.cursor = 'pointer';
-                // });
-                // this.map.on('mouseleave', 'unclustered-point', function () {
-                //     self.map.getCanvas().style.cursor = '';
-                // });
 
                 this.map.on('zoomend', function(e){
                     self.resizeMap();
                     self.updateMarkers();
-                    // console.log('zoomend')
                 });
             
                 this.$mapBus.$on('detailsCardToggled',()=>this.resizeMap());
@@ -908,7 +660,6 @@
                     'mobile-search-visible' : this.mobileSearchIsVisible
                 }
             },
-
             activeSpot() {
                 return this.$store.state.activeSpot;
             },
@@ -947,7 +698,7 @@
             // console.log(mapboxgl);
             this.map = new mapboxgl.Map({
                 container: 'map-wrapper',
-                style: 'mapbox://styles/mapbox/light-v10',
+                style: this.mapStyle,
                 // center: [-98.3810608, 37.9507756],
                 center: [-99.169510, 31.417772],
                 zoom:5.5

@@ -91,6 +91,7 @@ ul.style-switcher{
     max-height: 30px;
     width: 30px;
     overflow: hidden;
+    z-index:101;
     @include moveFast;
     li{
         width: 30px;

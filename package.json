@@ -34,7 +34,7 @@
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.5",
-        "mapbox-gl": "^0.53.0",
+        "mapbox-gl": "^1.1",
         "mapbox-gl-geocoder": "^2.0.1",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",

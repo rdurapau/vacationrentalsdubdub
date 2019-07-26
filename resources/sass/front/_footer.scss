@@ -68,7 +68,7 @@ footer{
             }//end last-child
             a{
                 text-decoration: none;
-                color: #666;
+                color: #ccc;
                 @include moveMe;
                 &:hover{
                     color: #45AEF1;
