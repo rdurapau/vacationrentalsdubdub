@@ -8,6 +8,15 @@
     width:100vw;
     overflow:hidden;
     flex-wrap:wrap;
+    padding-top:80px;
+    box-sizing:border-box;
+    @include mq('sm-desk') {
+        padding-top:50px;
+    }
+    @include mq('tablet') {
+        padding-top:120px;
+    }
+
     #main-map {
         flex: 1 1 auto;
         display:flex;
@@ -36,6 +45,7 @@
         // height:100vh;
     }
     .spot-slideout {
+        z-index:1001;
         flex:0 0 auto;
         // position:fixed;
         // height:100vh;
@@ -225,129 +235,132 @@
         }
     }
 
-    #map-search, .map-search, .mapboxgl-ctrl-geocoder input[type="text"] {
-        @include appearance(none);
-        @include fontBook();
-        background:none transparent;
-        border:none;
-        font-size:19px;
-        height:45px;
-        margin-bottom:1px;
-        box-sizing:border-box;
-        line-height:1em;
-        width:180px;
-        flex:0 0 auto;
-        padding:0;
-        // background:rgba(255,0,255,.3);
-        &.current-location {
-            color:$blue;
-        }
-    }
-
-    // Mapbox geocoder search box
-    .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
-        @include appearance(none);
-        @include fontBook();
-        width:auto;
-        border:none;
-        background: none transparent;
-        box-shadow:none;
-        // background:rgba(255,255,0,.2);
-        .geocoder-icon.geocoder-icon-search {
-            display:none;
-        }
-        .suggestions {
-            top:calc(100% + 10px);
-            // right:0;
+    #nah {
+        #map-search, .map-search, .mapboxgl-ctrl-geocoder input[type="text"] {
+            @include appearance(none);
+            @include fontBook();
+            background:none transparent;
+            border:none;
             font-size:19px;
-            line-height:20px;
-            width:330px;
-            left:auto;
-            right:-40px;
-            border-radius:7px;
+            height:45px;
+            margin-bottom:1px;
+            box-sizing:border-box;
+            line-height:1em;
+            width:180px;
+            flex:0 0 auto;
+            padding:0;
+            // background:rgba(255,0,255,.3);
+            &.current-location {
+                color:$blue;
+            }
+        }
+
+        // Mapbox geocoder search box
+        .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+            @include appearance(none);
+            @include fontBook();
+            width:auto;
+            border:none;
+            background: none transparent;
             box-shadow:none;
-            padding:7px 0;
-            li {
-                a {
-                    padding:15px 20px;
-                    strong {
-                        color:$blue;
-                        // @include fontBold();
+            // background:rgba(255,255,0,.2);
+            .geocoder-icon.geocoder-icon-search {
+                display:none;
+            }
+            .suggestions {
+                top:calc(100% + 10px);
+                // right:0;
+                font-size:19px;
+                line-height:20px;
+                width:330px;
+                left:auto;
+                right:-40px;
+                border-radius:7px;
+                box-shadow:none;
+                padding:7px 0;
+                li {
+                    a {
+                        padding:15px 20px;
+                        strong {
+                            color:$blue;
+                            // @include fontBold();
+                        }
                     }
                 }
             }
-        }
-        .geocoder-icon.geocoder-icon-close {
-            background:#fff;
-            height:22px;
-            width:22px;
-            opacity:.9;
-            top:50%;
-            margin-top:-11px;
-            &:before, &:after {
-                box-sizing:border-box;
-                display:block;
-                content:"";
-                position:absolute;
-                height:2px;
-                background:$light-grey;
-                border-radius:2px;
-                transition:background .2s;
-                top:10px;
-                left:0;
-                transform:rotate(-135deg);
+            .geocoder-icon.geocoder-icon-close {
+                background:#fff;
+                height:22px;
                 width:22px;
+                opacity:.9;
+                top:50%;
+                margin-top:-11px;
+                &:before, &:after {
+                    box-sizing:border-box;
+                    display:block;
+                    content:"";
+                    position:absolute;
+                    height:2px;
+                    background:$light-grey;
+                    border-radius:2px;
+                    transition:background .2s;
+                    top:10px;
+                    left:0;
+                    transform:rotate(-135deg);
+                    width:22px;
+                }
+                &:after{
+                    transform:rotate(135deg);
+                }
+                &:hover {
+                    &:after, &:before {
+                        background:$grey;
+                    }
+                }
             }
-            &:after{
-                transform:rotate(135deg);
-            }
-            &:hover {
-                &:after, &:before {
-                    background:$grey;
+            .geocoder-icon.geocoder-icon-loading {
+                background:none transparent;
+                background:#fff;
+                border-radius:50%;
+                animation:none;
+                width:40px;
+                height:40px;
+                top:50%;
+                margin-top:-20px;
+                right:0;
+                &:after {
+                    content:"";
+                    position:absolute;
+                    top:50%;
+                    left:50%;
+                    margin-left:-3px;
+                    margin-top:-3px;
+                    display:block;
+                    @include loader07(
+                        $color:$purple, 
+                        // $duration: .3s, 
+                        $size: 5px
+                    );
                 }
             }
         }
-        .geocoder-icon.geocoder-icon-loading {
-            background:none transparent;
-            background:#fff;
-            border-radius:50%;
-            animation:none;
-            width:40px;
-            height:40px;
-            top:50%;
-            margin-top:-20px;
-            right:0;
-            &:after {
-                content:"";
-                position:absolute;
-                top:50%;
-                left:50%;
-                margin-left:-3px;
-                margin-top:-3px;
-                display:block;
-                @include loader07(
-                    $color:$purple, 
-                    // $duration: .3s, 
-                    $size: 5px
-                );
-            }
+        
+
+        .button-wrapper {
+            width:24px;
+            height:24px;
+            margin-right:17px;
         }
-    }
 
-    .button-wrapper {
-        width:24px;
-        height:24px;
-        margin-right:17px;
-    }
-
-    button#clear-search {
-        @include appearance(none);
-        height:24px;
-        width:24px;
-        border:none;
-        padding:0;
-        background: transparent none;
-        position:relative;
+        button#clear-search {
+            @include appearance(none);
+            height:24px;
+            width:24px;
+            border:none;
+            padding:0;
+            background: transparent none;
+            position:relative;
+        }
     }
 
     $filter-icon-animation-duration: .2s;
