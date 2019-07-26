@@ -401,7 +401,7 @@
                     element: el,
                     offset: {
                         x: 0,
-                        y: -75
+                        y: -85
                     }
                 }).setLngLat(coords);
                 console.log(coords);
@@ -465,7 +465,7 @@
                             element: el,
                             offset: {
                                 x: 0,
-                                y: -75
+                                y: -85
                             }
                         }).setLngLat(coords);
 
