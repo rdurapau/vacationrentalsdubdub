@@ -25,20 +25,15 @@ class SpotController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->has('spot')) {
+            $initSpot = $request->get('spot');
+        } else {
+            $initSpot = false;
+        }
+
         $amenities = Amenity::all();
 
-        if ($request->session()->has('seen-welcome') || ($request->input('spot')) ) {
-            $welcome = 'false';
-        } else {
-            $welcome = 'true';
-            $request->session()->put('seen-welcome', true);
-        }        
-
-        // $welcome = 'true';
-
-        // dd($amenities->toArray());
-
-        return view('spots.index', compact('amenities','welcome'));
+        return view('spots.index', compact('amenities', 'initSpot'));
     }
 
     /**

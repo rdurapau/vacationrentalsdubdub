@@ -17,8 +17,8 @@ Vue.component('modals', Modals);
 import MapFooter from './components/MapFooter.vue';
 Vue.component('map-footer', MapFooter);
 
-import Welcome from './components/Welcome.vue';
-Vue.component('welcome', Welcome);
+import Welcome from './components/WelcomeMob.vue';
+Vue.component('welcome-mob', Welcome);
 
 // $editGameBus for passing non-state data between components
 Vue.prototype.$mapBus = new Vue();

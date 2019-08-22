@@ -157,7 +157,7 @@
                 popups : [],
                 // markers : {},
                 // markersOnScreen : {},
-                activeMarker: {},
+                // activeMarker: {},
                 hoverMarker: {},
                 mapSearch: '',
 
@@ -208,7 +208,7 @@
 
             },
             applyDropdownFilters() {
-                console.log('apply');
+                // console.log('apply');
                 Vue.set(this.activeFilters,'pets',this.filterDropdownData.pets);
                 Vue.set(this.activeFilters,'sleeps',this.filterDropdownData.sleeps);
                 this.applyFilters();
@@ -231,7 +231,7 @@
                         })
                         // .filter(feature => feature.properties.sleeps >= )
 
-                    console.log(Object.assign({},filteredData));
+                    // console.log(Object.assign({},filteredData));
 
                     this.map
                         .getSource('places')
@@ -261,12 +261,12 @@
             },
             resizeMap() {
                 this.map.resize();
-                Vue.nextTick(() => {
-                    if (this.activeMarker && (typeof this.activeMarker.getLngLat == 'function')) {
-                        console.log(this.activeMarker.getLngLat());
-                        // this.activeMarker.setLngLat(this.activeMarker.getLngLat());
-                    }
-                })
+                // Vue.nextTick(() => {
+                //     if (this.activeMarker && (typeof this.activeMarker.getLngLat == 'function')) {
+                //         // console.log(this.activeMarker.getLngLat());
+                //         // this.activeMarker.setLngLat(this.activeMarker.getLngLat());
+                //     }
+                // })
                 
                 
             },
@@ -285,11 +285,11 @@
             },
             geolocateStart() {
                 this.geolocationStatus = 'pending';
-                console.log(Object.assign({},this.geolocateControl));
+                // console.log(Object.assign({},this.geolocateControl));
             },
             geolocateEnd() {
                 this.geolocationStatus = '';
-                console.log(Object.assign({},this.geolocateControl));
+                // console.log(Object.assign({},this.geolocateControl));
             },
             
 
@@ -373,22 +373,24 @@
                 //     }
                 // }
 
+                this.activeSpotChanged();
+
                 this.gotoCoords(feature.geometry.coordinates);
-                Vue.nextTick(() =>{
-                    this.newActiveMarker(feature);                    
-                });
+                // Vue.nextTick(() =>{
+                //     this.newActiveMarker(feature);             
+                // });
             },
 
-            newActiveMarker(feature) {
-                this.hideActiveMarker();
-                this.activeMarker = this.showMarkerForSpot(feature);
-            },
+            // newActiveMarker(feature) {
+            //     this.hideActiveMarker();
+            //     this.activeMarker = this.showMarkerForSpot(feature);
+            // },
 
             newHoverMarker(feature) {
                 this.hideHoverMarker();
-                if (feature.id !== this.activeSpot.id) {
+                // if (feature.id !== this.activeSpot.id) {
                     this.hoverMarker = this.showMarkerForSpot(feature);
-                }
+                // }
             },
 
             showMarkerForSpot(feature) {
@@ -404,16 +406,16 @@
                         y: -85
                     }
                 }).setLngLat(coords);
-                console.log(coords);
+                // console.log(coords);
                 marker.addTo(this.map);
                 return marker;
             },
 
-            hideActiveMarker() {
-                if(!(Object.entries(this.activeMarker).length === 0 && this.activeMarker.constructor === Object)) {
-                    this.activeMarker.remove();
-                }
-            },
+            // hideActiveMarker() {
+            //     if(!(Object.entries(this.activeMarker).length === 0 && this.activeMarker.constructor === Object)) {
+            //         this.activeMarker.remove();
+            //     }
+            // },
 
             hideHoverMarker() {
                 if(!(Object.entries(this.hoverMarker).length === 0 && this.hoverMarker.constructor === Object)) {
@@ -538,7 +540,7 @@
                 
                 Vue.nextTick(() => {
                     // nextTick so that they are added after the map moves
-                    this.activeMarker = this.showMarkerForSpot(feature);
+                    // this.activeMarker = this.showMarkerForSpot(feature);
                     this.$store.dispatch('triggerNewActiveSpot', feature.id)
                         .then((response) => {this.newActiveSpot(feature)});
                 });
@@ -551,7 +553,7 @@
                     source: "places",
                     paint: {
                         "circle-color": "#fff",
-                        "circle-radius": 11
+                        "circle-radius": 9
                     }
                 });
                 this.map.addLayer({
@@ -559,8 +561,14 @@
                     type: "circle",
                     source: "places",
                     paint: {
-                        "circle-color": "#9080F0",
-                        "circle-radius": 7
+                        // "circle-color": "#9080F0",
+                        "circle-radius": 5,
+                        'circle-color': [
+                            'match',
+                            ['get', 'active'],
+                            1, '#45AEF1',
+                            /* other */ "#9080F0"
+                        ]
                     }
                 });
             },
@@ -569,6 +577,9 @@
 
                 // Assign the global geoJson to a variable so it can be filtered non-destructively
                 this.geoJson = geoJson;
+                this.geoJson.features.forEach(feature => {
+                    feature.properties.active = 0
+                })
                 this.map.addSource('places', {
                     type: 'geojson',
                     data: this.geoJson,
@@ -593,7 +604,7 @@
                     // types: 'postcode,district,place,locality,neighborhood'
                 });
                 document.getElementById('geocoder').appendChild(this.geocoder.onAdd(this.map));
-                this.geocoder.on('mounted', function(){console.log('loaded')});
+                // this.geocoder.on('mounted', function(){console.log('loaded')});
 
                 this.searchBarVisible = true;
 
@@ -624,6 +635,31 @@
                         layers: ['single-spot']
                     });
                     if (features.length) {
+                        // self.newActiveSpotOnMap();
+                        self.$store.dispatch('triggerNewActiveSpot', features[0].id)
+                            .then((response) => {self.newActiveSpot(features[0])});
+                    }
+                });
+
+                this.map.on('mouseenter', 'single-spot-border', function (e) {
+                    self.map.getCanvas().style.cursor = 'pointer';
+                    var features = self.map.queryRenderedFeatures(e.point, {
+                        layers: ['single-spot']
+                    });
+                    if (features.length) {
+                        self.newHoverMarker(features[0]);
+                    }
+                });
+                this.map.on('mouseleave', 'single-spot-border', function () {
+                    self.map.getCanvas().style.cursor = '';
+                    self.hideHoverMarker();
+                });
+
+                this.map.on('click', 'single-spot-border', function (e) {
+                    var features = self.map.queryRenderedFeatures(e.point, {
+                        layers: ['single-spot']
+                    });
+                    if (features.length) {
                         self.$store.dispatch('triggerNewActiveSpot', features[0].id)
                             .then((response) => {self.newActiveSpot(features[0])});
                     }
@@ -646,10 +682,22 @@
                 // setTimeout(() => this.checkForInitSpot(), 1000);
             },
             activeSpotChanged() {
-                console.log('changed');
-                if (!this.$store.state.activeSpot) {
-                    console.log('hide');
-                    this.hideActiveMarker();
+                // console.log('changed');
+                let activeSpot = this.$store.state.activeSpot;
+                this.hideHoverMarker();
+                if (activeSpot && activeSpot.hasOwnProperty('id')) {
+                    // console.log('hide');
+                    // this.hideActiveMarker();
+                    this.geoJson.features.forEach(geoFeature => {
+                        geoFeature.properties.active = (geoFeature.id === activeSpot.id) ? 1 : 0;
+                    });
+                    this.map.getSource('places').setData(this.geoJson);
+                }
+                else {
+                    this.geoJson.features.forEach(geoFeature => {
+                        geoFeature.properties.active = 0;
+                    });
+                    this.map.getSource('places').setData(this.geoJson);                    
                 }
             }
 
