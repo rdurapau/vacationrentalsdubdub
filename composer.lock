@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4fae414c2fce1f1048929d84b51ca57f",
+    "content-hash": "d6ce9c1c86197b1fffd8c79f63684e51",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -4744,6 +4744,74 @@
                 "environment"
             ],
             "time": "2019-06-15T22:40:20+00:00"
+        },
+        {
+            "name": "whitecube/nova-page",
+            "version": "v0.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whitecube/nova-page.git",
+                "reference": "1f017f7f46f28f6e2f033943ce58c6c23aada91d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whitecube/nova-page/zipball/1f017f7f46f28f6e2f033943ce58c6c23aada91d",
+                "reference": "1f017f7f46f28f6e2f033943ce58c6c23aada91d",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "orchestra/testbench": "^3.0",
+                "phpunit/phpunit": "7.1.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Whitecube\\NovaPage\\NovaPageServiceProvider",
+                        "Whitecube\\NovaPage\\NovaPageToolServiceProvider"
+                    ],
+                    "aliases": {
+                        "Page": "Whitecube\\NovaPage\\NovaPageFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whitecube\\NovaPage\\": "src/",
+                    "Tests\\": "tests/",
+                    "FakeTestApp\\": "tests/test-application/app"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toon Van den Bos",
+                    "email": "toon@whitecube.be"
+                },
+                {
+                    "name": "Adrien Leloup",
+                    "email": "adrien@whitecube.be"
+                }
+            ],
+            "description": "Static pages content management for Laravel Nova",
+            "keywords": [
+                "cms",
+                "content",
+                "flatfile",
+                "laravel",
+                "nova",
+                "page",
+                "wysiwyg"
+            ],
+            "time": "2019-07-26T15:19:07+00:00"
         }
     ],
     "packages-dev": [

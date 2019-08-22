@@ -13,15 +13,17 @@ div.tos{
             font-size: 32px;
         }
     }//end h1
-    h3{
-        font-size: 15px;
-        @include fontBold;
-        padding-bottom: 25px;
-    }//end h3
-    p{
-        @include fontBook;
-        font-size: 14px;
-        line-height: 20px;
-        padding-bottom: 25px;
-    }//end p
+    .dynamic-body {
+        h1{
+            font-size: 15px;
+            @include fontBold;
+            padding-bottom: 25px;
+        }//end h3
+        p, div{
+            @include fontBook;
+            font-size: 14px;
+            line-height: 20px;
+            padding-bottom: 25px;
+        }//end p
+    }
 }//end tos

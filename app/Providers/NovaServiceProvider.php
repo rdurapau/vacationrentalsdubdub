@@ -80,7 +80,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function tools()
     {
-        return [];
+        return [
+            \Whitecube\NovaPage\NovaPageTool::make(),
+        ];
     }
 
     /**

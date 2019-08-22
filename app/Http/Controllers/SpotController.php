@@ -12,6 +12,8 @@ use App\Mail\SpotSubmitted;
 use App\Events\SpotWasSubmitted;
 use App\Events\SpotWasUpdated;
 
+use Whitecube\NovaPage\Pages\Manager as NovaPageManager;
+
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -23,7 +25,7 @@ class SpotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, NovaPageManager $page)
     {
         if ($request->has('spot')) {
             $initSpot = $request->get('spot');
@@ -31,9 +33,22 @@ class SpotController extends Controller
             $initSpot = false;
         }
 
+        $staticContent = [
+            'tos' => [
+                'heading' => $page->option('termsOfService')->heading,
+                'body' => $page->option('termsOfService')->body,
+            ],
+            'about' => [
+                'heading' => $page->option('about')->heading,
+                'body' => $page->option('about')->body,
+            ]
+        ];
+
+        // dd(json_encode($staticContent));
+
         $amenities = Amenity::all();
 
-        return view('spots.index', compact('amenities', 'initSpot'));
+        return view('spots.index', compact('amenities', 'initSpot','staticContent'));
     }
 
     /**

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Whitecube\NovaPage\Pages\Manager as NovaPagesManager;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\Resource;
@@ -24,10 +26,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(NovaPagesManager $pages)
     {
         // Added to get Heroku working
         Schema::defaultStringLength(191);
+
+        $pages->register('option', 'termsOfService', \App\Nova\Templates\TermsOfService::class);
+        $pages->register('option', 'about', \App\Nova\Templates\About::class);
 
 
         // Relation::morphMap([

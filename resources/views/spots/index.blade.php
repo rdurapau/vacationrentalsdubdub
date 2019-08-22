@@ -34,7 +34,9 @@
 <body>
 
     <div id="im-the-map">
-        <modals></modals>
+        <modals
+            :content='{!! json_encode($staticContent) !!}'
+        ></modals>
 
         <welcome-mob
             v-if="{{$initSpot ? 'false' : 'true'}}"

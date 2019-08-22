@@ -179,6 +179,9 @@ section.modal-background{
             display: flex;
             flex-grow: 1;
             flex-direction: row;
+            max-height: calc(100% - 60px);
+            position: relative;
+            overflow-y: scroll;
             div.column{
                 display: flex;
                 flex-grow: 1;

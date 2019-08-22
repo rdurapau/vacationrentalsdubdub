@@ -48,7 +48,7 @@ div.about-us{
                     font-size: 32px;
                 }
             }//end h1
-            h2{
+            h2, .dynamic-body h1 {
                 font-size: 20px;
                 @include fontBold;
                 padding-bottom: 25px;
@@ -65,12 +65,15 @@ div.about-us{
                     padding-bottom:0;
                 }
             }//end h3
-            p{
+            p, .dynamic-body div{
                 @include fontBook;
                 font-size: 14px;
                 line-height: 20px;
                 padding-bottom: 25px;
             }//end p
+            .dynamic-body {
+                flex:0 0 auto;
+            }
             @include mq('sm-desk'){
                 flex-basis: auto;
                 &:first-child{

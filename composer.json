@@ -29,7 +29,8 @@
         "sweet-spot/moderate-submission": "*",
         "sweet-spot/pending-submissions": "*",
         "sweet-spot/sweet-theme": "*",
-        "test/test": "*"
+        "test/test": "*",
+        "whitecube/nova-page": "^0.2.3"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
