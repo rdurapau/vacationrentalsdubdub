@@ -294,7 +294,7 @@ class MorphToMany extends Field implements DeletableContract, ListableField
     /**
      * Set the displayable singular label of the resource.
      *
-     * @return string
+     * @return $this
      */
     public function singularLabel($singularLabel)
     {

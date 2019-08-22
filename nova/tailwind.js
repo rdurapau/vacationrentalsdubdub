@@ -24,6 +24,14 @@ let colors = {
     40: 'var(--40)',
     30: 'var(--30)',
     20: 'var(--20)',
+    'warning-light': 'var(--warning-light)',
+    'warning-dark': 'var(--warning-dark)',
+    'success-light': 'var(--success-light)',
+    'success-dark': 'var(--success-dark)',
+    'danger-light': 'var(--danger-light)',
+    'danger-dark': 'var(--danger-dark)',
+    'info-light': 'var(--info-light)',
+    'info-dark': 'var(--info-dark)',
 }
 
 let svgFillColors = global.Object.assign({ current: 'currentColor' }, colors)
@@ -40,18 +48,6 @@ module.exports = {
 
     fonts: {
         sans: ['Nunito', 'system-ui', 'BlinkMacSystemFont', '-apple-system', 'sans-serif'],
-        serif: [
-            'Constantia',
-            'Lucida Bright',
-            'Lucidabright',
-            'Lucida Serif',
-            'Lucida',
-            'DejaVu Serif',
-            'Bitstream Vera Serif',
-            'Liberation Serif',
-            'Georgia',
-            'serif',
-        ],
         mono: ['Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
     },
 
@@ -146,7 +142,8 @@ module.exports = {
         '16': '4rem',
         // '24': '6rem',
         // '32': '8rem',
-        // '48': '12rem',
+        '40': '10rem',
+        '48': '12rem',
         // '64': '16rem',
         search: '18.75rem',
         '1/2': '50%',
@@ -199,10 +196,12 @@ module.exports = {
         '24': '6rem',
         site: '80rem',
         full: '100%',
+        'table-cell': '56px',
     },
 
     minHeight: {
         '0': '0',
+        input: '3rem',
         textarea: '4.875rem',
         full: '100%',
         screen: '100vh',
@@ -254,6 +253,7 @@ module.exports = {
         '4': '1rem',
         '6': '1.5rem',
         '8': '2rem',
+        '11': '2.75rem',
     },
 
     negativeMargin: {
@@ -302,7 +302,7 @@ module.exports = {
     modules: {
         appearance: ['responsive'],
         backgroundAttachment: ['responsive'],
-        backgroundColors: ['responsive', 'hover'],
+        backgroundColors: ['responsive', 'hover', 'focus', 'active'],
         backgroundPosition: ['responsive'],
         backgroundRepeat: ['responsive'],
         backgroundSize: ['responsive'],

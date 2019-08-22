@@ -25,8 +25,16 @@
   --60: #bacad6;
   --70: #b3b9bf;
   --80: #7c858e;
-  --90: #252d37;
+  --90: #3c4b5f;
   --90-half: rgba(40, 54, 61, 0.5);
+  --warning-light: #fefcbf;
+  --warning-dark: #b7791f;
+  --success-light: #c6f6d5;
+  --success-dark: #38a169;
+  --danger-light: #fed7d7;
+  --danger-dark: #e53e3e;
+  --info-light: #bee3f8;
+  --info-dark: #3182ce;
 }
 
 /* Vue
@@ -57,6 +65,7 @@ input[type='search']::-webkit-search-cancel-button {
 ---------------------------------------------------------------------------- */
 .bg-grad-sidebar {
   background-image: linear-gradient(0deg, #7e8ea1 0%, #3c4655 100%);
+  background-attachment: fixed;
 }
 
 /* Custom Padding
@@ -109,7 +118,7 @@ input[type='search']::-webkit-search-cancel-button {
 }
 
 .table td {
-  @apply .font-light .text-90 .border-t .border-b .border-50 .px-3 .align-middle;
+  @apply .font-light .text-90 .border-t .border-b .border-50 .px-3 .align-middle min-w-table-cell;
   height: 3.8125rem;
 }
 
@@ -153,6 +162,14 @@ input[type='search']::-webkit-search-cancel-button {
   @apply .bg-white .border .border-60 .px-3 .text-80 .rounded-lg .shadow;
 }
 
+.form-input-row {
+  @apply bg-white px-3 text-80;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  height: 3rem;
+}
+
 .form-select {
   @apply .bg-white .border .border-60 .pl-3 .pr-8 .rounded-lg .text-80 .shadow;
   appearance: none;
@@ -181,6 +198,10 @@ textarea.form-input:read-only,
   cursor: not-allowed;
 }
 
+.\!bg-white {
+  @apply bg-white !important;
+}
+
 .form-select:focus {
   @apply .form-control-focus;
 }
@@ -206,6 +227,23 @@ textarea.form-input:read-only,
 
 .checkbox:focus {
   box-shadow: 0 0 8px config('colors.primary');
+}
+
+/* Boolean
+---------------------------------------------------------------------------- */
+.boolean-field {
+  height: 0px !important;
+  font-weight: bold;
+}
+.boolean-field-false:before {
+  content: '\00d7';
+  color: var(--danger);
+  font-size: 125%;
+  margin-top: -7px !important;
+}
+.boolean-field-true:before {
+  content: '\2713';
+  color: var(--success);
 }
 
 /* File Upload
@@ -449,12 +487,6 @@ textarea.form-input:read-only,
   background-position: center right 0.75rem;
 }
 
-/* White Fade for excerpts
----------------------------------------------------------------------------- */
-.white-fade {
-  background: url('/img/white-fade.png');
-}
-
 /* Rotate
 ---------------------------------------------------------------------------- */
 .rotate-180 {
@@ -651,8 +683,9 @@ textarea.form-input:read-only,
 /* Chartist
 -----------------------------------------------------------------------------*/
 .chartist-tooltip {
-  min-width: 14em !important;
-  padding: 0.2em !important;
+  min-width: 0 !important;
+  white-space: nowrap;
+  padding: 0.2em 1em !important;
   background: var(--white) !important;
   color: var(--primary) !important;
   @apply rounded border border-60 shadow font-sans !important;
@@ -836,6 +869,39 @@ textarea.form-input:read-only,
 .ct-point {
   stroke: var(--primary) !important;
   stroke-width: 6px !important;
+}
+
+/* Trix
+---------------------------------------------------------------------------- */
+trix-editor {
+  @apply rounded-lg;
+}
+
+.disabled trix-editor,
+.disabled trix-toolbar {
+  pointer-events: none;
+}
+
+.disabled trix-editor {
+  background-color: var(--30);
+}
+
+.disabled trix-toolbar {
+  display: none !important;
+}
+
+trix-editor:empty:not(:focus)::before {
+  color: var(--70);
+}
+
+trix-editor.disabled {
+  pointer-events: none;
+}
+
+/* Cursor
+---------------------------------------------------------------------------- */
+.cursor-text {
+  cursor: text;
 }
 
 /* Tailwind Utilities

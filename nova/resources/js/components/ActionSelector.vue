@@ -65,7 +65,7 @@
                 :action="selectedAction"
                 :errors="errors"
                 @confirm="executeAction"
-                @close="confirmActionModalOpened = false"
+                @close="closeConfirmationModal"
             />
         </transition>
         <!-- </portal> -->
@@ -154,6 +154,7 @@ export default {
          */
         closeConfirmationModal() {
             this.confirmActionModalOpened = false
+            this.errors = new Errors()
         },
 
         /**
@@ -232,6 +233,10 @@ export default {
                 document.body.removeChild(link)
             } else if (response.redirect) {
                 window.location = response.redirect
+            } else if (response.push) {
+                this.$router.push(response.push)
+            } else if (response.openInNewTab) {
+                window.open(response.openInNewTab, '_blank')
             } else {
                 this.$emit('actionExecuted')
                 this.$toasted.show(this.__('The action ran successfully!'), { type: 'success' })

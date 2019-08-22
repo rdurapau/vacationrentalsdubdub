@@ -144,7 +144,15 @@ class MorphTo extends Field
      */
     public function resolve($resource, $attribute = null)
     {
-        $value = $resource->{$this->attribute}()->withoutGlobalScopes()->getResults();
+        $value = null;
+
+        if ($resource->relationLoaded($this->attribute)) {
+            $value = $resource->getRelation($this->attribute);
+        }
+
+        if (! $value) {
+            $value = $resource->{$this->attribute}()->withoutGlobalScopes()->getResults();
+        }
 
         [$this->morphToId, $this->morphToType] = [
             optional($value)->getKey(),
@@ -160,6 +168,18 @@ class MorphTo extends Field
                 $value, Nova::resourceForModel($value)
             );
         }
+    }
+
+    /**
+     * Resolve the field's value for display.
+     *
+     * @param  mixed  $resource
+     * @param  string|null  $attribute
+     * @return void
+     */
+    public function resolveForDisplay($resource, $attribute = null)
+    {
+        //
     }
 
     /**
@@ -241,13 +261,13 @@ class MorphTo extends Field
             );
         }
 
-        $foreignKey = $model->{$this->attribute}()->getForeignKeyName();
+        $foreignKey = $this->getRelationForeignKeyName($model->{$this->attribute}());
 
         if ($model->isDirty([$morphType, $foreignKey])) {
             $model->unsetRelation($this->attribute);
         }
 
-        parent::fillInto($request, $model, $model->{$this->attribute}()->getForeignKeyName());
+        parent::fillInto($request, $model, $foreignKey);
     }
 
     /**
@@ -418,7 +438,7 @@ class MorphTo extends Field
      * Get the column that should be displayed for a given type.
      *
      * @param  string  $type
-     * @return \Closure
+     * @return \Closure|null
      */
     public function displayFor($type)
     {

@@ -25,6 +25,8 @@ class Panel extends MergeValue implements JsonSerializable
 
     /**
      * The panel's component.
+     *
+     * @var string
      */
     public $component = 'panel';
 
@@ -68,9 +70,37 @@ class Panel extends MergeValue implements JsonSerializable
      * @param  \Laravel\Nova\Resource  $resource
      * @return string
      */
-    public static function defaultNameFor(Resource $resource)
+    public static function defaultNameForDetail(Resource $resource)
     {
-        return $resource->singularLabel().' '.__('Details');
+        return __(':resource Details', [
+            'resource' => $resource->singularLabel(),
+        ]);
+    }
+
+    /**
+     * Get the default panel name for a create panel.
+     *
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return string
+     */
+    public static function defaultNameForCreate(Resource $resource)
+    {
+        return __('Create :resource', [
+            'resource' => $resource->singularLabel(),
+        ]);
+    }
+
+    /**
+     * Get the default panel name for the update panel.
+     *
+     * @param  \Laravel\Nova\Resource  $resource
+     * @return string
+     */
+    public static function defaultNameForUpdate(Resource $resource)
+    {
+        return __('Update :resource', [
+            'resource' => $resource->singularLabel(),
+        ]);
     }
 
     /**
@@ -88,7 +118,7 @@ class Panel extends MergeValue implements JsonSerializable
     /**
      * Set the Vue component key for the panel.
      *
-     * @param string $component
+     * @param  string  $component
      * @return $this
      */
     public function withComponent($component)

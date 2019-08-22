@@ -119,7 +119,7 @@ class ThemeCommand extends Command
      */
     protected function composerUpdate()
     {
-        $this->runCommand('composer update', getcwd());
+        $this->executeCommand('composer update', getcwd());
     }
 
     /**
@@ -129,7 +129,7 @@ class ThemeCommand extends Command
      * @param  string  $path
      * @return void
      */
-    protected function runCommand($command, $path)
+    protected function executeCommand($command, $path)
     {
         $process = (new Process($command, $path))->setTimeout(null);
 

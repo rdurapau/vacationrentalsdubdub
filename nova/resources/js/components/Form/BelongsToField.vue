@@ -2,7 +2,7 @@
     <default-field :field="field" :errors="errors">
         <template slot="field">
             <search-input
-                v-if="isSearchable && !isLocked"
+                v-if="isSearchable && !isLocked && !isReadonly"
                 :data-testid="`${field.resourceName}-search-input`"
                 @input="performSearch"
                 @clear="clearSelection"
@@ -10,6 +10,7 @@
                 :error="hasError"
                 :value="selectedResource"
                 :data="availableResources"
+                :clearable="field.nullable"
                 trackBy="value"
                 searchBy="display"
                 class="mb-3"
@@ -32,14 +33,15 @@
             </search-input>
 
             <select-control
-                v-if="!isSearchable || isLocked"
+                v-if="!isSearchable || isLocked || isReadonly"
                 class="form-control form-select mb-3 w-full"
                 :class="{ 'border-danger': hasError }"
                 :data-testid="`${field.resourceName}-select`"
                 :dusk="field.attribute"
                 @change="selectResourceFromSelectControl"
-                :disabled="isLocked"
+                :disabled="isLocked || isReadonly"
                 :options="availableResources"
+                :value="selectedResourceId"
                 :selected="selectedResourceId"
                 label="display"
             >
@@ -47,7 +49,7 @@
             </select-control>
 
             <!-- Trashed State -->
-            <div v-if="softDeletes && !isLocked">
+            <div v-if="softDeletes && !isLocked && !isReadonly">
                 <checkbox-with-label
                     :dusk="`${field.resourceName}-with-trashed-checkbox`"
                     :checked="withTrashed"
@@ -64,12 +66,12 @@
 import _ from 'lodash'
 import storage from '@/storage/BelongsToFieldStorage'
 import { TogglesTrashed, PerformsSearches, HandlesValidationErrors } from 'laravel-nova'
-import { mixin as clickaway } from 'vue-clickaway'
 
 export default {
     mixins: [TogglesTrashed, PerformsSearches, HandlesValidationErrors],
     props: {
         resourceName: String,
+        resourceId: {},
         field: Object,
         viaResource: {},
         viaResourceId: {},
@@ -256,12 +258,17 @@ export default {
                     first: this.initializingWithExistingResource,
                     search: this.search,
                     withTrashed: this.withTrashed,
+                    resourceId: this.resourceId,
                 },
             }
         },
 
         isLocked() {
             return this.viaResource == this.field.resourceName && this.field.reverse
+        },
+
+        isReadonly() {
+            return this.field.readonly || _.get(this.field, 'extraAttributes.readonly')
         },
     },
 }

@@ -2,7 +2,8 @@
     <div>
         <default-field :field="field" :show-errors="false" :field-name="fieldName">
             <select
-                :disabled="isLocked"
+                v-if="hasMorphToTypes"
+                :disabled="isLocked || isReadonly"
                 :data-testid="`${field.attribute}-type`"
                 :dusk="`${field.attribute}-type`"
                 slot="field"
@@ -23,6 +24,10 @@
                     {{ option.singularLabel }}
                 </option>
             </select>
+
+            <label v-else slot="field" class="flex items-center select-none mt-3">
+                {{ __('There are no available options for this resource.') }}
+            </label>
         </default-field>
 
         <default-field
@@ -30,17 +35,19 @@
             :errors="errors"
             :show-help-text="false"
             :field-name="fieldTypeName"
+            v-if="hasMorphToTypes"
         >
             <template slot="field">
                 <search-input
-                    v-if="isSearchable && !isLocked"
+                    v-if="isSearchable && !isLocked && !isReadonly"
                     :data-testid="`${field.attribute}-search-input`"
-                    :disabled="!resourceType || isLocked"
+                    :disabled="!resourceType || isLocked || isReadonly"
                     @input="performSearch"
                     @clear="clearSelection"
                     @selected="selectResource"
                     :value="selectedResource"
                     :data="availableResources"
+                    :clearable="field.nullable"
                     trackBy="value"
                     searchBy="display"
                     class="mb-3"
@@ -65,14 +72,16 @@
                     </div>
                 </search-input>
 
-                <select
+                <select-control
                     v-if="!isSearchable || isLocked"
-                    :data-testid="`${field.attribute}-select`"
-                    :dusk="`${field.attribute}-select`"
                     class="form-control form-select mb-3 w-full"
                     :class="{ 'border-danger': hasError }"
-                    :disabled="!resourceType || isLocked"
+                    :dusk="`${field.attribute}-select`"
                     @change="selectResourceFromSelectControl"
+                    :disabled="!resourceType || isLocked || isReadonly"
+                    :options="availableResources"
+                    :selected="selectedResourceId"
+                    label="display"
                 >
                     <option
                         value=""
@@ -81,19 +90,10 @@
                     >
                         {{ __('Choose') }} {{ fieldTypeName }}
                     </option>
-
-                    <option
-                        v-for="resource in availableResources"
-                        :key="resource.value"
-                        :value="resource.value"
-                        :selected="selectedResourceId == resource.value"
-                    >
-                        {{ resource.display }}
-                    </option>
-                </select>
+                </select-control>
 
                 <!-- Trashed State -->
-                <div v-if="softDeletes && !isLocked">
+                <div v-if="softDeletes && !isLocked && !isReadonly">
                     <checkbox-with-label
                         :dusk="field.attribute + '-with-trashed-checkbox'"
                         :checked="withTrashed"
@@ -325,6 +325,20 @@ export default {
             }
 
             return ''
+        },
+
+        /**
+         * Determine if the field is set to readonly.
+         */
+        isReadonly() {
+            return this.field.readonly || _.get(this.field, 'extraAttributes.readonly')
+        },
+
+        /**
+         * Determine whether there are any morph to types.
+         */
+        hasMorphToTypes() {
+            return this.field.morphToTypes.length > 0
         },
     },
 }

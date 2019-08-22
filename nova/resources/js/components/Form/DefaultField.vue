@@ -1,10 +1,10 @@
 <template>
-    <field-wrapper>
-        <div class="w-1/5 py-6 px-8">
+    <field-wrapper :stacked="field.stacked">
+        <div class="w-1/5 px-8" :class="field.stacked ? 'pt-6' : 'py-6'">
             <slot>
                 <form-label
                     :label-for="field.attribute"
-                    :class="{ 'mb-2': field.helpText && showHelpText }"
+                    :class="{ 'mb-2': showHelpText && field.helpText }"
                 >
                     {{ fieldLabel }}
                 </form-label>
@@ -13,7 +13,7 @@
         <div class="py-6 px-8" :class="fieldClasses">
             <slot name="field" />
 
-            <help-text class="error-text mt-2 text-danger" v-if="hasError && showErrors">
+            <help-text class="error-text mt-2 text-danger" v-if="showErrors && hasError">
                 {{ firstError }}
             </help-text>
 
@@ -37,9 +37,11 @@ export default {
     },
 
     computed: {
+        /**
+         * Return the label that should be used for the field.
+         */
         fieldLabel() {
-            // If the field name is purposefully an empty string, then
-            // let's show it as such
+            // If the field name is purposefully an empty string, then let's show it as such
             if (this.fieldName === '') {
                 return ''
             }
@@ -47,8 +49,11 @@ export default {
             return this.fieldName || this.field.singularLabel || this.field.name
         },
 
+        /**
+         * Return the classes that should be used for the field content.
+         */
         fieldClasses() {
-            return this.fullWidthContent ? 'w-4/5' : 'w-1/2'
+            return this.fullWidthContent ? (this.field.stacked ? 'w-full' : 'w-4/5') : 'w-1/2'
         },
     },
 }

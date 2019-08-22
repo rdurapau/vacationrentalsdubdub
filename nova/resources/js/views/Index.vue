@@ -18,13 +18,14 @@
             />
         </div>
 
-        <heading v-if="resourceResponse" class="mb-3">{{ headingTitle }}</heading>
+        <heading :level="1" class="mb-3" v-html="headingTitle" />
 
         <div class="flex">
             <!-- Search -->
             <div
                 v-if="resourceInformation.searchable && !viaHasOne"
-                class="relative h-9 mb-6 flex-no-shrink"
+                class="relative h-9 flex-no-shrink"
+                :class="{ 'mb-6': resourceInformation.searchable && !viaHasOne }"
             >
                 <icon type="search" class="absolute search-icon-center ml-3 text-70" />
 
@@ -40,7 +41,7 @@
                 />
             </div>
 
-            <div class="w-full flex items-center mb-6">
+            <div class="w-full flex items-center" :class="{ 'mb-6': !viaResource }">
                 <custom-index-toolbar v-if="!viaResource" :resource-name="resourceName" />
 
                 <!-- Create / Attach Button -->
@@ -54,12 +55,19 @@
                     :authorized-to-create="authorizedToCreate && !resourceIsFull"
                     :authorized-to-relate="authorizedToRelate"
                     class="flex-no-shrink ml-auto"
+                    :class="{ 'mb-6': viaResource }"
                 />
             </div>
         </div>
 
-        <loading-card :loading="loading">
-            <div class="py-3 flex items-center border-b border-50">
+        <card>
+            <div
+                class="flex items-center"
+                :class="{
+                    'py-3 border-b border-50':
+                        shouldShowCheckBoxes || shouldShowDeleteMenu || softDeletes || !viaResource,
+                }"
+            >
                 <div class="flex items-center">
                     <div class="px-3" v-if="shouldShowCheckBoxes">
                         <!-- Select All -->
@@ -149,6 +157,7 @@
                         :via-has-one="viaHasOne"
                         :trashed="trashed"
                         :per-page="perPage"
+                        :per-page-options="perPageOptions"
                         @clear-selected-filters="clearSelectedFilters"
                         @filter-changed="filterChanged"
                         @trashed-changed="trashedChanged"
@@ -189,95 +198,88 @@
                 </div>
             </div>
 
-            <div v-if="!resources.length" class="flex justify-center items-center px-6 py-8">
-                <div class="text-center">
-                    <svg
-                        class="mb-3"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="65"
-                        height="51"
-                        viewBox="0 0 65 51"
-                    >
-                        <g id="Page-1" fill="none" fill-rule="evenodd">
-                            <g
-                                id="05-blank-state"
+            <loading-view :loading="loading">
+                <div v-if="!resources.length" class="flex justify-center items-center px-6 py-8">
+                    <div class="text-center">
+                        <svg
+                            class="mb-3"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="65"
+                            height="51"
+                            viewBox="0 0 65 51"
+                        >
+                            <path
                                 fill="#A8B9C5"
-                                fill-rule="nonzero"
-                                transform="translate(-779 -695)"
-                            >
-                                <path
-                                    id="Combined-Shape"
-                                    d="M835 735h2c.552285 0 1 .447715 1 1s-.447715 1-1 1h-2v2c0 .552285-.447715 1-1 1s-1-.447715-1-1v-2h-2c-.552285 0-1-.447715-1-1s.447715-1 1-1h2v-2c0-.552285.447715-1 1-1s1 .447715 1 1v2zm-5.364125-8H817v8h7.049375c.350333-3.528515 2.534789-6.517471 5.5865-8zm-5.5865 10H785c-3.313708 0-6-2.686292-6-6v-30c0-3.313708 2.686292-6 6-6h44c3.313708 0 6 2.686292 6 6v25.049375c5.053323.501725 9 4.765277 9 9.950625 0 5.522847-4.477153 10-10 10-5.185348 0-9.4489-3.946677-9.950625-9zM799 725h16v-8h-16v8zm0 2v8h16v-8h-16zm34-2v-8h-16v8h16zm-52 0h16v-8h-16v8zm0 2v4c0 2.209139 1.790861 4 4 4h12v-8h-16zm18-12h16v-8h-16v8zm34 0v-8h-16v8h16zm-52 0h16v-8h-16v8zm52-10v-4c0-2.209139-1.790861-4-4-4h-44c-2.209139 0-4 1.790861-4 4v4h52zm1 39c4.418278 0 8-3.581722 8-8s-3.581722-8-8-8-8 3.581722-8 8 3.581722 8 8 8z"
-                                />
-                            </g>
-                        </g>
-                    </svg>
+                                d="M56 40h2c.552285 0 1 .447715 1 1s-.447715 1-1 1h-2v2c0 .552285-.447715 1-1 1s-1-.447715-1-1v-2h-2c-.552285 0-1-.447715-1-1s.447715-1 1-1h2v-2c0-.552285.447715-1 1-1s1 .447715 1 1v2zm-5.364125-8H38v8h7.049375c.350333-3.528515 2.534789-6.517471 5.5865-8zm-5.5865 10H6c-3.313708 0-6-2.686292-6-6V6c0-3.313708 2.686292-6 6-6h44c3.313708 0 6 2.686292 6 6v25.049375C61.053323 31.5511 65 35.814652 65 41c0 5.522847-4.477153 10-10 10-5.185348 0-9.4489-3.946677-9.950625-9zM20 30h16v-8H20v8zm0 2v8h16v-8H20zm34-2v-8H38v8h16zM2 30h16v-8H2v8zm0 2v4c0 2.209139 1.790861 4 4 4h12v-8H2zm18-12h16v-8H20v8zm34 0v-8H38v8h16zM2 20h16v-8H2v8zm52-10V6c0-2.209139-1.790861-4-4-4H6C3.790861 2 2 3.790861 2 6v4h52zm1 39c4.418278 0 8-3.581722 8-8s-3.581722-8-8-8-8 3.581722-8 8 3.581722 8 8 8z"
+                            />
+                        </svg>
 
-                    <h3 class="text-base text-80 font-normal mb-6">
-                        {{
-                            __('No :resource matched the given criteria.', {
-                                resource: singularName.toLowerCase(),
-                            })
-                        }}
-                    </h3>
+                        <h3 class="text-base text-80 font-normal mb-6">
+                            {{
+                                __('No :resource matched the given criteria.', {
+                                    resource: singularName.toLowerCase(),
+                                })
+                            }}
+                        </h3>
 
-                    <create-resource-button
-                        classes="btn btn-sm btn-outline inline-flex items-center"
-                        :singular-name="singularName"
+                        <create-resource-button
+                            classes="btn btn-sm btn-outline inline-flex items-center"
+                            :singular-name="singularName"
+                            :resource-name="resourceName"
+                            :via-resource="viaResource"
+                            :via-resource-id="viaResourceId"
+                            :via-relationship="viaRelationship"
+                            :relationship-type="relationshipType"
+                            :authorized-to-create="authorizedToCreate && !resourceIsFull"
+                            :authorized-to-relate="authorizedToRelate"
+                        >
+                        </create-resource-button>
+                    </div>
+                </div>
+
+                <div class="overflow-hidden overflow-x-auto relative">
+                    <!-- Resource Table -->
+                    <resource-table
+                        :authorized-to-relate="authorizedToRelate"
                         :resource-name="resourceName"
+                        :resources="resources"
+                        :singular-name="singularName"
+                        :selected-resources="selectedResources"
+                        :selected-resource-ids="selectedResourceIds"
+                        :actions-are-available="allActions.length > 0"
+                        :should-show-checkboxes="shouldShowCheckBoxes"
                         :via-resource="viaResource"
                         :via-resource-id="viaResourceId"
                         :via-relationship="viaRelationship"
                         :relationship-type="relationshipType"
-                        :authorized-to-create="authorizedToCreate && !resourceIsFull"
-                        :authorized-to-relate="authorizedToRelate"
-                    >
-                    </create-resource-button>
+                        :update-selection-status="updateSelectionStatus"
+                        @order="orderByField"
+                        @delete="deleteResources"
+                        @restore="restoreResources"
+                        ref="resourceTable"
+                    />
                 </div>
-            </div>
 
-            <div class="overflow-hidden overflow-x-auto relative">
-                <!-- Resource Table -->
-                <resource-table
-                    :authorized-to-relate="authorizedToRelate"
-                    :resource-name="resourceName"
-                    :resources="resources"
-                    :singular-name="singularName"
-                    :selected-resources="selectedResources"
-                    :selected-resource-ids="selectedResourceIds"
-                    :actions-are-available="allActions.length > 0"
-                    :should-show-checkboxes="shouldShowCheckBoxes"
-                    :via-resource="viaResource"
-                    :via-resource-id="viaResourceId"
-                    :via-relationship="viaRelationship"
-                    :relationship-type="relationshipType"
-                    :update-selection-status="updateSelectionStatus"
-                    @order="orderByField"
-                    @delete="deleteResources"
-                    @restore="restoreResources"
-                    ref="resourceTable"
-                />
-            </div>
-
-            <!-- Pagination -->
-            <component
-                :is="paginationComponent"
-                v-if="resourceResponse && resources.length > 0"
-                :next="hasNextPage"
-                :previous="hasPreviousPage"
-                @page="selectPage"
-                :pages="totalPages"
-                :page="currentPage"
-            >
-                <span
-                    v-if="resourceCountLabel"
-                    class="text-sm text-80 px-4"
-                    :class="{ 'ml-auto': paginationComponent == 'pagination-links' }"
+                <!-- Pagination -->
+                <component
+                    :is="paginationComponent"
+                    v-if="resourceResponse && resources.length > 0"
+                    :next="hasNextPage"
+                    :previous="hasPreviousPage"
+                    @page="selectPage"
+                    :pages="totalPages"
+                    :page="currentPage"
                 >
-                    {{ resourceCountLabel }}
-                </span>
-            </component>
-        </loading-card>
+                    <span
+                        v-if="resourceCountLabel"
+                        class="text-sm text-80 px-4"
+                        :class="{ 'ml-auto': paginationComponent == 'pagination-links' }"
+                    >
+                        {{ resourceCountLabel }}
+                    </span>
+                </component>
+            </loading-view>
+        </card>
     </loading-view>
 </template>
 
@@ -389,7 +391,7 @@ export default {
                     this.encodedFilters +
                     this.currentSearch +
                     this.currentPage +
-                    this.currentPerPage +
+                    this.perPage +
                     this.currentOrderBy +
                     this.currentOrderByDirection +
                     this.currentTrashed
@@ -397,11 +399,6 @@ export default {
             },
             () => {
                 this.getResources()
-
-                this.initializeSearchFromQueryString()
-                this.initializePerPageFromQueryString()
-                this.initializeTrashedFromQueryString()
-                this.initializeOrderingFromQueryString()
             }
         )
 
@@ -412,7 +409,9 @@ export default {
             })
 
             this.actionEventsRefresher = setInterval(() => {
-                this.getResources()
+                if (document.hasFocus()) {
+                    this.getResources()
+                }
             }, 15 * 1000)
         }
     },
@@ -440,6 +439,7 @@ export default {
         handleKeydown(e) {
             // `c`
             if (
+                this.authorizedToCreate &&
                 !e.ctrlKey &&
                 !e.altKey &&
                 !e.metaKey &&
@@ -495,23 +495,29 @@ export default {
          * Get the resources based on the current page, search, filters, etc.
          */
         getResources() {
+            this.loading = true
+
             this.$nextTick(() => {
                 this.clearResourceSelections()
 
                 return Minimum(
                     Nova.request().get('/nova-api/' + this.resourceName, {
                         params: this.resourceRequestQueryString,
-                    })
+                    }),
+                    300
                 ).then(({ data }) => {
                     this.resources = []
 
                     this.resourceResponse = data
                     this.resources = data.resources
                     this.softDeletes = data.softDeletes
+                    this.perPage = data.per_page
 
                     this.loading = false
 
                     this.getAllMatchingResourceCount()
+
+                    Nova.$emit('resources-loaded')
                 })
             })
         },
@@ -574,17 +580,14 @@ export default {
             this.actions = []
             this.pivotActions = null
             return Nova.request()
-                .get(
-                    '/nova-api/' +
-                        this.resourceName +
-                        '/actions' +
-                        '?viaResource=' +
-                        this.viaResource +
-                        '&viaResourceId=' +
-                        this.viaResourceId +
-                        '&viaRelationship=' +
-                        this.viaRelationship
-                )
+                .get(`/nova-api/${this.resourceName}/actions`, {
+                    params: {
+                        viaResource: this.viaResource,
+                        viaResourceId: this.viaResourceId,
+                        viaRelationship: this.viaRelationship,
+                        relationshipType: this.relationshipType,
+                    },
+                })
                 .then(response => {
                     this.actions = _.filter(response.data.actions, action => {
                         return !action.onlyOnDetail
@@ -635,12 +638,14 @@ export default {
          * Sort the resources by the given field.
          */
         orderByField(field) {
-            var direction = this.currentOrderByDirection == 'asc' ? 'desc' : 'asc'
-            if (this.currentOrderBy != field.attribute) {
+            let direction = this.currentOrderByDirection == 'asc' ? 'desc' : 'asc'
+
+            if (this.currentOrderBy != field.sortableUriKey) {
                 direction = 'asc'
             }
+
             this.updateQueryString({
-                [this.orderByParameter]: field.attribute,
+                [this.orderByParameter]: field.sortableUriKey,
                 [this.orderByDirectionParameter]: direction,
             })
         },
@@ -689,6 +694,16 @@ export default {
         selectPage(page) {
             this.updateQueryString({ [this.pageParameter]: page })
         },
+
+        /**
+         * Sync the per page values from the query string.
+         */
+        initializePerPageFromQueryString() {
+            this.perPage =
+                this.$route.query[this.perPageParameter] ||
+                _.first(this.perPageOptions) ||
+                this.perPage
+        },
     },
 
     computed: {
@@ -718,42 +733,52 @@ export default {
          * Get the name of the search query string variable.
          */
         searchParameter() {
-            return this.resourceName + '_search'
+            return this.viaRelationship + '_search'
         },
 
         /**
          * Get the name of the order by query string variable.
          */
         orderByParameter() {
-            return this.resourceName + '_order'
+            return this.viaRelationship
+                ? this.viaRelationship + '_order'
+                : this.resourceName + '_order'
         },
 
         /**
          * Get the name of the order by direction query string variable.
          */
         orderByDirectionParameter() {
-            return this.resourceName + '_direction'
+            return this.viaRelationship
+                ? this.viaRelationship + '_direction'
+                : this.resourceName + '_direction'
         },
 
         /**
          * Get the name of the trashed constraint query string variable.
          */
         trashedParameter() {
-            return this.resourceName + '_trashed'
+            return this.viaRelationship
+                ? this.viaRelationship + '_trashed'
+                : this.resourceName + '_trashed'
         },
 
         /**
          * Get the name of the per page query string variable.
          */
         perPageParameter() {
-            return this.resourceName + '_per_page'
+            return this.viaRelationship
+                ? this.viaRelationship + '_per_page'
+                : this.resourceName + '_per_page'
         },
 
         /**
          * Get the name of the page query string variable.
          */
         pageParameter() {
-            return this.resourceName + '_page'
+            return this.viaRelationship
+                ? this.viaRelationship + '_page'
+                : this.resourceName + '_page'
         },
 
         /**
@@ -1010,7 +1035,11 @@ export default {
          * Return the heading for the view
          */
         headingTitle() {
-            return this.isRelation && this.field ? this.field.name : this.resourceResponse.label
+            return this.loading
+                ? '&nbsp;'
+                : this.isRelation && this.field
+                ? this.field.name
+                : this.resourceResponse.label
         },
 
         /**
@@ -1055,6 +1084,22 @@ export default {
 
         totalPages() {
             return Math.ceil(this.allMatchingResourceCount / this.currentPerPage)
+        },
+
+        /**
+         * Get the current per page value from the query string.
+         */
+        currentPerPage() {
+            return this.perPage
+        },
+
+        /**
+         * The per-page options configured for this resource.
+         */
+        perPageOptions() {
+            if (this.resourceResponse) {
+                return this.resourceResponse.per_page_options
+            }
         },
     },
 }
