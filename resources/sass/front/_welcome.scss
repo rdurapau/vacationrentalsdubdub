@@ -146,14 +146,6 @@ section.welcome-container{
 }//end welcome container
 
 section.spot-slideout{
-    @include abs;
-    right: 0;
-    top: 80px;
-    height: calc(100% - 80px);
-    overflow: hidden;
-    @include mq('1280'){
-        display: none;
-    }
     
     section.welcome-background{
         @include z-100;
@@ -166,7 +158,6 @@ section.spot-slideout{
     }
     
     section.welcome-pane{
-        background: white;
         a.close-welcome{
             @include z-8;
             @include abs;
@@ -260,5 +251,8 @@ section.spot-slideout{
                 overflow: scroll;
             }
         }//end welcome messahe
+        @include mq('sm-desk') {
+            display:none;
+        }
     }//end welcome container
 }//end welcome container

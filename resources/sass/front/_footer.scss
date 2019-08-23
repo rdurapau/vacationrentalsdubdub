@@ -7,9 +7,9 @@ footer{
     right: 20px;
     height: 45px;
     flex-direction: row;
-    @include mq('tablet'){
-        display: none;
-    }
+    // @include mq('temp-tap'){
+    //     display: none;
+    // }
     .submit{
         @include appearance(none);
         background: #9080F0;
@@ -30,7 +30,7 @@ footer{
         &:hover{
             background: #45AEF1;
         }
-        @include mq('tablet'){
+        @include mq('temp-tap'){
             justify-content: center;
             margin-right: 0;
             margin-left: 20px;
@@ -61,7 +61,7 @@ footer{
                     @include fontBook;
                     color: rgba(0,0,0,.15);
                     margin-right: 15px;
-                    @include mq('tablet'){
+                    @include mq('temp-tap'){
                         display: none;
                     }
                 }
@@ -74,13 +74,13 @@ footer{
                     color: #45AEF1;
                 }
             }
-            @include mq('tablet'){
+            @include mq('temp-tap'){
                 justify-content: center;
                 margin-right: 0;
                 padding: 10px 0;
             }
         }//end li
-        @include mq('tablet'){
+        @include mq('temp-tap'){
             justify-content: center;
             margin-right: 0;
             margin-left: 20px;

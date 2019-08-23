@@ -84,10 +84,21 @@
             </section>
         </section>
 
-        <section class="welcome" v-else>
-
-            Welcome yall 
-
+        <section class="welcome-pane" v-else>
+            <div class="welcome-home"></div>
+            <section class="welcome-message">
+                <h1>Better search. Better find.</h1>
+                <ul>
+                    <li>
+                        <h1>Zoom. Hover. Click. Go.</h1>
+                        <p>Searching has never been easier. Zoom, hover, and click. Easy, fast map-based search. No long-running lists.</p>
+                    </li>
+                    <li>
+                        <h1>Places to go, not just to stay.</h1>
+                        <p>Find yourself a True Vacation Rental - A place a go, not just to stay. Better places. Better owners. No hidden fees.</p>
+                    </li>
+                </ul>
+            </section>
         </section>
     </section>
 </template>

@@ -36,7 +36,7 @@
             background: url('#{$images}logo.svg') left top no-repeat;
             background-size: contain;
             z-index:5;
-            @include mq('tablet'){
+            @include mq('temp-tap'){
                 top: 27px;
                 left: 20px;
             }
@@ -65,7 +65,7 @@
             opacity:0;
             visibility:hidden;
         }
-        @include mq('tablet') {
+        @include mq('sm-desk') {
             display:none;
             &.visible-mob {
                 display:flex;
@@ -641,7 +641,7 @@
         //     }
         // }
     }
-    @include mq('tablet'){
+    @include mq('temp-tap'){
         top:10px;
         right:20px;
     }
@@ -669,7 +669,7 @@
         @include mq('sm-desk'){
             font-size: 14px;
         }
-        @include mq('tablet'){
+        @include mq('temp-tap'){
             font-size: 14px;
             top: 18px;
             left: 13px;
@@ -682,7 +682,7 @@
         font-size: 12px;
         color: $dark;
         background: white;
-        @include mq('tablet'){
+        @include mq('temp-tap'){
             top: -5px;
             left: 7px;
         }
@@ -721,7 +721,7 @@
             //     @include mq('sm-desk'){
             //         font-size: 14px;
             //     }
-            //     @include mq('tablet'){
+            //     @include mq('temp-tap'){
             //         font-size: 14px;
             //         top: 18px;
             //         left: 13px;
@@ -738,7 +738,7 @@
             //         font-size: 12px;
             //         color: $dark;
             //         background: white;
-            //         @include mq('tablet'){
+            //         @include mq('temp-tap'){
             //             top: -5px;
             //             left: 7px;
             //         }
@@ -753,7 +753,7 @@
             //         font-size: 12px;
             //         color: $dark;
             //         background: white;
-            //         @include mq('tablet'){
+            //         @include mq('temp-tap'){
             //             top: -5px;
             //             left: 7px;
             //         }
@@ -868,7 +868,7 @@
     }
 }
 
-@include mq('tablet', 'min'){
+@include mq('temp-tap', 'min'){
     .search-and-filter {
         #search-toggle {
             display:none;
@@ -876,7 +876,7 @@
     }
 }
 
-@include mq('tablet') {
+@include mq('temp-tap') {
     .search-and-filter {
         .search-wrapper {
             opacity:0;

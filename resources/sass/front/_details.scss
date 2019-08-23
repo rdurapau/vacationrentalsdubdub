@@ -199,7 +199,7 @@
                 min-height: 45px;
                 min-width: 185px;
                 margin-left: 10px;
-                @include mq('tablet'){
+                @include mq('sm-desk'){
                     display: flex;
                     flex-grow: 1;
                     justify-content: center;
@@ -207,7 +207,7 @@
                     min-width: auto;
                 }
             }
-            @include mq('tablet'){
+            @include mq('sm-desk'){
                 margin-left: 0;
             }
         }//end action row
@@ -250,7 +250,7 @@
                 @include mq('sm-desk'){
                     font-size: 28px;
                 }
-                @include mq('tablet'){
+                @include mq('sm-desk'){
                     padding: 0 30px;
                     text-align: center;
                 }
@@ -268,7 +268,7 @@
                 &.complete{
                     width: 50%;
                     margin-bottom: 10px;
-                    @include mq('tablet'){
+                    @include mq('sm-desk'){
                         width: 75%;
                     }
                 }
@@ -276,7 +276,7 @@
                     font-size: 14px;
                     line-height: 20px;
                 }
-                @include mq('tablet'){
+                @include mq('sm-desk'){
                     padding: 20px 30px;
                 }
             }
@@ -471,6 +471,7 @@
         overflow-y:scroll;
         padding-right:10px;
         order:1;
+        flex:1 1 auto;
     }
 
     h2, h3 {
@@ -641,7 +642,7 @@
     }
 }
 
-@include mq('tablet') {
+@include mq('sm-desk') {
     .spot-slideout {
         position:absolute;
         left:0;
@@ -653,7 +654,7 @@
 }
 
 // @media screen and (max-width:620px) {
-@include mq(tablet) {
+@include mq('sm-desk') {
     .spot-slideout {
         .hero {
             .controls {
