@@ -110,18 +110,18 @@
 
         </header>
 
-        <ul class="style-switcher" :class="{open: styleSwitcherIsOpen}" v-if="false">
-            <li class="default active" @click.prevent="changeMapStyle('light-v10')">
+        <ul class="style-switcher" :class="{open: styleSwitcherIsOpen}">
+            <li class="default" :class="{active: (mapStyle === 'light-v10')}" @click.prevent="changeMapStyle('light-v10')">
                 <svg width="16" height="16" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.7576 0.24538C15.4987 -0.0160459 15.0983 -0.0752622 14.7748 0.100015L0.438937 7.7677C0.102706 7.94845 -0.0677694 8.3345 0.0251477 8.70475C0.118065 9.075 0.450625 9.33482 0.832357 9.33538H6.66698V15.17C6.66688 15.5522 6.92697 15.8855 7.29778 15.9782C7.36323 15.9945 7.43038 16.003 7.49783 16.0035C7.80492 16.0032 8.08688 15.8338 8.23132 15.5628L15.8997 1.22626C16.0746 0.903888 16.0168 0.504907 15.7576 0.24538Z" fill="#29304C"></path>
                 </svg>
             </li>
-            <li class="streets" @click.prevent="changeMapStyle('streets-v11')">
+            <li class="streets" :class="{active: (mapStyle === 'streets-v11')}" @click.prevent="changeMapStyle('streets-v11')">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M15.8941 15.3513L11.2274 0.351334C11.1625 0.142246 10.969 -0.000191338 10.7501 1.92923e-07H8.91674C8.82469 1.92923e-07 8.75007 0.0746196 8.75007 0.166667V1C8.75007 1.36819 8.4516 1.66667 8.08341 1.66667C7.71522 1.66667 7.41674 1.36819 7.41674 1V0.166667C7.41674 0.0746196 7.34212 1.92923e-07 7.25007 1.92923e-07H5.41674C5.19781 -0.000191338 5.00429 0.142246 4.93941 0.351334L0.272739 15.3513C0.225474 15.5031 0.253195 15.6683 0.347411 15.7963C0.441627 15.9244 0.59111 16 0.750073 16H7.25007C7.34212 16 7.41674 15.9254 7.41674 15.8333V13.3333C7.41674 12.9651 7.71522 12.6667 8.08341 12.6667C8.4516 12.6667 8.75007 12.9651 8.75007 13.3333V15.8333C8.75007 15.9254 8.82469 16 8.91674 16H15.4167C15.5757 16 15.7252 15.9244 15.8194 15.7963C15.9136 15.6683 15.9413 15.5031 15.8941 15.3513ZM8.08337 2.83333C8.45156 2.83333 8.75004 3.13181 8.75004 3.5V5C8.75004 5.36819 8.45156 5.66667 8.08337 5.66667C7.71518 5.66667 7.41671 5.36819 7.41671 5V3.5C7.41671 3.13181 7.71518 2.83333 8.08337 2.83333ZM7.41671 10.3333C7.41671 10.7015 7.71518 11 8.08337 11C8.45156 11 8.75004 10.7015 8.75004 10.3333V8C8.75004 7.63181 8.45156 7.33333 8.08337 7.33333C7.71518 7.33333 7.41671 7.63181 7.41671 8V10.3333Z" fill="#29304C"></path>
                 </svg>          
             </li>
-            <li class="satellite" @click.prevent="changeMapStyle('satellite-streets-v9')">
+            <li class="satellite" :class="{active: (mapStyle === 'satellite-streets-v9')}" @click.prevent="changeMapStyle('satellite-streets-v9')">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.64976 5.58781C5.05047 5.98464 5.69698 5.9816 6.09393 5.581L7.05262 4.61414C7.2434 4.42168 7.34987 4.16129 7.34859 3.8903C7.34732 3.61932 7.2384 3.35994 7.04581 3.16929L4.14454 0.29458C3.74326 -0.100571 3.0983 -0.0978339 2.70038 0.300708L1.74169 1.26825C1.34485 1.66896 1.3479 2.31547 1.7485 2.71242L4.64976 5.58781Z" fill="#29304C"></path>
                     <path d="M15.6993 11.8696L12.7966 8.99416C12.395 8.59957 11.7504 8.60261 11.3525 9.00097L10.3938 9.96851C9.99695 10.3692 10 11.0157 10.4006 11.4127L13.3032 14.2881C13.7039 14.6849 14.3504 14.6819 14.7474 14.2813L15.7054 13.311C16.1006 12.9108 16.0979 12.2664 15.6993 11.8696Z" fill="#29304C"></path>
@@ -179,7 +179,7 @@
                     sleeps : 0
                 },
                 
-                mapStyle: 'mapbox://styles/mapbox/streets-v11',
+                mapStyle: 'streets-v11',
                 styleSwitcherIsOpen : false,
 
                 mobileSearchIsVisible : false,
@@ -207,9 +207,15 @@
                     return false;
                 }
                 this.mapStyle = style;
-                this.map.setStyle('mapbox://styles/mapbox/' + style);
-                this.addDataLayers();
+                // let layer = mapboxgl.styleLayer(this.mapStyle);
 
+                // layer.addTo(this.map);
+                // this.map.setLayoutProperty('mapbox-mapbox-satellite', 'visibility', 'visible');
+                // this.map.remove();
+                // this.initData(this.geoJson, mapStyle);
+                this.map.setStyle('mapbox://styles/mapbox/' + style, {
+                    diff: true
+                });
             },
             applyDropdownFilters() {
                 // console.log('apply');
@@ -576,7 +582,7 @@
                     }
                 });
             },
-            initData(geoJson) {
+            initData(geoJson,) {
                 let self = this;
 
                 // Assign the global geoJson to a variable so it can be filtered non-destructively
@@ -584,6 +590,7 @@
                 this.geoJson.features.forEach(feature => {
                     feature.properties.active = 0
                 })
+
                 this.map.addSource('places', {
                     type: 'geojson',
                     data: this.geoJson,
@@ -596,6 +603,16 @@
                         self.mapIsLoaded = true;
                         self.checkForInitSpot()
                     }
+                });
+
+                this.map.on('styledata', () => {
+                    if (!this.map.getSource('places') && !this.map.isSourceLoaded('places')) {
+                        this.map.addSource('places', {
+                            type: 'geojson',
+                            data: this.geoJson,
+                        })
+                    }
+                    this.addDataLayers()
                 });
 
                 // Add the search box
@@ -754,7 +771,7 @@
             // console.log(mapboxgl);
             this.map = new mapboxgl.Map({
                 container: 'map-wrapper',
-                style: this.mapStyle,
+                style: 'mapbox://styles/mapbox/' + this.mapStyle,
                 // center: [-98.3810608, 37.9507756],
                 center: [-99.169510, 31.417772],
                 zoom:5.5
