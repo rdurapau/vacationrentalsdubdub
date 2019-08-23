@@ -144,3 +144,121 @@ section.welcome-container{
         }
     }//end welcome messahe
 }//end welcome container
+
+section.spot-slideout{
+    @include abs;
+    right: 0;
+    top: 80px;
+    height: calc(100% - 80px);
+    overflow: hidden;
+    @include mq('1280'){
+        display: none;
+    }
+    
+    section.welcome-background{
+        @include z-100;
+        @include rlt;
+        width: 100%;
+        height: calc(100% - 80px);
+        background: rgba(255,255,255,.7);
+        overflow: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    section.welcome-pane{
+        background: white;
+        a.close-welcome{
+            @include z-8;
+            @include abs;
+            width: 50px;
+            height: 50px;
+            background: url('#{$images}icon-close.svg') no-repeat center center;
+            background-size: contain;
+            right: 20px;
+            opacity: .5;
+            @include moveFast;
+            &:hover{
+                opacity: 1;
+            }
+            @include mq('tablet'){
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                right: 15px;
+            }
+        }
+        div.welcome-home{
+            @include abs;
+            width: 100%;
+            height: 500px;
+            background: url('#{$images}welcome-home-2.svg') no-repeat bottom center;
+            background-size: contain;
+            bottom: -150px;
+            transform: scale(.75);
+        }
+        section.welcome-message{
+            padding: 0 60px;
+            
+            > h1{
+                @include fontBold;
+                font-size: 42px;
+                padding: 60px 0 35px 0;
+                @include mq('tablet'){
+                    font-size: 22px;
+                    padding: 80px 0 30px 0;
+                }
+            }
+            ul{
+                padding-bottom: 40px;
+                li{
+                    padding-left: 120px;
+                    h1{
+                        @include fontBold;
+                        font-size: 20px;
+                        padding-bottom: 10px;
+                        @include mq('tablet'){
+                            font-size: 16px;
+                        }
+                    }
+                    p{
+                        @include fontBook;
+                        color: $grey;
+                        line-height: 24px;
+                        padding-right: 20px;
+                        @include mq('tablet'){
+                            font-size: 14px;
+                            line-height: 18px;
+                        }
+                    }
+                    &:first-child{
+                        background: url('#{$images}icons/icon-welcome-compass.svg') no-repeat top left;
+                        background-size: 75px;
+                        margin-bottom: 40px;
+                        @include mq('tablet'){
+                            background-size: 40px;
+                        }
+                    }
+                    &:last-child{
+                        background: url('#{$images}icons/icon-welcome-lantern.svg') no-repeat top left;
+                        background-size: 80px;
+                        @include mq('tablet'){
+                            background-size: 40px;
+                        }
+                    }
+                    @include mq('tablet'){
+                        padding-left: 60px;
+                    }
+                }//emd li
+            }//end ul
+            
+            button.btn-welcome{
+                min-width: 100%;
+                padding: 20px 0;
+            }
+            @include mq('tablet'){
+                padding: 0 30px;
+                overflow: scroll;
+            }
+        }//end welcome messahe
+    }//end welcome container
+}//end welcome container
