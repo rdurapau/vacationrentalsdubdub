@@ -1,5 +1,5 @@
 <template>
-    <section class="spot-slideout" v-if="spotDetailsVisible">
+    <section class="spot-slideout" :class="{'visible-mob': spotDetailsVisible}">
         <transition name="fade">
             <div v-if="isLoading" @click.prevent="isLoading = false" class="loading-overlay"><span></span></div>
         </transition>
@@ -9,7 +9,7 @@
             v-on:close-details="close"
             />
 
-        <section class="spot-details" v-else>
+        <section class="spot-details" v-else-if="spotDetailsVisible && spot">
             <section class="hero">
                 <button class="close" @click.prevent="close"><span class="icon-clear-css"></span></button>
                 <div class="controls">
@@ -82,6 +82,12 @@
                     </div>
                 </article>
             </section>
+        </section>
+
+        <section class="welcome" v-else>
+
+            Welcome yall 
+
         </section>
     </section>
 </template>

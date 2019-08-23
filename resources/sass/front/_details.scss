@@ -61,6 +61,8 @@
         position:relative;
         height:100%;
         flex:1 0 auto;
+        width: 100%;
+        box-sizing: border-box;
         // flex-direction:column;
         overflow-y:scroll;
         padding:25px 30px;
@@ -168,6 +170,7 @@
 
         form.sweetspot-form {
             padding-top:10px;
+            height:auto;
             .form-row {
                 margin-bottom:20px;
             }
@@ -403,6 +406,7 @@
 
     .spot-description {
         // line-height:1.214285 !important;
+        line-height:1.2857142857;
         a {
             color:$purple;
         }
@@ -648,7 +652,8 @@
     }
 }
 
-@media screen and (max-width:620px) {
+// @media screen and (max-width:620px) {
+@include mq(tablet) {
     .spot-slideout {
         .hero {
             .controls {
@@ -662,6 +667,7 @@
             }
         }
         .spot-details {
+            width:100%;
             .content {
                 padding-left:12px;
                 padding-right:12px;

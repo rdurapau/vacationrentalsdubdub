@@ -14,9 +14,6 @@ Vue.component('submit-spot', SubmitSpot);
 import Modals from './components/Modals.vue';
 Vue.component('modals', Modals);
 
-import MapFooter from './components/MapFooter.vue';
-Vue.component('map-footer', MapFooter);
-
 import Welcome from './components/WelcomeMob.vue';
 Vue.component('welcome-mob', Welcome);
 

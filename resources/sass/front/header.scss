@@ -16,6 +16,7 @@ header{
     @include mq('tablet'){
         flex-direction: column;
         height: 125px;
+        z-index:90;
     }
 
     .logo-and-menu {

@@ -50,7 +50,7 @@
 
         <spot-details></spot-details>
 
-        <map-footer></map-footer>
+        {{-- <map-footer></map-footer> --}}
     </div>
 
 </body>

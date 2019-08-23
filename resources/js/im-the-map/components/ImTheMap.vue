@@ -136,6 +136,7 @@
 
         <div id="map-wrapper"></div>
 
+        <map-footer></map-footer>
     </section>
 </template>
 
@@ -144,6 +145,9 @@
     let mapboxGeocoder = require('@mapbox/mapbox-gl-geocoder');
     // let mapboxGeocoder = require('mapbox-gl-geocoder');
     // let geoJSON = require('geojson')
+
+    import MapFooter from './MapFooter.vue';
+    Vue.component('map-footer', MapFooter);
 
     // console.log(geoJSON);
     // GeoJSON.parse(data, {Point: ['lat', 'lng']});

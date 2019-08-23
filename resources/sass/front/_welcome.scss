@@ -7,7 +7,10 @@ section.welcome-background{
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
     @include mq('sm-desk'){
-        height: calc(100% - 50px);        
+        height: calc(100% - 50px);
+    }
+    @include mq ('tablet', min) {
+        display:none;
     }
     @include mq('tablet'){
         height: calc(100% - 125px);        
