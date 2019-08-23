@@ -9,7 +9,7 @@ section.welcome-background{
     @include mq('sm-desk'){
         height: calc(100% - 50px);
     }
-    @include mq ('tablet', min) {
+    @include mq ('sm-desk', min) {
         display:none;
     }
     @include mq('tablet'){
