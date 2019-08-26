@@ -32,7 +32,7 @@ section.welcome-container{
     @include mq('sm-desk'){
         transform: scale(.8);
     }
-    @include mq('tablet'){
+    @include mq('sm-desk'){
         transform: scale(1);
         max-width: 100%;
         min-width: 100%;
@@ -57,7 +57,7 @@ section.welcome-container{
         &:hover{
             opacity: 1;
         }
-        @include mq('tablet'){
+        @include mq('sm-desk'){
             width: 40px;
             height: 40px;
             top: 15px;
@@ -72,7 +72,7 @@ section.welcome-container{
         background-size: contain;
         left: -210px;
         top: 30px;
-        @include mq('tablet'){
+        @include mq('sm-desk'){
             @include fxd;
             left: -10px;
             top: -80px;
@@ -86,7 +86,7 @@ section.welcome-container{
             @include fontBold;
             font-size: 42px;
             padding: 60px 0 35px 0;
-            @include mq('tablet'){
+            @include mq('sm-desk'){
                 font-size: 22px;
                 padding: 80px 0 30px 0;
             }
@@ -99,7 +99,7 @@ section.welcome-container{
                     @include fontBold;
                     font-size: 20px;
                     padding-bottom: 10px;
-                    @include mq('tablet'){
+                    @include mq('sm-desk'){
                         font-size: 16px;
                     }
                 }
@@ -108,7 +108,7 @@ section.welcome-container{
                     color: $grey;
                     line-height: 24px;
                     padding-right: 20px;
-                    @include mq('tablet'){
+                    @include mq('sm-desk'){
                         font-size: 14px;
                         line-height: 18px;
                     }
@@ -117,18 +117,18 @@ section.welcome-container{
                     background: url('#{$images}icons/icon-welcome-compass.svg') no-repeat top left;
                     background-size: 75px;
                     margin-bottom: 40px;
-                    @include mq('tablet'){
+                    @include mq('sm-desk'){
                         background-size: 40px;
                     }
                 }
                 &:last-child{
                     background: url('#{$images}icons/icon-welcome-lantern.svg') no-repeat top left;
                     background-size: 80px;
-                    @include mq('tablet'){
+                    @include mq('sm-desk'){
                         background-size: 40px;
                     }
                 }
-                @include mq('tablet'){
+                @include mq('sm-desk'){
                     padding-left: 60px;
                 }
             }//emd li
@@ -138,7 +138,7 @@ section.welcome-container{
             min-width: 100%;
             padding: 20px 0;
         }
-        @include mq('tablet'){
+        @include mq('sm-desk'){
             padding: 0 30px;
             overflow: scroll;
         }
