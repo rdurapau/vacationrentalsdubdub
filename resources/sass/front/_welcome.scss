@@ -70,18 +70,18 @@ section.welcome-container{
         height: 500px;
         background: url('#{$images}welcome-home-2.svg') no-repeat top left;
         background-size: contain;
-        left: -210px;
-        top: 30px;
+        
+        
         @include mq('sm-desk'){
-            @include fxd;
-            left: -10px;
-            top: -80px;
-            width: 150px;
-            height: 150px;
+            bottom: 0;
+            @include z-1;
+            left: calc(50% - 250px);
+            opacity: .075;
         }
     }
     section.welcome-message{
         padding: 0 50px 0 340px;
+        position: relative;
         > h1{
             @include fontBold;
             font-size: 42px;
@@ -137,10 +137,13 @@ section.welcome-container{
         button.btn-welcome{
             min-width: 100%;
             padding: 20px 0;
+            position: relative;
+            @include z-10;
         }
         @include mq('sm-desk'){
             padding: 0 30px;
             overflow: scroll;
+            @include z-10;
         }
     }//end welcome messahe
 }//end welcome container
@@ -158,6 +161,8 @@ section.spot-slideout{
     }
     
     section.welcome-pane{
+        display: block;
+        margin-top: 26px;
         a.close-welcome{
             @include z-8;
             @include abs;
@@ -184,8 +189,8 @@ section.spot-slideout{
             height: 500px;
             background: url('#{$images}welcome-home-2.svg') no-repeat bottom center;
             background-size: contain;
-            bottom: -150px;
             transform: scale(.75);
+            opacity: .075;
         }
         section.welcome-message{
             padding: 0 60px;
@@ -194,6 +199,7 @@ section.spot-slideout{
                 @include fontBold;
                 font-size: 42px;
                 padding: 60px 0 35px 0;
+                margin-bottom: 50px;
                 @include mq('tablet'){
                     font-size: 22px;
                     padding: 80px 0 30px 0;
