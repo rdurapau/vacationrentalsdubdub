@@ -45,7 +45,7 @@
                         </li>
                     </ul>
                 </aside>
-                <article>
+                <article class="extra-padding">
                     <h2 v-text="spot.name"></h2>
                     <section class="icon-deets">
                         <div v-if="spot.sleeps">
@@ -157,6 +157,10 @@
             // },
         },
         computed: {
+            // isMobileSafari() {
+            //     // return navigator.userAgent.match(/iOS/i) !== null;
+            //     return /iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            // },
             spotDetailsVisible() {
                 return this.$store.state.spotDetailsVisible;
             },

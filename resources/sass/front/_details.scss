@@ -472,6 +472,9 @@
         padding-right:10px;
         order:1;
         flex:1 1 auto;
+        &.extra-padding {
+            padding-bottom:100px;
+        }
     }
 
     h2, h3 {
