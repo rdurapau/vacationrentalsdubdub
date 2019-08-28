@@ -576,7 +576,7 @@
                         'circle-color': [
                             'match',
                             ['get', 'active'],
-                            1, '#45AEF1',
+                            1, '#F69158',
                             /* other */ "#9080F0"
                         ]
                     }
