@@ -16,7 +16,7 @@
               </li>
               <li>
                 <h1>Places to go, not just to stay.</h1>
-                <p>Find yourself a True Vacation Rental - A place a go, not just to stay. Better places. Better owners. No hidden fees.</p>
+                <p>Find yourself a True Vacation Rental - A place to go, not just to stay. Better places. Better owners. No hidden fees.</p>
               </li>
             </ul>
 
