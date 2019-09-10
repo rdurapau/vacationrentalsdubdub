@@ -61,6 +61,16 @@
 
         </section>
 
+        <component is="style" type="text/css">
+        @media screen and (max-width:559px) {
+            section.modal-background {
+                height:{{innerHeight}} !important;
+                max-height:none !important;
+                min-height:0 !important;
+                margin:0 !important;
+            }
+        }
+        </component>
     </section>
 </template>
 
@@ -73,7 +83,8 @@
         data() {
             return {
                 visibleScreen : 'intro',
-                isSubmitting: false
+                isSubmitting: false,
+                innerHeight: '100%'
             }
         },
         methods: {
@@ -104,6 +115,13 @@
         watch: {
             'geocoder.result' : 'addressSelected'
         },
+        mounted() {
+            let self = this;
+            self.innerHeight = window.innerHeight + 'px';
+            window.onresize = function() {
+                self.innerHeight = window.innerHeight + 'px';
+            }
+        }
     }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-    <section class="modal-background" v-if="modalIsVisible">
+    <section class="modal-background" v-if="modalIsVisible" v-bind:style="containerStyleObj">
 
         <section class="modal-container">          
 
@@ -48,11 +48,11 @@
         props: [
             'content'
         ],
-        // data() {
-        //     return {
-        //         showingTerms : true,
-        //     }
-        // },
+        data() {
+            return {
+                modalHeight: '100%'
+            }
+        },
         methods: {
             closeButtonClicked() {
                 this.$store.commit('closeInformationalModal');
@@ -64,8 +64,23 @@
             },
             showingTerms() {
                 return (this.modalIsVisible && this.modalIsVisible === 'terms');
+            },
+            containerStyleObj() {
+                return {
+                    height: this.modalHeight
+                }
             }
         },
+        watch: {
+            '$store.state.activeSpot' : 'activeSpotChanged'
+        },
+        mounted() {
+            this.modalHeight = window.innerHeight + 'px';
+            let self = this;
+            window.onresize = function() {
+                self.modalHeight = window.innerHeight + 'px';
+            }
+        }
     }
 </script>
 

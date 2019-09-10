@@ -100,6 +100,14 @@
                 </ul>
             </section>
         </section>
+        <component is="style" type="text/css" scoped>
+            @media not all and (min-resolution:.001dpcm)
+        { @supports (-webkit-appearance:none) {
+            .spot-details {
+                height:{{innerHeight}} !important;
+            }
+        }}
+        </component>
     </section>
 </template>
 
@@ -114,7 +122,8 @@
         data() {
             return {
                 currentPhotoIndex: 0,
-                reservationFormVisible: false
+                reservationFormVisible: false,
+                innerHeight: '100%'
             }
         },
         methods: {
@@ -240,6 +249,11 @@
                         break;
                 }
             });
+            this.innerHeight = window.innerHeight + 'px';
+            window.onresize = function() {
+                self.innerHeight = window.innerHeight + 'px';
+            }
+        
         }
     }
 </script>

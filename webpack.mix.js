@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css')
    .sass('resources/sass/front/styles.scss', 'public/css')
    .extract(['axios', 'bootstrap', 'geojson', 'lodash', 'mapbox-gl', 'mapbox-gl-geocoder', 'popper.js', 'vue', 'vee-validate'])
+   .version()
    .options({
       processCssUrls: false,
    });
