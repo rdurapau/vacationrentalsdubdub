@@ -45,6 +45,7 @@ class SpotController extends Controller
         ];
 
         // dd(json_encode($staticContent));
+        // dd($staticContent);
 
         $amenities = Amenity::all();
 
@@ -79,7 +80,7 @@ class SpotController extends Controller
             'email' => 'required|confirmed|email',
             'name' => 'required',
             'phone' => 'required',
-            'website' => 'required|url',
+            'website' => 'nullable',
             'desc' => 'required',
             'price' => 'required|numeric|min:10',
             'address1' => 'required|string|max:255',

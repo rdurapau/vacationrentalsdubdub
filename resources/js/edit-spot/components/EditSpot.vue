@@ -340,7 +340,7 @@
                                                         :class="{'has-error': errors.has('scope-3.baths')}">
                                                         <input type="baths" name="baths" id="property-baths" v-model="baths" :disabled="isWorking"
                                                             :class="{'filled': (baths.length || baths > 0), 'ouch': errors.has('scope-3.baths')}"
-                                                            v-validate="'required|between:0,10'" data-vv-as="Number of Baths" data-vv-scope="scope-3" />
+                                                            v-validate="'required|between:0,20'" data-vv-as="Number of Baths" data-vv-scope="scope-3" />
                                                         <label for="property-baths">Number of Baths</label>
                                                         <span class="errors"
                                                             v-if="errors.has('scope-3.baths')">{{ errors.first('scope-3.baths') }}</span>
@@ -390,7 +390,7 @@
                                                     <h3 v-text="title"></h3>
                                                     <ul class="amenities">
                                                         <li class="check-group" v-for="amenity in group">
-                                                            <input type="checkbox" :name="'amenities['+amenity.id+']'" :value="amenity.id" :disabled="isSubmitting"
+                                                            <input type="checkbox" :name="'amenities['+amenity.id+']'" :value="amenity.id" :disabled="isWorking"
                                                                 :id="'check-amenity-'+amenity.id" v-model="selectedAmenities">
                                                             <label :for="'check-amenity-'+amenity.id"
                                                                 v-text="amenity.name"></label>

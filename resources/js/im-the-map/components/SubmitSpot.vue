@@ -29,7 +29,7 @@
                     <ul class="intro-outro-columns">
                         <li>
                             <h1>Join the SweetSpot fam</h1>
-                            <p>You’re just a few steps away from listing your property for the world to find! Nunc tristique at massa sed ultrices. Nulla facilisi. Curabitur at est sit amet metus fringilla dictum a tincidunt urna.</p>
+                            <p>You’re just a few steps away from listing your property for the world to find!</p>
                             <a class="btn btn-special" href="#" @click.prevent="visibleScreen = 'newPropertyForm'">Sweet! Let’s get started.</a>
                         </li>
                         <li class="homestead">

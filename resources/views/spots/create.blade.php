@@ -27,7 +27,7 @@
     @endif
     <section id="submit-spot-wrapper">
         <submit-spot
-            :amenities='{!! json_encode($amenities) !!}'
+            :amenities='@json($amenities)'
         ></submit-spot>
         @csrf
     </section>

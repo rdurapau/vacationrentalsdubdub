@@ -35,7 +35,7 @@
 
     <div id="im-the-map">
         <modals
-            :content='{!! json_encode($staticContent) !!}'
+            :content='@json($staticContent)'
         ></modals>
 
         <welcome-mob
@@ -43,7 +43,7 @@
         ></welcome-mob>
 
         <submit-spot
-            :amenities='{!! json_encode($amenities) !!}'
+            :amenities='@json($amenities)'
         ></submit-spot>
 
         <im-the-map></im-the-map>

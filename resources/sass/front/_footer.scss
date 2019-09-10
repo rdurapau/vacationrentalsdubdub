@@ -87,4 +87,10 @@ footer{
             margin-top: 10px;
         }
     }//end footer navigation
+    @media not all and (min-resolution:.001dpcm)
+        { @supports (-webkit-appearance:none) {
+            bottom:125px;
+    
+        }
+    }
 }//end footer

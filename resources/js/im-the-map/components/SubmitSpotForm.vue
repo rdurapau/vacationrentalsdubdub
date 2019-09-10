@@ -274,7 +274,7 @@
                                             :class="{'has-error': errors.has('scope-3.website')}">
                                             <input type="url" id="property-website" name="website" v-model="website" :disabled="isSubmitting"
                                                 :class="{'filled': (website.length || website > 0), 'ouch': errors.has('scope-3.website')}"
-                                                v-validate="{url: {require_protocol: true }}" data-vv-as="Property Website" data-vv-scope="scope-3" />
+                                                data-vv-as="Property Website" data-vv-scope="scope-3" />
                                             <label for="property-website">Property Website</label>
                                             <span class="errors"
                                                 v-if="errors.has('scope-3.website')">{{ errors.first('scope-3.website') }}</span>
@@ -320,7 +320,7 @@
                                                 :class="{'has-error': errors.has('scope-3.baths')}">
                                                 <input type="baths" name="baths" id="property-baths" v-model="baths" :disabled="isSubmitting"
                                                     :class="{'filled': (baths.length || baths > 0), 'ouch': errors.has('scope-3.baths')}"
-                                                    v-validate="'required|between:0,10'" data-vv-as="Number of Baths" data-vv-scope="scope-3" />
+                                                    v-validate="'required|between:0,20'" data-vv-as="Number of Baths" data-vv-scope="scope-3" />
                                                 <label for="property-baths">Number of Baths</label>
                                                 <span class="errors"
                                                     v-if="errors.has('scope-3.baths')">{{ errors.first('scope-3.baths') }}</span>

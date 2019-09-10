@@ -131,6 +131,10 @@ ul.style-switcher{
             margin-top: 10px;
         }
     }
+    @media not all and (min-resolution:.001dpcm)
+        { @supports (-webkit-appearance:none) {
+        bottom:130px;
+    }}
 }//end style switcher
 
 @import 'submit-property', 'footer';
