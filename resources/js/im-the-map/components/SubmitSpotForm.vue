@@ -733,7 +733,6 @@
                 this.map.on('dragend', this.mapMoved);
                 this.map.on('zoomend', this.mapMoved);
             })
-            this.fillFakeData();
         },
         watch: {
             'geocoder.result' : 'addressSelected'
