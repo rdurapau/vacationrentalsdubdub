@@ -26,10 +26,6 @@
                         <li>
                             <h1 v-html="content.about.heading"></h1>
                             <div class="dynamic-body" v-html="content.about.body"></div>
-
-                            <img src="/images/signature.png" width="164" height="125" alt="">
-                            <h3 class="name">Rick DuRapau</h3>
-                            <p>Co-Founder, SweetSpot Vacation Rentals</p>
                         </li>
                         <li>
                             <span class="house"></span>

@@ -21,10 +21,6 @@ class SubmissionController extends ApiController
 {
     public function store(Request $request)
     {
-        // return $request->all();
-        // $values = $request->all();
-        // dd($values['amenities']);
-
         $validated = $request->validate([
             'email' => 'required|confirmed|email',
             'name' => 'required',
@@ -47,12 +43,11 @@ class SubmissionController extends ApiController
             'photos' => 'array'
         ]);
 
-        // dump($validated);
+        dump($validated['photos']);
 
         $spot = Submission::create($validated);
 
         if (array_key_exists('amenity_ids', $validated) && count($validated['amenity_ids'])) {
-            // dump($validated['amenity_ids']);
             $spot->amenities()->sync($validated['amenity_ids']);
         }
 
@@ -61,6 +56,8 @@ class SubmissionController extends ApiController
             $photos = TempMedia::whereIn('id',$validated['photos'])
                 ->with('media')
                 ->get();
+
+            dump($photos->toArray());
 
             foreach($photos as $photo) {
                 $photo->getFirstMedia()->move($spot);

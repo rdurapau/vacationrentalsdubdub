@@ -4,20 +4,77 @@ div.about-us{
     flex-grow: 1;
     max-height: 100%;
     overflow: auto;
-    ul{
+    > ul{
         display: flex;
         flex-direction: row;
         flex-grow: 1;
-        flex-basis: 50%;
-        li{
+        max-height: 100%;
+        overflow: hidden;
+        flex-basis: 100%;
+        > li{
             display: flex;
             flex-grow: 1;
-            flex-basis: 50%;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            align-items: flex-start;
             @include rlt;
             &:first-child{
                 padding-left: 70px;
+                overflow: auto;
+                flex-basis: 60%;
+                padding-top: 30px;
+            }
+            &:last-child{
+                flex-basis: 40%;
+            }
+            div.dynamic-body{
+                display: flex;
+                flex-direction: column;
+                align-self: flex-start;
+                padding-right: 40px;
+                strong{
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+                blockquote{
+                    font-weight: bold;
+                    &:before{
+                        display: inline-block;
+                        content: "“"
+                    }
+                    &:after{
+                        display: inline-block;
+                        content: "”"
+                    }
+                }
+                ul, ol{
+                    @include fontBook;
+                    font-size: 14px;
+                }
+                ul{
+                    list-style-type: circle;
+                }
+                ol{
+                    list-style-type: decimal;
+                }
+                pre{
+                    background: rgba(0,0,0,.15);
+                    padding: 10px;
+                    font-family: monospace;
+                }
+                em{
+                    font-style: italic;
+                }
+                a{
+                    color: $purple;
+                    @include moveMe;
+                    &:hover{
+                        color: black;
+                    }
+                }
+                div{
+                    display: block;
+                }
             }
             span.house{
                 margin: 0 auto;    

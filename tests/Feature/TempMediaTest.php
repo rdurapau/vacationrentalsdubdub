@@ -34,15 +34,6 @@ class TempMediaTest extends TestCase
 
         $media = Media::find($responseContent['media_id']);
         $this->assertEquals('spot-photo', $media->name);
-        // dd($media);
-
-        // $this->assertDatabaseHas('media',[
-        //     'name' => $responseContent['name']
-        // ]);
-        // $path = $media->getPath();
-        // $relative = strstr($path, '/storage/app/');
-
-        // Storage::disk('local')->assertExists($relative);
 
     }
 

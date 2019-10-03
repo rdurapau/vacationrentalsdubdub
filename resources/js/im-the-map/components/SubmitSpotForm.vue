@@ -621,7 +621,6 @@
 
                     'lat',
                     'lng',
-                    'photos'
                 ];
                 let self = this;
                 let formData = {}
@@ -630,6 +629,7 @@
                 });
 
                 formData.amenity_ids = this.selectedAmenities;
+                formData.photos = this.photoMediaIds;
 
                 axios.post('/api/submissions', formData)
                     .then(response => {
@@ -672,6 +672,9 @@
             },
             photos() {
                 return this.$store.state.uploads;
+            },
+            photoMediaIds() {
+                return this.photos.map(el => el.id)
             },
             groupedAmenities() {
                 return this.amenities.reduce((objectsByKeyValue, obj) => {
@@ -730,6 +733,7 @@
                 this.map.on('dragend', this.mapMoved);
                 this.map.on('zoomend', this.mapMoved);
             })
+            this.fillFakeData();
         },
         watch: {
             'geocoder.result' : 'addressSelected'
