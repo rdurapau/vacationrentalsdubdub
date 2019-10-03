@@ -646,6 +646,7 @@
             },
 
             fillFakeData() {
+                console.log('fakey')
                 var faker = require('faker');
                 this.owner_name = faker.name.findName()
                 this.website = faker.internet.url()
@@ -685,6 +686,7 @@
             }
         },
         mounted() {
+            console.log('loading');
             // console.log(mapboxgl);
             this.map = new mapboxgl.Map({
                 container: 'submit-property-map',
