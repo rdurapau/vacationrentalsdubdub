@@ -31,10 +31,10 @@
                 </div>
             </section>
             <section class="content">
-                <aside>
+                <aside style="display: none;">
                     <div class="cost-row">
                         <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
-                        <button class="btn btn-wide btn-purple btn-reservation" @click.prevent="showReservationForm">Make a reservation</button>
+                        <button class="btn btn-wide btn-purple btn-reservation" @click.prevent="showReservationForm">Make a reservation`</button>
                     </div>
                     <ul class="contact">
                         <li class="phone" v-if="spot.phone">
