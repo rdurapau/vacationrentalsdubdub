@@ -14,7 +14,7 @@
                 </li>
             </ul>
 
-            <button @click.prevent="showSubmitPropertyModal">List Your Spot</button>
+            <button @click.prevent="showSubmitPropertyModal">Be A Spot</button>
 
         </section>
 
@@ -105,7 +105,7 @@
 
             <nav>
                 <a href="#" @click.prevent="showAboutModal">About Us</a>
-                <button @click.prevent="showSubmitPropertyModal">List Your Spot</button>
+                <button @click.prevent="showSubmitPropertyModal">Be A Spot</button>
             </nav>
 
         </header>
