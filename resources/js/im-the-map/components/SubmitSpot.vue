@@ -82,7 +82,7 @@
         props: ['amenities'],
         data() {
             return {
-                visibleScreen : 'intro',
+                visibleScreen : 'newPropertyForm',
                 isSubmitting: false,
                 innerHeight: '100%'
             }
@@ -96,7 +96,7 @@
                 }
             },
             confirmClose() {
-                this.visibleScreen = 'intro';
+                this.visibleScreen = 'newPropertyForm';
                 this.$store.commit('hideCancelConfirmationModal');
                 this.$store.commit('hideSubmitPropertyModal')
             },
