@@ -116,21 +116,24 @@
                                         <section class="description-detail">
                                             <h2>Nice to meet you!</h2>
                                             <p>The only information that will be shared with guests is your name and phone number so they can contact you directly.</p>
-                                            <p>Your email will be used for communication with us and for booking requests.</p>
+`                                            <p>Your email will be used for communication with us and for booking requests.</p>
                                         </section>
                                     </div>
 
                                     <div class="sub-column">
 
-                                        <section class="fieldset required single-field"
+                                        <section class="fieldset required single-field add-on"
                                             :class="{'has-error': errors.has('scope-1.owner_name')}">
-                                            <input type="text" id="full-name" name="owner_name" v-model="owner_name" :disabled="isSubmitting"
-                                                :class="{'filled': (owner_name.length || owner_name > 0), 'ouch': errors.has('owner_name')}"
-                                                data-vv-scope="scope-1"
-                                                v-validate="'required|max:100'" data-vv-as="Full Name" />
+                                            <input type="text" id="full-name" name="owner_name"
+                                                   v-model="owner_name" :disabled="isSubmitting"
+                                                   :class="{'filled': (owner_name.length || owner_name > 0), 'ouch': errors.has('owner_name')}"
+                                                   :maxlength="40"
+                                                   data-vv-scope="scope-1"
+                                                   v-validate="'required|max:40'" data-vv-as="Full Name"/>
                                             <label for="full-name">Your Full Name</label>
                                             <span class="errors"
                                                 v-if="errors.has('scope-1.owner_name')">{{ errors.first('scope-1.owner_name') }}</span>
+                                            <div class="add-on pill" v-text="40 - owner_name.length"></div>
                                         </section>
 
                                         <section class="fieldset">
@@ -261,14 +264,16 @@
                                     </div>
 
                                     <div class="sub-column">
-                                        <section class="fieldset required single-field"
+                                        <section class="fieldset required single-field add-on"
                                             :class="{'has-error': errors.has('scope-3.name')}">
                                             <input type="text" id="property-title" name="name" v-model="name" :disabled="isSubmitting"
                                                 :class="{'filled': (name.length || name > 0), 'ouch': errors.has('scope-3.name')}"
-                                                v-validate="'required|max:100'" data-vv-as="Property Title" data-vv-scope="scope-3" placeholder="eg Gorgeous Cabin on Lake Travis" />
+                                                :maxlength="40"
+                                                v-validate="'required|max:40'" data-vv-as="Property Title" data-vv-scope="scope-3" placeholder="eg Gorgeous Cabin on Lake Travis" />
                                             <label for="property-title">Property Title</label>
                                             <span class="errors"
                                                 v-if="errors.has('scope-3.name')">{{ errors.first('scope-3.name') }}</span>
+                                            <div class="add-on pill" v-text="40 - name.length"></div>
                                         </section>
                                         <section class="fieldset required single-field"
                                             :class="{'has-error': errors.has('scope-3.website')}">
@@ -393,7 +398,7 @@
 
                                     <div class="sub-column mob-pad">
 
-                                        <trix id="property-description":value="desc" :disabled="isSubmitting" :withFiles="false"
+                                        <trix id="property-description" :value="desc" :disabled="isSubmitting" :withFiles="false"
                                             :class="{'filled': (desc.length || desc > 0), 'ouch': errors.has('scope-3.desc')}" data-vv-scope="scope-3"
                                             @change="trixChange"
                                             />

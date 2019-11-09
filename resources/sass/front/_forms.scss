@@ -259,6 +259,20 @@ form.sweetspot-form {
             border-radius:5px;
             margin-bottom:-5px;
         }
+        &.add-on {
+            position: relative;
+            .add-on {
+                &.pill {
+                    position: absolute;
+                    top: 9px;
+                    right: 5px;
+                    padding: 10px;
+                    background-color: gainsboro;
+                    border-radius: 10px;
+                    font-size: 0.8em;
+                }
+            }
+        }
         &.single-field {
             flex-direction:column;
             &.has-prefix {
