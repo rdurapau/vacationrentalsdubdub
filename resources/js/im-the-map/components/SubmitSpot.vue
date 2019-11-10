@@ -57,6 +57,7 @@
                 v-on:success="visibleScreen = 'success'"
                 v-on:submitting="isSubmitting = true"
                 v-on:not-submitting="isSubmitting = false"
+                ref="submitSpotForm"
             ></submit-spot-form>
 
         </section>
@@ -80,6 +81,7 @@
 
     export default {
         props: ['amenities'],
+        components: {'submit-spot-form': SubmitSpotForm},
         data() {
             return {
                 visibleScreen : 'newPropertyForm',
@@ -98,7 +100,9 @@
             confirmClose() {
                 this.visibleScreen = 'newPropertyForm';
                 this.$store.commit('hideCancelConfirmationModal');
-                this.$store.commit('hideSubmitPropertyModal')
+                this.$store.commit('hideSubmitPropertyModal');
+                this.$refs.submitSpotForm.goToSection(1);
+                this.$refs.submitSpotForm.clearAllFields();
             },
             cancelClose() {
                 this.$store.commit('hideCancelConfirmationModal');

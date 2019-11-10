@@ -510,6 +510,43 @@
             }
         },
         methods: {
+            clearAllFields() {
+                let fields = {
+                    'owner_name' : '',
+                    'website' : '',
+                    'email' : '',
+                    'email_confirmation' : '',
+                    'phone' : '',
+                    'name' : '',
+                    'desc' : '',
+                    'price' : '',
+                    'sleeps' : '',
+                    'baths' : '',
+                    'beds' : '',
+                    'terms_agree': false,
+
+                    'addressIsSelected' : false,
+                    'address1' : '',
+                    'city' : '',
+                    'state' : '',
+                    'postal_code' : '',
+                    'selectedAmenities' : [],
+
+                    'lat': '',
+                    'lng': '',
+
+                    'map' : '',
+                    'geocoder': '',
+
+                    'visibleSection' : 1,
+                    'isSubmitting': false,
+                }
+
+                for (let key in fields) {
+                    this[key] = fields[key];
+                }
+                this.errors.clear();
+            },
             addressSelected(ev) {
                 let context = ev.result.context;
                 // this.map.getSource('single-point').setData(ev.result.geometry);
