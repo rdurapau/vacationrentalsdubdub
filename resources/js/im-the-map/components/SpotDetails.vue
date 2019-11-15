@@ -60,25 +60,55 @@
                             <img src="/images/icons/shower.svg" />
                             <span>{{spot.baths}} baths</span>
                         </div>
+                        <div v-if="spot.phone">
+                            <img width="20" src="/images/icons/phone.svg" />
+                            <a :href="'tel:' + phone" style="display:inline-block; margin-left:5px;">{{phone}}</a>
+                        </div>
+                        <div v-if="spot.website" style="margin-left:10px;">
+                            <img width="20" src="/images/icons/link.svg" />
+                            <a :href="website" style="display:inline-block; margin-left:5px;">{{ website }}</a>
+                        </div>
                     </section>
 
                     <div class="spot-description" v-html="spot.desc"></div>
 
-                    <h3 v-if="amenities && amenities.length">Featured Amenities</h3>
-                    <ul class="amenities" v-if="featuredAmenities && featuredAmenities.length">
-                        <li v-for="amenity in featuredAmenities" :class="amenity.icon">
-                            <div class="icon"><img :src="'/images/icons/amenities/'+amenity.icon+'.svg'" /></div>
-                            <span v-text="amenity.name"></span>
-                        </li>
-                    </ul>
+<!--                    <aside class="content" style="margin-left: 0;">-->
+<!--                        <div class="cost-row">-->
+<!--                            <h5>Contact Us</h5>-->
+<!--                        </div>-->
+<!--                        <ul class="contact">-->
+<!--                            <li class="phone" v-if="spot.phone">-->
+<!--                                <a :href="'tel:' + phone" target="_blank">{{ phone }}</a>-->
+<!--                            </li>-->
+<!--                            <li class="link" v-if="spot.website">-->
+<!--                                <a :href="website" target="_blank">Visit Property Website</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </aside>-->
 
-                    <div v-for="(group, title) in groupedAmenities" class="amenity-group">
-                        <h4 v-text="title"></h4>
-                        <ul class="amenities">
-                            <li v-for="amenity in group">
+
+                    <div style="margin-top:35px; width:100%;">
+                        <v-calendar is-expanded :attributes="calendarAttrs"></v-calendar>
+                    </div>
+
+
+                    <div class="hidden" style="display: none;">
+                        <h3 v-if="amenities && amenities.length">Featured Amenities</h3>
+                        <ul class="amenities" v-if="featuredAmenities && featuredAmenities.length">
+                            <li v-for="amenity in featuredAmenities" :class="amenity.icon">
+                                <div class="icon"><img :src="'/images/icons/amenities/'+amenity.icon+'.svg'"/></div>
                                 <span v-text="amenity.name"></span>
                             </li>
                         </ul>
+
+                        <div v-for="(group, title) in groupedAmenities" class="amenity-group">
+                            <h4 v-text="title"></h4>
+                            <ul class="amenities">
+                                <li v-for="amenity in group">
+                                    <span v-text="amenity.name"></span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </article>
             </section>
@@ -118,12 +148,53 @@
     import ReservationForm from './ReservationForm.vue';
     Vue.component('reservation-form', ReservationForm);
 
+    import VCalendar from 'v-calendar';
+    Vue.use(VCalendar);
+
     export default {
         data() {
             return {
                 currentPhotoIndex: 0,
                 reservationFormVisible: false,
-                innerHeight: '100%'
+                innerHeight: '100%',
+                calendarAttrs: [
+                    {
+                        dot: {
+                            color: 'red',
+                            class: 'my-dot-class',
+                        },
+                        dates: [
+                            new Date(2019, 10, 1), // Jan 1st
+                            new Date(2019, 10, 12), // Jan 10th
+                            new Date(2019, 10, 22), // Jan 22nd
+                        ],
+                        popover: {
+                            label: '$450 Per Night'
+                        }
+                    },
+                    {
+                        dot: 'green',
+                        dates: [
+                            new Date(2019, 10, 4), // Jan 4th
+                            new Date(2019, 10, 10), // Jan 10th
+                            new Date(2019, 10, 15), // Jan 15th
+                        ],
+                        popover: {
+                            label: '$500 Per Night'
+                        }
+                    },
+                    {
+                        dot: 'purple',
+                        dates: [
+                            new Date(2019, 10, 17), // Jan 12th
+                            new Date(2019, 10, 26), // Jan 26th
+                            new Date(2019, 10, 16), // Jan 15th
+                        ],
+                        popover: {
+                            label: '$300 Per Night'
+                        }
+                    },
+                ],
             }
         },
         methods: {
@@ -157,7 +228,10 @@
             },
             hideReservationForm() {
                 this.reservationFormVisible = false;
-            }
+            },
+            gotToOwnerWebsite() {
+                alert("Hello");
+            },
             // afterCardEnter() {
             //     this.$mapBus.$emit('detailsCardShown');
             // },
@@ -175,6 +249,20 @@
             },
             spot() {
                 return this.$store.state.activeSpot;
+            },
+            website() {
+                let w = this.spot.website;
+                if (/(?!(http|https):\/\/)\w*/.test(w)) {
+                    // Add a protocol to ensure that the URL doesn't get appended to the Sweetspot domain
+                    return 'http://' + w;
+                }
+                return w;
+            },
+            phone() {
+                var simple_phone = this.spot.phone.replace(/[\(\)\-. ]*/, '');
+                if (simple_phone.length == 10)
+                    return simple_phone.substr(0, 3) + '-' + simple_phone.substr(3, 3) + '-' + simple_phone.substr(6);
+                return simple_phone;
             },
             amenities() {
                 if (this.spot && this.spot.hasOwnProperty('amenities')) {

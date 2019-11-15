@@ -50,6 +50,7 @@
         "spinthatshit": "^1.0.4",
         "tiptap": "^1.16.2",
         "trix": "^1.0.0",
+        "v-calendar": "^1.0.0-beta.22",
         "vee-validate": "^2.2.4",
         "vee-validate-laravel": "^1.1.0",
         "vue-flatpickr-component": "^8.1.2",
