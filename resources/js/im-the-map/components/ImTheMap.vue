@@ -104,8 +104,11 @@
             </section>
 
             <nav>
+                <a href="#" @click.prevent="showAboutModal">When</a>
+                <a href="#" @click.prevent="showSubmitPropertyModal">Be A Spot</a>
+                <a href="#" @click.prevent="showSubmitPropertyModal">I'm A Spot</a>
                 <a href="#" @click.prevent="showAboutModal">About Us</a>
-                <button @click.prevent="showSubmitPropertyModal">Be A Spot</button>
+                <a href="#" @click.prevent="showAboutModal">Contact</a>
             </nav>
 
         </header>
