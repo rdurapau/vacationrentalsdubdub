@@ -117,15 +117,26 @@
         <section class="welcome-pane" v-else>
             <div class="welcome-home"></div>
             <section class="welcome-message">
-                <h1>Better search. Better find.</h1>
                 <ul>
                     <li>
-                        <h1>Zoom. Hover. Click. Go.</h1>
-                        <p>Searching has never been easier. Zoom, hover, and click. Easy, fast map-based search. No long-running lists.</p>
+                        <h1 style="font-size: 30pt; text-shadow: 3px 3px 3px #a0a0a0;">Better search:</h1>
+                        <p style="font-size: 16px;">
+                            Easy, fast map-based search ~ no lists.
+                            <br />
+                            Less clutter: <strong style="color:red; font-weight: 900;">Second Home Rentals</strong> only.
+                            <br />
+                            Direct link to Owners Website.
+                        </p>
                     </li>
                     <li>
-                        <h1>Places to go, not just to stay.</h1>
-                        <p>Find yourself a True Vacation Rental - A place to go, not just to stay. Better places. Better owners. No hidden fees.</p>
+                        <h1 style="font-size: 30pt; text-shadow: 4px 4px 3px #a0a0a0;">Better find:</h1>
+                        <p style="font-size: 16px;">
+                            <strong style="color:red; font-weight: 900;">Second Home Rentals</strong> only.
+                            <br />
+                            Better Places ~ Better Owners
+                            <br />
+                            A place to GO - not just to STAY.
+                        </p>
                     </li>
                 </ul>
             </section>

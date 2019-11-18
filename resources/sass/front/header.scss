@@ -23,19 +23,20 @@ header{
 
         display: flex;
         flex-direction: row;
-        flex-basis: 180px;
+        flex-basis: 200px;
         align-items: center;
+        margin-left: 30px;
         
         .logo{
             display: flex;
             flex-grow: 1;
-            height: 30px;
-            background: url('#{$images}logo.svg') no-repeat 30px center;
+            height: 50px;
+            background: url('#{$images}icons_v2/logo.webp') no-repeat left center;
             background-size: contain;
             @include mq('sm-desk'){
                 height: 25px;
                 width: 145px;
-                background: url('#{$images}logo.svg') no-repeat 20px center;
+                background: url('#{$images}icons_v2/logo.webp') no-repeat left center;
                 background-size: contain;
             }
             @include mq('tablet'){
@@ -101,6 +102,7 @@ header{
         flex-direction: row;
         align-items: center;
         flex:1 1 auto;
+        margin-left: 30px;
         #geocoder {
             width:300px;
             margin-right:10px;
@@ -171,6 +173,7 @@ header{
             }
         }//end search
         .filters-wrap {
+            display: none; /* NOTE: Hidden for now */
             position:relative;
             @include fontBook();
         }
