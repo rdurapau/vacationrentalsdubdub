@@ -104,12 +104,25 @@
             </section>
 
             <nav>
-                <a href="#" @click.prevent="showAboutModal">When</a>
+                <a href="#" @click.prevent="toggleGlobalCalendarDropdown">When</a>
                 <a href="#" @click.prevent="showSubmitPropertyModal">Be A Spot</a>
                 <a href="#" @click.prevent="showSubmitPropertyModal">I'm A Spot</a>
                 <a href="#" @click.prevent="showAboutModal">About Us</a>
                 <a href="#" @click.prevent="showAboutModal">Contact</a>
             </nav>
+
+            <section id="global-calendar-dropdown" :class="{'visible' : globalCalendarDropdownIsVisible}">
+                <div class="header-or-footer">
+                </div>
+                <div>
+                    <v-calendar is-expanded></v-calendar>
+                </div>
+                <div class="apply-row header-or-footer">
+                    <a class="apply" href="#" @click.prevent="applyDropdownFilters">
+                        Apply
+                    </a>
+                </div>
+            </section>
 
         </header>
 
@@ -152,6 +165,9 @@
     import MapFooter from './MapFooter.vue';
     Vue.component('map-footer', MapFooter);
 
+    import VCalendar from 'v-calendar';
+    Vue.use(VCalendar);
+
     // console.log(geoJSON);
     // GeoJSON.parse(data, {Point: ['lat', 'lng']});
 
@@ -181,7 +197,9 @@
                     pets : false,
                     sleeps : 0
                 },
-                
+
+                globalCalendarDropdownIsVisible: false,
+
                 mapStyle: 'streets-v11',
                 styleSwitcherIsOpen : false,
 
@@ -317,7 +335,25 @@
                 this.geolocationStatus = '';
                 // console.log(Object.assign({},this.geolocateControl));
             },
-            
+
+            /*
+             * Global Calendar Dropdown
+             */
+            toggleGlobalCalendarDropdown() {
+                if (this.globalCalendarDropdownIsVisible) {
+                    this.hideGlobalCalendar();
+                } else {
+                    this.showGlobalCalendar();
+                }
+            },
+            showGlobalCalendar() {
+                this.globalCalendarDropdownIsVisible = true;
+                console.log("Showing global calendar dropdown");
+            },
+            hideGlobalCalendar() {
+                this.globalCalendarDropdownIsVisible = false;
+                console.log("Hiding global calendar dropdown");
+            },
 
             /*
              * Filter Dropdown
