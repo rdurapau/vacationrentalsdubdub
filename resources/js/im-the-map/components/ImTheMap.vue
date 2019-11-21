@@ -22,7 +22,7 @@
 
             <section class="logo-and-menu">
 
-                <div class="logo"></div>
+                <div class="logo" @click.prevent="homePane()"></div>
 
                 <div class="bun" :class="{active: mobileNavIsVisible}" @click.prevent="mobileNavIsVisible = !mobileNavIsVisible">
                     <div class="pickles"></div>
@@ -199,6 +199,19 @@
             }
         },
         methods: {
+            homePane() {
+                if (location.pathname !== "/") {
+                    // If we're not in the home page, then navigate to it
+                    location.pathname = "/";
+                } else {
+                    // Otherwise, simply close the Spot Details
+                    try {
+                        this.$store.commit('closeSpotDetails');
+                    } catch {
+                        console.error("Something happened");
+                    }
+                }
+            },
             changeMapStyle(style) {
                 if (!this.styleSwitcherIsOpen) {
                     this.styleSwitcherIsOpen = true;
