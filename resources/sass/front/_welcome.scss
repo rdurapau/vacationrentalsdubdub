@@ -187,7 +187,7 @@ section.spot-slideout{
             @include abs;
             width: 100%;
             height: 500px;
-            background: url('#{$images}welcome-home-2.svg') no-repeat bottom center;
+            background: none;
             background-size: contain;
             transform: scale(.75);
             opacity: .075;
@@ -208,7 +208,7 @@ section.spot-slideout{
             ul{
                 padding-bottom: 40px;
                 li{
-                    padding-left: 120px;
+                    padding-left: 0;
                     h1{
                         @include fontBold;
                         font-size: 20px;
@@ -228,7 +228,7 @@ section.spot-slideout{
                         }
                     }
                     &:first-child{
-                        background: url('#{$images}icons/icon-welcome-compass.svg') no-repeat top left;
+                        //background: url('#{$images}icons/icon-welcome-compass.svg') no-repeat top left;
                         background-size: 75px;
                         margin-bottom: 40px;
                         @include mq('tablet'){
@@ -236,7 +236,7 @@ section.spot-slideout{
                         }
                     }
                     &:last-child{
-                        background: url('#{$images}icons/icon-welcome-lantern.svg') no-repeat top left;
+                        //background: url('#{$images}icons/icon-welcome-lantern.svg') no-repeat top left;
                         background-size: 80px;
                         @include mq('tablet'){
                             background-size: 40px;

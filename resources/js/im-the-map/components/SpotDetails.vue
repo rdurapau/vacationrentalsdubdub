@@ -119,7 +119,7 @@
             <section class="welcome-message">
                 <ul>
                     <li>
-                        <h1 style="font-size: 30pt; text-shadow: 3px 3px 1px #515151; text-transform: uppercase;">Better search:</h1>
+                        <h1 style="font-size: 30pt; text-shadow: 3px 3px 1px #a0a0a0; text-transform: uppercase;">Better search:</h1>
                         <p style="font-size: 20px;">
                             Easy, fast map-based search – no lists.
                             <br />
@@ -129,7 +129,7 @@
                         </p>
                     </li>
                     <li>
-                        <h1 style="font-size: 30pt; text-shadow: 4px 4px 1px #515151; text-transform: uppercase;">Better find:</h1>
+                        <h1 style="font-size: 30pt; text-shadow: 4px 4px 1px #a0a0a0; text-transform: uppercase;">Better find:</h1>
                         <p style="font-size: 20px;">
                             <strong style="color:red; font-weight: 900;">Second Home Rentals</strong> only.
                             <br />
