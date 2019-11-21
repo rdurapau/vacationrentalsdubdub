@@ -119,9 +119,9 @@
             <section class="welcome-message">
                 <ul>
                     <li>
-                        <h1 style="font-size: 30pt; text-shadow: 3px 3px 3px #a0a0a0;">Better search:</h1>
-                        <p style="font-size: 16px;">
-                            Easy, fast map-based search ~ no lists.
+                        <h1 style="font-size: 30pt; text-shadow: 3px 3px 1px #515151; text-transform: uppercase;">Better search:</h1>
+                        <p style="font-size: 20px;">
+                            Easy, fast map-based search – no lists.
                             <br />
                             Less clutter: <strong style="color:red; font-weight: 900;">Second Home Rentals</strong> only.
                             <br />
@@ -129,16 +129,29 @@
                         </p>
                     </li>
                     <li>
-                        <h1 style="font-size: 30pt; text-shadow: 4px 4px 3px #a0a0a0;">Better find:</h1>
-                        <p style="font-size: 16px;">
+                        <h1 style="font-size: 30pt; text-shadow: 4px 4px 1px #515151; text-transform: uppercase;">Better find:</h1>
+                        <p style="font-size: 20px;">
                             <strong style="color:red; font-weight: 900;">Second Home Rentals</strong> only.
                             <br />
-                            Better Places ~ Better Owners
+                            Better Places – Better Owners
                             <br />
-                            A place to GO - not just to STAY.
+                            A place to GO – not just to STAY.
                         </p>
                     </li>
                 </ul>
+                <br>
+                <br>
+                <br>
+                <img width="100%"
+                        src="/images/icons_v2/logo.webp" alt="" />
+                <br />
+                <br />
+                <br />
+                <br />
+                <span style="font-size: 16px;">
+                    <strong style="font-weight: 900;">second home - noun</strong>
+                    an additional residence, as at the shore or in the country, where one goes on weekends, vacations, and the like.
+                </span>
             </section>
         </section>
         <component is="style" type="text/css" scoped>
