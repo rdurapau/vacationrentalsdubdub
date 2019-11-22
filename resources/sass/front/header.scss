@@ -428,7 +428,7 @@ header{
         box-sizing:border-box;
         transition:top .75s, opacity .5s;
         &.visible {
-            top:100px;
+            top:50px;
             opacity:1;
         }
         div.header-or-footer {
