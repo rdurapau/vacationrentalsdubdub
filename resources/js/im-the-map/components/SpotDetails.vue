@@ -55,16 +55,19 @@
                     <h2 v-text="spot.name"></h2>
                     <section class="icon-deets">
                         <div v-if="spot.sleeps">
-                            <img src="/images/icons/person-circle.svg" />
-                            <span>Sleeps {{spot.sleeps}}</span>
+                            <span>{{spot.beds}}BR</span>
                         </div>
-                        <div v-if="spot.sleeps">
-                            <img src="/images/icons/bed.svg" />
-                            <span>{{spot.beds}} beds</span>
-                        </div>
+                        |
                         <div v-if="spot.baths">
-                            <img src="/images/icons/shower.svg" />
-                            <span>{{spot.baths}} baths</span>
+                            <span>{{spot.baths}}BA</span>
+                        </div>
+                        |
+                        <div v-if="spot.baths">
+                            <span>1400sf</span>
+                        </div>
+                        |
+                        <div v-if="spot.sleeps">
+                            <span>Sleeps: {{spot.sleeps}}</span>
                         </div>
                         <div v-if="spot.phone">
                             <img width="20" src="/images/icons/phone.svg" />
