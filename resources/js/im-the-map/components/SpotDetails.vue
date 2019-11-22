@@ -12,7 +12,7 @@
         <section class="spot-details" v-else-if="spotDetailsVisible && spot">
             <section class="hero">
                 <button class="close" @click.prevent="close"><span class="icon-clear-css"></span></button>
-                <div class="controls">
+                <div class="controls" style="display: none;">
                     <a href="#" class="left" @click.prevent="prevPhoto"></a>
                     <a href="#" class="right" @click.prevent="nextPhoto"></a>
                     <nav>
@@ -26,10 +26,16 @@
                     </nav>
                 </div>
                 <div class="photos" v-if="photos && photos.length">
-                    <!-- <span v-for="photo in photos" :style="'background-image:url('+photo+')'"></span> -->
-                    <span :style="'background-image:url('+photos[currentPhotoIndex]+')'"></span>
+                    <div class="row" v-for="row in getImageConfiguration()" style="line-height: 0;">
+                        <span v-for="photo in row" @mouseover="showZoom(photo)" @mouseout="hideZoom()" v-bind:style="{height: Math.ceil(350.0 / getImageConfiguration().length) + 'px', width: Math.floor(100 / row.length) + '%', display: 'inline-block', backgroundImage: 'url('+photo+')'}"></span>
+                    </div>
                 </div>
+<!--                <div class="photos" v-if="photos && photos.length">-->
+<!--                    &lt;!&ndash; <span v-for="photo in photos" :style="'background-image:url('+photo+')'"></span> &ndash;&gt;-->
+<!--                    <span :style="'background-image:url('+photos[currentPhotoIndex]+')'"></span>-->
+<!--                </div>-->
             </section>
+            <section class="image-zoom" :style="{backgroundImage: 'url(' + imageZoomUrl + ')'}" :class="{visible: imageZoomIsVisible}"></section>
             <section class="content">
                 <aside style="display: none;">
                     <div class="cost-row">
@@ -181,6 +187,20 @@
                 currentPhotoIndex: 0,
                 reservationFormVisible: false,
                 innerHeight: '100%',
+                imageZoomIsVisible: false,
+                imageZoomUrl: '',
+                imageConfiguration: {
+                    0: 'carousel',
+                    1: 'carousel',
+                    2: 'carousel',
+                    3: [1, 2],
+                    4: [1, 3],
+                    5: [2, 3],
+                    6: [3, 3],
+                    7: [2, 3, 2],
+                    8: [3, 2, 3],
+                    9: [3, 3, 3],
+                },
                 calendarAttrs: [
                     {
                         dot: {
@@ -222,6 +242,25 @@
             }
         },
         methods: {
+            showZoom(photo) {
+                this.imageZoomUrl = photo;
+                this.imageZoomIsVisible = true;
+            },
+            hideZoom() {
+                this.imageZoomIsVisible = false;
+            },
+            getImageConfiguration() {
+                console.log(this.photos);
+                let photoCount = Math.min(this.photos.length, 9);
+                let ds = [];
+                let config = this.imageConfiguration[photoCount];
+                var j = 0;
+                for (var i=0; i<config.length; ++i) {
+                    ds.push(this.photos.slice(j, j + config[i]));
+                    j += config[i];
+                }
+                return ds;
+            },
             close() {
                 this.$store.commit('closeSpotDetails');
             },
