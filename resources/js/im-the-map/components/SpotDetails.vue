@@ -56,26 +56,35 @@
                     <section class="icon-deets">
                         <div v-if="spot.sleeps">
                             <span>{{spot.beds}}BR</span>
-                        </div>
-                        |
+                        </div>|
                         <div v-if="spot.baths">
                             <span>{{spot.baths}}BA</span>
-                        </div>
-                        |
+                        </div>|
                         <div v-if="spot.baths">
                             <span>1400sf</span>
-                        </div>
-                        |
+                        </div>|
                         <div v-if="spot.sleeps">
                             <span>Sleeps: {{spot.sleeps}}</span>
+                        </div>|
+                        <div v-if="spot.phone" style="display: inline-block; margin-left:15px;">
+                            <a :href="'tel:' + phone">
+                                <img width="20" src="/images/icons_v2/phone.png" />
+                            </a>
                         </div>
-                        <div v-if="spot.phone">
-                            <img width="20" src="/images/icons/phone.svg" />
-                            <a :href="'tel:' + phone" style="display:inline-block; margin-left:5px;">{{phone}}</a>
+                        <div v-if="spot.website" style="display: inline-block; margin-left:15px;">
+                            <a :href="website" target="_blank">
+                                <img width="20" src="/images/icons_v2/home.png" />
+                            </a>
                         </div>
-                        <div v-if="spot.website" style="margin-left:10px;">
-                            <img width="20" src="/images/icons/link.svg" />
-                            <a :href="website" style="display:inline-block; margin-left:5px;">{{ website }}</a>
+                        <div v-if="spot.website" style="display: inline-block; margin-left:15px;">
+                            <a :href="website" target="_blank">
+                                <img width="20" src="/images/icons_v2/email.png" />
+                            </a>
+                        </div>
+                        <div v-if="spot.website" style="display: inline-block; margin-left:15px;">
+                            <a :href="website" target="_blank">
+                                <img width="20" src="/images/icons_v2/heart.png" />
+                            </a>
                         </div>
                     </section>
 
@@ -157,7 +166,9 @@
                 <br />
                 <br />
                 <br />
-                <span style="font-size: 16px;">
+                <br />
+                <br />
+                <span style="font-size: 16pt;">
                     <strong style="font-weight: 900;">second home - noun</strong>
                     an additional residence, as at the shore or in the country, where one goes on weekends, vacations, and the like.
                 </span>
