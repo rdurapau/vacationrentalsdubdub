@@ -371,9 +371,10 @@ header{
         a{
             padding: 0 30px;
             text-decoration: none;
+            text-transform: uppercase;
             @include fontMedium();
             color: $grey;
-            font-size: 15px;
+            font-size: 16pt;
             &:hover{
                 color: $purple;
             }//end hover
