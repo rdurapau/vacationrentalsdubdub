@@ -347,6 +347,7 @@
                                     </div>
                                 </section>
 
+                                <div v-if="0">
                                 <h2 class="section-title">Amenities</h2>
 
                                 <!-- Adding this nested wrap to allow me to split out floating comments -->
@@ -385,6 +386,7 @@
                                     </div><!-- End sub column -->
 
                                 </section><!-- END sub-section-row -->
+                                </div>
 
                                 <section class="sub-section-row">
 
