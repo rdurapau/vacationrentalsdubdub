@@ -105,8 +105,18 @@
 <!--                    </aside>-->
 
 
-                    <div style="margin-top:35px; width:100%;">
-                        <v-calendar is-expanded :attributes="calendarAttrs"></v-calendar>
+                    <div class="price-calendar" style="margin-top:35px; width:100%;">
+                        <calendar :value="value"
+                                  :has-input="false"
+                                  :onDayClick="dayClick"
+                                  :width="'400px'"
+                                  ref="cal">
+                            <div v-for="evt in events" :slot="evt.date" :class="{low : evt.change < 0, high : evt.change > 0, norm : evt.change == 0}">
+                                {{evt.content}}
+                                <i v-if="evt.change < 0">&darr;</i>
+                                <i v-if="evt.change > 0">&uarr;</i>
+                            </div>
+                        </calendar>
                     </div>
 
 
@@ -192,10 +202,28 @@
     import ReservationForm from './ReservationForm.vue';
     Vue.component('reservation-form', ReservationForm);
 
-    import VCalendar from 'v-calendar';
-    Vue.use(VCalendar);
+    import 'vue2-slot-calendar/lib/calendar.min.css';
+    import calendar from 'vue2-slot-calendar/lib/calendar';
+    import Calendar from 'vue2-slot-calendar';
+
+    Vue.component('calendar', Calendar);
+    // Vue.use(Calendar);
+
+    // import VCalendar from 'v-calendar';
+    // Vue.use(VCalendar);
+
+    function _formatDate(month, day, year) {
+        if (month < 10)
+            month = '0' + month;
+        if (day < 10)
+            day = '0' + day;
+        return month + '/' + day + '/' + year;
+    }
 
     export default {
+        components: {
+            'calendar': Calendar
+        },
         data() {
             return {
                 currentPhotoIndex: 0,
@@ -203,6 +231,7 @@
                 innerHeight: '100%',
                 imageZoomIsVisible: false,
                 imageZoomUrl: '',
+                value: new Date(),
                 imageConfiguration: {
                     0: [0],
                     1: [1],
@@ -215,47 +244,35 @@
                     8: [3, 2, 3],
                     9: [3, 3, 3],
                 },
-                calendarAttrs: [
+                events2: [
                     {
-                        dot: {
-                            color: 'red',
-                            class: 'my-dot-class',
-                        },
-                        dates: [
-                            new Date(2019, 10, 1), // Jan 1st
-                            new Date(2019, 10, 12), // Jan 10th
-                            new Date(2019, 10, 22), // Jan 22nd
-                        ],
-                        popover: {
-                            label: '$450 Per Night'
-                        }
+                        content: '$499',
+                        change: 0,
+                        date: "12/02/2019"
                     },
                     {
-                        dot: 'green',
-                        dates: [
-                            new Date(2019, 10, 4), // Jan 4th
-                            new Date(2019, 10, 10), // Jan 10th
-                            new Date(2019, 10, 15), // Jan 15th
-                        ],
-                        popover: {
-                            label: '$500 Per Night'
-                        }
+                        content: '$375',
+                        change: -1,
+                        date: "12/03/2019"
                     },
                     {
-                        dot: 'purple',
-                        dates: [
-                            new Date(2019, 10, 17), // Jan 12th
-                            new Date(2019, 10, 26), // Jan 26th
-                            new Date(2019, 10, 16), // Jan 15th
-                        ],
-                        popover: {
-                            label: '$300 Per Night'
-                        }
+                        content: '$650',
+                        change: 1,
+                        date: "12/04/2019"
                     },
-                ],
+                    {
+                        content: '$560',
+                        change: 1,
+                        date: "01/13/2020"
+                    }
+                ]
             }
         },
         methods: {
+            dayClick(item, event) {
+                console.log(this.$refs.cal);
+                this.$refs.cal.currDate = new Date(2019, 11, 17);
+            },
             showZoom(photo) {
                 this.imageZoomUrl = photo;
                 this.imageZoomIsVisible = true;
@@ -308,7 +325,7 @@
             },
             gotToOwnerWebsite() {
                 alert("Hello");
-            },
+            }
             // afterCardEnter() {
             //     this.$mapBus.$emit('detailsCardShown');
             // },
@@ -321,6 +338,33 @@
             //     // return navigator.userAgent.match(/iOS/i) !== null;
             //     return /iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             // },
+            events() {
+                var month = 11;
+                var day = 1;
+                var year = 2019;
+                let minPrice = 295;
+                let normalPrice = 450;
+                let maxPrice = 715;
+                let limit = 60;
+                let events = [];
+                for (let i=0; i<limit; ++i) {
+                    let price = Math.floor(minPrice + ((maxPrice - minPrice) * Math.random()));
+                    let date = new Date(year, month, day);
+                    day ++;
+                    if (day > 31) {
+                        year += 1;
+                        month = 0;
+                        day = 1;
+                    }
+                    events.push({
+                        content: '$' + price,
+                        change: price - normalPrice,
+                        date: _formatDate(date.getMonth() + 1, date.getDate(), date.getFullYear())
+                    });
+                }
+                console.log("Events: ", events);
+                return events;
+            },
             spotDetailsVisible() {
                 return this.$store.state.spotDetailsVisible;
             },

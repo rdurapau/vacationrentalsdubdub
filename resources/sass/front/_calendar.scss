@@ -1,0 +1,69 @@
+.price-calendar .datepicker-inner {
+    width: 450px;
+}
+
+.price-calendar .datepicker-body span {
+    width: 60px;
+    height: 60px;
+    vertical-align: top
+}
+
+.price-calendar .datepicker-body .price {
+    color: #e56700
+}
+
+.price-calendar .datepicker-body .low {
+    color: red;
+    font-weight: 700
+}
+
+.price-calendar .datepicker-body .datepicker-monthRange span {
+    width: 100px;
+    height: 100px;
+    vertical-align: middle;
+    line-height: 100px
+}
+
+.price-calendar .day-cell {
+    > div {
+        text-align: center;
+        line-height: 28px;
+
+        div {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .low {
+            color: forestgreen;
+            font-weight: 700;
+        }
+
+        .high {
+            color: firebrick;
+        }
+
+        .norm {
+            color: royalblue;
+            font-weight: 700;
+        }
+    }
+}
+
+.price-calendar .day-cell.datepicker-dateRange-item-active {
+    > div {
+        .low {
+            color: white;
+            font-weight: 700;
+        }
+
+        .high {
+            color: white;
+        }
+
+        .norm {
+            color: white;
+            font-weight: 700;
+        }
+    }
+}

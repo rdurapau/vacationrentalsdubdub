@@ -13,6 +13,7 @@ $images: '../images/';
 @import 'reset', 'mobile', 'tools';
 @import 'colors', 'fonts', 'buttons', 'components';
 @import 'header', 'forms', 'flatpickr', 'map', 'details', 'uploads', 'welcome';
+@import 'calendar';
 
 body{
     background: #ccc;
