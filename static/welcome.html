@@ -30,7 +30,7 @@
         </li>
       </ul>
 
-      <button>List Your Spot</button>
+      <button>Be A Spot</button>
 
     </mobile-nav>
 
@@ -75,7 +75,7 @@
 
       <nav>
         <a href="">About Us</a>
-        <button>List Your Spot</button>
+        <button>Be A Spot</button>
       </nav>
 
     </header>

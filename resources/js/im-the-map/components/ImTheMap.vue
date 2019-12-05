@@ -14,7 +14,7 @@
                 </li>
             </ul>
 
-            <button @click.prevent="showSubmitPropertyModal">List Your Spot</button>
+            <button @click.prevent="showSubmitPropertyModal">Be A Spot</button>
 
         </section>
 
@@ -22,7 +22,7 @@
 
             <section class="logo-and-menu">
 
-                <div class="logo"></div>
+                <div class="logo" @click.prevent="homePane()"></div>
 
                 <div class="bun" :class="{active: mobileNavIsVisible}" @click.prevent="mobileNavIsVisible = !mobileNavIsVisible">
                     <div class="pickles"></div>
@@ -104,9 +104,25 @@
             </section>
 
             <nav>
+                <a href="#" @click.prevent="toggleGlobalCalendarDropdown">When</a>
+                <a href="#" @click.prevent="showSubmitPropertyModal">Be A Spot</a>
+                <a href="#" @click.prevent="showSubmitPropertyModal">I'm A Spot</a>
                 <a href="#" @click.prevent="showAboutModal">About Us</a>
-                <button @click.prevent="showSubmitPropertyModal">List Your Spot</button>
+                <a href="#" @click.prevent="showAboutModal">Contact</a>
             </nav>
+
+            <section id="global-calendar-dropdown" :class="{'visible' : globalCalendarDropdownIsVisible}">
+                <div class="header-or-footer">
+                </div>
+                <div>
+                    <v-calendar is-expanded></v-calendar>
+                </div>
+                <div class="apply-row header-or-footer">
+                    <a class="apply" href="#" @click.prevent="applyDropdownFilters">
+                        Apply
+                    </a>
+                </div>
+            </section>
 
         </header>
 
@@ -149,6 +165,9 @@
     import MapFooter from './MapFooter.vue';
     Vue.component('map-footer', MapFooter);
 
+    import VCalendar from 'v-calendar';
+    Vue.use(VCalendar);
+
     // console.log(geoJSON);
     // GeoJSON.parse(data, {Point: ['lat', 'lng']});
 
@@ -178,7 +197,9 @@
                     pets : false,
                     sleeps : 0
                 },
-                
+
+                globalCalendarDropdownIsVisible: false,
+
                 mapStyle: 'streets-v11',
                 styleSwitcherIsOpen : false,
 
@@ -196,6 +217,19 @@
             }
         },
         methods: {
+            homePane() {
+                if (location.pathname !== "/") {
+                    // If we're not in the home page, then navigate to it
+                    location.pathname = "/";
+                } else {
+                    // Otherwise, simply close the Spot Details
+                    try {
+                        this.$store.commit('closeSpotDetails');
+                    } catch {
+                        console.error("Something happened");
+                    }
+                }
+            },
             changeMapStyle(style) {
                 if (!this.styleSwitcherIsOpen) {
                     this.styleSwitcherIsOpen = true;
@@ -301,7 +335,25 @@
                 this.geolocationStatus = '';
                 // console.log(Object.assign({},this.geolocateControl));
             },
-            
+
+            /*
+             * Global Calendar Dropdown
+             */
+            toggleGlobalCalendarDropdown() {
+                if (this.globalCalendarDropdownIsVisible) {
+                    this.hideGlobalCalendar();
+                } else {
+                    this.showGlobalCalendar();
+                }
+            },
+            showGlobalCalendar() {
+                this.globalCalendarDropdownIsVisible = true;
+                console.log("Showing global calendar dropdown");
+            },
+            hideGlobalCalendar() {
+                this.globalCalendarDropdownIsVisible = false;
+                console.log("Hiding global calendar dropdown");
+            },
 
             /*
              * Filter Dropdown

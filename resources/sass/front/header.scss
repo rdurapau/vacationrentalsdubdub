@@ -23,19 +23,21 @@ header{
 
         display: flex;
         flex-direction: row;
-        flex-basis: 180px;
+        flex-basis: 200px;
         align-items: center;
+        margin-left: 30px;
         
         .logo{
             display: flex;
             flex-grow: 1;
-            height: 30px;
-            background: url('#{$images}logo.svg') no-repeat 30px center;
+            height: 50px;
+            cursor: pointer;
+            background: url('#{$images}icons_v2/logo.webp') no-repeat left center;
             background-size: contain;
             @include mq('sm-desk'){
                 height: 25px;
                 width: 145px;
-                background: url('#{$images}logo.svg') no-repeat 20px center;
+                background: url('#{$images}icons_v2/logo.webp') no-repeat left center;
                 background-size: contain;
             }
             @include mq('tablet'){
@@ -101,6 +103,7 @@ header{
         flex-direction: row;
         align-items: center;
         flex:1 1 auto;
+        margin-left: 30px;
         #geocoder {
             width:300px;
             margin-right:10px;
@@ -171,6 +174,7 @@ header{
             }
         }//end search
         .filters-wrap {
+            display: none; /* NOTE: Hidden for now */
             position:relative;
             @include fontBook();
         }
@@ -367,9 +371,10 @@ header{
         a{
             padding: 0 30px;
             text-decoration: none;
+            text-transform: uppercase;
             @include fontMedium();
             color: $grey;
-            font-size: 15px;
+            font-size: 16pt;
             &:hover{
                 color: $purple;
             }//end hover
@@ -404,4 +409,136 @@ header{
             display: none;
         }
     }//end nav
+
+    /*
+     * Global Calendar Dropdown
+     */
+    #global-calendar-dropdown {
+        position:absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity:0;
+        display:block;
+        background: #f0f0f0;
+        border: 1px solid #ebebeb;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, .1);
+        border-radius:7px;
+        padding: 0 30px;
+        width:430px;
+        box-sizing:border-box;
+        transition:top .75s, opacity .5s;
+        &.visible {
+            top:50px;
+            opacity:1;
+        }
+        div.header-or-footer {
+            width:100%;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            height:60px;
+            border-bottom:1px solid #EBEBEB;
+            label {
+                font-size:19px;
+            }
+            button.circle-button {
+                height:32px;
+                width:32px;
+                border-radius:16px;
+                border:2px solid $light-grey;
+                background:none transparent;
+                box-sizing:border-box;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                transition:border-color .15s;
+                svg {
+                    path {
+                        transition:stroke .15s;
+                    }
+                }
+                &:hover {
+                    border-color:$blue;
+                    svg {
+                        path {
+                            stroke:$blue;
+                        }
+                    }
+                }
+            }
+            a.apply {
+                font-size:19px;
+                text-decoration:none;
+                color:$blue;
+            }
+            &:last-child {
+                border-bottom:0;
+            }
+            &.apply-row {
+                justify-content:flex-end;
+            }
+            .number-with-buttons {
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                span {
+                    width:48px;
+                    text-align:center;
+                    font-size:19px;
+                }
+                input.input-increment {
+                    @include appearance(none);
+                    border:none;
+                    background: none transparent;
+                    width:48px;
+                    box-sizing:border-box;
+                    font-size:19px;
+                    @include fontBook();
+                    text-align:center;
+                    /* Hide HTML5 Up and Down arrows. */
+                    &[type="number"]::-webkit-outer-spin-button, &[type="number"]::-webkit-inner-spin-button {
+                        -webkit-appearance: none;
+                        margin: 0;
+                    }
+                    &[type="number"] {
+                        -moz-appearance: textfield;
+                    }
+                }
+            }
+        }
+        .check-group {
+            input {
+                display:none;
+                &:checked + label {
+                    background:$blue;
+                    border-color:$blue;
+                    svg {
+                        opacity:1;
+                        visibility:visible;
+                    }
+                }
+            }
+            label {
+                display:flex;
+                height:32px;
+                width:32px;
+                box-sizing:border-box;
+                border-radius:16px;
+                border:2px solid $light-grey;
+                background:#fff;
+                align-items:center;
+                justify-content:center;
+                transition:background-color .15s, border-color .15s;
+                padding:0 !important;
+                margin-top:0 !important;
+                svg {
+                    opacity:0;
+                    visibility:hidden;
+                    transition:opacity .15s, visibility .15s;
+                }
+            }
+        }
+    }
+
 }//end header
