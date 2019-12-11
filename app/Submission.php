@@ -47,7 +47,7 @@ class Submission extends BaseSpot
     {
         return $query
             ->withoutGlobalScope('pending')
-            ->whereIn('moderation_status',[
+            ->whereIn('moderation_status', [
                 ModerationStatus::PENDING,
                 ModerationStatus::REJECTED
             ]);

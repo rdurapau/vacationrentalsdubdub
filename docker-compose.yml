@@ -1,0 +1,32 @@
+version: "3.3"
+
+services:
+  # vacationrentalsdubdub:
+  #   build: .
+  #   command: ["php", "/var/www/html/artisan", "serve", "--port=80"]
+  #   container_name: vacationrentalsdubdub
+  #   network_mode: bridge
+  #   volumes:
+  #     - ./:/var/www/html
+  #     - /var/www/html/node_modules/
+  #   links:
+  #     - vacationrentalsdubdub-db
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     APP_ENV: development
+
+  vacationrentalsdubdub-db:
+    image: mysql:5.7
+    container_name: vacationrentalsdubdub-db
+    network_mode: bridge
+    restart: always
+    volumes:
+      - ./.volumes/vacationrentalsdubdub-db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_DATABASE: vacationrentalsdubdub
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret

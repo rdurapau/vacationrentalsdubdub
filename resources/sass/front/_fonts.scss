@@ -1,18 +1,13 @@
 @mixin fontBook() {
-    font-family: "Whitney A", "Whitney B";
-    font-style: normal;
-    font-weight: 400;
+    font: normal normal 400 16px/1.4em montserrat, sans-serif;
     color: $dark;
 }
 @mixin fontMedium() {
-    font-family: "Whitney A", "Whitney B";
-    font-style: normal;
-    font-weight: 600;
+    font: normal normal 600 16px/1.4em montserrat, sans-serif;
     color: $dark;
 }
 @mixin fontBold() {
-    font-family: "Whitney A", "Whitney B";
-    font-style: normal;
+    font: normal normal 700 16px/1.4em montserrat, sans-serif;
     font-weight: 700;
     color: $dark;
 }

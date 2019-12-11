@@ -20,7 +20,9 @@ class SpotController extends ApiController
 {
     public function index(Request $request)
     {
-        $spots = Spot::with('amenities','media')->get();
+        $spots = Spot::with('media')->get();
+        // dd($spots);
+
         if ($this->wantsGeoJson($request)) {
             return response()
                 ->json(new GeoSpotCollection($spots))

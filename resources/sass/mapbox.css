@@ -3,9 +3,9 @@
 @import url(~mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css);
 .mapboxgl-marker .spot-marker {
   cursor: pointer;
-  font-family: "Whitney A", "Whitney B";
-  font-style: normal;
-  font-weight: 700;
+  /* font-family: "Whitney A", "Whitney B"; */
+  font: normal normal 700 16px/1.4em montserrat, sans-serif;
+  
   color: #29304C;
   background: #fff;
   width: 150px;

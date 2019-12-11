@@ -13,7 +13,8 @@ Vue.use(Vuex)
 
 const state = {
     activeSpot: 0,
-    spotDetailsVisible : false,
+    showContact: false,
+    spotDetailsVisible: false,
     detailsLoading: false,
     submitPropertyModalVisible: false,
 
@@ -27,7 +28,7 @@ const state = {
 }
 
 const getters = {
-    
+
 }
 
 //  #     #                                                  
@@ -40,6 +41,7 @@ const getters = {
 const mutations = {
     newActiveSpot(state, payload) {
         state.activeSpot = payload;
+        state.showContact = false;
 
         // Update query string
         if ('URLSearchParams' in window) {
@@ -48,6 +50,9 @@ const mutations = {
             var newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
             history.pushState(null, '', newRelativePathQuery);
         }
+    },
+    setShowContact(state, payload) {
+        state.showContact = payload;
     },
     showDetailsCard() {
         state.spotDetailsVisible = true;
@@ -130,18 +135,18 @@ const mutations = {
 //  #     # #    #   #   # #    # #   ## #    # 
 //  #     #  ####    #   #  ####  #    #  ####  
 const actions = {
-    getSpotData({commit},id) {
-        return axios.get('/api/spots/'+id)
-            // .then((response)  => commit.newActiveSpot(response.data))
-            // .catch((error) => console.log(error));
+    getSpotData({ commit }, id) {
+        return axios.get('/api/spots/' + id)
+        // .then((response)  => commit.newActiveSpot(response.data))
+        // .catch((error) => console.log(error));
     },
-    triggerNewActiveSpot({commit, dispatch},id) {
+    triggerNewActiveSpot({ commit, dispatch }, id) {
         commit('detailsAreLoading');
         commit('showDetailsCard');
-        return dispatch('getSpotData',id)
+        return dispatch('getSpotData', id)
             .then(response => {
                 commit('detailsFinishedLoading');
-                commit('newActiveSpot',response.data);
+                commit('newActiveSpot', response.data);
             })
             .catch(error => console.log(error));
         // return new Promise((resolve) => resolve());

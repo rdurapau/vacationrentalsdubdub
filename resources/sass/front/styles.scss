@@ -1,6 +1,10 @@
 // Images Ref
 $images: '../images/';
 
+.text-red {
+    color: #F00 !important;
+}
+
 // border-radius
 @mixin radius() {
     border-radius: 4px;

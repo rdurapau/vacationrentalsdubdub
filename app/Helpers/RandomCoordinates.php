@@ -6,9 +6,9 @@ class RandomCoordinates {
 
     function getPoint()
     {
-        $lat = rand(-118000000,-80000000)/1000000;
-        $lng = rand(32000000,48000000)/1000000;
-        return [$lng,$lat];
+        $lat = 30.4205 + (rand(0, 1000)/1000);
+        $lng = -abs(97.9103 + (rand(0, 1000)/1000));
+        return [$lat, $lng];
     }
     
     function getPointOLD()

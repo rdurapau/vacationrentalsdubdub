@@ -30,6 +30,9 @@ class GeoSpot extends JsonResource
                 "id" => $this->id,
                 "pets" => $this->allowsPets(),
                 "photo" => $this->cover_photo,
+                'photos' => $this->getMedia()->map(function($photo){
+                    return url($photo->getUrl());
+                }),
                 "postal_code" => $this->postal_code,
                 "price" => $this->price,
                 "sleeps" => $this->sleeps,

@@ -82,6 +82,7 @@ section.welcome-container{
     section.welcome-message{
         padding: 0 50px 0 340px;
         position: relative;
+
         > h1{
             @include fontBold;
             font-size: 42px;
@@ -91,6 +92,11 @@ section.welcome-container{
                 padding: 80px 0 30px 0;
             }
         }
+
+        img {
+            margin-top: 40%
+        }
+
         ul{
             padding-bottom: 40px;
             li{
@@ -195,6 +201,27 @@ section.spot-slideout{
         section.welcome-message{
             padding: 0 60px;
             
+            img.ww-logo {
+                width: 150px;
+                display: block;
+                margin: 100px auto 0;
+            }
+
+            p.body {
+                margin-top: 100px;
+                font: normal normal 700 50px/1.4em montserrat, sans-serif;
+                text-align: center;
+                .red {
+                    color: #F00;
+                }
+            }
+            
+            img.dubdub-logo {
+                margin-top: 120px;
+            }
+
+
+            
             > h1{
                 @include fontBold;
                 font-size: 42px;
@@ -205,6 +232,7 @@ section.spot-slideout{
                     padding: 80px 0 30px 0;
                 }
             }
+
             ul{
                 padding-bottom: 40px;
                 li{
