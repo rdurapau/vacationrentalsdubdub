@@ -116,7 +116,7 @@
                                         <section class="description-detail">
                                             <h2>Nice to meet you!</h2>
                                             <p>The only information that will be shared with guests is your name and phone number so they can contact you directly.</p>
-`                                            <p>Your email will be used for communication with us and for booking requests.</p>
+                                            <p>Your email will be used for communication with us and for booking requests.</p>
                                         </section>
                                     </div>
 
@@ -475,7 +475,7 @@
     let mapboxgl = require('mapbox-gl');
     let MapboxGeocoder = require('mapbox-gl-geocoder');
 
-    mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
+    mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
 
     export default {
         props: ['amenities'],

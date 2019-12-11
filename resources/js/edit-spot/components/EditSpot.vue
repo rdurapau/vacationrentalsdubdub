@@ -501,7 +501,7 @@
 
     let mapboxgl = require('mapbox-gl');
 
-    mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
+    mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
 
     export default {
         props: [
