@@ -48,11 +48,14 @@ $factory->afterCreating(App\Spot::class, function($spot, $faker) {
     }
 
     // Add one of the 19 exterior photos as the primary photo for this spot
-    $mainPhotoNum = rand(6,19);
-    $spot
-        ->addMedia(storage_path('seeding-photos/exterior-'.$mainPhotoNum.'.jpeg'))
-        ->preservingOriginal()
-        ->toMediaCollection();
+    for ($i = 0; $i < rand(6, 19); $i++) { 
+        $mainPhotoNum = rand(1,19);
+        $spot
+            ->addMedia(storage_path('seeding-photos/exterior-'.$mainPhotoNum.'.jpeg'))
+            ->preservingOriginal()
+            ->toMediaCollection();
+    }
+    
 
     // Add some additional photos from the 39 interior photos
     $altPhotoNums = range(6,37);

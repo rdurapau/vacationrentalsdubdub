@@ -691,10 +691,16 @@ export default {
       HTML = HTML + '<div class="spot-marker">';
       HTML = HTML + "<section>";
 
-      feature.properties.photos.slice(0, 6).map(p => {
-        HTML =
-          HTML + `<div class="img" style="background-image:url('${p}')"></div>`;
-      });
+      // feature.properties.photos.slice(0, 6).map(p => {
+      //   HTML =
+      //     HTML + `<div class="img" style="background-image:url('${p}')"></div>`;
+      // });
+
+      HTML =
+        HTML +
+        `<div class="img" style="background-image:url('${
+          feature.properties.photos[0]
+        }')"></div>`;
 
       HTML = HTML + "</section>";
       HTML = HTML + "</div>";

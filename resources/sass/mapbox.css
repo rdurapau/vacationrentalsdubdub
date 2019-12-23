@@ -1,11 +1,11 @@
 /* Positions */
 @import url(~mapbox-gl/dist/mapbox-gl.css);
 @import url(~mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css);
+
 .mapboxgl-marker .spot-marker {
   cursor: pointer;
-  /* font-family: "Whitney A", "Whitney B"; */
   font: normal normal 700 16px/1.4em montserrat, sans-serif;
-  
+
   color: #29304C;
   background: #fff;
   width: 150px;

@@ -44,12 +44,9 @@ class SpotController extends Controller
             ]
         ];
 
-        // dd(json_encode($staticContent));
-        // dd($staticContent);
-
         $amenities = Amenity::all();
 
-        return view('spots.index', compact('amenities', 'initSpot','staticContent'));
+        return view('app.index', compact('amenities', 'initSpot','staticContent'));
     }
 
     /**

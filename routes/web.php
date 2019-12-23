@@ -18,6 +18,8 @@
 Auth::routes();
 
 Route::get('/', 'SpotController@index')->name('index');
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::get('/map', 'HomeController@map')->name('map');
@@ -39,11 +41,10 @@ Route::get('/static/warn', function(){return view('static.warn');});
 Route::get('/static/submit', function(){return view('static.submit');});
 Route::get('/static/welcome', function(){return view('static.welcome');});
 
-
-Route::get('/emails/spot-approved', 'EmailTestController@spotApproved');
-Route::get('/emails/spot-created-and-approved', 'EmailTestController@spotCreatedAndApproved');
-Route::get('/emails/spot-rejected', 'EmailTestController@spotRejected');
-Route::get('/emails/spot-submitted', 'EmailTestController@spotSubmitted');
-Route::get('/emails/spot-edit-url', 'EmailTestController@spotEditUrl');
-Route::get('/emails/new-request', 'EmailTestController@newRequest');
-Route::get('/emails/new-request-confirm', 'EmailTestController@newRequestConfirm');
+// Route::get('/emails/spot-approved', 'EmailTestController@spotApproved');
+// Route::get('/emails/spot-created-and-approved', 'EmailTestController@spotCreatedAndApproved');
+// Route::get('/emails/spot-rejected', 'EmailTestController@spotRejected');
+// Route::get('/emails/spot-submitted', 'EmailTestController@spotSubmitted');
+// Route::get('/emails/spot-edit-url', 'EmailTestController@spotEditUrl');
+// Route::get('/emails/new-request', 'EmailTestController@newRequest');
+// Route::get('/emails/new-request-confirm', 'EmailTestController@newRequestConfirm');
