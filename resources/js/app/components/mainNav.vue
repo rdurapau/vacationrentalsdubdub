@@ -1,44 +1,56 @@
 <template>
-  <div class="vrww-mainnav">
-    <img
-      src="/images/icons_v2/logo.webp"
-      class="logo"
-      alt="logo"
-    />
+    <div class="vrww-mainnav">
+        <img
+            src="/images/icons_v2/logo.webp"
+            class="logo"
+            alt="logo"
+        />
 
-    <ul class="nav">
-      <li>
-        <a>WHEN?</a>
-      </li>
-      <li>
-        <a>ABOUT</a>
-      </li>
-      <li>
-        <a @click="onClickContact">CONTACT</a>
-      </li>
-      <li>
-        <a>OWNER SIGN UP</a>
-      </li>
-      <li>
-        <a href="/login">OWNER SIGN IN</a>
-      </li>
-    </ul>
-  </div>
+        <ul class="nav">
+            <li>
+                <a>WHEN?</a>
+            </li>
+            <li>
+                <a>ABOUT</a>
+            </li>
+            <li>
+                <a @click="onClickContact">CONTACT</a>
+            </li>
+            <li @click="showSignUpModal">
+                <a>OWNER SIGN UP</a>
+            </li>
+            <li>
+                <a href="/login">OWNER SIGN IN</a>
+            </li>
+        </ul>
+    </div>
 </template>
 
 <script>
+import signUpModal from "./../modals/signUp.vue";
+
 export default {
-  data: () => ({}),
+    data: () => ({}),
 
-  mounted() {},
+    mounted() {},
 
-  computed: {},
+    computed: {},
 
-  methods: {
-    onClickContact() {
-      this.$store.commit("setSidebar", "contact");
+    methods: {
+        onClickContact() {
+            this.$store.commit("setSidebar", "contact");
+        },
+        showSignUpModal() {
+            this.$modal.show(
+                signUpModal,
+                {},
+                {
+                    width: "80%",
+                    height: "80%"
+                }
+            );
+        }
     }
-  }
 };
 </script>
 
@@ -47,7 +59,7 @@ export default {
     height: 60px
 
     .logo
-        height: 90%
+        height: 80%
         margin-left: 20px
         margin-top: 5px
         float: left

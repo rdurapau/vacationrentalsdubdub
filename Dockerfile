@@ -1,5 +1,8 @@
 FROM php:7.4-apache
 
+COPY . /var/www/html
+RUN rm /var/www/html/public/index.html
+
 RUN apt-get update 
 RUN apt-get upgrade 
 RUN apt-get install git -y

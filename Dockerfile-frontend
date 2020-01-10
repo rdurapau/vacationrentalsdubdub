@@ -1,0 +1,8 @@
+FROM node:latest
+
+COPY . /app
+WORKDIR /app
+RUN rm /app/public/index.php
+RUN npm install
+
+ENTRYPOINT [ "node", "/app/server.js" ]

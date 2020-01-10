@@ -69,12 +69,8 @@ class SpotController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $values = $request->all();
-        // dd($values['amenities']);
-
         $validated = $request->validate([
-            'email' => 'required|confirmed|email',
+            'email' => 'required|email',
             'name' => 'required',
             'phone' => 'required',
             'website' => 'nullable',
@@ -126,17 +122,13 @@ class SpotController extends Controller
     public function edit(BaseSpot $spot, EditToken $editToken)
     {
         if ($editToken->spot_id != $spot->id) {
-            return false;
+            return 'Bad Edit token';
         }
-
-        // return $spot->getFirstMedia()->toArray();
 
         $amenities = Amenity::all();
         $spotJson = $spot->append('amenity_ids')->append('images')->toJson();
         $spotJson = new SpotResource($spot, true);
 
-        // return $amenities;
-        // return $spotJson;
         return view('spots.edit', compact('spotJson', 'editToken', 'amenities'));
     }
 

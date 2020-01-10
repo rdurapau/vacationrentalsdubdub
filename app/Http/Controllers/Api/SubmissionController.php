@@ -24,7 +24,7 @@ class SubmissionController extends ApiController
         $validated = $request->validate([
             'email' => 'required|confirmed|email',
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required',            
             'website' => 'nullable',
             'desc' => 'required',
             'price' => 'required|numeric|min:10',
@@ -38,12 +38,9 @@ class SubmissionController extends ApiController
             'beds' => 'required|numeric',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
-            
             'amenity_ids' => 'array',
             'photos' => 'array'
         ]);
-
-        dump($validated['photos']);
 
         $spot = Submission::create($validated);
 
@@ -52,12 +49,10 @@ class SubmissionController extends ApiController
         }
 
         if (array_key_exists('photos', $validated) && count($validated['photos'])) {
-            // Move the TempPhotos over
-            $photos = TempMedia::whereIn('id',$validated['photos'])
+            $photos = TempMedia::whereIn('id', $validated['photos'])
                 ->with('media')
                 ->get();
 
-            dump($photos->toArray());
 
             foreach($photos as $photo) {
                 $photo->getFirstMedia()->move($spot);
@@ -68,7 +63,7 @@ class SubmissionController extends ApiController
         broadcast(new SpotWasSubmitted($spot));
 
         $this->setStatusCode(201);
-        return $this->respond(['id'=>$spot->id]);
+        return $this->respond(['id' => $spot->id]);
     }
 
 }

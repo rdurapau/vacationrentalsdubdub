@@ -1,6 +1,17 @@
 version: "3.3"
 
 services:
+  # vacationrentalsdubdub-frontend:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile-frontend
+  #   container_name: frontend
+  #   network_mode: bridge
+  #   volumes:
+  #     - ./:/app
+  #   ports:
+  #     - "8000:80"
+
   # vacationrentalsdubdub:
   #   build: .
   #   command: ["php", "/var/www/html/artisan", "serve", "--port=80"]

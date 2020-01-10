@@ -5,10 +5,9 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
+// Import
+@import 'front/colors.scss';
 @import '~bootstrap/scss/bootstrap';
-
-// Mapbox
 @import 'mapbox';
 
 .navbar-laravel {
