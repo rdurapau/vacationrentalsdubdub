@@ -17,6 +17,8 @@ RUN node -v
 RUN npm -v
 COPY . /var/www/html
 WORKDIR /var/www/html
+RUN rm -rf node_modules
+RUN ls
 RUN npm install
 RUN npm run prod
 
