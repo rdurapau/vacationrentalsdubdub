@@ -40,5 +40,6 @@ RUN npm -v
 
 COPY . /var/www/html
 RUN composer install
+RUN rm -rf node_modules
 RUN npm install
 RUN npm run prod

@@ -1,26 +1,25 @@
 <template>
-  <div class="container-fluid app-container">
+    <div class="container-fluid app-container">
 
-    <main-nav />
+        <main-nav />
 
-    <div class="container-fluid map-container">
-      <div class="row">
-        <div class="col-md-6 no-padding">
+        <div class="container-fluid map-container">
+            <div class="row">
+                <div class="col-md-6 no-padding">
 
-          <map-box />
+                    <map-box />
 
+                </div>
+                <div class="col-md-6 map-sidebar">
+
+                    <sidebar-home v-if="sidebar === 'home'" />
+                    <sidebar-single v-if="sidebar === 'single'" />
+                    <sidebar-contact v-if="sidebar === 'contact'" />
+
+                </div>
+            </div>
         </div>
-        <div class="col-md-6 map-sidebar">
-
-          <sidebar-home v-if="sidebar === 'home'" />
-          <sidebar-single v-if="sidebar === 'single'" />
-          <sidebar-contact v-if="sidebar === 'contact'" />
-
-        </div>
-      </div>
     </div>
-
-  </div>
 </template>
 
 <script>
@@ -33,47 +32,47 @@ import sidebarSingle from "./components/sidebar-single.vue";
 import sidebarContact from "./components/sidebar-contact.vue";
 
 export default {
-  components: {
-    mainNav,
-    mapBox,
-    sidebarHome,
-    sidebarSingle,
-    sidebarContact
-  },
+    components: {
+        mainNav,
+        mapBox,
+        sidebarHome,
+        sidebarSingle,
+        sidebarContact
+    },
 
-  data: () => ({}),
+    data: () => ({}),
 
-  mounted() {
-    // ANTHONY: Consider refatcoring this
-    switch (this.$router.currentRoute.name) {
-      case "contact":
-        this.$store.commit("setSidebar", "contact");
-        break;
+    mounted() {
+        // ANTHONY: Consider refatcoring this
+        switch (this.$router.currentRoute.name) {
+            case "contact":
+                this.$store.commit("setSidebar", "contact");
+                break;
 
-      case "singleSpot":
-        this.$store
-          .dispatch(
-            "triggerNewActiveSpot",
-            this.$router.currentRoute.params.spotID
-          )
-          .catch(err => {
-            console.error(err);
-            this.$store.commit("setSidebar", "home");
-          });
-        break;
+            case "singleSpot":
+                this.$store
+                    .dispatch(
+                        "triggerNewActiveSpot",
+                        this.$router.currentRoute.params.spotID
+                    )
+                    .catch(err => {
+                        console.error(err);
+                        this.$store.commit("setSidebar", "home");
+                    });
+                break;
 
-      case "index":
-      default:
-        this.$store.commit("setSidebar", "home");
-        break;
-    }
-  },
+            case "index":
+            default:
+                this.$store.commit("setSidebar", "home");
+                break;
+        }
+    },
 
-  computed: {
-    ...mapGetters(["sidebar"])
-  },
+    computed: {
+        ...mapGetters(["sidebar"])
+    },
 
-  methods: {}
+    methods: {}
 };
 </script>
 
