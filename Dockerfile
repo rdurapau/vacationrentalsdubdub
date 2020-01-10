@@ -42,4 +42,4 @@ RUN npm install
 RUN npm run prod
 
 RUN composer install
-ENTRYPOINT [ "php", "artisan", "serve" ]
+ENTRYPOINT [ "php", "artisan", "serve", "--port=80"]

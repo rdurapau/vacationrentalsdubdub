@@ -3,35 +3,21 @@ SweetSpot dev environment.
 
 
 
-certbot certonly \
-    --manual \
-    --preferred-challenges=dns \
-    --email anthonybudd94@gmail.com \
-    --config-dir . \
-    --work-dir . \
-    -d vrww.app
+
+## Kuber 
+
+kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml"
 
 
 
 
 
-root@vrww:/ssl/live/vrww.app# ls
-README  cert.pem  chain.pem  fullchain.pem  privkey.pem
+kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
 
-/ssl/live/vrww.app/
+kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" 
 
 
-     - Congratulations! Your certificate and chain have been saved at:
-   /tmp/cert/live/vrww.app/fullchain.pem
-   Your key file has been saved at:
-   /tmp/cert/live/vrww.app/privkey.pem
-   Your cert will expire on 2020-03-20. To obtain a new or tweaked
-   version of this certificate in the future, simply run certbot
-   again. To non-interactively renew *all* of your certificates, run
-   "certbot renew"
- - Your account credentials have been saved in your Certbot
-   configuration directory at /tmp/cert. You should make a secure
-   backup of this folder now. This configuration directory will also
-   contain certificates and private keys obtained by Certbot so making
-   regular backups of this folder is ideal.
- - If you like Certbot, please consider supporting our work by:
+kubectl create secret docker-registry dockerhub --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" --docker-server="docker.io" --docker-username="vrww" --docker-password="rGi&a/yPr8Cy[QBatr2Fg>i9&82xAC" --docker-email="rdurapau@gmail.com"
+
+
+kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" apply -f kuber/deplyment.yml
