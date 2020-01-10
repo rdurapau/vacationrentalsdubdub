@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrww
+  labels:
+    app: vrww
+spec:
+  selector:
+    matchLabels:
+      app: vrww
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: vrww
+        tier: web
+    spec:
+      containers:
+        - name: vrww
+          image: vrww/app:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: PORT
+              value: "80"
+            - name: PGSSLMODE
+              value: "require"
+            - name: DB_HOST
+              value: "ideea-core-do-user-6231459-0.db.ondigitalocean.com"
+            - name: DB_PORT
+              value: "25060"
+            - name: DB_NAME
+              value: "core"
+            - name: DB_USER
+              value: "app"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ideea-prod
+                  key: core-db-password
+            - name: IDEEA_GATEWAY_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ideea-prod
+                  key: gateway-key
+          readinessProbe:
+            httpGet:
+              path: /_healthcheck
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /_healthcheck
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+      imagePullSecrets:
+        - name: dockerhub

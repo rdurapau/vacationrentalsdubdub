@@ -19,6 +19,10 @@ Route::redirect('/home', '/')->name('home');
 
 
 
+Route::get('/_healthcheck', function() {
+    return 'healthy';
+});
+
 
 
 //////////////////////////
