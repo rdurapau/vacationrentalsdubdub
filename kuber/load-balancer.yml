@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: vrwww-load-balancer
   annotations:
-    # service.beta.kubernetes.io/do-loadbalancer-certificate-id: "fd32f5a0-ffe0-49e1-8eab-78821c8e9f61"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "ba30c66d-2b9f-46eb-a2d4-4c38e82cdac3"
 spec:
   type: LoadBalancer
   selector:
