@@ -41,5 +41,8 @@ RUN rm -rf node_modules
 RUN npm install
 RUN npm run prod
 
+
 RUN composer install
+
+EXPOSE 80
 ENTRYPOINT [ "php", "artisan", "serve", "--port=80"]

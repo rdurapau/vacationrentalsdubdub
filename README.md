@@ -21,3 +21,4 @@ kubectl create secret docker-registry dockerhub --kubeconfig="/Users/anthonybudd
 
 
 kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" apply -f kuber/deplyment.yml
+kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" exec -ti vrww-55554b9446-kg24r /bin/bash
