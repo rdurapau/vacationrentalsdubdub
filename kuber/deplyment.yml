@@ -58,15 +58,17 @@ spec:
             - name: DO_SPACES_BUCKET
               value: "vrww-images"
           readinessProbe:
-            httpGet:
-              path: /_healthcheck
-              port: 80
+            exec:
+              command:
+                - cat
+                - /var/www/html/README.md
             initialDelaySeconds: 10
             periodSeconds: 10
           livenessProbe:
-            httpGet:
-              path: /_healthcheck
-              port: 80
+            exec:
+              command:
+                - cat
+                - /var/www/html/README.md
             initialDelaySeconds: 10
             periodSeconds: 10
 

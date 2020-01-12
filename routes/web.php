@@ -20,7 +20,11 @@ Route::redirect('/home', '/')->name('home');
 
 
 Route::get('/_healthcheck', function() {
-    return 'healthy';
+    return response('healthy', 200);
+});
+
+Route::get('/healthz', function() {
+    return response('healthy', 200);
 });
 
 
