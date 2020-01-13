@@ -6,6 +6,7 @@ RUN apt-get install -y --fix-missing \
     apt-utils \
     zlib1g-dev \
     libzip-dev \
+    libpng-dev \
     nodejs \
     git
 
@@ -15,7 +16,8 @@ RUN docker-php-ext-install exif
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install zip
-# RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install gd
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install pdo
 RUN docker-php-ext-install json
