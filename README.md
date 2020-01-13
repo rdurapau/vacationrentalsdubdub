@@ -3,6 +3,10 @@ SweetSpot dev environment.
 
 
 
+ @media screen and (max-width: 768px) {
+                color: #f00;
+            }
+
 
 ## Kuber 
 

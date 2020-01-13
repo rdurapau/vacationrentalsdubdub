@@ -7,14 +7,11 @@
         />
 
         <ul class="nav">
-            <li>
-                <a>WHEN?</a>
-            </li>
-            <li>
+            <li @click="onClickShowAboutModal">
                 <a>ABOUT</a>
             </li>
-            <li>
-                <a @click="onClickContact">CONTACT</a>
+            <li @click="onClickContact">
+                <a>CONTACT</a>
             </li>
             <li @click="showSignUpModal">
                 <a>OWNER SIGN UP</a>
@@ -28,6 +25,7 @@
 
 <script>
 import signUpModal from "./../modals/signUp.vue";
+import about from "./../modals/about.vue";
 
 export default {
     data: () => ({}),
@@ -43,6 +41,16 @@ export default {
         showSignUpModal() {
             this.$modal.show(
                 signUpModal,
+                {},
+                {
+                    width: "80%",
+                    height: "80%"
+                }
+            );
+        },
+        onClickShowAboutModal() {
+            this.$modal.show(
+                about,
                 {},
                 {
                     width: "80%",
@@ -75,7 +83,7 @@ export default {
 
         li
             font: normal normal 700 16px/1.4em montserrat, sans-serif
-            padding: 18px 45px 0
+            padding: 18px 35px 0
             text-decoration: none
             text-transform: uppercase
             color: #414141

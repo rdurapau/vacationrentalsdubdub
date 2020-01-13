@@ -1,11 +1,26 @@
 <template>
-    <div id="map-wrapper"></div>
+    <div id="map-wrapper">
+        <div class="map-filter">
+            <div id="search-geocoder"></div>
+            <ul class="filters">
+                <li>
+                    <i class="fas fa-dollar-sign"></i>
+                </li>
+                <li>
+                    <i class="fas fa-calendar-alt"></i>
+                </li>
+                <li>
+                    <i class="fas fa-bed"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
 import mapboxgl from "mapbox-gl";
-import mapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 
 mapboxgl.accessToken =
     "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
@@ -13,6 +28,7 @@ mapboxgl.accessToken =
 export default {
     data: () => ({
         map: false,
+        geocoder: false,
         mapStyle: "streets-v11",
         json: false,
         hoverMarker: false,
@@ -26,12 +42,12 @@ export default {
             container: "map-wrapper",
             style: "mapbox://styles/mapbox/" + this.mapStyle,
             center: [-99.16951, 31.417772],
-            zoom: 5.5
+            zoom: 5.5,
+            marker: true
         });
 
         this.map.on("load", () => {
             this.map.resize();
-
             this.getSpots()
                 .then(spots => this.parseGeoJSON(spots))
                 .catch(err => console.error(err));
@@ -41,11 +57,29 @@ export default {
             if (this.map !== false) this.map.resize();
         });
 
-        // document.onreadystatechange = () => {
-        //   if (document.readyState == "complete") {
-        //     self.resizeMap();
-        //   }
-        // };
+        this.geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            country: "US",
+            types: "region,district,place,locality,neighborhood,poi",
+            placeholder: "Search",
+            flyTo: false,
+            marker: false,
+            mapboxgl: mapboxgl
+        });
+
+        document
+            .getElementById("search-geocoder")
+            .appendChild(this.geocoder.onAdd(this.map));
+        document.querySelector(
+            "#search-geocoder .mapboxgl-ctrl-geocoder input"
+        ).id = "property-location-input";
+
+        this.map.on("load", () => {
+            this.geocoder.on("result", this.addressSelected);
+            // this.geocoder.on("clear", this.addressCleared);
+            // this.map.on("dragend", this.mapMoved);
+            // this.map.on("zoomend", this.mapMoved);
+        });
     },
 
     methods: {
@@ -217,6 +251,20 @@ export default {
             if (typeof this.hoverMarker === "object") {
                 this.hoverMarker.remove();
             }
+        },
+
+        addressSelected(event) {
+            let coords = event.result.geometry.coordinates;
+
+            // this.getSpots()
+            //     .then(spots => this.parseGeoJSON(spots))
+            //     .catch(err => console.error(err));
+
+            this.addressIsSelected = true;
+            this.map.jumpTo({
+                center: coords,
+                zoom: 11
+            });
         }
     }
 };
@@ -240,4 +288,62 @@ export default {
     canvas.mapboxgl-canvas
         outline: none
 
+    .map-filter
+        position: absolute
+        z-index: 10
+        top: 20px
+        left: 20px
+        height: 45px
+        width: 400px
+        background: #fff
+        border-radius: 4px
+        transition: all .25s ease-out
+        -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25)
+        -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25)
+        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25)
+
+        #search-geocoder
+            width: 60%
+            height: 100%
+            float: left
+
+            .mapboxgl-ctrl-geocoder
+                height: 100%
+                box-shadow: 0 0 0 0 rgba(0,0,0,0)
+
+                .mapboxgl-ctrl-geocoder--icon-search
+                    margin-top: 5px
+
+                .mapboxgl-ctrl-geocoder--icon-close
+                    margin-top: 9px
+
+                .mapboxgl-ctrl-geocoder--input
+                    height: 100%
+                    -webkit-box-shadow: inset -20px 0px 10px -10px rgba(255,255,255,1)
+                    -moz-box-shadow: inset -20px 0px 10px -10px rgba(255,255,255,1)
+                    box-shadow: inset -20px 0px 10px -10px rgba(255,255,255,1)
+        
+        
+        
+        .filters
+            padding: 0px
+            float: right
+            list-style-type: none
+            height: 100%
+            
+            li
+                float: right
+                height: 100%
+                text-align: center
+                cursor: pointer
+                padding: 12px 19px
+                transition: all .25s ease-out
+
+                &:hover 
+                    background: #f5f5f5
+
+                i
+                    color: #757576
+                
+    
 </style>

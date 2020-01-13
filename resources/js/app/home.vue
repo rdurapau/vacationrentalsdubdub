@@ -87,9 +87,5 @@ export default {
         background: #FFF
         height: 100%
         box-shadow: 0px 5px 9px rgba(31, 32, 65, 0.1)
-        overflow: hidden
-
-
-        
-               
+        overflow: hidden 
 </style>
