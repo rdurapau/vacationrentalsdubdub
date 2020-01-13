@@ -43,4 +43,6 @@ RUN npm run prod
 
 RUN composer install
 
+
+RUN chown -R www-data:www-data /var/www/html 
 RUN service apache2 restart

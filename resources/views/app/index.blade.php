@@ -17,14 +17,14 @@
 
     <!-- Scripts -->
     <script>window.Laravel = { csrfToken: '{{ csrf_token() }}' };</script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ mix('js/manifest.js') }}"></script>
-    <script src="{{ mix('js/vendor.js') }}"></script>
+    <script src="/js/app.js" defer></script>
+    <script src="/js/manifest.js"></script>
+    <script src="/js/vendor.js"></script>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" rel="stylesheet" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <link href="/css/app.css" rel="stylesheet">
 
 </head>
 
