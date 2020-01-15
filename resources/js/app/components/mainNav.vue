@@ -30,7 +30,9 @@ import about from "./../modals/about.vue";
 export default {
     data: () => ({}),
 
-    mounted() {},
+    mounted() {
+        // this.showSignUpModal();
+    },
 
     computed: {},
 

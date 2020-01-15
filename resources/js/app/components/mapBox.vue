@@ -3,14 +3,74 @@
         <div class="map-filter">
             <div id="search-geocoder"></div>
             <ul class="filters">
-                <li>
-                    <i class="fas fa-dollar-sign"></i>
+                <li :class="{'active': priceFilterIsActive}">
+                    <i
+                        class="fas fa-dollar-sign"
+                        @click="priceFilterIsActive = !priceFilterIsActive"
+                    ></i>
+
+                    <div class="filter-container price">
+                        <p class="title">Price Per Night</p>
+                        <input
+                            type="number"
+                            placeholder="Min"
+                            min="0"
+                            v-model="minPrice"
+                        >
+                        <span>to</span>
+                        <input
+                            type="number"
+                            placeholder="Max"
+                            min="0"
+                            v-model="maxPrice"
+                        >
+                    </div>
                 </li>
-                <li>
-                    <i class="fas fa-calendar-alt"></i>
+                <li :class="{'active': bathsFilterIsActive}">
+                    <i
+                        class="fas fa-shower"
+                        @click="bathsFilterIsActive = !bathsFilterIsActive"
+                    ></i>
+
+                    <div class="filter-container price">
+                        <p class="title">Bathrooms</p>
+                        <input
+                            type="number"
+                            placeholder="Min"
+                            min="0"
+                            v-model="minBaths"
+                        >
+                        <span>to</span>
+                        <input
+                            type="number"
+                            placeholder="Max"
+                            min="0"
+                            v-model="maxBaths"
+                        >
+                    </div>
                 </li>
-                <li>
-                    <i class="fas fa-bed"></i>
+                <li :class="{'active': bedsFilterIsActive}">
+                    <i
+                        class="fas fa-bed"
+                        @click="bedsFilterIsActive = !bedsFilterIsActive"
+                    ></i>
+
+                    <div class="filter-container price">
+                        <p class="title">Bedrooms</p>
+                        <input
+                            type="number"
+                            placeholder="Min"
+                            min="0"
+                            v-model="minBeds"
+                        >
+                        <span>to</span>
+                        <input
+                            type="number"
+                            placeholder="Max"
+                            min="0"
+                            v-model="maxBeds"
+                        >
+                    </div>
                 </li>
             </ul>
         </div>
@@ -32,10 +92,58 @@ export default {
         mapStyle: "streets-v11",
         json: false,
         hoverMarker: false,
-        mouseLeftSpot: true
+        mouseLeftSpot: true,
+
+        priceFilterIsActive: true,
+        bathsFilterIsActive: false,
+        bedsFilterIsActive: false,
+
+        minPrice: "",
+        maxPrice: "",
+        minBaths: "",
+        maxBaths: "",
+        minBeds: "",
+        maxBeds: ""
     }),
 
-    computed: {},
+    watch: {
+        priceFilterIsActive(value) {
+            if (value) {
+                this.bathsFilterIsActive = false;
+                this.bedsFilterIsActive = false;
+            }
+        },
+        bathsFilterIsActive(value) {
+            if (value) {
+                this.priceFilterIsActive = false;
+                this.bedsFilterIsActive = false;
+            }
+        },
+        bedsFilterIsActive(value) {
+            if (value) {
+                this.priceFilterIsActive = false;
+                this.bathsFilterIsActive = false;
+            }
+        },
+        minPrice() {
+            this.refreshMap();
+        },
+        maxPrice() {
+            this.refreshMap();
+        },
+        minBaths() {
+            this.refreshMap();
+        },
+        maxBaths() {
+            this.refreshMap();
+        },
+        minBeds() {
+            this.refreshMap();
+        },
+        maxBeds() {
+            this.refreshMap();
+        }
+    },
 
     mounted() {
         this.map = new mapboxgl.Map({
@@ -84,6 +192,30 @@ export default {
 
     methods: {
         ...mapActions(["getSpots"]),
+
+        getFilters() {
+            var filters = {};
+            if (this.minPrice && this.minPrice !== "")
+                filters.minPrice = this.minPrice;
+            if (this.maxPrice && this.maxPrice !== "")
+                filters.maxPrice = this.maxPrice;
+            if (this.minBaths && this.minBaths !== "")
+                filters.minBaths = this.minBaths;
+            if (this.maxBaths && this.maxBaths !== "")
+                filters.maxBaths = this.maxBaths;
+            if (this.minBeds && this.minBeds !== "")
+                filters.minBeds = this.minBeds;
+            if (this.maxBeds && this.maxBeds !== "")
+                filters.maxBeds = this.maxBeds;
+
+            return filters;
+        },
+
+        refreshMap() {
+            this.getSpots(this.getFilters())
+                .then(spots => this.parseGeoJSON(spots))
+                .catch(err => console.error(err));
+        },
 
         parseGeoJSON(json) {
             // Assign the global geoJson to a variable so it can be filtered non-destructively
@@ -336,7 +468,6 @@ export default {
                 height: 100%
                 text-align: center
                 cursor: pointer
-                padding: 12px 19px
                 transition: all .25s ease-out
 
                 &:hover 
@@ -344,6 +475,51 @@ export default {
 
                 i
                     color: #757576
+                    padding: 17px 20px
+                
+                &.active
+                    background: #eeeeee !important
+
+                    .filter-container
+                        display: block
+
+                .filter-container
+                    &.price
+                        right: 0px
+                        left: auto
+
+                    p
+                        text-align: left
+                        margin: 0 0 0 5px
+                        font-size: 14px
+                        color: #858585
+
+                    display: none
+                    position: absolute
+                    z-index: 10
+                    top: 60px
+                    left: 0px
+                    height: 62px
+                    background: #fff
+                    border-radius: 4px
+                    transition: all .25s ease-out
+                    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25)
+                    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25)
+                    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.25)
+
+                    input
+                        float: left
+                        border: none
+                        padding: 7px 7px
+                        font-size: 22px
+                        width: 100px
+                    
+                    span
+                        float: left
+                        border: none
+                        padding: 9px 7px
+                        font-size: 14px
+                        color: #a4a4a4
                 
     
 </style>
