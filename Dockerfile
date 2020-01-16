@@ -11,12 +11,14 @@ RUN apt-get install -y --fix-missing \
     libwebp-dev \
     libgmp-dev \
     libldap2-dev \
+    libfreetype6-dev \
     nodejs \
     nano \
     git
 
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer global require hirak/prestissimo --no-plugins --no-scripts
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install exif
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install bcmath
