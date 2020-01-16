@@ -3,7 +3,7 @@
         <div class="map-filter">
             <div id="search-geocoder"></div>
             <ul class="filters">
-                <li :class="{'active': priceFilterIsActive}">
+                <li :class="{'active': priceFilterIsActive, 'filtering': (minPrice !== '' || maxPrice !== '')}">
                     <i
                         class="fas fa-dollar-sign"
                         @click="priceFilterIsActive = !priceFilterIsActive"
@@ -12,21 +12,19 @@
                     <div class="filter-container price">
                         <p class="title">Price Per Night</p>
                         <input
-                            type="number"
+                            type="text"
                             placeholder="Min"
-                            min="0"
                             v-model="minPrice"
                         >
                         <span>to</span>
                         <input
-                            type="number"
+                            type="text"
                             placeholder="Max"
-                            min="0"
                             v-model="maxPrice"
                         >
                     </div>
                 </li>
-                <li :class="{'active': bathsFilterIsActive}">
+                <li :class="{'active': bathsFilterIsActive, 'filtering': (minBaths !== '' || maxBaths !== '')}">
                     <i
                         class="fas fa-shower"
                         @click="bathsFilterIsActive = !bathsFilterIsActive"
@@ -35,21 +33,19 @@
                     <div class="filter-container price">
                         <p class="title">Bathrooms</p>
                         <input
-                            type="number"
+                            type="text"
                             placeholder="Min"
-                            min="0"
                             v-model="minBaths"
                         >
                         <span>to</span>
                         <input
-                            type="number"
+                            type="text"
                             placeholder="Max"
-                            min="0"
                             v-model="maxBaths"
                         >
                     </div>
                 </li>
-                <li :class="{'active': bedsFilterIsActive}">
+                <li :class="{'active': bedsFilterIsActive, 'filtering': (minBeds !== '' || maxBeds !== '')}">
                     <i
                         class="fas fa-bed"
                         @click="bedsFilterIsActive = !bedsFilterIsActive"
@@ -58,14 +54,14 @@
                     <div class="filter-container price">
                         <p class="title">Bedrooms</p>
                         <input
-                            type="number"
+                            type="text"
                             placeholder="Min"
                             min="0"
                             v-model="minBeds"
                         >
                         <span>to</span>
                         <input
-                            type="number"
+                            type="text"
                             placeholder="Max"
                             min="0"
                             v-model="maxBeds"
@@ -94,7 +90,7 @@ export default {
         hoverMarker: false,
         mouseLeftSpot: true,
 
-        priceFilterIsActive: true,
+        priceFilterIsActive: false,
         bathsFilterIsActive: false,
         bedsFilterIsActive: false,
 
@@ -146,48 +142,7 @@ export default {
     },
 
     mounted() {
-        this.map = new mapboxgl.Map({
-            container: "map-wrapper",
-            style: "mapbox://styles/mapbox/" + this.mapStyle,
-            center: [-99.16951, 31.417772],
-            zoom: 5.5,
-            marker: true
-        });
-
-        this.map.on("load", () => {
-            this.map.resize();
-            this.getSpots()
-                .then(spots => this.parseGeoJSON(spots))
-                .catch(err => console.error(err));
-        });
-
-        window.addEventListener("load", event => {
-            if (this.map !== false) this.map.resize();
-        });
-
-        this.geocoder = new MapboxGeocoder({
-            accessToken: mapboxgl.accessToken,
-            country: "US",
-            types: "region,district,place,locality,neighborhood,poi",
-            placeholder: "Search",
-            flyTo: false,
-            marker: false,
-            mapboxgl: mapboxgl
-        });
-
-        document
-            .getElementById("search-geocoder")
-            .appendChild(this.geocoder.onAdd(this.map));
-        document.querySelector(
-            "#search-geocoder .mapboxgl-ctrl-geocoder input"
-        ).id = "property-location-input";
-
-        this.map.on("load", () => {
-            this.geocoder.on("result", this.addressSelected);
-            // this.geocoder.on("clear", this.addressCleared);
-            // this.map.on("dragend", this.mapMoved);
-            // this.map.on("zoomend", this.mapMoved);
-        });
+        this.initMap();
     },
 
     methods: {
@@ -196,25 +151,93 @@ export default {
         getFilters() {
             var filters = {};
             if (this.minPrice && this.minPrice !== "")
-                filters.minPrice = this.minPrice;
+                filters.minPrice = this.minPrice.replace(/\D/g, "");
             if (this.maxPrice && this.maxPrice !== "")
-                filters.maxPrice = this.maxPrice;
+                filters.maxPrice = this.maxPrice.replace(/\D/g, "");
             if (this.minBaths && this.minBaths !== "")
-                filters.minBaths = this.minBaths;
+                filters.minBaths = this.minBaths.replace(/\D/g, "");
             if (this.maxBaths && this.maxBaths !== "")
-                filters.maxBaths = this.maxBaths;
+                filters.maxBaths = this.maxBaths.replace(/\D/g, "");
             if (this.minBeds && this.minBeds !== "")
-                filters.minBeds = this.minBeds;
+                filters.minBeds = this.minBeds.replace(/\D/g, "");
             if (this.maxBeds && this.maxBeds !== "")
-                filters.maxBeds = this.maxBeds;
+                filters.maxBeds = this.maxBeds.replace(/\D/g, "");
 
             return filters;
         },
 
+        hasActiveFilters() {
+            return (
+                this.minPrice !== "" ||
+                this.maxPrice !== "" ||
+                this.minBaths !== "" ||
+                this.maxBaths !== "" ||
+                this.minBeds !== "" ||
+                this.maxBeds !== ""
+            );
+        },
+
         refreshMap() {
-            this.getSpots(this.getFilters())
-                .then(spots => this.parseGeoJSON(spots))
-                .catch(err => console.error(err));
+            let filters = [];
+
+            console.log(this.hasActiveFilters());
+
+            if (this.hasActiveFilters()) {
+                var filteredData = this.json.features;
+
+                this.getSpots(this.getFilters())
+                    .then(spots => this.parseGeoJSON(spots))
+                    .catch(err => console.error(err));
+            } else {
+                this.map.getSource("places").setData(this.json);
+            }
+
+            // this.updateMarkers();
+        },
+
+        initMap() {
+            this.map = new mapboxgl.Map({
+                container: "map-wrapper",
+                style: "mapbox://styles/mapbox/" + this.mapStyle,
+                center: [-99.16951, 31.417772],
+                zoom: 5.5,
+                marker: true
+            });
+
+            this.map.on("load", () => {
+                this.map.resize();
+                this.getSpots(this.getFilters())
+                    .then(spots => this.parseGeoJSON(spots))
+                    .catch(err => console.error(err));
+            });
+
+            window.addEventListener("load", event => {
+                if (this.map !== false) this.map.resize();
+            });
+
+            this.geocoder = new MapboxGeocoder({
+                accessToken: mapboxgl.accessToken,
+                country: "US",
+                types: "region,district,place,locality,neighborhood,poi",
+                placeholder: "Search",
+                flyTo: false,
+                marker: false,
+                mapboxgl: mapboxgl
+            });
+
+            document
+                .getElementById("search-geocoder")
+                .appendChild(this.geocoder.onAdd(this.map));
+            document.querySelector(
+                "#search-geocoder .mapboxgl-ctrl-geocoder input"
+            ).id = "property-location-input";
+
+            this.map.on("load", () => {
+                this.geocoder.on("result", this.addressSelected);
+                // this.geocoder.on("clear", this.addressCleared);
+                // this.map.on("dragend", this.mapMoved);
+                // this.map.on("zoomend", this.mapMoved);
+            });
         },
 
         parseGeoJSON(json) {
@@ -224,13 +247,16 @@ export default {
                 feature.properties.active = 0;
             });
 
-            this.map.addSource("places", {
-                type: "geojson",
-                data: json
-            });
-
-            this.addDataLayers();
-            this.addMapEvents();
+            if (typeof this.map.getSource("places") === "undefined") {
+                this.map.addSource("places", {
+                    type: "geojson",
+                    data: json
+                });
+                this.addDataLayers();
+                this.addMapEvents();
+            } else {
+                this.map.getSource("places").setData(json);
+            }
         },
 
         addDataLayers() {
@@ -346,6 +372,13 @@ export default {
             }
 
             let el = document.createElement("div");
+            el.addEventListener(
+                "click",
+                event => {
+                    console.log(event.target);
+                },
+                false
+            );
             el.className = "marker";
             var HTML = "";
             HTML = HTML + '<div class="spot-marker">';
@@ -357,6 +390,10 @@ export default {
                     `<div class="img" style="background-image:url('${p}')"></div>`;
             });
 
+            HTML = HTML + '<div class="info">';
+            HTML = HTML + "<h1>" + feature.properties.name + "</h1>";
+            HTML = HTML + "<p>$" + feature.properties.price + " Per Night</p>";
+            HTML = HTML + "</div>";
             HTML = HTML + "</section>";
             HTML = HTML + "</div>";
             el.innerHTML = HTML;
@@ -366,7 +403,7 @@ export default {
                 element: el,
                 offset: {
                     x: 0,
-                    y: -120
+                    y: -150
                 }
             }).setLngLat(coords);
             marker.addTo(this.map);
@@ -388,9 +425,9 @@ export default {
         addressSelected(event) {
             let coords = event.result.geometry.coordinates;
 
-            // this.getSpots()
-            //     .then(spots => this.parseGeoJSON(spots))
-            //     .catch(err => console.error(err));
+            this.getSpots(this.getFilters())
+                .then(spots => this.parseGeoJSON(spots))
+                .catch(err => console.error(err));
 
             this.addressIsSelected = true;
             this.map.jumpTo({
@@ -476,6 +513,9 @@ export default {
                 i
                     color: #757576
                     padding: 17px 20px
+
+                &.filtering
+                    background: #f4f3f3 !important
                 
                 &.active
                     background: #eeeeee !important

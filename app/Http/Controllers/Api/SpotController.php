@@ -23,24 +23,24 @@ class SpotController extends ApiController
         $spotsQuery = Spot::with('media');
 
         if ($request->has('minPrice')) {
-            $spotsQuery->where('price', '>', $request->get('minPrice'));
+            $spotsQuery->where('price', '>=', $request->get('minPrice'));
         }
         if ($request->has('maxPrice')) {
-            $spotsQuery->where('price', '<', $request->get('maxPrice'));
+            $spotsQuery->where('price', '<=', $request->get('maxPrice'));
         }
 
         if ($request->has('minBeds')) {
-            $spotsQuery->where('beds', '<', $request->get('minBeds'));
+            $spotsQuery->where('beds', '>=', $request->get('minBeds'));
         }
         if ($request->has('maxBeds')) {
-            $spotsQuery->where('beds', '<', $request->get('maxBeds'));
+            $spotsQuery->where('beds', '<=', $request->get('maxBeds'));
         }
 
         if ($request->has('minBaths')) {
-            $spotsQuery->where('baths', '<', $request->get('minBaths'));
+            $spotsQuery->where('baths', '>=', $request->get('minBaths'));
         }
         if ($request->has('maxBaths')) {
-            $spotsQuery->where('baths', '<', $request->get('maxBaths'));
+            $spotsQuery->where('baths', '<=', $request->get('maxBaths'));
         }
 
 
