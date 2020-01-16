@@ -10,6 +10,7 @@ RUN apt-get install -y --fix-missing \
     libjpeg62-turbo-dev \
     libwebp-dev \
     nodejs \
+    nano \
     git
 
 
@@ -45,6 +46,7 @@ RUN npm install
 RUN npm run prod
 
 RUN composer install
+RUN composer update fzaninotto/faker
 
 
 RUN chown -R www-data:www-data /var/www/html 
