@@ -1,1 +1,0 @@
-@include('nova::partials.logo-dark', ['width' => '193', 'height' => '49'])
