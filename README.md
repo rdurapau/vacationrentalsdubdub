@@ -33,5 +33,3 @@ certbot certonly \
     --work-dir . \
     -d vrww.app
 
-
-    

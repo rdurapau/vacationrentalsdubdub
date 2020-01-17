@@ -51,7 +51,7 @@ $factory->afterCreating(App\Spot::class, function($spot, $faker) {
     for ($i = 0; $i < rand(6, 19); $i++) { 
         $mainPhotoNum = rand(1,19);
         $spot
-            ->addMedia(storage_path('seeding-photos/exterior-'.$mainPhotoNum.'.jpeg'))
+            ->addMedia(storage_path('seeding-photos/exterior-'.$mainPhotoNum.'.png'))
             ->preservingOriginal()
             ->toMediaCollection();
     }
@@ -62,7 +62,7 @@ $factory->afterCreating(App\Spot::class, function($spot, $faker) {
     $altPhotos = $faker->randomElements($altPhotoNums,rand(0,6));
     foreach($altPhotos as $num) {
         $spot
-            ->addMedia(storage_path('seeding-photos/interior-'.$num.'.jpeg'))
+            ->addMedia(storage_path('seeding-photos/interior-'.$num.'.png'))
             ->preservingOriginal()
             ->toMediaCollection();
     }

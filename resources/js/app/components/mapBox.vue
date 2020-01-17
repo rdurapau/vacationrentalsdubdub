@@ -15,12 +15,14 @@
                             type="text"
                             placeholder="Min"
                             v-model="minPrice"
+                            v-on:keyup.enter="priceFilterIsActive = false"
                         >
                         <span>to</span>
                         <input
                             type="text"
                             placeholder="Max"
                             v-model="maxPrice"
+                            v-on:keyup.enter="priceFilterIsActive = false"
                         >
                     </div>
                 </li>
@@ -36,12 +38,14 @@
                             type="text"
                             placeholder="Min"
                             v-model="minBaths"
+                            v-on:keyup.enter="bathsFilterIsActive = false"
                         >
                         <span>to</span>
                         <input
                             type="text"
                             placeholder="Max"
                             v-model="maxBaths"
+                            v-on:keyup.enter="bathsFilterIsActive = false"
                         >
                     </div>
                 </li>
@@ -56,15 +60,15 @@
                         <input
                             type="text"
                             placeholder="Min"
-                            min="0"
                             v-model="minBeds"
+                            v-on:keyup.enter="bedsFilterIsActive = false"
                         >
                         <span>to</span>
                         <input
                             type="text"
                             placeholder="Max"
-                            min="0"
                             v-model="maxBeds"
+                            v-on:keyup.enter="bedsFilterIsActive = false"
                         >
                     </div>
                 </li>

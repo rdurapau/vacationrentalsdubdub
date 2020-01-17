@@ -46,7 +46,7 @@ $factory->afterCreating(App\Submission::class, function($spot, $faker) {
     // Add one of the 19 exterior photos as the primary photo for this spot
     $mainPhotoNum = rand(1,19);
     $spot
-        ->addMedia(storage_path('seeding-photos/exterior-'.$mainPhotoNum.'.jpeg'))
+        ->addMedia(storage_path('seeding-photos/exterior-'.$mainPhotoNum.'.png'))
         ->preservingOriginal()
         ->toMediaCollection();
 
@@ -55,7 +55,7 @@ $factory->afterCreating(App\Submission::class, function($spot, $faker) {
     $altPhotos = $faker->randomElements($altPhotoNums,rand(0,6));
     foreach($altPhotos as $num) {
         $spot
-            ->addMedia(storage_path('seeding-photos/interior-'.$num.'.jpeg'))
+            ->addMedia(storage_path('seeding-photos/interior-'.$num.'.png'))
             ->preservingOriginal()
             ->toMediaCollection();
     }
