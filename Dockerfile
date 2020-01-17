@@ -7,9 +7,11 @@ RUN apt-get install -y --fix-missing \
     zlib1g-dev \
     libzip-dev \
     libpng-dev \
+    libjpeg-dev \
     libjpeg62-turbo-dev \
     libwebp-dev \
     libgmp-dev \
+    libonig-dev \
     libldap2-dev \
     libfreetype6-dev \
     nodejs \

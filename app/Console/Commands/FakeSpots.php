@@ -12,7 +12,7 @@ class FakeSpots extends Command
      *
      * @var string
      */
-    protected $signature = 'sweet:fakespots {count?} {--T|type=all} {--P|photo}';
+    protected $signature = 'sweet:fakespots {count?} {--T|type=all} {--P|photo}'; // php artisan sweet:fakespots 20  --type=approved
 
     /**
      * The console command description.
