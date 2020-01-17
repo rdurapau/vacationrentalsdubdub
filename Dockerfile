@@ -6,17 +6,21 @@ RUN apt-get install -y --fix-missing \
     apt-utils \
     zlib1g-dev \
     libzip-dev \
-    libpng-dev \
     libjpeg-dev \
-    libjpeg62-turbo-dev \
     libwebp-dev \
     libgmp-dev \
     libonig-dev \
     libldap2-dev \
-    libfreetype6-dev \
     nodejs \
     nano \
     git
+
+RUN apt-get install -y \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
 
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer global require hirak/prestissimo --no-plugins --no-scripts
@@ -24,8 +28,8 @@ RUN docker-php-ext-install exif
 RUN docker-php-ext-install pcntl
 RUN docker-php-ext-install bcmath
 RUN docker-php-ext-install zip
-RUN docker-php-ext-install gd
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+# RUN docker-php-ext-install gd
+# RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install pdo
 RUN docker-php-ext-install json
