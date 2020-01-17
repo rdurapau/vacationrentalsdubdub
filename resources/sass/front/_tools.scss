@@ -1,0 +1,100 @@
+@mixin moveMe(){
+    transition: all ease-out .25s;
+}
+@mixin moveFast(){
+    transition: all ease-out .15s;
+}
+@mixin moveFaster(){
+    transition: all ease-out .1s;
+}
+
+@mixin appearance ($value) {
+	-webkit-appearance: $value;
+       -moz-appearance: $value;
+        -ms-appearance :$value;
+	        appearance: $value;
+}
+
+/* Positions */
+@mixin abs{
+    position: absolute;
+}
+@mixin rlt{
+    position: relative;
+}
+@mixin fxd{
+    position: fixed;
+}
+
+@mixin radius{
+    border-radius: 3px;
+}
+
+//Ground Z-index - 1 through 10
+
+@mixin z-1{
+    z-index: 1;
+}
+@mixin z-2{
+    z-index: 2;
+}
+@mixin z-3{
+    z-index: 3;
+}
+@mixin z-4{
+    z-index: 4;
+}
+@mixin z-5{
+    z-index: 5;
+}
+@mixin z-6{
+    z-index: 6;
+}
+@mixin z-7{
+    z-index: 7;
+}
+@mixin z-8{
+    z-index: 8;
+}
+@mixin z-9{
+    z-index: 9;
+}
+@mixin z-10{
+    z-index: 10;
+}
+
+//Sky Z-index - 100 through 110
+
+@mixin z-100{
+    z-index: 100;
+}
+@mixin z-101{
+    z-index: 101;
+}
+@mixin z-102{
+    z-index: 102;
+}
+@mixin z-103{
+    z-index: 103;
+}
+@mixin z-104{
+    z-index: 104;
+}
+@mixin z-105{
+    z-index: 105;
+}
+@mixin z-106{
+    z-index: 106;
+}
+@mixin z-107{
+    z-index: 107;
+}
+@mixin z-108{
+    z-index: 108;
+}
+@mixin z-109{
+    z-index: 109;
+}
+@mixin z-110{
+    z-index: 110;
+}

@@ -1,0 +1,262 @@
+@import 'front/tools.scss';
+
+@import '~mapbox-gl/dist/mapbox-gl.css';
+// +@import '~mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+@import '~@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+
+$purple: #29304C;
+$green: #2BC569;
+
+
+
+// <div class="marker mapboxgl-marker mapboxgl-marker-anchor-center"
+//     style="transform: translate(-50%, -50%) translate(471px, 455px);">
+//     <div class="spot-marker"><img src="https://sweetspot.test/storage/20/b1232938399d342acba7490a2c923c73.jpg">
+//         <section><span>$331</span><span>B: 2</span><span>S: 18</span></section>
+//     </div>
+// </div>
+
+
+
+.mapboxgl-marker {
+    .spot-marker {
+        cursor:pointer;
+       font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        color: #29304C;
+        background:#fff;
+        width:150px;
+        padding:0;
+        filter: drop-shadow(rgba(0, 0, 0, 0.25) 0 2px 10px);
+        border-radius: 2px;
+        position:relative;
+        z-index:2;
+        opacity:1;
+        transition:opacity .2s;
+        div.image  {
+            display:block;
+            border-top-left-radius: 2px;
+            border-top-right-radius:2px;
+            width:100%;
+            height:100px;
+            background:center center no-repeat;
+            background-size:cover;
+            opacity:.95;
+            transition:opacity .2s;
+        }
+        section {
+            opacity:.9;
+            display:flex;
+            justify-content:space-between;
+            padding:3px 10px;
+            align-items:center;
+            height:28px;
+            box-sizing:border-box;
+            transition:opacity .2s;
+            span {
+                display:block;
+                font-size:11px;
+                &.price {
+                    font-size:15px;
+                    flex:1 1 auto;
+                }
+                &.beds {
+                    display:flex;
+                    justify-content:flex-start;
+                    align-items:center;
+                    margin-left:6px;
+                    &:before {
+                        display:block;
+                        content:'';
+                        width:12px;
+                        height:12px;
+                        margin-right:3px;
+                        background:url('../images/icons/bed.svg') center center no-repeat;
+                        background-size:contain;
+                    }
+                }
+                &.baths {
+                    margin-left:6px;
+                    display:flex;
+                    justify-content:flex-start;
+                    align-items:center;
+                    &:before {
+                        display:block;
+                        content:'';
+                        width:12px;
+                        height:12px;
+                        margin-right:3px;
+                        background:url('../images/icons/shower.svg') center center no-repeat;
+                        background-size:contain;
+                    }
+                }
+            }
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            margin-left: -16px;
+            bottom: -20px;
+            left: 50%;
+            box-sizing: border-box;
+            
+            border: 12px solid black;
+            border-color: transparent transparent #fff #fff;
+            
+            transform-origin: 0 0;
+            transform: rotate(-45deg);
+            
+            z-index:0;
+        }
+        &:hover {
+            opacity:1;
+            div.image, section {
+                opacity:1;
+            }
+        }
+        &.not-active {
+            opacity:.5;
+        }
+        &.active {
+            opacity:1;
+        }
+    }
+}
+
+// Old styles for when multiple markers were visible at once
+// .spot-selected {
+//     .mapboxgl-marker {
+//         .spot-marker {
+//             img, div.image, section {
+//                 opacity:.5;
+//             }
+
+//             &:hover {
+//                 img, div.image, section {
+//                     opacity:.5;
+//                 }       
+//             }
+            
+//             &.active {
+//                 img, div.image, section {
+//                     opacity:1;
+//                 }
+//             }
+//         }
+//         &.active {
+//             .spot-marker {
+//                 img, div.image, section {
+//                     opacity:1;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+
+// Previous popup Style
+.mapboxgl-popup-content {
+    
+}
+
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {border-top-color:$purple}
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {border-right-color:$purple}
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {border-left-color:$purple}
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {border-bottom-color:$purple}
+
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip {
+    border-bottom-color:$purple;
+}
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip {
+    border-top-color:$purple;
+}
+
+.mapboxgl-control-container {
+    z-index:1000;
+    position:relative;
+}
+
+.search-and-filters {
+    .mapboxgl-ctrl-geocoder.mapboxgl-ctrl {
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        max-width:none;
+        width:100%;
+        display:block;
+        box-shadow:none;
+        // width:300px;
+        // min-width:none;
+        // display:block;
+    }
+    .mapboxgl-ctrl-geocoder--icon-search {
+        width:30px;
+        height:30px;
+        left:9px;
+        top:50%;
+        margin-top:-14px;
+    }
+    .mapboxgl-ctrl-geocoder {
+        .mapboxgl-ctrl-geocoder--pin-right {
+            position:absolute;
+            top:0;
+            height:100%;
+            right:0;
+            width:35px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            > * {
+                position:relative !important;
+                right:auto !important;
+                top:auto !important;
+            }
+            svg {
+                position:relative !important;
+                margin:0 !important;
+                top:auto !important;
+                left:auto !important;
+                right:auto !important;
+            }
+        }
+        .suggestions {
+            font-size:1rem;
+            > li {
+                > a {
+                    padding:10px 12px;
+                }
+            }
+            .mapboxgl-ctrl-geocoder--suggestion-title {
+                font-weight:600;
+            }
+            .mapboxgl-ctrl-geocoder--suggestion-address {
+                font-size:0.875em;
+            }
+        }
+    }
+    // .mapboxgl-ctrl-group {
+    //     z-index:100;
+    //     background:transparent;
+    //     box-shadow:none !important;
+    //     border:none;
+    //     > button.mapboxgl-ctrl-geolocate {
+    //         display:none;
+    //         @include appearance(none);
+    //         border:none;
+    //         background-color:transparent;
+    //         position:fixed;
+    //         top:39px;
+    //         right:107px;
+    //         top:200px;
+    //         right:0;
+    //         &:hover {
+    //             background-color:transparent;
+    //         }
+    //     }
+    // }
+}

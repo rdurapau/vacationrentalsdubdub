@@ -1,0 +1,76 @@
+ul.progress-list{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    padding: 20px 0 0 40px;
+    li{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        @include fontBook;
+        @include moveMe;
+        @include rlt;
+        color: #ccc;
+        margin-bottom: 25px;
+        font-size: 15px;
+        cursor: pointer;
+        margin-right: 30px;
+        span{
+            margin-right: 10px;
+            svg{
+                width: 25px;
+                height: 24px;
+                fill: #ccc;
+                @include moveMe;
+                @include mq('sm-desk'){
+                    transform: scale(.75);
+                    width: 24px;
+                }
+            }
+            @include mq('sm-desk'){
+                margin-right: 3px;
+            }
+        }//end span
+        &.active{
+            color: #29304C;
+        }
+        // &:hover, &.current{
+        &.current{
+            color: #29304C;
+            span {
+                svg{
+                    fill: #9080F0;
+                }
+            }
+        }
+        &::after{
+            @include abs;
+            top: 1px;
+            right: 15px;
+            content: '';
+            width: 20px;
+            height: 20px;
+            background: url('#{$images}icons/submit-check.svg') no-repeat top left;
+            background-size: contain;
+            @include mq('sm-desk'){
+                width: 15px;
+                height: 15px;
+                right: -5px;
+                top: 5px;
+            }
+        }
+        &.complete{
+            &::after{
+                background: url('#{$images}icons/submit-checked.svg') no-repeat top left;
+                background-size: contain;
+            }   
+        }
+        @include mq('sm-desk'){
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+    }//end li
+    @include mq('sm-desk'){
+        padding: 7px 0 0 17px;
+    }
+}//end progress list

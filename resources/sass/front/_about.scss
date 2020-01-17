@@ -1,0 +1,162 @@
+div.about-us{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    max-height: 100%;
+    overflow: auto;
+    > ul{
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        max-height: 100%;
+        overflow: hidden;
+        flex-basis: 100%;
+        > li{
+            display: flex;
+            flex-grow: 1;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            @include rlt;
+            &:first-child{
+                padding-left: 70px;
+                overflow: auto;
+                flex-basis: 60%;
+                padding-top: 30px;
+            }
+            &:last-child{
+                flex-basis: 40%;
+            }
+            div.dynamic-body{
+                display: flex;
+                flex-direction: column;
+                align-self: flex-start;
+                padding-right: 40px;
+                strong{
+                    font-weight: bold;
+                    font-size: 18px;
+                }
+                blockquote{
+                    font-weight: bold;
+                    &:before{
+                        display: inline-block;
+                        content: "“"
+                    }
+                    &:after{
+                        display: inline-block;
+                        content: "”"
+                    }
+                }
+                ul, ol{
+                    @include fontBook;
+                    font-size: 14px;
+                }
+                ul{
+                    list-style-type: circle;
+                }
+                ol{
+                    list-style-type: decimal;
+                }
+                pre{
+                    background: rgba(0,0,0,.15);
+                    padding: 10px;
+                    font-family: monospace;
+                }
+                em{
+                    font-style: italic;
+                }
+                a{
+                    color: $purple;
+                    @include moveMe;
+                    &:hover{
+                        color: black;
+                    }
+                }
+                div{
+                    display: block;
+                }
+            }
+            span.house{
+                margin: 0 auto;    
+                width: 400px;
+                height: 560px;
+                background: url('#{$images}house.svg') no-repeat center center;
+                background-size: contain;
+                @include moveMe;
+                @include mq('1280'){
+                    width: 300px;
+                    height: 450px;
+                }
+                @include mq('sm-desk'){
+                    width: 225px;
+                    height: 300px;
+                    margin: 0 15px; 
+                }
+            }//end span.house
+            h1{
+                @include fontBold;
+                font-size: 44px;
+                padding-bottom: 30px;
+                @include mq('sm-desk'){
+                    font-size: 30px;
+                    padding-bottom: 20px;
+                }
+                @include mq('tablet'){
+                    font-size: 32px;
+                }
+            }//end h1
+            h2, .dynamic-body h1 {
+                font-size: 20px;
+                @include fontBold;
+                padding-bottom: 25px;
+                @include mq('sm-desk'){
+                    font-size: 16px;
+                    padding-bottom: 15px;
+                }
+            }//end h2
+            h3{
+                font-size: 15px;
+                @include fontBold;
+                padding-bottom: 25px;
+                &.name {
+                    padding-bottom:0;
+                }
+            }//end h3
+            p, .dynamic-body div{
+                @include fontBook;
+                font-size: 14px;
+                line-height: 20px;
+                padding-bottom: 25px;
+            }//end p
+            .dynamic-body {
+                flex:0 0 auto;
+            }
+            @include mq('sm-desk'){
+                flex-basis: auto;
+                &:first-child{
+                    padding-left: 30px;
+                }
+            }
+        }//end li
+        @include mq('tablet'){
+            max-height: 100%;
+            overflow: auto;
+            flex-direction: column;
+            justify-content: top;
+            li{
+                flex-shrink: 0;
+                justify-content: top;
+                &:first-child{
+                    padding: 40px 40px 0 40px;
+                }
+                span.house{
+                    margin: 0 auto;
+                }
+            }//end li
+        }//end ul
+    }//end ul
+    @include mq('tablet'){
+        max-height: 100%;
+        overflow: auto;
+    }
+}//end tos

@@ -1,0 +1,32 @@
+$breakpoints: (
+    "phone":   480px,
+    "phablet":   560px,
+    "tablet": 769px,
+    "sm-desk": 990px,
+    "1280":       1280px,
+    "1080p":  1920px,
+    "1440p":      1440px,
+    "4k": 3840px
+);
+@mixin mq($width, $type: max) {
+    @if map_has_key($breakpoints, $width) {
+        $width: map_get($breakpoints, $width);
+        @if $type == max {
+            $width: $width - 1px;
+        }
+        @media only screen and (#{$type}-width: $width) {
+            @content;
+        }
+    }
+}
+
+// Sample
+//
+// .site-header {
+//     padding: 2rem;
+//     font-size: 1.8rem;
+//     @include mq('tablet-wide') {
+//         padding-top: 4rem;
+//         font-size: 2.4rem;
+//     }
+// }

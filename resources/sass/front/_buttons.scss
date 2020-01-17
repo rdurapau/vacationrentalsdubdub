@@ -1,0 +1,144 @@
+button.btn , a.btn{
+    @include appearance(none);
+    @include fontBook();
+    border: solid 1px rgba(0,0,0,0);
+
+    background: $purple;
+    border-radius: 4px;
+    padding:.5em .9375em;
+    font-size:16px;
+    line-height:1.125em;
+    letter-spacing:-.02em;
+    color:#fff;
+    text-decoration: none;
+    @include moveMe;
+    cursor: pointer;
+    &:hover {
+        background:darken($purple,4%);
+    }
+    &.btn-blue {
+        background:$blue;
+        &:hover {
+            background:darken($blue,4%);
+        }
+    }
+    &.btn-orange {
+        background:$orange;
+        &:hover {
+            background:darken($orange,4%);
+        }
+    }
+    &.btn-dark {
+        background:$dark;
+        &:hover {
+            background:darken($dark,4%);
+        }
+    }
+    &.btn-fade {
+        background:$light-grey;
+        color:$dark;
+        &:hover {
+            background:darken($light-grey,4%);
+        }
+    }
+    &.btn-wide {
+        padding-left:1.5em;
+        padding-right:1.5em;
+    }
+    &.btn-lg {
+        font-size:20px;
+    }
+    &.btn-sm {
+        font-size:13px;
+    }
+    &.btn-special{
+        padding: 1em 4em;
+        @include mq('sm-desk'){
+            padding: .75em 3em;
+        }
+    }
+    &.secondary{
+        background: rgba(0,0,0,0);
+        border: solid 1px rgba(0,0,0,.15);
+        color: rgba(0,0,0,.2);
+        &:hover {
+            background:darken($purple,4%);
+            border: solid 1px rgba(0,0,0,0);
+            color: #fff;
+        }
+        &:disabled {
+            &:hover {
+                background: rgba(0,0,0,0);
+                border: solid 1px rgba(0,0,0,.15);
+                color: rgba(0,0,0,.2);
+            }
+        }
+    }
+    &:disabled {
+        opacity:.5;
+        cursor:not-allowed;
+        &:hover {
+            opacity:.5;
+        }
+    }
+}
+
+button.btn-circle {
+    height:32px;
+    width:32px;
+    border-radius:16px;
+    border:2px solid $light-grey;
+    background:none transparent;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:border-color .15s;
+    svg {
+        path {
+            transition:stroke .15s;
+        }
+    }
+    &:hover {
+        border-color:$blue;
+        svg {
+            path {
+                stroke:$blue;
+            }
+        }
+    }
+}
+
+button {
+    .icon-clear-css {
+        flex:0 0 auto;
+        height:2px;
+        width:22px;
+        position:relative;
+        opacity:.9;
+        display:block;
+        &:before, &:after {
+            box-sizing:border-box;
+            display:block;
+            content:"";
+            position:absolute;
+            height:2px;
+            background:$blue;
+            border-radius:2px;
+        }
+        &:before {
+            // transform:rotate(-225deg);                                                                                   
+            transform:rotate(-135deg);
+            top:0;
+            left:0;
+            width:22px;
+        }
+        &:after{
+            // transform:rotate(225deg);            
+            transform:rotate(135deg);
+            top:0;
+            left:0;
+            width:22px;
+        }
+    }
+}

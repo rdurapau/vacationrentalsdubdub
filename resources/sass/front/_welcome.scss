@@ -1,0 +1,290 @@
+section.welcome-background{
+    @include z-100;
+    @include abs;
+    width: 100%;
+    height: calc(100% - 80px);
+    background: rgba(255,255,255,.7);
+    overflow: hidden;
+    -webkit-overflow-scrolling: touch;
+    @include mq('sm-desk'){
+        height: calc(100% - 50px);
+    }
+    @include mq ('sm-desk', min) {
+        display:none;
+    }
+    @include mq('tablet'){
+        height: calc(100% - 125px);        
+    }
+}
+
+section.welcome-container{
+    @include abs;
+    left: calc(50% - 437px);
+    top: calc(50% - 275px);
+    border-radius: 10px;
+    max-width: 874px;
+    min-width: 874px;
+    max-height: 550px;
+    min-height: 550px;
+    background: white;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    @include mq('sm-desk'){
+        transform: scale(.8);
+    }
+    @include mq('sm-desk'){
+        transform: scale(1);
+        max-width: 100%;
+        min-width: 100%;
+        max-height: 100%;
+        min-height: 100%;
+        border-radius: 0px;
+        left: 0;
+        top: 1px;
+        overflow: auto;
+    }
+    a.close-welcome{
+        @include z-8;
+        @include abs;
+        width: 50px;
+        height: 50px;
+        background: url('#{$images}icon-close.svg') no-repeat center center;
+        background-size: contain;
+        top: 20px;
+        right: 20px;
+        opacity: .5;
+        @include moveFast;
+        &:hover{
+            opacity: 1;
+        }
+        @include mq('sm-desk'){
+            width: 40px;
+            height: 40px;
+            top: 15px;
+            right: 15px;
+        }
+    }
+    div.welcome-home{
+        @include abs;
+        width: 500px;
+        height: 500px;
+        background: url('#{$images}welcome-home-2.svg') no-repeat top left;
+        background-size: contain;
+        
+        
+        @include mq('sm-desk'){
+            bottom: 0;
+            @include z-1;
+            left: calc(50% - 250px);
+            opacity: .075;
+        }
+    }
+    section.welcome-message{
+        padding: 0 50px 0 340px;
+        position: relative;
+        
+        > h1{
+            @include fontBold;
+            font-size: 42px;
+            padding: 60px 0 35px 0;
+            @include mq('sm-desk'){
+                font-size: 22px;
+                padding: 80px 0 30px 0;
+            }
+        }
+        ul{
+            padding-bottom: 40px;
+            li{
+                padding-left: 120px;
+                h1{
+                    @include fontBold;
+                    font-size: 20px;
+                    padding-bottom: 10px;
+                    @include mq('sm-desk'){
+                        font-size: 16px;
+                    }
+                }
+                p{
+                    @include fontBook;
+                    color: $grey;
+                    line-height: 24px;
+                    padding-right: 20px;
+                    @include mq('sm-desk'){
+                        font-size: 14px;
+                        line-height: 18px;
+                    }
+                }
+                &:first-child{
+                    background: url('#{$images}icons/icon-welcome-compass.svg') no-repeat top left;
+                    background-size: 75px;
+                    margin-bottom: 40px;
+                    @include mq('sm-desk'){
+                        background-size: 40px;
+                    }
+                }
+                &:last-child{
+                    background: url('#{$images}icons/icon-welcome-lantern.svg') no-repeat top left;
+                    background-size: 80px;
+                    @include mq('sm-desk'){
+                        background-size: 40px;
+                    }
+                }
+                @include mq('sm-desk'){
+                    padding-left: 60px;
+                }
+            }//emd li
+        }//end ul
+        
+        button.btn-welcome{
+            min-width: 100%;
+            padding: 20px 0;
+            position: relative;
+            @include z-10;
+        }
+        @include mq('sm-desk'){
+            padding: 0 30px;
+            overflow: scroll;
+            @include z-10;
+        }
+    }//end welcome messahe
+}//end welcome container
+
+section.spot-slideout{
+    
+    section.welcome-background{
+        @include z-100;
+        @include rlt;
+        width: 100%;
+        height: calc(100% - 80px);
+        background: rgba(255,255,255,.7);
+        overflow: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    section.welcome-pane{
+        display: block;
+        margin-top: 26px;
+        height: 100%;
+        a.close-welcome{
+            @include z-8;
+            @include abs;
+            width: 50px;
+            height: 50px;
+            background: url('#{$images}icon-close.svg') no-repeat center center;
+            background-size: contain;
+            right: 20px;
+            opacity: .5;
+            @include moveFast;
+            &:hover{
+                opacity: 1;
+            }
+            @include mq('tablet'){
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                right: 15px;
+            }
+        }
+        div.welcome-home{
+            @include abs;
+            width: 100%;
+            height: 500px;
+            background: url('#{$images}welcome-home-2.svg') no-repeat bottom center;
+            background-size: contain;
+            transform: scale(.75);
+            opacity: .075;
+        }
+        .ww-container {
+            height: 33%;
+            width: 100%;
+            img {
+                width: 150px;
+                display: block;
+                margin: 20px auto 0;
+            }
+        }
+        .dubdub-container {
+            height: 33%;
+            width: 100%;
+            img {
+                width: 50%;
+                display: block;
+                margin:  150px auto 0;
+            }
+        }
+        section.welcome-message{
+            padding: 0 60px;
+            height: 100%;
+            
+            > h1{
+                @include fontBold;
+                text-align: center;
+                font-size: 38px;
+                line-height: 1.2;
+                padding: 60px 0 35px 0;
+                margin-bottom: 50px;
+                span {
+                    color: #F00;
+                }
+                @include mq('tablet'){
+                    font-size: 22px;
+                    padding: 80px 0 30px 0;
+                }
+            }
+            ul{
+                padding-bottom: 40px;
+                li{
+                    padding-left: 120px;
+                    h1{
+                        @include fontBold;
+                        font-size: 20px;
+                        padding-bottom: 10px;
+                        @include mq('tablet'){
+                            font-size: 16px;
+                        }
+                    }
+                    p{
+                        @include fontBook;
+                        color: $grey;
+                        line-height: 24px;
+                        padding-right: 20px;
+                        @include mq('tablet'){
+                            font-size: 14px;
+                            line-height: 18px;
+                        }
+                    }
+                    &:first-child{
+                        background: url('#{$images}icons/icon-welcome-compass.svg') no-repeat top left;
+                        background-size: 75px;
+                        margin-bottom: 40px;
+                        @include mq('tablet'){
+                            background-size: 40px;
+                        }
+                    }
+                    &:last-child{
+                        background: url('#{$images}icons/icon-welcome-lantern.svg') no-repeat top left;
+                        background-size: 80px;
+                        @include mq('tablet'){
+                            background-size: 40px;
+                        }
+                    }
+                    @include mq('tablet'){
+                        padding-left: 60px;
+                    }
+                }//emd li
+            }//end ul
+            
+            button.btn-welcome{
+                min-width: 100%;
+                padding: 20px 0;
+            }
+            @include mq('tablet'){
+                padding: 0 30px;
+                overflow: scroll;
+            }
+        }//end welcome messahe
+        @include mq('sm-desk') {
+            display:none;
+        }
+    }//end welcome container
+}//end welcome container

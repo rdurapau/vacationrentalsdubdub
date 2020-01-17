@@ -1,0 +1,31 @@
+version: "3.3"
+
+services:
+  # vrww:
+  #   build: .
+  #   container_name: vrww
+  #   network_mode: bridge
+  #   volumes:
+  #     - ./:/var/www/html
+  #     - /var/www/html/node_modules/
+  #   links:
+  #     - vrww-db
+  #   ports:
+  #     - "80:80"
+  #   environment:
+  #     APP_ENV: development
+
+  vrww-db:
+    image: mysql:5.7
+    container_name: vrww-db
+    network_mode: bridge
+    restart: always
+    volumes:
+      - ./.volumes/vrww-db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_DATABASE: vrww
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
