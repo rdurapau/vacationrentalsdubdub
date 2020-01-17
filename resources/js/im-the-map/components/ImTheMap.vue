@@ -295,7 +295,40 @@ export default {
             currentLocationText: "Current Location"
         };
     },
+
+    mounted() {
+        this.initMap();
+    },
+
     methods: {
+        initMap() {
+            this.map = new mapboxgl.Map({
+                container: "map-wrapper",
+                style: "mapbox://styles/mapbox/" + this.mapStyle,
+                // center: [-98.3810608, 37.9507756],
+                center: [-99.16951, 31.417772],
+                zoom: 5.5
+            });
+
+            this.map.on("load", () => {
+                this.addDataLayers();
+
+                this.resizeMap();
+                axios
+                    .get("/api/spots?output=geojson")
+                    .then(response => this.initData(response.data));
+            });
+
+            window.addEventListener("load", function(event) {
+                this.resizeMap();
+            });
+
+            document.onreadystatechange = () => {
+                if (document.readyState == "complete") {
+                    this.resizeMap();
+                }
+            };
+        },
         changeMapStyle(style) {
             if (!this.styleSwitcherIsOpen) {
                 this.styleSwitcherIsOpen = true;
@@ -581,12 +614,6 @@ export default {
             // return marker;
         },
 
-        // hideActiveMarker() {
-        //     if(!(Object.entries(this.activeMarker).length === 0 && this.activeMarker.constructor === Object)) {
-        //         this.activeMarker.remove();
-        //     }
-        // },
-
         hideHoverMarker() {
             if (
                 !(
@@ -607,14 +634,10 @@ export default {
         showTermsModal() {
             this.$store.commit("showInformationalModal", "terms");
         },
-        // newGeolocate(val) {
-        //     console.log('geolocate', val);
-        // }
 
         /*
          *  Map Methods
          */
-
         updateMarkers() {
             return false;
 
@@ -771,8 +794,6 @@ export default {
                 data: this.geoJson
             });
 
-            this.addDataLayers();
-
             this.map.on("sourcedata", () => {
                 if (
                     !self.mapIsLoaded &&
@@ -794,7 +815,6 @@ export default {
                         data: this.geoJson
                     });
                 }
-                this.addDataLayers();
             });
 
             // Add the search box
@@ -912,6 +932,7 @@ export default {
             }
         }
     },
+
     computed: {
         csrf() {
             return window.Laravel.csrfToken;
@@ -955,34 +976,7 @@ export default {
         // self.map.setFilter('unclustered-point', ['>=', 'sleeps', 10]);
         // self.map.setFilter('cluster-count', ['>=', 'sleeps', 10]);
     },
-    mounted() {
-        let self = this;
-        // console.log(mapboxgl);
-        this.map = new mapboxgl.Map({
-            container: "map-wrapper",
-            style: "mapbox://styles/mapbox/" + this.mapStyle,
-            // center: [-98.3810608, 37.9507756],
-            center: [-99.16951, 31.417772],
-            zoom: 5.5
-        });
 
-        this.map.on("load", () => {
-            self.resizeMap();
-            axios
-                .get("/api/spots?output=geojson")
-                .then(response => self.initData(response.data));
-            // .then((response) => self.geoJson = response.data);
-        });
-
-        window.addEventListener("load", function(event) {
-            self.resizeMap();
-        });
-        document.onreadystatechange = () => {
-            if (document.readyState == "complete") {
-                self.resizeMap();
-            }
-        };
-    },
     watch: {
         "$store.state.activeSpot": "activeSpotChanged"
     }

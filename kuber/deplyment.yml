@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vrww
+  labels:
+    app: vrww
+spec:
+  selector:
+    matchLabels:
+      app: vrww
+      tier: web
+  template:
+    metadata:
+      labels:
+        app: vrww
+        tier: web
+    spec:
+      containers:
+        - name: vrww
+          image: vrww/app:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: APP_NAME
+              value: "VRWW"
+            - name: APP_ENV
+              value: "production"
+            - name: APP_KEY
+              value: "base64:/Jc7h6bBn0U1ypDkWpaE2dKgw8Km9POj443DTNzoVs4="
+            - name: APP_DEBUG
+              value: "true"
+            - name: APP_URL
+              value: "https://vrww.app"
+            - name: DB_CONNECTION
+              value: "mysql"
+            - name: DB_HOST
+              value: "vrww-db-do-user-6728144-0.db.ondigitalocean.com"
+            - name: DB_PORT
+              value: "25060"
+            - name: DB_DATABASE
+              value: "vrww"
+            - name: DB_USERNAME
+              value: "app"
+            - name: DB_PASSWORD
+              value: "vm8euurlz0hesfu9"
+            - name: DISK_NAME
+              value: "spaces"
+            - name: FILESYSTEM_DRIVER
+              value: "spaces"
+            - name: DO_SPACES_KEY
+              value: "WNPXD3FV7JR7AQBITQ4U"
+            - name: DO_SPACES_SECRET
+              value: "Kj6OTrIofwiPS4nWdTRi11+zzeeJPmS8v6dOI2V4lfY"
+            - name: DO_SPACES_ENDPOINT
+              value: "https://sfo2.digitaloceanspaces.com"
+            - name: DO_SPACES_REGION
+              value: "sfo2"
+            - name: DO_SPACES_BUCKET
+              value: "vrww-images"
+            - name: MAPBOX_API_TOKEN
+              value: "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ"
+            - name: MIX_MAPBOX_APP_KEY
+              value: "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ"
+          readinessProbe:
+            exec:
+              command:
+                - cat
+                - /var/www/html/README.md
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command:
+                - cat
+                - /var/www/html/README.md
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+      imagePullSecrets:
+        - name: dockerhub
