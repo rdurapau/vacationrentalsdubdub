@@ -1,19 +1,12 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// import VueLodash from 'vue-lodash'
-// import lodash from 'lodash'
-// Vue.use(VueLodash, lodash)
-
-// import Toast from './components/Toast.vue'
-// Vue.component('toast', Toast);
-// import ToastConfirmation from './components/ToastConfirmation.vue'
-// Vue.component('toast-confirmation', ToastConfirmation);
+import axios from 'axios'
 
 Vue.use(Vuex)
 
 const state = {
     activeSpot: 0,
-    spotDetailsVisible : false,
+    spotDetailsVisible: false,
     detailsLoading: false,
     submitPropertyModalVisible: false,
 
@@ -27,7 +20,7 @@ const state = {
 }
 
 const getters = {
-    
+
 }
 
 //  #     #                                                  
@@ -130,18 +123,43 @@ const mutations = {
 //  #     # #    #   #   # #    # #   ## #    # 
 //  #     #  ####    #   #  ####  #    #  ####  
 const actions = {
-    getSpotData({commit},id) {
-        return axios.get('/api/spots/'+id)
-            // .then((response)  => commit.newActiveSpot(response.data))
-            // .catch((error) => console.log(error));
+    getSpots({ commit, rootState }, filters) {
+
+        var params = {
+            output: 'geojson'
+        }
+
+        if (filters) {
+            if (filters.minPrice) params.minPrice = filters.minPrice
+            if (filters.maxPrice) params.maxPrice = filters.maxPrice
+            if (filters.minBaths) params.minBaths = filters.minBaths
+            if (filters.maxBaths) params.maxBaths = filters.maxBaths
+            if (filters.minBeds) params.minBeds = filters.minBeds
+            if (filters.maxBeds) params.maxBeds = filters.maxBeds
+        }
+
+
+        return new Promise((resolve, reject) =>
+            axios
+                .get("/api/spots", {
+                    params
+                })
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
     },
-    triggerNewActiveSpot({commit, dispatch},id) {
+
+    getSpotData({ commit }, id) {
+        return axios.get('/api/spots/' + id)
+        // .then((response)  => commit.newActiveSpot(response.data))
+        // .catch((error) => console.log(error));
+    },
+    triggerNewActiveSpot({ commit, dispatch }, id) {
         commit('detailsAreLoading');
         commit('showDetailsCard');
-        return dispatch('getSpotData',id)
+        return dispatch('getSpotData', id)
             .then(response => {
                 commit('detailsFinishedLoading');
-                commit('newActiveSpot',response.data);
+                commit('newActiveSpot', response.data);
             })
             .catch(error => console.log(error));
         // return new Promise((resolve) => resolve());
