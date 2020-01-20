@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Resource::withoutWrapping();
 
-        if(config('APP_ENV') === 'production') {
+        if(env('APP_ENV') === 'production') {
             \URL::forceScheme('https');
         }
     }
