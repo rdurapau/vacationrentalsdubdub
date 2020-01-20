@@ -6,7 +6,7 @@ return [
      * The disk on which to store added files and derived images by default. Choose
      * one or more of the disks you've configured in config/filesystems.php.
      */
-    'disk_name' => env('DISK_NAME', 'local'),
+    'disk_name' => env('DISK_NAME', 'spaces'),
 
     /*
      * The maximum file size of an item in bytes.
@@ -29,7 +29,7 @@ return [
         /*
          * The domain that should be prepended when generating urls.
          */
-        'domain' => 'https://'.env('AWS_BUCKET').'.s3.amazonaws.com',
+        'domain' => 'https://'.env('DO_SPACES_BUCKET').'.sfo2.digitaloceanspaces.com',
     ],
 
     'remote' => [
@@ -42,6 +42,7 @@ return [
          * ServerSideEncryption, Metadata, ACL, ContentEncoding
          */
         'extra_headers' => [
+            'visibility' => 'public',
             'CacheControl' => 'max-age=604800',
         ],
     ],

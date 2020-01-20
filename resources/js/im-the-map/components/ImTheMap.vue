@@ -244,7 +244,7 @@
 import { mapActions, mapGetters } from "vuex";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-mapboxgl.accessToken = process.env.MIX_MAPBOX_APP_KEY;
+mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
 
 import MapFooter from "./MapFooter.vue";
 Vue.component("map-footer", MapFooter);
@@ -813,14 +813,14 @@ export default {
             feature.properties.photos.slice(0, 6).map(p => {
                 HTML =
                     HTML +
-                    `<div class="img" style="background-image:url('${p}')"></div>`;
+                    `<div class="img" style="background: url('${p}') no-repeat center center"></div>`;
             });
 
+            HTML = HTML + "</section>";
             HTML = HTML + '<div class="info">';
             HTML = HTML + "<h1>" + feature.properties.name + "</h1>";
             HTML = HTML + "<p>$" + feature.properties.price + " Per Night</p>";
             HTML = HTML + "</div>";
-            HTML = HTML + "</section>";
             HTML = HTML + "</div>";
             el.innerHTML = HTML;
 
@@ -843,7 +843,10 @@ export default {
         },
 
         hideHoverMarker() {
-            if (typeof this.hoverMarker === "object") {
+            if (
+                this.hoverMarker &&
+                typeof this.hoverMarker.remove === "function"
+            ) {
                 this.hoverMarker.remove();
             }
         },
