@@ -137,7 +137,7 @@
                 >About</a>
                 <a
                     href="#"
-                    @click.prevent="showAboutModal"
+                    @click.prevent="showContact"
                 >Contact</a>
                 <a
                     href="#"
@@ -244,7 +244,8 @@
 import { mapActions, mapGetters } from "vuex";
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
-mapboxgl.accessToken = "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
+mapboxgl.accessToken =
+    "pk.eyJ1IjoiY2FiZWViIiwiYSI6ImNqczIxdGlsNzA5b280M28yMmI2eHZzcWIifQ.HcTinfBh6KX4myzAFTNqKQ";
 
 import MapFooter from "./MapFooter.vue";
 Vue.component("map-footer", MapFooter);
@@ -504,6 +505,10 @@ export default {
         },
         showTermsModal() {
             this.$store.commit("showInformationalModal", "terms");
+        },
+
+        showContact() {
+            this.$store.state.showContactPage = true;
         },
 
         /*

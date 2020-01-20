@@ -5,6 +5,8 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const state = {
+    showContactPage: false,
+
     activeSpot: 0,
     spotDetailsVisible: false,
     detailsLoading: false,

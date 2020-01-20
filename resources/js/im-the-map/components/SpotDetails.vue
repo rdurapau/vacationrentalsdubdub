@@ -22,40 +22,13 @@
             class="spot-details"
             v-else-if="spotDetailsVisible && spot"
         >
-            <section class="hero">
-                <button
-                    class="close"
-                    @click.prevent="close"
-                ><span class="icon-clear-css"></span></button>
-                <div class="controls">
-                    <a
-                        href="#"
-                        class="left"
-                        @click.prevent="prevPhoto"
-                    ></a>
-                    <a
-                        href="#"
-                        class="right"
-                        @click.prevent="nextPhoto"
-                    ></a>
-                    <nav>
-                        <a
-                            href="#"
-                            v-for="(photo, index) in photos"
-                            @click.prevent="goToPhoto(index)"
-                            :class="{current: currentPhotoIndex == index}"
-                            v-text="index + 1"
-                        >
-                        </a>
-                    </nav>
-                </div>
+            <section class="spot-images">
                 <div
-                    class="photos"
-                    v-if="photos && photos.length"
-                >
-                    <!-- <span v-for="photo in photos" :style="'background-image:url('+photo+')'"></span> -->
-                    <span :style="'background-image:url('+photos[currentPhotoIndex]+')'"></span>
-                </div>
+                    class="image"
+                    v-for="(photo, i) in photos.slice(0, 6)"
+                    :key="i"
+                    :style="{'background': `url('${photo}') no-repeat center center`}"
+                />
             </section>
             <section class="content">
                 <aside>
@@ -140,6 +113,58 @@
 
         <section
             class="welcome-pane"
+            v-else-if="showContactPage"
+        >
+            <section class="contact-page">
+                <div class="row-3">
+                    <div class="contact">
+                        <img
+                            class="headshot"
+                            width="100%"
+                            src="/images/seth-headshot.webp"
+                            alt="Seth Matthews"
+                        />
+                        <p class="name">Seth Matthews</p>
+                        <p class="role">co-founder | Sales & Marketing</p>
+                        <p class="email">
+                            <a href="mailto:seth@vrww.app">
+                                seth@vr<span class="text-red">ww</span>.app
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row-3">
+                    <div class="contact">
+                        <img
+                            class="headshot"
+                            width="100%"
+                            src="/images/rick-headshot.webp"
+                            alt="Rick DuRapau"
+                        />
+                        <p class="name">Rick DuRapau</p>
+                        <p class="role">co-founder | CVO</p>
+                        <p class="email">
+                            <a href="mailto:rick@vrww.app">
+                                rick@vr<span class="text-red">ww</span>.app
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="row-3">
+
+                    <img
+                        class="dubdub-logo"
+                        width="100%"
+                        src="/images/dubdub-logo.webp"
+                        alt="dubdub-logo"
+                    />
+
+                </div>
+            </section>
+        </section>
+
+        <section
+            class="welcome-pane"
             v-else
         >
             <section class="welcome-message">
@@ -159,6 +184,7 @@
                 </div>
             </section>
         </section>
+
         <component
             is="style"
             type="text/css"
@@ -221,18 +247,11 @@ export default {
         hideReservationForm() {
             this.reservationFormVisible = false;
         }
-        // afterCardEnter() {
-        //     this.$mapBus.$emit('detailsCardShown');
-        // },
-        // afterCardExit() {
-        //     this.$mapBus.$emit('detailsCardHidden');
-        // },
     },
     computed: {
-        // isMobileSafari() {
-        //     // return navigator.userAgent.match(/iOS/i) !== null;
-        //     return /iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-        // },
+        showContactPage() {
+            return this.$store.state.showContactPage;
+        },
         spotDetailsVisible() {
             return this.$store.state.spotDetailsVisible;
         },
@@ -248,11 +267,6 @@ export default {
             if (this.amenities) {
                 return this.amenities.filter(a => a.is_featured);
             }
-            // return this.amenities.reduce((objectsByKeyValue, obj) => {
-            //     const value = obj['is_featured'];
-            //     objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
-            //     return objectsByKeyValue;
-            // }, {});
         },
         groupedAmenities() {
             if (this.amenities) {
@@ -291,30 +305,84 @@ export default {
         spot: "resetNewSpot"
     },
     mounted() {
-        // this.$store.commit('triggerNewActiveSpot',55);
-        // let self = this;
-        // setInterval(function(){
-        //     self.isOut = !self.isOut;
-        // },3000);
-        let self = this;
-        document.addEventListener("keyup", function(evt) {
+        document.addEventListener("keyup", evt => {
             switch (evt.keyCode) {
                 case 27:
-                    self.close();
+                    this.close();
                     break;
                 case 39:
-                    self.nextPhoto();
+                    this.nextPhoto();
                     break;
                 case 37:
-                    self.prevPhoto();
+                    this.prevPhoto();
                     break;
             }
         });
+
         this.innerHeight = window.innerHeight + "px";
-        window.onresize = function() {
-            self.innerHeight = window.innerHeight + "px";
-        };
+        window.onresize = () => (this.innerHeight = window.innerHeight + "px");
     }
 };
 </script>
 
+<style lang="scss" scoped>
+.contact-page {
+    height: 100%;
+}
+.row-3 {
+    height: 33.3333%;
+}
+.contact-page .contact {
+    margin-top: 100px;
+}
+.contact-page .contact img {
+    width: 150px;
+    display: block;
+    margin: auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    border: 2px solid white;
+    background-color: white;
+    overflow: hidden;
+}
+.contact-page .contact p {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.contact-page .contact p.name {
+    font-size: 24px;
+    margin-top: 10px;
+    font-weight: 700;
+}
+.contact-page .contact p.role {
+    font-size: 24px;
+    margin-top: 10px;
+}
+.contact-page .contact p.email {
+    font-size: 24px;
+    margin-top: 5px;
+}
+.contact-page .contact p.email a {
+    color: inherit;
+    text-decoration: none;
+}
+.contact-page .dubdub-logo {
+    width: 75%;
+    display: block;
+    margin: auto;
+}
+
+.spot-images {
+    height: 350px;
+    .image {
+        width: 33.33333%;
+        height: 50%;
+        float: left;
+        -webkit-background-size: cover !important;
+        -moz-background-size: cover !important;
+        -o-background-size: cover !important;
+        background-size: cover !important;
+    }
+}
+</style>
