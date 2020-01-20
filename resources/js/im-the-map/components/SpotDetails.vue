@@ -31,37 +31,9 @@
                 />
             </section>
             <section class="content">
-                <aside>
-                    <div class="cost-row">
-                        <h5><span>$</span><strong>{{spot.price}}</strong> per night</h5>
-                        <button
-                            class="btn btn-wide btn-purple btn-reservation"
-                            @click.prevent="showReservationForm"
-                        >Make a reservation</button>
-                    </div>
-                    <ul class="contact">
-                        <li
-                            class="phone"
-                            v-if="spot.phone"
-                        >
-                            <a
-                                :href="'tel:'+spot.phone"
-                                v-text="spot.phone"
-                            ></a>
-                        </li>
-                        <li
-                            class="link"
-                            v-if="spot.website"
-                        >
-                            <a
-                                :href="spot.website"
-                                target="_blank"
-                            >Visit Property Website</a>
-                        </li>
-                    </ul>
-                </aside>
                 <article class="extra-padding">
                     <h2 v-text="spot.name"></h2>
+                    <h3>${{spot.price}} Per Night</h3>
                     <section class="icon-deets">
                         <div v-if="spot.sleeps">
                             <img src="/images/icons/person-circle.svg" />
@@ -81,32 +53,6 @@
                         class="spot-description"
                         v-html="spot.desc"
                     ></div>
-
-                    <h3 v-if="amenities && amenities.length">Featured Amenities</h3>
-                    <ul
-                        class="amenities"
-                        v-if="featuredAmenities && featuredAmenities.length"
-                    >
-                        <li
-                            v-for="amenity in featuredAmenities"
-                            :class="amenity.icon"
-                        >
-                            <div class="icon"><img :src="'/images/icons/amenities/'+amenity.icon+'.svg'" /></div>
-                            <span v-text="amenity.name"></span>
-                        </li>
-                    </ul>
-
-                    <div
-                        v-for="(group, title) in groupedAmenities"
-                        class="amenity-group"
-                    >
-                        <h4 v-text="title"></h4>
-                        <ul class="amenities">
-                            <li v-for="amenity in group">
-                                <span v-text="amenity.name"></span>
-                            </li>
-                        </ul>
-                    </div>
                 </article>
             </section>
         </section>
