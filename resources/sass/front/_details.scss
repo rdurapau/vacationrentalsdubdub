@@ -399,7 +399,7 @@
         display:flex;
         align-items:flex-start;
         justify-content:space-between;
-        padding:0 30px;
+        padding:0 10px;
         position:relative;
         height:66%;
     }
@@ -468,7 +468,7 @@
         padding-top:26px;
         box-sizing:border-box;
         max-height:100%;
-        overflow-y:scroll;
+        overflow-y:hidden;
         padding-right:10px;
         order:1;
         flex:1 1 auto;
@@ -484,12 +484,12 @@
     h2 {
         font-size:28px;
         line-height:30px;
-        margin-bottom:16px;
+        margin-bottom:10px;
     }
     h3 {
         font-size:20px;
         line-height:22px;
-        margin-bottom:25px;
+        margin-bottom:10px;
     }
     h5 {
         display:flex;
@@ -516,10 +516,10 @@
     }
 
     .icon-deets {
-        display:flex;
-        align-items:center;
-        justify-content:flex-start;
-        margin-bottom:18px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 10px;
         div {
             display:flex;
             align-items:center;

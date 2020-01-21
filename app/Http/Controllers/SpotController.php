@@ -18,6 +18,9 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+
 class SpotController extends Controller
 {
     /**
@@ -117,6 +120,27 @@ class SpotController extends Controller
     public function show(Spot $spot)
     {
         //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Spot  $spot
+     * @return \Illuminate\Http\Response
+     */
+    public function _edit(BaseSpot $spot)
+    {
+        $editTokenID = EditToken::insert([
+            'token' => str_random(30),
+            'spot_id' => $spot->id,
+            'expires_at' => Carbon::now()->add(1, 'day')->toDateTimeString(),
+        ]);
+        $editToken = EditToken::find($editTokenID);
+        $amenities = Amenity::all();
+        $spotJson = $spot->append('amenity_ids')->append('images')->toJson();
+        $spotJson = new SpotResource($spot, true);
+
+        return view('spots.edit', compact('spotJson', 'editToken', 'amenities'));
     }
 
     /**

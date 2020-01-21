@@ -31,7 +31,7 @@
                 />
             </section>
             <section class="content">
-                <article class="extra-padding">
+                <article>
                     <h2 v-text="spot.name"></h2>
                     <h3>${{spot.price}} Per Night</h3>
                     <section class="icon-deets">
@@ -53,6 +53,21 @@
                         class="spot-description"
                         v-html="spot.desc"
                     ></div>
+                    <br />
+                    <div class="btn-group">
+                        <a
+                            :href="spot.website"
+                            class="btn btn-primary"
+                        >Website</a>
+                        <a
+                            :href="`tel:${spot.phone}`"
+                            class="btn btn-default"
+                        >Phone</a>
+                    </div>
+                    <br />
+
+                    <calendar />
+
                 </article>
             </section>
         </section>
@@ -150,10 +165,13 @@
 let mapboxgl = require("mapbox-gl");
 import { mapState, mapGetters } from "vuex";
 
+import calendar from "./calendar";
+
 import ReservationForm from "./ReservationForm.vue";
 Vue.component("reservation-form", ReservationForm);
 
 export default {
+    components: { calendar },
     data() {
         return {
             currentPhotoIndex: 0,
@@ -278,9 +296,6 @@ export default {
 .row-3 {
     height: 33.3333%;
 }
-.contact-page .contact {
-    margin-top: 100px;
-}
 .contact-page .contact img {
     width: 150px;
     display: block;
@@ -297,16 +312,16 @@ export default {
     margin-bottom: 0px;
 }
 .contact-page .contact p.name {
-    font-size: 24px;
+    font-size: 20px;
     margin-top: 10px;
     font-weight: 700;
 }
 .contact-page .contact p.role {
-    font-size: 24px;
+    font-size: 18px;
     margin-top: 10px;
 }
 .contact-page .contact p.email {
-    font-size: 24px;
+    font-size: 18px;
     margin-top: 5px;
 }
 .contact-page .contact p.email a {
@@ -314,13 +329,13 @@ export default {
     text-decoration: none;
 }
 .contact-page .dubdub-logo {
-    width: 75%;
+    width: 50%;
     display: block;
-    margin: auto;
+    margin: 20px auto;
 }
 
 .spot-images {
-    height: 350px;
+    height: 33.333%;
     .image {
         width: 33.33333%;
         height: 50%;

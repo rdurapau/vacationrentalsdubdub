@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Spot;
+
 class HomeController extends Controller
 {
     /**
@@ -13,7 +15,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('home', [
+            'spots' => [Spot::all()[0]],
+        ]);
     }
 
     /**

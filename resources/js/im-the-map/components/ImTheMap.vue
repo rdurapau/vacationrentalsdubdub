@@ -667,7 +667,7 @@ export default {
             ).id = "property-location-input";
 
             this.map.on("load", () => {
-                // this.geocoder.on("result", this.addressSelected);
+                this.geocoder.on("result", this.addressSelected);
             });
         },
 
@@ -856,13 +856,24 @@ export default {
             }
         },
 
+        addressSelected(event) {
+            let coords = event.result.geometry.coordinates;
+
+            this.getSpots()
+                .then(spots => this.parseGeoJSON(spots))
+                .catch(err => console.error(err));
+
+            this.addressIsSelected = true;
+            this.map.jumpTo({
+                center: coords,
+                zoom: 11
+            });
+        },
+
         activeSpotChanged() {
-            // console.log('changed');
             let activeSpot = this.$store.state.activeSpot;
             this.hideHoverMarker();
             if (activeSpot && activeSpot.hasOwnProperty("id")) {
-                // console.log('hide');
-                // this.hideActiveMarker();
                 this.geoJson.features.forEach(geoFeature => {
                     geoFeature.properties.active =
                         geoFeature.id === activeSpot.id ? 1 : 0;
