@@ -70,7 +70,7 @@
                 </div>
 
                 <!-- Commneted out by Anthony Budd -->
-                <!-- <div class="filters-wrap">
+                <div class="filters-wrap">
                     <div class="filters" @click.prevent="toggleFilterDropdown" :class="{active: true}">
                         <svg width="21" height="12" viewBox="0 0 21 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -126,7 +126,7 @@
                             </a>
                         </div>
                     </section>
-                </div> -->
+                </div>
 
             </section>
 
