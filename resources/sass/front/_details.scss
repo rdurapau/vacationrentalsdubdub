@@ -10,7 +10,6 @@
     line-height:17px;
     position:relative;
     z-index:15;
-    width:650px;
     // display:flex;
     // flex-direction:column;
     // justify-content:stretch;
@@ -168,7 +167,7 @@
             margin:30px 0 25px;
         }
 
-        form.sweetspot-form {
+        .sweetspot-form {
             padding-top:10px;
             height:auto;
             .form-row {
@@ -396,12 +395,9 @@
     }
 
     section.content {
-        display:flex;
-        align-items:flex-start;
-        justify-content:space-between;
-        padding:0 10px;
-        position:relative;
-        height:66%;
+        padding: 0 10px;
+        position: relative;
+        height: 60%;
     }
 
     .spot-description {
@@ -465,7 +461,10 @@
     }
 
     article {
-        padding-top:26px;
+        &.scroll {
+            overflow-y: scroll !important;
+        }
+        padding-top: 5px;
         box-sizing:border-box;
         max-height:100%;
         overflow-y:hidden;

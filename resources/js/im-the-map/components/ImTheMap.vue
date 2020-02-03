@@ -13,7 +13,6 @@
             class="mobile-nav"
             :class="{active: mobileNavIsVisible}"
         >
-
             <ul>
                 <li>
                     <a
@@ -28,17 +27,12 @@
                     >Terms of Service</a>
                 </li>
             </ul>
-
             <button @click.prevent="showSubmitPropertyModal">List Your Spot</button>
-
         </section>
 
         <header>
-
             <section class="logo-and-menu">
-
                 <div class="logo"></div>
-
                 <div
                     class="bun"
                     :class="{active: mobileNavIsVisible}"
@@ -48,12 +42,10 @@
                     <div class="cheese"></div>
                     <div class="meat"></div>
                 </div>
-
             </section>
 
             <section class="search-and-filters">
                 <div class="search">
-
                     <button
                         id="clear-search"
                         @click.prevent="clearSearch"
@@ -66,45 +58,134 @@
                         id="geocoder"
                         ref="geocoder-wrap"
                     ></div>
-
                 </div>
 
-                <!-- Commneted out by Anthony Budd -->
                 <div class="filters-wrap">
-                    <div class="filters" @click.prevent="toggleFilterDropdown" :class="{active: true}">
-                        <svg width="21" height="12" viewBox="0 0 21 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
+                    <div
+                        class="filters"
+                        @click.prevent="toggleFilterDropdown"
+                        :class="{active: true}"
+                    >
+                        <svg
+                            width="21"
+                            height="12"
+                            viewBox="0 0 21 12"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
                                 d="M7.24902 4.5C6.28253 4.5 5.49902 3.7165 5.49902 2.75C5.49902 1.7835 6.28253 1 7.24902 1C8.21552 1 8.99902 1.7835 8.99902 2.75C8.99902 3.21413 8.81465 3.65925 8.48646 3.98744C8.15827 4.31563 7.71315 4.5 7.24902 4.5Z"
-                                stroke="#666666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M1 2.75H2.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M12 2.75H19.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                stroke="#666666"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M1 2.75H2.5"
+                                stroke="#666666"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M12 2.75H19.5"
+                                stroke="#666666"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                fill-rule="evenodd"
+                                clip-rule="evenodd"
                                 d="M13.249 10.5C12.2825 10.5 11.499 9.7165 11.499 8.75C11.499 7.7835 12.2825 7 13.249 7C14.2155 7 14.999 7.7835 14.999 8.75C14.999 9.21413 14.8146 9.65925 14.4865 9.98744C14.1583 10.3156 13.7132 10.5 13.249 10.5Z"
-                                stroke="#666666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M1 8.75H8.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M18 8.75H19.5" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
-                                stroke-linejoin="round" />
+                                stroke="#666666"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M1 8.75H8.5"
+                                stroke="#666666"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
+                            <path
+                                d="M18 8.75H19.5"
+                                stroke="#666666"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            />
                         </svg>
-                        <span class="count" v-if="activeFiltersCount" v-text="activeFiltersCount"></span>
+                        <span
+                            class="count"
+                            v-if="activeFiltersCount"
+                            v-text="activeFiltersCount"
+                        ></span>
                     </div>
 
-                    <section id="filters-dropdown" :class="{'visible' : filterDropdownIsVisible}">
+                    <section
+                        id="filters-dropdown"
+                        :class="{'visible' : filterDropdownIsVisible}"
+                    >
                         <div>
                             <label>Guests</label>
                             <div class="number-with-buttons">
-                                <button class="circle-button" @click.prevent="decFilterSleeps">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.5 7.125H12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <button
+                                    class="circle-button"
+                                    @click.prevent="decFilterSleeps"
+                                >
+                                    <svg
+                                        width="14"
+                                        height="14"
+                                        viewBox="0 0 14 14"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M1.5 7.125H12.75"
+                                            stroke="#CCCCCC"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
                                     </svg>
                                 </button>
-                                <input type="number" class="input-increment" v-model="filterDropdownData.sleeps" min="0" max="12" />
-                                <button class="circle-button" @click.prevent="incFilterSleeps">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.5 7.125H12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M7.125 1.5V12.75" stroke="#CCCCCC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <input
+                                    type="number"
+                                    class="input-increment"
+                                    v-model="filterDropdownData.sleeps"
+                                    min="0"
+                                    max="12"
+                                />
+                                <button
+                                    class="circle-button"
+                                    @click.prevent="incFilterSleeps"
+                                >
+                                    <svg
+                                        width="14"
+                                        height="14"
+                                        viewBox="0 0 14 14"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M1.5 7.125H12.75"
+                                            stroke="#CCCCCC"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
+                                        <path
+                                            d="M7.125 1.5V12.75"
+                                            stroke="#CCCCCC"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
                                     </svg>
                                 </button>
                             </div>
@@ -112,16 +193,40 @@
                         <div>
                             <label for="toggle-pet-friendly">Pet Friendly?</label>
                             <div class="check-group">
-                                <input type="checkbox" id="toggle-pet-friendly" v-model="filterDropdownData.pets" />
-                                <label class="circle-button" for="toggle-pet-friendly">
-                                    <svg class="icon icon-check" width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 7.395L3.45 10.872C3.63855 11.1537 3.95158 11.3268 4.29037 11.337C4.62916 11.3471 4.95197 11.1929 5.157 10.923L13 1" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <input
+                                    type="checkbox"
+                                    id="toggle-pet-friendly"
+                                    v-model="filterDropdownData.pets"
+                                />
+                                <label
+                                    class="circle-button"
+                                    for="toggle-pet-friendly"
+                                >
+                                    <svg
+                                        class="icon icon-check"
+                                        width="14"
+                                        height="13"
+                                        viewBox="0 0 14 13"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M1 7.395L3.45 10.872C3.63855 11.1537 3.95158 11.3268 4.29037 11.337C4.62916 11.3471 4.95197 11.1929 5.157 10.923L13 1"
+                                            stroke="white"
+                                            stroke-width="1.5"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        />
                                     </svg>
                                 </label>
                             </div>
                         </div>
                         <div class="apply-row">
-                            <a class="apply" href="#" @click.prevent="applyDropdownFilters">
+                            <a
+                                class="apply"
+                                href="#"
+                                @click.prevent="applyDropdownFilters"
+                            >
                                 Apply
                             </a>
                         </div>
@@ -296,6 +401,7 @@ export default {
 
     methods: {
         ...mapActions(["getSpots"]),
+
         changeMapStyle(style) {
             if (!this.styleSwitcherIsOpen) {
                 this.styleSwitcherIsOpen = true;
@@ -307,18 +413,12 @@ export default {
                 return false;
             }
             this.mapStyle = style;
-            // let layer = mapboxgl.styleLayer(this.mapStyle);
-
-            // layer.addTo(this.map);
-            // this.map.setLayoutProperty('mapbox-mapbox-satellite', 'visibility', 'visible');
-            // this.map.remove();
-            // this.initData(this.geoJson, mapStyle);
             this.map.setStyle("mapbox://styles/mapbox/" + style, {
                 diff: true
             });
         },
+
         applyDropdownFilters() {
-            // console.log('apply');
             Vue.set(this.activeFilters, "pets", this.filterDropdownData.pets);
             Vue.set(
                 this.activeFilters,
@@ -328,6 +428,7 @@ export default {
             this.applyFilters();
             this.hideFilterDropdown();
         },
+
         applyFilters() {
             let filters = [];
 
@@ -341,9 +442,6 @@ export default {
                         feature.properties.sleeps >= activeFilters.sleeps
                     );
                 });
-                // .filter(feature => feature.properties.sleeps >= )
-
-                // console.log(Object.assign({},filteredData));
 
                 this.map.getSource("places").setData({
                     type: "FeatureCollection",
@@ -371,12 +469,6 @@ export default {
         },
         resizeMap() {
             this.map.resize();
-            // Vue.nextTick(() => {
-            //     if (this.activeMarker && (typeof this.activeMarker.getLngLat == 'function')) {
-            //         // console.log(this.activeMarker.getLngLat());
-            //         // this.activeMarker.setLngLat(this.activeMarker.getLngLat());
-            //     }
-            // })
         },
 
         /*
@@ -477,30 +569,14 @@ export default {
             }
         },
         newActiveSpot(feature) {
-            // this.activeSpot = feature.id;
-            // this.$store.commit('newActiveSpot', feature.id)
-
-            // let markerArr = Object.entries(this.markers);
-            // for (const [id, marker] of markerArr) {
-            //     if (id == feature.id) {
-            //         marker.getElement().classList.add('active');
-            //     } else {
-            //         marker.getElement().classList.remove('active');
-            //     }
-            // }
-
             this.activeSpotChanged();
-
             this.gotoCoords(feature.geometry.coordinates);
-            // Vue.nextTick(() =>{
-            //     this.newActiveMarker(feature);
-            // });
         },
 
         showSubmitPropertyModal() {
             this.$store.commit("showSubmitPropertyModal");
         },
-        showAboutModal(which) {
+        showAboutModal() {
             this.$store.commit("showInformationalModal", "about");
         },
         showTermsModal() {
@@ -567,31 +643,6 @@ export default {
                 if (!newMarkers[id]) self.markersOnScreen[id].remove();
             }
             Vue.set(self, "markersOnScreen", newMarkers);
-
-            // for (var i = 0; i < features.length; i++) {
-            //     var coords = features[i].geometry.coordinates;
-            //     var props = features[i].properties;
-            //     if (!props.cluster) continue;
-            //     var id = props.cluster_id;
-
-            //     var marker = markers[id];
-            //     if (!marker) {
-            //         var el = createDonutChart(props);
-            //         marker = markers[id] = new mapboxgl.Marker({
-            //             element: el
-            //         }).setLngLat(coords);
-            //     }
-            //     newMarkers[id] = marker;
-
-            //     if (!markersOnScreen[id])
-            //         marker.addTo(map);
-            // }
-            // // for every marker we've added previously, remove those that are no longer visible
-            // for (id in markersOnScreen) {
-            //     if (!newMarkers[id])
-            //         markersOnScreen[id].remove();
-            // }
-            // markersOnScreen = newMarkers;
         },
         checkForInitSpot() {
             // Check if there's a spot parameter in the URL (ie ?spot=22)
@@ -697,7 +748,7 @@ export default {
                 source: "places",
                 paint: {
                     "circle-color": "#fff",
-                    "circle-radius": 9
+                    "circle-radius": 8
                 }
             });
 
@@ -712,7 +763,7 @@ export default {
                         ["get", "active"],
                         1,
                         "#F69158",
-                        "#9080F0"
+                        "#FF0000"
                     ]
                 }
             });

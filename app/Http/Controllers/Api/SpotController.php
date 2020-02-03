@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Auth;
 use App\Spot;
 use App\BaseSpot;
 use App\TempMedia;
@@ -30,7 +31,7 @@ class SpotController extends ApiController
                 ->json(new SpotCollection($spots))
                 ->header('Content-Type', 'application/json');
         }
-    }
+    }    
 
     public function show(Request $request, Spot $spot)
     {
@@ -48,9 +49,6 @@ class SpotController extends ApiController
     }
     public function update(Request $request, BaseSpot $spot)
     {
-        // return $request->all();
-        // $values = $request->all();
-        // dd($values['amenities']);
 
         $validated = $request->validate([
             'email' => 'required|confirmed|email',

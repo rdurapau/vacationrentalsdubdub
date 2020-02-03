@@ -24,6 +24,7 @@ $factory->define(App\BaseSpot::class, function (Faker $faker) {
         'owner_name' => $faker->name(),
         'lat' => $coords[0],
         'lng' => $coords[1],
+        'owner_id' => 1,
         'moderated_by' => 1,
         'moderated_at' => $faker->dateTimeBetween('-1 years', $endDate = 'now'),
         'moderation_status' => ModerationStatus::APPROVED,

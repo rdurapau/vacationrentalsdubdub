@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Spot;
 use App\BaseSpot;
 use App\Amenity;
@@ -23,6 +24,57 @@ use Illuminate\Support\Str;
 
 class SpotController extends Controller
 {
+    
+    public function mySpots(Request $request)
+    {
+        $spots = Spot::where('owner_id', Auth::id())->get();
+        return response()->json($spots);
+    }
+    
+
+    public function update(Request $request, BaseSpot $spot)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+            'desc' => 'required',
+            
+            'sleeps' => 'required|numeric',
+            'baths' => 'required|numeric',
+            'beds' => 'required|numeric',
+
+            'website' => 'required|url',
+            'phone' => 'required',
+        ]);
+
+        $spot->update($validated);
+
+        return response()->json($spot);
+    }
+
+    public function updateAddress(Request $request, BaseSpot $spot)
+    {
+        $validated = $request->validate([
+            'address1' => 'required|string|max:255',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'postal_code' => 'required',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
+        ]);
+
+        $spot->update($validated);
+
+        return response()->json($spot);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    //// OLD
     /**
      * Display a listing of the resource.
      *
@@ -175,43 +227,43 @@ class SpotController extends Controller
      * @param  \App\Spot  $spot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, BaseSpot $spot)
-    {
-        $validated = $request->validate([
-            'email' => 'required|email',
-            'name' => 'required',
-            'phone' => 'required',
-            'website' => 'required|url',
-            'desc' => 'required',
-            'price' => 'required|numeric|min:10',
-            'address1' => 'required|string|max:255',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'postal_code' => 'required',
-            'owner_name' => 'required',
-            'lat' => 'required|numeric',
-            'lng' => 'required|numeric',
-            'amenities' => 'array',
-            'sleeps' => 'required|numeric',
-            'baths' => 'required|numeric',
-            'edit_token' => [
-                'required',
-                Rule::in($spot->editTokens->pluck('token'))
-            ]
-        ]);
+    // public function update(Request $request, BaseSpot $spot)
+    // {
+    //     $validated = $request->validate([
+    //         'email' => 'required|email',
+    //         'name' => 'required',
+    //         'phone' => 'required',
+    //         'website' => 'required|url',
+    //         'desc' => 'required',
+    //         'price' => 'required|numeric|min:10',
+    //         'address1' => 'required|string|max:255',
+    //         'city' => 'required|string',
+    //         'state' => 'required|string',
+    //         'postal_code' => 'required',
+    //         'owner_name' => 'required',
+    //         'lat' => 'required|numeric',
+    //         'lng' => 'required|numeric',
+    //         'amenities' => 'array',
+    //         'sleeps' => 'required|numeric',
+    //         'baths' => 'required|numeric',
+    //         'edit_token' => [
+    //             'required',
+    //             Rule::in($spot->editTokens->pluck('token'))
+    //         ]
+    //     ]);
 
-        $spot->update($validated);
-        if (array_key_exists('amenities', $validated) && count($validated['amenities'])) {
-            $amenities = array_keys($validated['amenities']);
-        } else {
-            $amenities = [];
-        }
-        $spot->amenities()->sync($amenities);
-        // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
-        broadcast(new SpotWasUpdated($spot));
+    //     $spot->update($validated);
+    //     if (array_key_exists('amenities', $validated) && count($validated['amenities'])) {
+    //         $amenities = array_keys($validated['amenities']);
+    //     } else {
+    //         $amenities = [];
+    //     }
+    //     $spot->amenities()->sync($amenities);
+    //     // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
+    //     broadcast(new SpotWasUpdated($spot));
 
-        return back();
-    }
+    //     return back();
+    // }
 
     /**
      * Remove the specified resource from storage.

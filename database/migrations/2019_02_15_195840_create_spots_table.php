@@ -23,8 +23,8 @@ class CreateSpotsTable extends Migration
             $table->integer('price');
             $table->string('address1');
             $table->string('city');
-            $table->string('state',20);
-            $table->string('postal_code',20);
+            $table->string('state', 20);
+            $table->string('postal_code', 20);
             $table->text('owner_name');
             // $table->boolean('is_approved')->default(false);
 
@@ -37,6 +37,7 @@ class CreateSpotsTable extends Migration
             $table->smallInteger('moderation_status')->default(0);
             $table->integer('moderated_by')->unsigned()->nullable();
             $table->datetime('moderated_at')->nullable();
+            $table->unsignedInteger('owner_id');
             $table->softDeletes();
             $table->timestamps();
         });

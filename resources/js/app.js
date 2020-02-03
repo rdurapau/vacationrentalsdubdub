@@ -1,33 +1,52 @@
+import VeeValidateLaravel from 'vee-validate-laravel';
+import VeeValidate from 'vee-validate'
+import VueRouter from 'vue-router'
+import VModal from 'vue-js-modal'
+import Vue from 'vue';
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+// Store
+import store from './store.js';
+import router from './router.js';
 
-require('./bootstrap');
+// Components
+import AppHeader from './components/AppHeader.vue';
+import MapView from './components/MapView.vue';
 
-// window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+Vue.component('AppHeader', AppHeader);
+Vue.component('MapView', MapView);
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Vue.use(VueRouter);
+Vue.use(VeeValidate);
+Vue.use(VeeValidateLaravel);
+Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.prototype.$mapBus = new Vue();
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+const app = new Vue({
+    store,
+    router,
 
-// const app = new Vue({
-//     el: '#app'
-// });
+    data: () => ({
+        hasSeenSplashScreen: (localStorage.getItem('hasSeenSplashScreen') === 'true')
+    }),
+
+    mounted() {
+        this.$store.dispatch('authCheck')
+            .then(() => this.$store.commit("isAuth", true))
+            .catch(() => { })
+
+        if (!this.hasSeenSplashScreen) {
+            setTimeout(() => {
+                localStorage.setItem('hasSeenSplashScreen', 'true')
+                this.hasSeenSplashScreen = true;
+                console.log('seen')
+            }, 3000)
+        }
+    },
+    methods: {
+        errorHandler(err) {
+            console.error(err)
+        }
+    }
+}).$mount('#app');

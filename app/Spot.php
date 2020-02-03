@@ -38,11 +38,8 @@ class Spot extends BaseSpot
         // });
     }
 
-
-
     public function media()
     {
         return $this->morphMany(config('medialibrary.media_model'), 'model');
     }
-
 }

@@ -1,6 +1,5 @@
 <template>
     <section class="container-body">
-
         <div class="column progress-list-column">
 
             <ul class="progress-list">

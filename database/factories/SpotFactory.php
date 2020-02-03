@@ -15,7 +15,7 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'desc' => $faker->text(),
         'email' => $faker->email(),
         'phone' => $faker->phoneNumber(),
-        'website' => $faker->url(),
+        'website' => 'https://google.com',
         'price' => $faker->numberBetween(100,500),
         'address1' => $faker->streetAddress(),
         'city' => $faker->city(),
@@ -29,6 +29,7 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'lat' => $coords[0],
         'lng' => $coords[1],
         
+        'owner_id' => 1,
         'moderated_by' => 1,
         'moderated_at' => $faker->dateTimeBetween('-1 years', $endDate = 'now'),
         'moderation_status' => ModerationStatus::APPROVED,

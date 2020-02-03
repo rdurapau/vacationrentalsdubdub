@@ -5,6 +5,11 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const state = {
+    isAuth: false, // Auth status
+
+
+    ////////////
+    // OLD
     showContactPage: false,
 
     activeSpot: 0,
@@ -22,17 +27,27 @@ const state = {
 }
 
 const getters = {
-
+    isAuth: state => (state.isAuth)
 }
 
-//  #     #                                                  
-//  ##   ## #    # #####   ##   ##### #  ####  #    #  ####  
-//  # # # # #    #   #    #  #    #   # #    # ##   # #      
-//  #  #  # #    #   #   #    #   #   # #    # # #  #  ####  
-//  #     # #    #   #   ######   #   # #    # #  # #      # 
-//  #     # #    #   #   #    #   #   # #    # #   ## #    # 
-//  #     #  ####    #   #    #   #   #  ####  #    #  ####                       
 const mutations = {
+    isAuth(state, payload) {
+        state.isAuth = payload;
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+    ////////////
+    // OLD
     newActiveSpot(state, payload) {
         state.activeSpot = payload;
 
@@ -114,17 +129,19 @@ const mutations = {
         );
         // state.uploads.splice(state.uploads.indexOf(payload), 1);
     }
-
 }
 
-//     #                                        
-//    # #    ####  ##### #  ####  #    #  ####  
-//   #   #  #    #   #   # #    # ##   # #      
-//  #     # #        #   # #    # # #  #  ####  
-//  ####### #        #   # #    # #  # #      # 
-//  #     # #    #   #   # #    # #   ## #    # 
-//  #     #  ####    #   #  ####  #    #  ####  
+
 const actions = {
+    authCheck({ commit }) {
+        return new Promise((resolve, reject) =>
+            axios
+                .get(`/_authcheck`)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
+
+
     getSpots({ commit, rootState }, filters) {
 
         var params = {
@@ -149,11 +166,39 @@ const actions = {
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },
+    getMySpots({ commit }) {
+        return new Promise((resolve, reject) =>
+            axios
+                .get(`/my-spots`)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
+    getSpot({ commit }, spotID) {
+        return new Promise((resolve, reject) =>
+            axios
+                .get(`/api/spots/${spotID}`)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
+    updateSpot({ commit }, spot) {
+        return new Promise((resolve, reject) =>
+            axios
+                .post(`/spots/${spot.id}`, spot)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
+    createNewSpot({ commit }) {
+        return new Promise((resolve, reject) =>
+            axios
+                .post(`/spots/new`)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
+
+
 
     getSpotData({ commit }, id) {
         return axios.get('/api/spots/' + id)
-        // .then((response)  => commit.newActiveSpot(response.data))
-        // .catch((error) => console.log(error));
     },
     triggerNewActiveSpot({ commit, dispatch }, id) {
         commit('detailsAreLoading');
@@ -164,9 +209,8 @@ const actions = {
                 commit('newActiveSpot', response.data);
             })
             .catch(error => console.log(error));
-        // return new Promise((resolve) => resolve());
     }
-} // ACTIONS
+}
 
 export default new Vuex.Store({
     actions,

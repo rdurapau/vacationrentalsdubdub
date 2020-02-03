@@ -116,8 +116,6 @@ header{
             @include rlt;
             svg{
                 @include abs;
-                // top: 15px;
-                // left: 15px;
                 opacity: .25;
                 @include z-1;
                 @include moveFast;

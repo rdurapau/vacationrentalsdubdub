@@ -11,15 +11,25 @@
 |
 */
 
+
 Auth::routes();
+Route::redirect('/home', '/#/spots/new');
+Route::get('/_healthcheck', function(){ return 'healthy'; });
+Route::get('/_authcheck', function(){ return \Auth::id(); })->middleware('auth');
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'SpotController@index')->name('index');
 
-Route::get('/spots', 'SpotController@index')->name('spots.index');
-Route::get('/spots/{spot}', 'SpotController@_edit');
-Route::patch('/spots/{spot}', 'SpotController@update')->name('spots.update');
-Route::get('/spots/{spot}/{editToken}', 'SpotController@edit')->name('spots.edit');
+Route::get('/', 'AppController@index')->name('index');
+
+Route::get('/my-spots', 'SpotController@mySpots')->middleware('auth');
+Route::post('/spots/new', 'SpotController@new')->middleware('auth');
+Route::post('/spots/{spot}', 'SpotController@update')->middleware('auth');
+
+
+// Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/spots', 'SpotController@index')->name('spots.index');
+// Route::get('/spots/{spot}', 'SpotController@_edit');
+// Route::patch('/spots/{spot}', 'SpotController@update')->name('spots.update');
+// Route::get('/spots/{spot}/{editToken}', 'SpotController@edit')->name('spots.edit');
     
 
 /////////////////////////////////////////////////////

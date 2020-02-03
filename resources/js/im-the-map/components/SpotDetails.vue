@@ -25,7 +25,7 @@
             <section class="spot-images">
                 <div
                     class="image"
-                    v-for="(photo, i) in photos.slice(0, 6)"
+                    v-for="(photo, i) in photos.slice(0, 9)"
                     :key="i"
                     :style="{'background': `url('${photo}') no-repeat center center`}"
                 />
@@ -337,8 +337,9 @@ export default {
 .spot-images {
     height: 33.333%;
     .image {
+        box-shadow: inset 0px 0px 0px 2px #fff;
         width: 33.33333%;
-        height: 50%;
+        height: 33.33333%;
         float: left;
         -webkit-background-size: cover !important;
         -moz-background-size: cover !important;
