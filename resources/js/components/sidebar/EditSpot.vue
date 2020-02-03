@@ -36,35 +36,43 @@
                         ></textarea>
                     </div>
 
-                    <div class="form-group">
-                        <label for="Sleeps">Sleeps</label>
-                        <input
-                            type="number"
-                            class="form-control"
-                            id="Sleeps"
-                            placeholder="Sleeps"
-                            v-model="spot.sleeps"
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="Beds">Beds</label>
-                        <input
-                            type="number"
-                            class="form-control"
-                            id="Beds"
-                            placeholder="Beds"
-                            v-model="spot.beds"
-                        >
-                    </div>
-                    <div class="form-group">
-                        <label for="Bathrooms">Bathrooms</label>
-                        <input
-                            type="number"
-                            class="form-control"
-                            id="Bathrooms"
-                            placeholder="Bathrooms"
-                            v-model="spot.baths"
-                        >
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="Sleeps">Sleeps</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="Sleeps"
+                                    placeholder="Sleeps"
+                                    v-model="spot.sleeps"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="Beds">Beds</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="Beds"
+                                    placeholder="Beds"
+                                    v-model="spot.beds"
+                                >
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="Bathrooms">Bathrooms</label>
+                                <input
+                                    type="number"
+                                    class="form-control"
+                                    id="Bathrooms"
+                                    placeholder="Bathrooms"
+                                    v-model="spot.baths"
+                                >
+                            </div>
+                        </div>
                     </div>
 
                     <hr>

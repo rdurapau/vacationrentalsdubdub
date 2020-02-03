@@ -1,7 +1,7 @@
 FROM php:7.4-apache
 
 RUN apt-get update 
-RUN apt-get upgrade 
+RUN apt-get upgrade -y 
 RUN apt-get install -y --fix-missing \
     apt-utils \
     zlib1g-dev \
