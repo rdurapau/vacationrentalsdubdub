@@ -30,21 +30,13 @@ export default {
         }
     }),
 
-    mounted() {
-        // this.width = this.$refs.vrwwCalendar.clientWidth + "px";
-    },
+    mounted() {},
 
     computed: {
-        ...mapGetters(["activeSpot"]),
-
-        photos() {
-            return this.activeSpot.photos.slice(0, 9);
-        },
-
         events() {
-            var month = 11;
+            var month = 1;
             var day = 1;
-            var year = 2019;
+            var year = 2020;
             let minPrice = 295;
             let normalPrice = 450;
             let maxPrice = 715;
@@ -87,13 +79,6 @@ export default {
             }
             return events;
         }
-    },
-
-    methods: {
-        dayClick(item, event) {
-            //   console.log(this.$refs.cal);
-            //   this.$refs.cal.currDate = new Date(2019, 11, 17);
-        }
     }
 };
 </script>
@@ -109,6 +94,10 @@ export default {
     #calendar {
         .fc-head {
             background: #e8ddde;
+
+            .fc-day-header {
+                padding: 3px 0;
+            }
         }
 
         .fc-toolbar {
@@ -133,9 +122,10 @@ export default {
             }
         }
 
-        .fc-content-skeleton thead tr td span {
+        .fc-content-skeleton .fc-day-number {
             float: left;
             margin-left: 5px;
+            transform: translateY(5px);
         }
 
         .fc-content-skeleton tbody {
@@ -145,7 +135,8 @@ export default {
                 float: right;
                 font-weight: 600;
                 color: #29304c;
-                margin-top: 12px;
+                margin-top: 9px;
+                font-size: 16px;
             }
         }
 
@@ -174,5 +165,9 @@ export default {
 .fc-unthemed .fc-list-view,
 .fc-unthemed .fc-list-heading td {
     border-color: #fff !important;
+}
+
+.fc-unthemed .fc-bg td.fc-today {
+    background: transparent !important;
 }
 </style>

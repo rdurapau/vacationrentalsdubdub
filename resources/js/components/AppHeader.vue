@@ -24,19 +24,6 @@
 
                         <li
                             v-if="!isAuth"
-                            @click="showSubmitPropertyModal"
-                        >
-                            Owner Sign Up
-                        </li>
-                        <li
-                            v-else
-                            @click="onClickShowCalendar"
-                        >
-                            Calendar
-                        </li>
-
-                        <li
-                            v-if="!isAuth"
                             @click="showSignInModal"
                         >
                             Sign In
@@ -46,6 +33,19 @@
                             @click="onClickEditMySpot"
                         >
                             My Spot
+                        </li>
+
+                        <li
+                            v-if="!isAuth"
+                            @click="showSubmitPropertyModal"
+                        >
+                            List Your Spot
+                        </li>
+                        <li
+                            v-else
+                            @click="onClickShowCalendar"
+                        >
+                            Calendar
                         </li>
                     </ul>
                 </nav>

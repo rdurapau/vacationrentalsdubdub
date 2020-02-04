@@ -33,6 +33,7 @@
                                             v-validate="'required|email'"
                                             data-vv-as="Email"
                                             data-vv-scope="scope-1"
+                                            style="width:100%"
                                         />
                                         <label for="email-address">Email Address</label>
                                         <span
@@ -56,6 +57,7 @@
                                                 v-validate="'required'"
                                                 data-vv-as="Password"
                                                 data-vv-scope="scope-1"
+                                                style="width:100%"
                                             />
                                             <label for="password">Password</label>
                                             <span

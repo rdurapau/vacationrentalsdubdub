@@ -15,7 +15,24 @@
 
             <section class="content">
                 <article class="scroll">
-                    <div class="form-group">
+                    <button
+                        type="button"
+                        class="btn mb-2 btn-primary"
+                        @click="onClickUpdate"
+                    >Update</button>
+
+                    <button
+                        type="button"
+                        class="btn mb-2 btn-primary"
+                        @click="$router.push(`/spot/${spot.id}`)"
+                    >Preview Spot</button>
+
+                    <button
+                        type="button"
+                        class="btn mb-2 btn-primary"
+                    >Change Address</button>
+
+                    <div class="form-group mt-2">
                         <label for="spot-name">Spot Name</label>
                         <input
                             type="text"
@@ -96,13 +113,6 @@
                             v-model="spot.phone"
                         >
                     </div>
-                    <button
-                        type="button"
-                        class="btn mb-2 btn-primary"
-                        @click="onClickUpdate"
-                    >Update</button>
-
-                    <calendar />
 
                 </article>
             </section>

@@ -26,22 +26,25 @@ class BaseSpot extends Model implements HasMedia
     protected $table = 'spots';
 
     protected $fillable = [
-        'email',
         'name',
+        'desc',
+
+        'owner_name',
+        'email',
         'phone',
         'website',
-        'desc',
         'price',
+        
         'address1',
         'city',
         'state',
         'postal_code',
-        'owner_name',
+        'lat',
+        'lng',
+        
         'sleeps',
         'baths',
         'beds',
-        'lat',
-        'lng'
     ];
 
     protected $dates = [

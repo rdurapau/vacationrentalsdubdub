@@ -13,19 +13,22 @@ $factory->define(App\Spot::class, function (Faker $faker) {
     return [
         'name' => $faker->sentence(3),
         'desc' => $faker->text(),
+        
         'email' => $faker->email(),
         'phone' => $faker->phoneNumber(),
         'website' => 'https://google.com',
-        'price' => $faker->numberBetween(100,500),
-        'address1' => $faker->streetAddress(),
-        'city' => $faker->city(),
-        'state' => $faker->stateAbbr(),
-        'postal_code' => $faker->postcode(),
-        'owner_name' => $faker->name(),
+        
+        // 'owner_name' => $faker->name(),
+        // 'price' => $faker->numberBetween(100,500),
         
         "sleeps" => rand(2,20),
         "beds" => rand(1,8),
         "baths" => rand(1,3),
+
+        'address1' => $faker->streetAddress(),
+        'state' => $faker->stateAbbr(),
+        'city' => $faker->city(),
+        'postal_code' => $faker->postcode(),
         'lat' => $coords[0],
         'lng' => $coords[1],
         

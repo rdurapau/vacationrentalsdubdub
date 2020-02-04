@@ -134,7 +134,7 @@ export default {
                 type: "circle",
                 source: "active",
                 paint: {
-                    "circle-radius": 13,
+                    "circle-radius": 8,
                     "circle-color": "#fff"
                 }
             });
@@ -143,8 +143,8 @@ export default {
                 type: "circle",
                 source: "active",
                 paint: {
-                    "circle-radius": 10,
-                    "circle-color": "#FF0000"
+                    "circle-radius": 5,
+                    "circle-color": "#fc7e7e"
                 }
             });
 

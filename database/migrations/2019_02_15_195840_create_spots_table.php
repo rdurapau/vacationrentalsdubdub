@@ -16,24 +16,27 @@ class CreateSpotsTable extends Migration
         Schema::create('spots', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            
             $table->text('desc');
             $table->string('email');
             $table->string('phone');
             $table->string('website')->nullable();
-            $table->integer('price');
-            $table->string('address1');
-            $table->string('city');
-            $table->string('state', 20);
-            $table->string('postal_code', 20);
-            $table->text('owner_name');
-            // $table->boolean('is_approved')->default(false);
+            
+            // $table->integer('price');
+            // $table->text('owner_name');
 
             $table->integer('baths');
             $table->integer('beds');
             $table->integer('sleeps');
+
+            $table->string('address1');
+            $table->string('city');
+            $table->string('state', 20);
+            $table->string('postal_code', 20);
             $table->decimal('lng', 10, 7)->nullable();
             $table->decimal('lat', 10, 7)->nullable();
 
+            $table->boolean('is_approved')->default(false);
             $table->smallInteger('moderation_status')->default(0);
             $table->integer('moderated_by')->unsigned()->nullable();
             $table->datetime('moderated_at')->nullable();

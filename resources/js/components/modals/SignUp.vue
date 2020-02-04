@@ -17,7 +17,7 @@
                         <div class="sweetspot-form">
                             <fieldset class="section-wrap">
                                 <section>
-                                    <h1>Sign Up</h1>
+                                    <h1>List Your Spot</h1>
 
                                     <section
                                         class="fieldset single-field"
@@ -31,10 +31,11 @@
                                             :disabled="isSubmitting"
                                             :class="{'filled': (name.length || name > 0), 'ouch': errors.has('scope-1.name')}"
                                             v-validate="'required'"
-                                            data-vv-as="Name"
+                                            data-vv-as="First and Last Name"
                                             data-vv-scope="scope-1"
+                                            style="width:100%"
                                         />
-                                        <label for="name">Name</label>
+                                        <label for="name">Full Name</label>
                                         <span
                                             class="errors"
                                             v-if="errors.has('scope-1.name')"
@@ -55,6 +56,7 @@
                                             v-validate="'required|email'"
                                             data-vv-as="Email"
                                             data-vv-scope="scope-1"
+                                            style="width:100%"
                                         />
                                         <label for="email-address">Email Address</label>
                                         <span
@@ -78,6 +80,7 @@
                                                 v-validate="'required'"
                                                 data-vv-as="Password"
                                                 data-vv-scope="scope-1"
+                                                style="width:100%"
                                             />
                                             <label for="password">Password</label>
                                             <span
@@ -97,10 +100,9 @@
                     <button
                         class="btn btn-block"
                         type="submit"
-                    >Sign In</button>
+                    >Next</button>
                 </div>
             </div>
-
         </form>
     </section>
 </template>
