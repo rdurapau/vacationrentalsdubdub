@@ -1,58 +1,72 @@
 <template>
-    <section class="welcome-message">
-        <div class="ww-container">
-            <img src="/images/ww-logo.webp">
+    <section class="intro-sidebar">
+
+        <div class="row-3">
+            <div class="ww-logo">
+                <img src="/images/ww-logo.webp">
+            </div>
         </div>
 
-        <h1>
-            Finally, <br>
-            an easy way to find <br>
-            Vacation Rentals <br>
-            <span>W</span>ith <span>W</span>ebsites
-        </h1>
-
-        <div class="dubdub-container">
-            <img src="/images/dubdub-logo.webp">
+        <div class="row-3">
+            <h1>
+                Finally, <br>
+                an easy way to find <br>
+                Vacation Rentals <br>
+                <span>W</span>ith <span>W</span>ebsites
+            </h1>
         </div>
+
+        <div class="row-3">
+            <div class="dubdub-logo">
+                <img src="/images/dubdub-logo.webp">
+            </div>
+        </div>
+
     </section>
 </template>
 
 <script>
-export default {
-    components: {}
-};
+export default {};
 </script>
 
 <style lang="scss">
-.ww-container {
-    height: 33%;
-    width: 100%;
-    img {
-        width: 150px;
-        display: block;
-        margin: 20px auto 0;
-    }
-}
+.intro-sidebar {
+    height: 100%;
 
-.welcome-message h1 {
-    margin-top: 70px;
-    font-weight: 700;
-    color: #29304c;
-    text-align: center;
-    font-size: 38px;
-    line-height: 1.2;
-    span {
-        color: #f00;
-    }
-}
+    .row-3 {
+        height: 33.3333%;
 
-.dubdub-container {
-    height: 33%;
-    width: 100%;
-    img {
-        width: 50%;
-        display: block;
-        margin: 130px auto 0;
+        .ww-logo,
+        h1,
+        .dubdub-logo {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .ww-logo img {
+            width: 150px;
+            display: block;
+            margin: auto;
+        }
+
+        h1 {
+            margin-top: 70px;
+            font-weight: 700;
+            color: #29304c;
+            text-align: center;
+            font-size: 38px;
+            line-height: 1.2;
+            span {
+                color: #f00;
+            }
+        }
+
+        .dubdub-logo img {
+            width: 250px;
+            display: block;
+            margin: auto;
+        }
     }
 }
 </style>
