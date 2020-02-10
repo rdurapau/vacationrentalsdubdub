@@ -21,54 +21,48 @@ class SubmissionController extends ApiController
 {
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'email' => 'required|confirmed|email',
-            'name' => 'required',
-            'phone' => 'required',
-            'website' => 'nullable',
-            'desc' => 'required',
-            'price' => 'required|numeric|min:10',
-            'address1' => 'required|string|max:255',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'postal_code' => 'required',
-            'owner_name' => 'required',
-            'sleeps' => 'required|numeric',
-            'baths' => 'required|numeric',
-            'beds' => 'required|numeric',
-            'lat' => 'required|numeric',
-            'lng' => 'required|numeric',
+        // $validated = $request->validate([
+        //     'name' => 'required',
+        //     'desc' => 'required',
+
+        //     'address1' => 'required|string|max:255',
+        //     'city' => 'required|string',
+        //     'state' => 'required|string',
+        //     'postal_code' => 'required',
+        //     'lat' => 'required|numeric',
+        //     'lng' => 'required|numeric',
+
+        //     'email' => 'required|email',
+        //     'phone' => 'required',
+        //     'website' => 'nullable',
             
-            'amenity_ids' => 'array',
-            'photos' => 'array'
-        ]);
+        //     'sleeps' => 'required|numeric',
+        //     'baths' => 'required|numeric',
+        //     'beds' => 'required|numeric',
+        
+        //     'photos' => 'array'
+        // ]);
 
-        dump($validated['photos']);
+        // $spot = new BaseSpot($validated);
+        // $spot->owner_id = $request->user()->id;
+        // $spot->save();     
 
-        $spot = Submission::create($validated);
+        
+        // if (array_key_exists('photos', $validated) && count($validated['photos'])) {
+        //     $photos = TempMedia::whereIn('id',$validated['photos'])
+        //         ->with('media')
+        //         ->get();
 
-        if (array_key_exists('amenity_ids', $validated) && count($validated['amenity_ids'])) {
-            $spot->amenities()->sync($validated['amenity_ids']);
-        }
+        //     foreach($photos as $photo) {
+        //         $photo->getFirstMedia()->move($spot);
+        //     }
+        // }
 
-        if (array_key_exists('photos', $validated) && count($validated['photos'])) {
-            // Move the TempPhotos over
-            $photos = TempMedia::whereIn('id',$validated['photos'])
-                ->with('media')
-                ->get();
+        // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
+        // broadcast(new SpotWasSubmitted($spot));
 
-            dump($photos->toArray());
-
-            foreach($photos as $photo) {
-                $photo->getFirstMedia()->move($spot);
-            }
-        }
-
-        Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
-        broadcast(new SpotWasSubmitted($spot));
-
-        $this->setStatusCode(201);
-        return $this->respond(['id'=>$spot->id]);
+        // $this->setStatusCode(201);
+        return response()->json($request->user());
     }
 
 }

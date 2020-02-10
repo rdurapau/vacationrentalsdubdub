@@ -16,9 +16,10 @@
             :onPhotosSelected="onPhotosSelected"
         />
 
-        <create-spot
-            v-if="stage == 'create-spot'"
-            :onComplete="onComplete"
+        <edit-spot
+            v-if="stage == 'edit-spot'"
+            :spot="spot"
+            :onSubmit="onSubmit"
         />
 
     </section>
@@ -42,6 +43,7 @@ export default {
 
     data: () => ({
         stage: "intro",
+        // stage: "edit-spot",
         spot: {
             // Location
             address1: "",
@@ -60,7 +62,9 @@ export default {
             sleeps: "",
             baths: "",
             beds: "",
+            sqft: "",
             website: "",
+            email: "",
             phone: ""
         }
     }),
@@ -87,26 +91,18 @@ export default {
 
         onPhotosSelected(photos) {
             this.spot.photos = photos;
-
-            this.stage = "create-spot";
+            this.stage = "edit-spot";
         },
 
-        onPhotosSelected(photos) {
-            this.spot.photos = photos;
-            this.stage = "create-spot";
-        },
+        onSubmit(spot) {
+            console.log("======");
+            console.log(spot);
 
-        onComplete(spot) {
-            this.spot.name = spot.name;
-            this.spot.desc = spot.desc;
-            this.spot.sleeps = spot.sleeps;
-            this.spot.baths = spot.baths;
-            this.spot.beds = spot.beds;
-            this.spot.website = spot.website;
-            this.spot.phone = spot.phone;
-
-            this.createNewSpot(this.spot)
-                .then(spot => (this.spot = spot))
+            this.createNewSpot(spot)
+                .then(spot => {
+                    console.log(spot);
+                    this.spot = spot;
+                })
                 .catch(err => this.$root.errorHandler(err));
         }
     }

@@ -7,6 +7,7 @@ use App\Spot;
 use App\BaseSpot;
 use App\Amenity;
 use App\EditToken;
+use App\TempMedia;
 use App\Http\Resources\Spot as SpotResource;
 
 use App\Mail\SpotSubmitted;
@@ -30,28 +31,14 @@ class SpotController extends Controller
         $spots = Spot::where('owner_id', Auth::id())->get();
         return response()->json($spots);
     }
-    
 
-    public function update(Request $request, BaseSpot $spot)
-    {
-        $validated = $request->validate([
-            'name' => 'required',
-            'desc' => 'required',
-            
-            'sleeps' => 'required|numeric',
-            'baths' => 'required|numeric',
-            'beds' => 'required|numeric',
-
-            'website' => 'required|url',
-            'phone' => 'required',
-        ]);
-
-        $spot->update($validated);
-
-        return response()->json($spot);
-    }
-
-    public function updateAddress(Request $request, BaseSpot $spot)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function new(Request $request)
     {
         $validated = $request->validate([
             'address1' => 'required|string|max:255',
@@ -60,12 +47,80 @@ class SpotController extends Controller
             'postal_code' => 'required',
             'lat' => 'required|numeric',
             'lng' => 'required|numeric',
+
+            'name' => 'required',
+            'desc' => 'required',
+
+            'sleeps' => 'required|numeric',
+            'baths' => 'required|numeric',
+            'beds' => 'required|numeric',
+            
+            'email' => 'required|email',
+            'phone' => 'required',
+            'website' => 'nullable',
+
+            'photos' => 'array',
         ]);
 
-        $spot->update($validated);
+
+        $spot = new Spot($validated);
+        $spot->owner_id = $request->user()->id;
+        $spot->isPending();
+        $spot->save();
+
+         
+        if (array_key_exists('photos', $validated) && count($validated['photos'])) {
+            $photos = TempMedia::whereIn('id', $validated['photos'])
+                ->with('media')
+                ->get();
+
+            foreach($photos as $photo) {
+                $photo->getFirstMedia()->move($spot);
+            }
+        }
+
+        // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
+        // broadcast(new SpotWasSubmitted($spot));
 
         return response()->json($spot);
     }
+
+    // public function update(Request $request, BaseSpot $spot)
+    // {
+    //     $validated = $request->validate([
+    //         'name' => 'required',
+    //         'desc' => 'required',
+            
+    //         'sleeps' => 'required|numeric',
+    //         'baths' => 'required|numeric',
+    //         'beds' => 'required|numeric',
+
+    //         'website' => 'required|url',
+    //         'phone' => 'required',
+    //     ]);
+
+    //     $spot->update($validated);
+
+    //     return response()->json($spot);
+    // }
+
+    // public function updateAddress(Request $request, BaseSpot $spot)
+    // {
+    //     $validated = $request->validate([
+    //         'address1' => 'required|string|max:255',
+    //         'city' => 'required|string',
+    //         'state' => 'required|string',
+    //         'postal_code' => 'required',
+    //         'lat' => 'required|numeric',
+    //         'lng' => 'required|numeric',
+    //     ]);
+
+    //     $spot->update($validated);
+
+    //     return response()->json($spot);
+    // }
+
+    
     
     
     
@@ -116,51 +171,6 @@ class SpotController extends Controller
     {
         $amenities = Amenity::all();
         return view('spots.create', compact('amenities'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * ! This is deprecated in favor of an API endpoint
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        // dd($request->all());
-        // $values = $request->all();
-        // dd($values['amenities']);
-
-        $validated = $request->validate([
-            'email' => 'required|confirmed|email',
-            'name' => 'required',
-            'phone' => 'required',
-            'website' => 'nullable',
-            'desc' => 'required',
-            'price' => 'required|numeric|min:10',
-            'address1' => 'required|string|max:255',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'postal_code' => 'required',
-            'owner_name' => 'required',
-            'amenities' => 'array',
-            'sleeps' => 'required|numeric',
-            'baths' => 'required|numeric',
-            'beds' => 'required|numeric',
-            'lat' => 'required|numeric',
-            'lng' => 'required|numeric'
-        ]);
-
-        $spot = Spot::create($validated);
-
-        if (array_key_exists('amenities', $validated) && count($validated['amenities'])) {
-            $spot->amenities()->sync(array_keys($validated['amenities']));
-        }
-
-        Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
-        broadcast(new SpotWasSubmitted($spot));
-
-        return back();
     }
 
     /**

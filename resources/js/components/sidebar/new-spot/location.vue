@@ -161,8 +161,7 @@ export default {
             this.geocoder = new MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
                 country: "US",
-                types:
-                    "address,region,district,place,locality,neighborhood,poi",
+                types: "address,neighborhood,place,locality,poi",
                 placeholder: "Search",
                 flyTo: false,
                 marker: false,

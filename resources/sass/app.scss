@@ -41,6 +41,8 @@ body * {
 
     > .container-fluid {
         flex-grow: 1;
+        display: block;
+        max-height: 100%;
         > .row {
             height: 100%;
             > div {

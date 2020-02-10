@@ -73,6 +73,9 @@ export default {
                 width: 100px !important;
                 height: 100px !important;
             }
+            .dz-progress {
+                display: none;
+            }
             .dz-details {
                 background-color: #467fcf !important;
                 .dz-size {

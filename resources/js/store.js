@@ -187,10 +187,10 @@ const actions = {
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },
-    createNewSpot({ commit }) {
+    createNewSpot({ commit }, spot) {
         return new Promise((resolve, reject) =>
             axios
-                .post(`/spots/new`)
+                .post(`/spots/new`, spot)
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },
