@@ -16,10 +16,15 @@
             :onPhotosSelected="onPhotosSelected"
         />
 
-        <edit-spot
-            v-if="stage == 'edit-spot'"
+        <create-spot
+            v-if="stage == 'create-spot'"
             :spot="spot"
             :onSubmit="onSubmit"
+        />
+
+        <done
+            v-if="stage == 'done'"
+            :spot="spot"
         />
 
     </section>
@@ -32,18 +37,19 @@ import intro from "./new-spot/intro.vue";
 import location from "./new-spot/location.vue";
 import photos from "./new-spot/photos.vue";
 import createSpot from "./new-spot/createSpot.vue";
+import done from "./new-spot/done.vue";
 
 export default {
     components: {
         intro,
         location,
         photos,
-        createSpot
+        createSpot,
+        done
     },
 
     data: () => ({
         stage: "intro",
-        // stage: "edit-spot",
         spot: {
             // Location
             address1: "",
@@ -91,19 +97,20 @@ export default {
 
         onPhotosSelected(photos) {
             this.spot.photos = photos;
-            this.stage = "edit-spot";
+            this.stage = "create-spot";
         },
 
         onSubmit(spot) {
-            console.log("======");
-            console.log(spot);
+            this.stage = "done";
+            // console.log("======");
+            // console.log(spot);
 
-            this.createNewSpot(spot)
-                .then(spot => {
-                    console.log(spot);
-                    this.spot = spot;
-                })
-                .catch(err => this.$root.errorHandler(err));
+            // this.createNewSpot(spot)
+            //     .then(spot => {
+            //         console.log(spot);
+            //         this.spot = spot;
+            //     })
+            //     .catch(err => this.$root.errorHandler(err));
         }
     }
 };

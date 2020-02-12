@@ -1,33 +1,27 @@
 <template>
     <section class="spot-slideout">
         <section class="spot-details">
-            <section class="spot-images">
+            <!-- <section class="spot-images">
                 <div
                     class="image"
                     v-for="(photo, i) in photos.slice(0, 9)"
                     :key="i"
                     :style="{'background': `url('${createObjectURL(photo)}') no-repeat center center`}"
                 />
-            </section>
+            </section> -->
 
             <div class="spot">
+
+                <!-- <button
+                    type="button"
+                    class="btn mb-2 btn-primary"
+                    @click="$router.push(`/spot/${spot.id}`)"
+                >Preview Spot</button>
 
                 <button
                     type="button"
                     class="btn mb-2 btn-primary"
-                    @click="onClickUpdate"
-                >Update</button>
-
-                <!-- <button
-                type="button"
-                class="btn mb-2 btn-primary"
-                @click="$router.push(`/spot/${spot.id}`)"
-            >Preview Spot</button>
-
-            <button
-                type="button"
-                class="btn mb-2 btn-primary"
-            >Change Address</button> -->
+                >Change Address</button> -->
 
                 <div class="form-group mt-2">
                     <label for="spot-name">Spot Name</label>
@@ -132,6 +126,12 @@
                         v-model="spot.email"
                     >
                 </div>
+
+                <button
+                    type="button"
+                    class="btn mb-2 btn-primary btn-block"
+                    @click="onClickUpdate"
+                >Create Spot</button>
             </div>
 
         </section>
@@ -168,6 +168,6 @@ export default {
 .spot {
     padding: 10px;
     overflow-y: scroll;
-    height: 60%;
+    height: 100%;
 }
 </style>

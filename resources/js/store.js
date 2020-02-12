@@ -190,7 +190,7 @@ const actions = {
     createNewSpot({ commit }, spot) {
         return new Promise((resolve, reject) =>
             axios
-                .post(`/spots/new`, spot)
+                .post(`/api/spots/new`, spot)
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },

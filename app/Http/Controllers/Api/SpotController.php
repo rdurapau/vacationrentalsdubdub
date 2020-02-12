@@ -21,7 +21,7 @@ class SpotController extends ApiController
 {
     public function index(Request $request)
     {
-        $spots = Spot::with('amenities','media')->get();
+        $spots = Spot::with('amenities', 'media')->get();
         if ($this->wantsGeoJson($request)) {
             return response()
                 ->json(new GeoSpotCollection($spots))
@@ -31,11 +31,11 @@ class SpotController extends ApiController
                 ->json(new SpotCollection($spots))
                 ->header('Content-Type', 'application/json');
         }
-    }    
+    }
 
-    public function show(Request $request, Spot $spot)
+
+    public function single(Request $request, Spot $spot)
     {
-        // $photo = $spot->coverPhoto()->get();
         $spot->load('amenities','media');
         if ($this->wantsGeoJson($request)) {
             return response()
@@ -47,6 +47,79 @@ class SpotController extends ApiController
                 ->header('Content-Type', 'application/json');
         }
     }
+
+    
+    public function new(Request $request)
+    {
+        $validated = $request->validate([
+            'address1' => 'required|string|max:255',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'postal_code' => 'required',
+            'lat' => 'required|numeric',
+            'lng' => 'required|numeric',
+
+            'name' => 'required',
+            'desc' => 'required',
+
+            'sleeps' => 'required|numeric',
+            'baths' => 'required|numeric',
+            'beds' => 'required|numeric',
+            
+            'email' => 'required|email',
+            'phone' => 'required',
+            'website' => 'nullable',
+
+            'photos' => 'array',
+        ]);
+
+
+        $spot = new Spot($validated);
+        $spot->owner_id = $request->user()->id;
+        $spot->isPending();
+        $spot->save();
+
+         
+        if (array_key_exists('photos', $validated) && count($validated['photos'])) {
+            $photos = TempMedia::whereIn('id', $validated['photos'])
+                ->with('media')
+                ->get();
+
+            foreach($photos as $photo) {
+                $photo->getFirstMedia()->move($spot);
+            }
+        }
+
+        // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
+        // broadcast(new SpotWasSubmitted($spot));
+
+        return response()->json($spot);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public function update(Request $request, BaseSpot $spot)
     {
 

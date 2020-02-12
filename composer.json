@@ -30,6 +30,7 @@
         "sweet-spot/pending-submissions": "*",
         "sweet-spot/sweet-theme": "*",
         "test/test": "*",
+        "tymon/jwt-auth": "1.0.0-rc.4",
         "webpatser/laravel-uuid": "^3.0",
         "whitecube/nova-page": "^0.2.3"
     },
