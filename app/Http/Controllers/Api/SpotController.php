@@ -65,6 +65,7 @@ class SpotController extends ApiController
             'sleeps' => 'required|numeric',
             'baths' => 'required|numeric',
             'beds' => 'required|numeric',
+            'sqft' => 'required|numeric',
             
             'email' => 'required|email',
             'phone' => 'required',
@@ -76,8 +77,8 @@ class SpotController extends ApiController
 
         $spot = new Spot($validated);
         $spot->owner_id = $request->user()->id;
-        $spot->isPending();
         $spot->save();
+        $spot->update([ "moderation_status" => 0 ]);
 
          
         if (array_key_exists('photos', $validated) && count($validated['photos'])) {

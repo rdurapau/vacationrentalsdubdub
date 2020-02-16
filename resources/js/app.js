@@ -32,9 +32,7 @@ const app = new Vue({
     }),
 
     mounted() {
-        this.$store.dispatch('authCheck')
-            .then(() => this.$store.commit("isAuth", true))
-            .catch(() => { })
+        if (localStorage.getItem('token')) this.$store.commit("setToken", localStorage.getItem('token'));
 
         if (!this.hasSeenSplashScreen) {
             setTimeout(() => {

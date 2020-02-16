@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Http\Request;
+use Validator;
 use App\User; 
 use JWTAuth;
 use Hash;
@@ -21,20 +22,27 @@ class AuthController extends ApiController
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        return response()->json(compact('token'));
+        return response()->json([
+            'token' => $token,
+            'user' => User::where('email', $request->get('email'))->first()
+        ]);
     }
 
     public function signUp(Request $request){
-        $validated = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|string',
         ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($request->get('password')),
         ]);
 
         return response()->json([

@@ -28,8 +28,7 @@ class SpotController extends Controller
     
     public function mySpots(Request $request)
     {
-        $spots = Spot::where('owner_id', Auth::id())->get();
-        return response()->json($spots);
+        return response()->json(BaseSpot::where('owner_id', Auth::id())->get());
     }
 
     /**

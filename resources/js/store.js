@@ -4,8 +4,15 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+
+var headers = () => ({
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+});
+
 const state = {
     isAuth: false, // Auth status
+    token: false, // Auth status
+    user: false, // Auth status
 
 
     ////////////
@@ -33,6 +40,13 @@ const getters = {
 const mutations = {
     isAuth(state, payload) {
         state.isAuth = payload;
+    },
+    setUser(state, payload) {
+        state.user = payload;
+    },
+    setToken(state, payload) {
+        state.isAuth = true;
+        state.token = payload;
     },
 
 
@@ -133,35 +147,29 @@ const mutations = {
 
 
 const actions = {
-    authCheck({ commit }) {
+    signUp({ commit }, signUp) {
         return new Promise((resolve, reject) =>
             axios
-                .get(`/_authcheck`)
+                .post(`/api/sign-up`, signUp)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
+    login({ commit }, login) {
+        return new Promise((resolve, reject) =>
+            axios
+                .post(`/api/login`, login)
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },
 
 
     getSpots({ commit, rootState }, filters) {
-
-        var params = {
-            output: 'geojson'
-        }
-
-        if (filters) {
-            if (filters.minPrice) params.minPrice = filters.minPrice
-            if (filters.maxPrice) params.maxPrice = filters.maxPrice
-            if (filters.minBaths) params.minBaths = filters.minBaths
-            if (filters.maxBaths) params.maxBaths = filters.maxBaths
-            if (filters.minBeds) params.minBeds = filters.minBeds
-            if (filters.maxBeds) params.maxBeds = filters.maxBeds
-        }
-
-
         return new Promise((resolve, reject) =>
             axios
                 .get("/api/spots", {
-                    params
+                    params: {
+                        output: 'geojson'
+                    }
                 })
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
@@ -169,7 +177,9 @@ const actions = {
     getMySpots({ commit }) {
         return new Promise((resolve, reject) =>
             axios
-                .get(`/my-spots`)
+                .get(`/api/my-spots`, {
+                    headers: headers()
+                })
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },
@@ -190,7 +200,9 @@ const actions = {
     createNewSpot({ commit }, spot) {
         return new Promise((resolve, reject) =>
             axios
-                .post(`/api/spots/new`, spot)
+                .post(`/api/spots/new`, spot, {
+                    headers: headers()
+                })
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },

@@ -24,6 +24,7 @@ class TempMediaController extends ApiController
         $photo
             ->addMedia(request()->file('file'))
             ->toMediaCollection();
+            
         // $file = $request->file('file');
         // $name = uniqid() . '_' . trim($file->getClientOriginalName());
 

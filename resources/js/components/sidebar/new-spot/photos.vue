@@ -42,11 +42,12 @@ export default {
         return {
             photos: [],
             dropzoneOptions: {
-                url: "https://httpbin.org/post",
+                url: "/api/temp-uploads",
                 thumbnailWidth: 100,
                 // headers: { "My-Awesome-Header": "header value" },
-                accept: file => {
-                    this.photos.push(file);
+                success: (file, response) => {
+                    console.log(response);
+                    this.photos.push(response.media_id);
                 }
             }
         };
@@ -72,9 +73,6 @@ export default {
             .dz-image img {
                 width: 100px !important;
                 height: 100px !important;
-            }
-            .dz-progress {
-                display: none;
             }
             .dz-details {
                 background-color: #467fcf !important;

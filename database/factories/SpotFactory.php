@@ -17,13 +17,12 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'email' => $faker->email(),
         'phone' => $faker->phoneNumber(),
         'website' => 'https://google.com',
-        
-        // 'owner_name' => $faker->name(),
-        // 'price' => $faker->numberBetween(100,500),
+        'email' => 'owner@gmail.com',
         
         "sleeps" => rand(2,20),
         "beds" => rand(1,8),
         "baths" => rand(1,3),
+        "sqft" => rand(500,3000),
 
         'address1' => $faker->streetAddress(),
         'state' => $faker->stateAbbr(),

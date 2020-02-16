@@ -96,21 +96,20 @@ export default {
         },
 
         onPhotosSelected(photos) {
-            this.spot.photos = photos;
+            // this.spot.photos = photos;
             this.stage = "create-spot";
         },
 
         onSubmit(spot) {
-            this.stage = "done";
-            // console.log("======");
-            // console.log(spot);
+            console.log(spot);
 
-            // this.createNewSpot(spot)
-            //     .then(spot => {
-            //         console.log(spot);
-            //         this.spot = spot;
-            //     })
-            //     .catch(err => this.$root.errorHandler(err));
+            this.createNewSpot(spot)
+                .then(spot => {
+                    console.log(spot);
+                    this.spot = spot;
+                    this.stage = "done";
+                })
+                .catch(err => this.$root.errorHandler(err));
         }
     }
 };

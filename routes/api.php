@@ -15,22 +15,13 @@ Route::post('/sign-up', 'Api\AuthController@signUp')->middleware('guest');
 Route::get('/spots', 'Api\SpotController@index');
 Route::get('/spots/{spot}', 'Api\SpotController@single');
 
-Route::get('/my-spots', 'SpotController@mySpots');
-Route::post('/spots/new', 'Api\SpotController@new')->middleware('auth');
+Route::get('/my-spots', 'SpotController@mySpots')->middleware('jwt.auth');
+Route::post('/spots/new', 'Api\SpotController@new')->middleware('jwt.auth');
+Route::post('/temp-uploads', 'Api\TempMediaController@store');
 
 
 
 // Route::post('/spots/{spot}', 'SpotController@update')->middleware('auth');
-
-
-
-
-
-
-
-
-
-
 
 // Route::get('spots/{spot}', 'Api\SpotController@show');
 // Route::patch('spots/{spot}', 'Api\SpotController@update');
@@ -42,4 +33,3 @@ Route::post('/spots/new', 'Api\SpotController@new')->middleware('auth');
 
 // Route::put('spots/{spot}/moderate', 'Api\SpotModerationController@update');
 
-// Route::post('temp-uploads', 'Api\TempMediaController@store');

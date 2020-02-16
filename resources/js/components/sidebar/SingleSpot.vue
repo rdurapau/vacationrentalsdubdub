@@ -49,7 +49,7 @@
                     v-html="spot.desc"
                 ></div>
 
-                <calendar />
+                <!-- <calendar /> -->
 
             </section>
         </section>

@@ -21,13 +21,11 @@ class CreateSpotsTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->string('website')->nullable();
-            
-            // $table->integer('price');
-            // $table->text('owner_name');
 
             $table->integer('baths');
             $table->integer('beds');
             $table->integer('sleeps');
+            $table->integer('sqft');
 
             $table->string('address1');
             $table->string('city');

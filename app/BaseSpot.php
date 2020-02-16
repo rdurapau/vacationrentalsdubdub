@@ -29,11 +29,10 @@ class BaseSpot extends Model implements HasMedia
         'name',
         'desc',
 
-        'owner_name',
         'email',
         'phone',
         'website',
-        'price',
+
         
         'address1',
         'city',
@@ -45,6 +44,7 @@ class BaseSpot extends Model implements HasMedia
         'sleeps',
         'baths',
         'beds',
+        'sqft',
     ];
 
     protected $dates = [

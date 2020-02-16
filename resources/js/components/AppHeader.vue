@@ -41,12 +41,12 @@
                         >
                             List Your Spot
                         </li>
-                        <li
+                        <!-- <li
                             v-else
                             @click="onClickShowCalendar"
                         >
                             Calendar
-                        </li>
+                        </li> -->
                     </ul>
                 </nav>
             </div>

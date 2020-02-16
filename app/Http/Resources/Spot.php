@@ -30,19 +30,22 @@ class Spot extends JsonResource
             "city" => $this->city,
             "desc" => $this->desc,
             "name" => $this->name,
-            "pets" => $this->allowsPets(),
+            
             "address1" => $this->address1,
             "postal_code" => $this->postal_code,
-            "phone" => $this->phone,
-            "photo" => $this->cover_photo,
-            "beds" => $this->beds,
-            "price" => $this->price,
-            "sleeps" => $this->sleeps,
-            "lat" => $this->lat,
-            "lng" => $this->lng,
+            "sqft" => $this->sqft,
             "state" => $this->state,
+            "lng" => $this->lng,
+            "lat" => $this->lat,
+            
+            "sleeps" => $this->sleeps,
+            "beds" => $this->beds,
+            
+            "phone" => $this->phone,
             "website" => $this->website,
+            
             'amenities' => Amenity::collection($this->whenLoaded('amenities')),
+            "photo" => $this->cover_photo,
             'all_photos' => SpotPhoto::collection($this->getMedia()),
             'photos' => $this->getMedia()->map(function($photo){
                 return url($photo->getUrl());
