@@ -130,7 +130,7 @@ export default {
                     this.$store.commit("isAuth", true);
                     this.$store.commit("setUser", data.user);
                     localStorage.setItem("token", data.token);
-                    this.$router.push("/spots/new");
+                    this.$router.push("/spot/new");
                     this.$emit("close");
                 })
                 .catch(err => this.$root.errorHandler(err));

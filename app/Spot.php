@@ -22,9 +22,9 @@ class Spot extends BaseSpot
     {
         parent::boot();
 
-        static::addGlobalScope('approved', function (Builder $builder) {
-            $builder->where('moderation_status', ModerationStatus::APPROVED);
-        });
+        // static::addGlobalScope('approved', function (Builder $builder) {
+        //     $builder->where('moderation_status', ModerationStatus::APPROVED);
+        // });
 
         // These should _only_ occur for Spots being created from within the Nova admin
         static::creating(function($spot) {

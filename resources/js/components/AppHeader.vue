@@ -111,9 +111,9 @@ export default {
         onClickEditMySpot() {
             this.getMySpots()
                 .then(spots => {
-                    if (spots.length === 0) this.$router.push(`/spots/new`);
+                    if (spots.length === 0) this.$router.push(`/spot/new`);
                     if (spots.length > 0)
-                        this.$router.push(`/spots/${spots[0].id}/edit`);
+                        this.$router.push(`/spot/${spots[0].id}/edit`);
                 })
                 .catch(err => this.$root.errorHandler(err));
         },

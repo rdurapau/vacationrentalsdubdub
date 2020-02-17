@@ -26,7 +26,7 @@
                     <span>{{spot.beds}}BR</span>
                     <span>{{spot.baths}}BA</span>
                     <span>Sleeps: {{spot.sleeps}}</span>
-                    <!-- <span>1200 SqFt</span> -->
+                    <span>{{spot.sqft}} SqFt</span>
                     <div
                         class="btn btn-sm btn-primary"
                         @click="openInNewTab(spot.website)"

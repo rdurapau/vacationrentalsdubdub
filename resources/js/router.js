@@ -7,6 +7,15 @@ import editSpot from './components/sidebar/EditSpot.vue';
 import newSpot from './components/sidebar/NewSpot.vue';
 
 
+const isAuth = (to, from, next) => {
+    var jwt = localStorage.getItem('token');
+    if (jwt && jwt !== '') {
+        next();
+    } else {
+        next('/');
+    }
+}
+
 
 export default new VueRouter({
     routes: [{
@@ -24,13 +33,15 @@ export default new VueRouter({
         name: 'singleSpot',
         component: singleSpot,
     }, {
-        path: '/spots/:spot_id/edit',
+        path: '/spot/:spot_id/edit',
         name: 'editSpot',
         component: editSpot,
+        beforeEnter: isAuth,
     }, {
-        path: '/spots/new',
+        path: '/spot/new',
         name: 'newSpot',
         component: newSpot,
+        beforeEnter: isAuth,
     },
     ],
 })

@@ -44,7 +44,8 @@ const app = new Vue({
     },
     methods: {
         errorHandler(err) {
-            console.error(err)
+            console.log("$root.errorHandler()")
+            console.log(err)
         }
     }
 }).$mount('#app');

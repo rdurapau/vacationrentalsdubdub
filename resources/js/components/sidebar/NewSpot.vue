@@ -96,7 +96,7 @@ export default {
         },
 
         onPhotosSelected(photos) {
-            // this.spot.photos = photos;
+            this.spot.photos = photos;
             this.stage = "create-spot";
         },
 
