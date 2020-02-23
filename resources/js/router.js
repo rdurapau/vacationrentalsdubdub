@@ -38,7 +38,7 @@ export default new VueRouter({
         component: editSpot,
         beforeEnter: isAuth,
     }, {
-        path: '/spot/new',
+        path: '/spot-new',
         name: 'newSpot',
         component: newSpot,
         beforeEnter: isAuth,

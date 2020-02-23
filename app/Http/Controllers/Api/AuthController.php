@@ -15,7 +15,7 @@ class AuthController extends ApiController
     
     public function login(Request $request){
         try {
-            if (! $token = JWTAuth::attempt($request->only('email', 'password'))) {
+            if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
                 return response()->json(['error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $e) {
@@ -32,7 +32,7 @@ class AuthController extends ApiController
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string',
+            'password' => 'required|min:7|string',
         ]);
         
         if ($validator->fails()) {

@@ -8,6 +8,13 @@
                             <section>
                                 <h1>Sign In</h1>
 
+                                <div
+                                    class="alert alert-danger"
+                                    v-if="error !== false"
+                                >
+                                    {{error}}
+                                </div>
+
                                 <section
                                     class="fieldset single-field"
                                     :class="{'has-error': errors.has('scope-1.email')}"
@@ -78,6 +85,8 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     data() {
         return {
+            error: false,
+
             email: "",
             password: "",
             isSubmitting: false
@@ -96,6 +105,8 @@ export default {
         ...mapActions(["login"]),
 
         onClickLogin() {
+            this.error = false;
+
             this.login({
                 email: this.email,
                 password: this.password
@@ -106,7 +117,22 @@ export default {
                     localStorage.setItem("token", data.token);
                     this.$emit("close");
                 })
-                .catch(err => this.$root.errorHandler(err));
+                .catch(err =>
+                    this.$root.errorHandler(err, error => {
+                        if (error.data) {
+                            if (error.data.error) {
+                                switch (error.data.error) {
+                                    case "invalid_credentials":
+                                        this.error = "Invalid Credentials";
+                                        break;
+
+                                    default:
+                                        break;
+                                }
+                            }
+                        }
+                    })
+                );
         }
     }
 };

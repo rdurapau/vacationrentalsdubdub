@@ -11,6 +11,7 @@ import router from './router.js';
 // Components
 import AppHeader from './components/AppHeader.vue';
 import MapView from './components/MapView.vue';
+import { diffByUnit } from 'fullcalendar';
 
 
 Vue.component('AppHeader', AppHeader);
@@ -43,9 +44,10 @@ const app = new Vue({
         }
     },
     methods: {
-        errorHandler(err) {
-            console.log("$root.errorHandler()")
-            console.log(err)
+        errorHandler(err, cb) {
+            console.error(err)
+
+            if (typeof cb === 'function' && err.response) cb(err.response)
         }
     }
 }).$mount('#app');

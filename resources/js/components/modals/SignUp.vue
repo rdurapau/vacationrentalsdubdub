@@ -9,8 +9,22 @@
                             <section>
                                 <h1>List Your Spot</h1>
 
+                                <div
+                                    class="alert alert-danger"
+                                    v-if="errs !== false"
+                                >
+                                    <p
+                                        v-for="(err, i) in Object.keys(errs)"
+                                        :key="i"
+                                    >
+                                        {{errs[err][0]}}
+                                    </p>
+                                </div>
+
                                 <section
-                                    class="fieldset single-field"
+                                    class="
+                                        fieldset
+                                        single-field"
                                     :class="{'has-error': errors.has('scope-1.name')}"
                                 >
                                     <input
@@ -102,6 +116,8 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     data() {
         return {
+            errs: false,
+
             name: "",
             email: "",
             password: "",
@@ -121,6 +137,8 @@ export default {
         ...mapActions(["signUp"]),
 
         onClickSubmit() {
+            this.errs = false;
+
             this.signUp({
                 name: this.name,
                 email: this.email,
@@ -130,10 +148,15 @@ export default {
                     this.$store.commit("isAuth", true);
                     this.$store.commit("setUser", data.user);
                     localStorage.setItem("token", data.token);
-                    this.$router.push("/spot/new");
+                    this.$router.push("/spot-new");
                     this.$emit("close");
                 })
-                .catch(err => this.$root.errorHandler(err));
+                .catch(err =>
+                    this.$root.errorHandler(err, err => {
+                        console.log(err.data.errors);
+                        this.errs = err.data.errors;
+                    })
+                );
         }
     }
 };

@@ -1,5 +1,8 @@
 <template>
-    <div id="map-wrapper"></div>
+    <div
+        id="map-wrapper"
+        :class="{'dim': shouldDim}"
+    ></div>
 </template>
 
 <script>
@@ -20,6 +23,16 @@ export default {
 
     mounted() {
         this.initMap();
+    },
+
+    computed: {
+        currentRouteName() {
+            return this.$router.currentRoute.name;
+        },
+        shouldDim() {
+            // return this.currentRouteName === "newSpot";
+            return false;
+        }
     },
 
     methods: {
@@ -334,5 +347,18 @@ export default {
 #map-wrapper {
     height: 100%;
     width: 100%;
+
+    &.dim {
+        &:after {
+            display: block;
+            content: "";
+            height: 100%;
+            width: 100%;
+            background: rgba(77, 77, 77, 0.69);
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+    }
 }
 </style>

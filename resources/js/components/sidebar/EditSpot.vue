@@ -17,43 +17,64 @@
                 />
             </section>
             <section class="content">
-                <h2
-                    class="mt-2"
-                    v-text="spot.name"
-                ></h2>
+                <input
+                    type="text"
+                    class="form-control hover-hidden title"
+                    placeholder="Spot Name"
+                    v-model="spot.name"
+                    @change="update"
+                >
 
                 <div class="spot-info">
-                    <span>{{spot.beds}}BR</span>
+                    <input
+                        type="text"
+                        class="form-control hover-hidden compact"
+                        placeholder="Bed Rooms"
+                        v-model="spot.beds"
+                        @change="update"
+                    >
+                    <input
+                        type="text"
+                        class="form-control hover-hidden compact"
+                        placeholder="Bath Rooms"
+                        v-model="spot.baths"
+                        @change="update"
+                    >
+                    <input
+                        type="text"
+                        class="form-control hover-hidden compact"
+                        placeholder="Sleeps"
+                        v-model="spot.sleeps"
+                        @change="update"
+                    >
+                    <input
+                        type="text"
+                        class="form-control hover-hidden compact"
+                        placeholder="SqFT"
+                        v-model="spot.sqft"
+                        @change="update"
+                    >
+                    <!-- <span>{{spot.beds}}BR</span>
                     <span>{{spot.baths}}BA</span>
                     <span>Sleeps: {{spot.sleeps}}</span>
-                    <span>{{spot.sqft}} SqFt</span>
+                    <span>{{spot.sqft}} SqFt</span> -->
                     <div
                         class="btn btn-sm btn-primary"
-                        @click="openInNewTab(spot.website)"
+                        @click="update(true)"
                     >
-                        Website
+                        View Spot
                     </div>
-                    <a
-                        class="btn btn-sm btn-primary"
-                        :href="`tel:${spot.phone}`"
-                    >
-                        Call
-                    </a>
-                    <a
-                        class="btn btn-sm btn-primary"
-                        :href="`mailto:${spot.email}`"
-                    >
-                        Email
-                    </a>
-                    <!-- <div class="btn btn-sm btn-primary">
-                        <i class="fa fa-heart"></i>
-                    </div> -->
                 </div>
 
-                <div
-                    class="spot-description"
-                    v-html="spot.desc"
-                ></div>
+                <div class="form-group">
+                    <textarea
+                        class="form-control hover-hidden"
+                        id="description"
+                        rows="3"
+                        v-model="spot.desc"
+                        @change="update"
+                    ></textarea>
+                </div>
 
                 <!-- <calendar /> -->
 
@@ -125,6 +146,10 @@ export default {
             window.open(url, "_blank").focus();
         },
 
+        update(redirect) {
+            if (redirect === true) this.$router.push(`/spots/${this.spot.id}`);
+        },
+
         enlargePhoto(photo) {
             this.$modal.show(
                 photoModal,
@@ -138,3 +163,29 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+.hover-hidden {
+    border: 1px solid rgba(0, 0, 0, 0);
+
+    &:hover {
+        border: 1px solid rgba(206, 212, 218, 1);
+    }
+
+    &.title {
+        font-family: "Montserrat", sans-serif;
+        font-style: normal;
+        font-weight: 700;
+        color: #29304c;
+        letter-spacing: -0.02em;
+        padding: 0px;
+        font-size: 24px;
+    }
+
+    &.compact {
+        width: 85px;
+        display: block;
+        float: left;
+    }
+}
+</style>
