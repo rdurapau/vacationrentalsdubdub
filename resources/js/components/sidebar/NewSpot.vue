@@ -19,6 +19,7 @@
         <create-spot
             v-if="stage == 'create-spot'"
             :spot="spot"
+            :isSubmitting="isSubmitting"
             :onSubmit="onSubmit"
         />
 
@@ -50,6 +51,8 @@ export default {
 
     data: () => ({
         stage: "intro",
+        isSubmitting: false,
+
         spot: {
             // Location
             address1: "",
@@ -102,6 +105,7 @@ export default {
 
         onSubmit(spot) {
             console.log(spot);
+            this.isSubmitting = true;
 
             this.createNewSpot(spot)
                 .then(spot => {
@@ -109,7 +113,8 @@ export default {
                     this.spot = spot;
                     this.stage = "done";
                 })
-                .catch(err => this.$root.errorHandler(err));
+                .catch(err => this.$root.errorHandler(err))
+                .finally(() => (this.isSubmitting = false));
         }
     }
 };

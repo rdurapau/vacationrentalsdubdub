@@ -27,7 +27,7 @@ export default {
 
     methods: {
         onClickEditSpot() {
-            this.$router.push(`/spot/${this.spot.id}`);
+            this.$router.push(`/spot/${this.spot.id}/edit`);
         }
     }
 };

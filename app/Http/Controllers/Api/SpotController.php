@@ -93,7 +93,8 @@ class SpotController extends ApiController
 
         // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
         // broadcast(new SpotWasSubmitted($spot));
-
+        
+        $spot->update([ "moderation_status" => 0 ]);
         return response()->json($spot);
     }
 

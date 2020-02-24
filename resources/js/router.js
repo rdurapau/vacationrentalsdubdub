@@ -43,5 +43,14 @@ export default new VueRouter({
         component: newSpot,
         beforeEnter: isAuth,
     },
-    ],
+
+    {
+        path: '/logout',
+        name: 'logout',
+        beforeEnter: (to, from, next) => {
+            localStorage.removeItem('token');
+            next('/');
+        },
+    },
+    ]
 })

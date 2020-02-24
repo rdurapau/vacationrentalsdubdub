@@ -131,6 +131,7 @@
                     type="button"
                     class="btn mb-2 btn-primary btn-block"
                     @click="onClickUpdate"
+                    :disabled="isSubmitting"
                 >Create Spot</button>
             </div>
 
@@ -142,6 +143,7 @@
 export default {
     props: {
         onSubmit: Function,
+        isSubmitting: Boolean,
         spot: Object
     },
 

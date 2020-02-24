@@ -1,7 +1,17 @@
 <template>
     <div>
 
-        <div class="logo"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="logo"></div>
+            </div>
+            <div class="col-md-6">
+                <button
+                    class="btn btn-seconary float-right"
+                    @click="$router.push('/logout')"
+                >Logout</button>
+            </div>
+        </div>
 
         <p
             class="font_8"
