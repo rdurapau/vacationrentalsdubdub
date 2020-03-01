@@ -49,8 +49,6 @@ class DatabaseReset extends Command
 
             $this->call('migrate:fresh');
             $this->call('db:seed', ['--class'=>'UsersTableSeeder']);
-            $this->call('db:seed', ['--class'=>'AmenitiesTableSeeder']);
-            // $this->call('db:seed --class=AmenitiesTableSeeder');
             $this->call('sweet:fakespots', [
                 'count' => $count,
             ]);

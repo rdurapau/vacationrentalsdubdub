@@ -193,7 +193,7 @@ const actions = {
     updateSpot({ commit }, spot) {
         return new Promise((resolve, reject) =>
             axios
-                .post(`/spots/${spot.id}`, spot)
+                .post(`/api/spots/${spot.id}`, spot)
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },

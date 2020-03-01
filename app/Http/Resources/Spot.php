@@ -44,13 +44,16 @@ class Spot extends JsonResource
             "phone" => $this->phone,
             "website" => $this->website,
             
-            'amenities' => Amenity::collection($this->whenLoaded('amenities')),
             "photo" => $this->cover_photo,
+
             'all_photos' => SpotPhoto::collection($this->getMedia()),
+            
             'photos' => $this->getMedia()->map(function($photo){
                 return url($photo->getUrl());
             }),
+
             'other_photos' => $this->other_photos,
+
             $this->mergeWhen($this->extended, [
                 "email" => $this->email,
                 "owner_name" => $this->owner_name,

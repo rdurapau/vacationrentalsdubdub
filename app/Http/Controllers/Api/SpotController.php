@@ -21,7 +21,7 @@ class SpotController extends ApiController
 {
     public function index(Request $request)
     {
-        $spots = Spot::with('amenities', 'media')->get();
+        $spots = Spot::with('media')->get();
         if ($this->wantsGeoJson($request)) {
             return response()
                 ->json(new GeoSpotCollection($spots))
@@ -33,10 +33,9 @@ class SpotController extends ApiController
         }
     }
 
-
     public function single(Request $request, Spot $spot)
     {
-        $spot->load('amenities','media');
+        $spot->load('media');
         if ($this->wantsGeoJson($request)) {
             return response()
                 ->json(new GeoSpotResource($spot))
@@ -48,7 +47,6 @@ class SpotController extends ApiController
         }
     }
 
-    
     public function new(Request $request)
     {
         $validated = $request->validate([
@@ -82,12 +80,11 @@ class SpotController extends ApiController
 
          
         if (array_key_exists('photos', $validated) && count($validated['photos'])) {
-            $photos = TempMedia::whereIn('id', $validated['photos'])
-                ->with('media')
-                ->get();
+            
+            $photos = Media::whereIn('id', $validated['photos'])->get();
 
             foreach($photos as $photo) {
-                $photo->getFirstMedia()->move($spot);
+                $photo->move($spot);
             }
         }
 
@@ -98,106 +95,39 @@ class SpotController extends ApiController
         return response()->json($spot);
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+    public function mySpots(Request $request)
+    {
+        return response()->json(BaseSpot::where('owner_id', Auth::id())->get());
+    }
+   
     public function update(Request $request, BaseSpot $spot)
     {
-
         $validated = $request->validate([
-            'email' => 'required|confirmed|email',
-            'name' => 'required',
-            'phone' => 'required',
-            'website' => 'nullable',
-            'desc' => 'required',
-            'price' => 'required|numeric|min:10',
-            'address1' => 'required|string|max:255',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'postal_code' => 'required',
-            'owner_name' => 'required',
-            'sleeps' => 'required|numeric',
-            'baths' => 'required|numeric',
-            'beds' => 'required|numeric',
-            'lat' => 'required|numeric',
-            'lng' => 'required|numeric',
-            
-            'amenity_ids' => 'array',
-            'photos' => 'array',
+            'address1' => 'nullable|string|max:255',
+            'city' => 'nullable|string',
+            'state' => 'nullable|string',
+            'postal_code' => 'nullable',
+            'lat' => 'nullable|numeric',
+            'lng' => 'nullable|numeric',
 
-            'edit_token' => [
-                'required',
-                function ($attribute, $value, $fail) use ($spot) {
-                    if ($value !== $spot->editToken->token) {
-                        $fail('The edit token is invalid.');
-                    }
-                }
-            ]
+            'name' => 'nullable',
+            'desc' => 'nullable',
+
+            'sleeps' => 'nullable|numeric',
+            'baths' => 'nullable|numeric',
+            'beds' => 'nullable|numeric',
+            'sqft' => 'nullable|numeric',
+            
+            'email' => 'nullable|email',
+            'phone' => 'nullable',
+            'website' => 'nullable',
         ]);
 
-        // dump($validated);
-
-        $spot->update($validated);
-
-        if (array_key_exists('amenity_ids', $validated)) {
-            // dump($validated['amenity_ids']);
-            $spot->amenities()->sync($validated['amenity_ids']);
-        }
-
-        if (array_key_exists('photos', $validated) && count($validated['photos'])) {
-            
-            // For each existing photo, match it against the array, and delete it if it's not there
-            foreach ($spot->getMedia() as $existingMedia) {
-                if (!in_array($existingMedia->id, $validated['photos'])) {
-                    $existingMedia->delete();
-                }
-            }
-
-            $spotPhotos = Media::find($validated['photos']);
-            $spot->media()->saveMany($spotPhotos);
-            Media::setNewOrder($validated['photos']);
-            // return $spotPhotos->toArray();
-            // foreach($spotPhotos as $photo) {
-                
-            // }
-            // For each element in the array, if it isn't attached to the spot, attach it
-
-
-            // $photos = TempMedia::whereIn('id',$validated['photos'])
-            //     ->with('media')
-            //     ->get();
-
-            // foreach($photos as $photo) {
-            //     $photo->getFirstMedia()->move($spot);
-            // }
-        }
+        $spot->update(array_filter($validated));
 
         // Mail::to($spot->email)->send(new SpotSubmitted($spot->id));
         // broadcast(new SpotWasSubmitted($spot));
 
-        $this->setStatusCode(204);
-        return $this->respondNoContent();
+        return response()->json($spot);
     }
-
 }

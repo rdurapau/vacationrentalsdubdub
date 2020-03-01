@@ -1,4 +1,5 @@
 import VeeValidateLaravel from 'vee-validate-laravel';
+import Notifications from 'vue-notification'
 import VeeValidate from 'vee-validate'
 import VueRouter from 'vue-router'
 import VModal from 'vue-js-modal'
@@ -14,11 +15,13 @@ import MapView from './components/MapView.vue';
 import { diffByUnit } from 'fullcalendar';
 
 
+
 Vue.component('AppHeader', AppHeader);
 Vue.component('MapView', MapView);
 
 Vue.use(VueRouter);
 Vue.use(VeeValidate);
+Vue.use(Notifications);
 Vue.use(VeeValidateLaravel);
 Vue.use(VModal, { dynamic: true, injectModalsContainer: true })
 

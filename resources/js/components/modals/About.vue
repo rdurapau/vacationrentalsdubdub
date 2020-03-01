@@ -8,7 +8,8 @@
             <div class="col-md-6">
                 <button
                     class="btn btn-seconary float-right"
-                    @click="$router.push('/logout')"
+                    v-if="isAuth"
+                    @click="onClickLogout"
                 >Logout</button>
             </div>
         </div>
@@ -74,17 +75,35 @@
         <p
             class="font_8"
             style="font-size:18px;"
-        ><span style="font-family:montserrat,sans-serif;"><span style="font-size:18px;">Seth Matthews | co founder - Sales | <object height="0"><a
+        >
+            <span style="font-family:montserrat,sans-serif;"><span style="font-size:18px;">Seth Matthews | co founder - Sales | <object height="0"><a
                             class="auto-generated-link"
                             data-auto-recognition="true"
                             data-content="seth@vrww.app"
                             href="mailto:seth@vrww.app"
                             data-type="mail"
-                        >seth@vrww.app</a></object> | 469.835.5512</span></span></p>
+                        >seth@vrww.app</a></object> | 469.835.5512</span></span>
+        </p>
     </div>
 </template>
+
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+    mounted() {},
+
+    computed: {
+        ...mapGetters(["isAuth"])
+    },
+
+    methods: {
+        onClickLogout() {
+            this.$emit("close");
+            this.$router.push("/logout");
+        }
+    }
+};
 </script>
 
 <style lang="scss">

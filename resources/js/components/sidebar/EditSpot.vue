@@ -26,44 +26,55 @@
                 >
 
                 <div class="spot-info">
-                    <input
-                        type="text"
-                        class="form-control hover-hidden compact"
-                        placeholder="Bed Rooms"
-                        v-model="spot.beds"
-                        @change="update"
-                    >
-                    <input
-                        type="text"
-                        class="form-control hover-hidden compact"
-                        placeholder="Bath Rooms"
-                        v-model="spot.baths"
-                        @change="update"
-                    >
-                    <input
-                        type="text"
-                        class="form-control hover-hidden compact"
-                        placeholder="Sleeps"
-                        v-model="spot.sleeps"
-                        @change="update"
-                    >
-                    <input
-                        type="text"
-                        class="form-control hover-hidden compact"
-                        placeholder="SqFT"
-                        v-model="spot.sqft"
-                        @change="update"
-                    >
-                    <!-- <span>{{spot.beds}}BR</span>
-                    <span>{{spot.baths}}BA</span>
-                    <span>Sleeps: {{spot.sleeps}}</span>
-                    <span>{{spot.sqft}} SqFt</span> -->
-                    <div
+                    <div class="row">
+                        <div class="col-md-3">
+                            <small>Bed Rooms</small>
+                            <input
+                                type="text"
+                                class="form-control hover-hidden compact"
+                                placeholder="Bed Rooms"
+                                v-model="spot.beds"
+                                @change="update"
+                            >
+                        </div>
+                        <div class="col-md-3">
+                            <small>Bath Rooms</small>
+                            <input
+                                type="text"
+                                class="form-control hover-hidden compact"
+                                placeholder="Bath Rooms"
+                                v-model="spot.baths"
+                                @change="update"
+                            >
+                        </div>
+                        <div class="col-md-3">
+                            <small style="display:block;">Sleeps</small>
+                            <input
+                                type="text"
+                                class="form-control hover-hidden compact"
+                                placeholder="Sleeps"
+                                v-model="spot.sleeps"
+                                @change="update"
+                            >
+                        </div>
+                        <div class="col-md-3">
+                            <small style="display:block;">SqFT</small>
+                            <input
+                                type="text"
+                                class="form-control hover-hidden compact"
+                                placeholder="SqFT"
+                                v-model="spot.sqft"
+                                @change="update"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- <div
                         class="btn btn-sm btn-primary"
                         @click="update(true)"
                     >
                         View Spot
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="form-group">
@@ -77,6 +88,8 @@
                 </div>
 
                 <!-- <calendar /> -->
+
+                <notifications position="bottom right" />
 
             </section>
         </section>
@@ -140,14 +153,18 @@ export default {
     },
 
     methods: {
-        ...mapActions(["getSpot"]),
+        ...mapActions(["getSpot", "updateSpot"]),
 
         openInNewTab(url) {
             window.open(url, "_blank").focus();
         },
 
         update(redirect) {
-            if (redirect === true) this.$router.push(`/spots/${this.spot.id}`);
+            this.$notify("Spot Updated");
+
+            this.updateSpot(this.spot).catch(err => console.error(err));
+
+            // if (redirect === true) this.$router.push(`/spots/${this.spot.id}`);
         },
 
         enlargePhoto(photo) {

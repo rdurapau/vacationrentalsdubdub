@@ -1,7 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\Seeder;
+use App\Spot;
 
 class SpotsTableSeeder extends Seeder
 {
@@ -12,12 +13,7 @@ class SpotsTableSeeder extends Seeder
      */
     public function run()
     {
-        Mail::fake();
-
-        factory(App\Spot::class, 20)->states('has-requests')->create();
-
-        factory(App\Spot::class, 10)->states('pending')->create();
-
-        factory(App\Spot::class, 5)->states('rejected')->create();
+        factory(Spot::class, 10)->states('approved')->create();
+        factory(Spot::class, 5)->states('pending')->create();
     }
 }

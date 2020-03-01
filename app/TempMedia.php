@@ -39,9 +39,7 @@ class TempMedia extends Model implements HasMedia
         });
 
         // static::deleting(function($photo) {
-            
         //     Storage::delete($photo->filePath());
-
         // });
     }
 
@@ -51,10 +49,10 @@ class TempMedia extends Model implements HasMedia
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeExpired($query)
-    {
-        return $query->where('expires_at', '<', now());
-    }
+    // public function scopeExpired($query)
+    // {
+    //     return $query->where('expires_at', '<', now());
+    // }
 
     /** 
      * Get the full relative path to the file for this TempMedia

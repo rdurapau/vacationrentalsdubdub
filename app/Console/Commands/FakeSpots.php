@@ -38,8 +38,8 @@ class FakeSpots extends Command
      */
     public function handle()
     {
-        $count = $this->argument('count') ? $this->argument('count') : 50;
-        $type = $this->option('type') ? $this->option('type') : 'all';
+        $count = $this->argument('count') ? $this->argument('count') : 10;
+        $type = $this->option('type') ? $this->option('type') : 'approved';
         $states = $this->option('photo') ? ['has-photo'] : [];
 
         if ($type == 'all') {
@@ -54,7 +54,6 @@ class FakeSpots extends Command
 
         if ($type == 'approved' || $type == 'a' || $type == 'all') {
             $aState = $states;
-            $aState[] = 'has-requests';
             $this->info("Seeding {$a} approved spots");
             factory('App\Spot', $a)->states($aState)->create();
         }
@@ -65,11 +64,11 @@ class FakeSpots extends Command
             factory('App\Submission', $b)->states($pState)->create();
         }
 
-        if ($type == 'rejected' || $type == 'r' || $type == 'all') {
-            $rState = $states;
-            $rState[] = 'rejected';
-            $this->info("Seeding {$c} rejected spots");
-            factory('App\Spot', $c)->states($rState)->create();
-        }
+        // if ($type == 'rejected' || $type == 'r' || $type == 'all') {
+        //     $rState = $states;
+        //     $rState[] = 'rejected';
+        //     $this->info("Seeding {$c} rejected spots");
+        //     factory('App\Spot', $c)->states($rState)->create();
+        // }
     }
 }

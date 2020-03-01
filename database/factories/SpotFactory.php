@@ -19,10 +19,10 @@ $factory->define(App\Spot::class, function (Faker $faker) {
         'website' => 'https://google.com',
         'email' => 'owner@gmail.com',
         
-        "sleeps" => rand(2,20),
-        "beds" => rand(1,8),
-        "baths" => rand(1,3),
-        "sqft" => rand(500,3000),
+        'sleeps' => rand(2,20),
+        'beds' => rand(1,8),
+        'baths' => rand(1,3),
+        'sqft' => rand(500,3000),
 
         'address1' => $faker->streetAddress(),
         'state' => $faker->stateAbbr(),
@@ -44,13 +44,6 @@ $factory->state(App\Spot::class, 'rejected', [
 ]);
 
 $factory->afterCreating(App\Spot::class, function($spot, $faker) {
-    // $amenities = range(1,19);
-    $amenities = \App\Amenity::pluck('id')->toArray();
-    if ($amenities) {
-        $spot->amenities()->sync($faker->randomElements($amenities,rand(3,8)));
-    }
-
-    // Add one of the 19 exterior photos as the primary photo for this spot
     for ($i = 0; $i < rand(6, 19); $i++) { 
         $mainPhotoNum = rand(1,19);
         $spot
@@ -58,7 +51,6 @@ $factory->afterCreating(App\Spot::class, function($spot, $faker) {
             ->preservingOriginal()
             ->toMediaCollection();
     }
-    
 
     // Add some additional photos from the 39 interior photos
     $altPhotoNums = range(6,37);
@@ -80,10 +72,4 @@ $factory->afterCreatingState(App\Spot::class, 'has-photo', function ($spot, $fak
 $factory->afterCreatingState(App\Spot::class, 'rejected', function ($spot, $faker) {
     $spot->moderation_status = ModerationStatus::REJECTED;
     $spot->save();
-});
-
-$factory->afterCreatingState(App\Spot::class, 'has-requests', function ($spot, $faker) {
-    factory('App\BookingRequest',rand(0,5))->create([
-        'spot_id' => $spot->id
-    ]);
 });
