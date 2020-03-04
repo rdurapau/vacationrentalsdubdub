@@ -130,4 +130,33 @@ class SpotController extends ApiController
 
         return response()->json($spot);
     }
+
+    public function replacePhoto(Request $request)
+    {
+        $validated = $request->validate([
+            'photo' => 'required',
+            'media_id' => 'required',
+            'spot_id' => 'required',
+        ]);
+
+        // hacky code
+        $spot = Spot::find($validated['spot_id']);
+        $new = Media::find($validated['media_id']);
+        $original = Media::where('model_id', $validated['spot_id'])
+            ->where('file_name', basename($validated['photo']))
+            ->firstOrFail();
+
+        $originalID = $original->id;
+        $new->move($spot);
+        $original->delete();
+        $new->update(['id' => $originalID]);
+
+        \Log::info($validated);
+        \Log::info($original);
+        \Log::info(basename($validated['photo']));
+
+        
+        
+        return response()->json($validated);
+    }
 }

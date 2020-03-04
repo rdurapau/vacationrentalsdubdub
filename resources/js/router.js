@@ -49,7 +49,7 @@ export default new VueRouter({
         name: 'logout',
         beforeEnter: (to, from, next) => {
             localStorage.removeItem('token');
-            next('/');
+            location.reload();
         },
     },
     ]

@@ -197,6 +197,23 @@ const actions = {
                 .then(({ data }) => resolve(data))
                 .catch(err => reject(err)))
     },
+    replacePhoto({ commit }, data) {
+        return new Promise((resolve, reject) =>
+            axios
+                .post(`/api/spots/${data.spot_id}/replace-photo`, data)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
+    tempUpload({ commit }, data) {
+        var formData = new FormData();
+        Object.keys(data).map(key => formData.append(key, data[key]))
+
+        return new Promise((resolve, reject) =>
+            axios
+                .post(`/api/temp-uploads`, formData)
+                .then(({ data }) => resolve(data))
+                .catch(err => reject(err)))
+    },
     createNewSpot({ commit }, spot) {
         return new Promise((resolve, reject) =>
             axios

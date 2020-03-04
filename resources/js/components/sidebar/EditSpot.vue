@@ -13,8 +13,14 @@
                     v-for="(photo, i) in photos.slice(0, 9)"
                     :key="i"
                     :style="{'background': `url('${photo}') no-repeat center center`}"
-                    @click="enlargePhoto(photo)"
+                    @click="onClickReplacePhoto(photo)"
                 />
+                <input
+                    type="file"
+                    ref="file"
+                    style="display: none"
+                    @change="onChangeFile($event.target.files)"
+                >
             </section>
             <section class="content">
                 <input
@@ -111,7 +117,9 @@ export default {
     data() {
         return {
             _spotID: false,
-            spot: false
+            spot: false,
+
+            imageToReplace: false
         };
     },
 
@@ -153,7 +161,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(["getSpot", "updateSpot"]),
+        ...mapActions(["getSpot", "updateSpot", "tempUpload", "replacePhoto"]),
 
         openInNewTab(url) {
             window.open(url, "_blank").focus();
@@ -167,15 +175,26 @@ export default {
             // if (redirect === true) this.$router.push(`/spots/${this.spot.id}`);
         },
 
-        enlargePhoto(photo) {
-            this.$modal.show(
-                photoModal,
-                { photo },
-                {
-                    width: "60%",
-                    height: "auto"
-                }
-            );
+        onClickReplacePhoto(photo) {
+            this.imageToReplace = photo;
+            this.$refs.file.click();
+        },
+
+        onChangeFile(files) {
+            if (this.imageToReplace !== false && files[0]) {
+                this.tempUpload({
+                    file: files[0]
+                })
+                    .then(upload =>
+                        this.replacePhoto({
+                            photo: this.imageToReplace,
+                            media_id: upload.media_id,
+                            spot_id: this.$router.currentRoute.params.spot_id
+                        })
+                    )
+                    .then(() => this.$notify("Image Updated"))
+                    .catch(err => console.error(err));
+            }
         }
     }
 };

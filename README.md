@@ -10,7 +10,7 @@ kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" get pods
 
 kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" apply -f kuber/deplyment.yml
 
-kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" exec -ti vrww-55554b9446-xwj9j /bin/bash
+kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" exec -ti vrww-66fb77f568-6srfn /bin/bash
 
 kubectl --kubeconfig="/Users/anthonybudd/.kube/vrww-kubeconfig.yaml" rollout restart deployment vrww
 

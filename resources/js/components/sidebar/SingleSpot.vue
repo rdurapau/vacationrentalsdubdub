@@ -138,10 +138,11 @@ export default {
     .spot-images {
         height: 40%;
         .image {
-            box-shadow: inset 0px 0px 0px 2px #fff;
+            cursor: pointer;
+            float: left;
             width: 33.33333%;
             height: 33.33333%;
-            float: left;
+            box-shadow: inset 0px 0px 0px 2px #fff;
             -webkit-background-size: cover !important;
             -moz-background-size: cover !important;
             -o-background-size: cover !important;

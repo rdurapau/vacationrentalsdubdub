@@ -16,6 +16,7 @@ Route::post('/sign-up', 'Api\AuthController@signUp')->middleware('guest');
 Route::get('/spots', 'Api\SpotController@index');
 Route::get('/spots/{spot}', 'Api\SpotController@single');
 Route::post('/spots/{spot}', 'Api\SpotController@update');
+Route::post('/spots/{spot}/replace-photo', 'Api\SpotController@replacePhoto');
 
 
 // My Spot
