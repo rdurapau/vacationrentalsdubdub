@@ -1,31 +1,43 @@
 version: "3.3"
 
 services:
-  # vrww:
-  #   build: .
-  #   container_name: vrww
-  #   network_mode: bridge
-  #   volumes:
-  #     - ./:/var/www/html
-  #     - /var/www/html/node_modules/
-  #   links:
-  #     - vrww-db
-  #   ports:
-  #     - "80:80"
-  #   environment:
-  #     APP_ENV: development
+  vrww:
+    build: .
+    entrypoint: "nodemon /app/src/index.js --watch /app --legacy-watch"
+    container_name: vrww
+    network_mode: bridge
+    volumes:
+      - ./:/app
+    links:
+      - vrww-db
+      - vrww-db-test
+    ports:
+      - "80:80"
 
   vrww-db:
-    image: mysql:5.7
+    image: postgres:11
     container_name: vrww-db
     network_mode: bridge
-    restart: always
     volumes:
-      - ./.volumes/vrww-db:/var/lib/mysql
+      - ./.vol/vrww-db:/var/lib/postgresql/data
+    restart: always
     ports:
-      - "3306:3306"
+      - "5432:5432"
     environment:
-      MYSQL_ROOT_PASSWORD: rootsecret
-      MYSQL_DATABASE: vrww
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: secret
+      POSTGRES_DB: vrww
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+
+  vrww-db-test:
+    image: postgres:11
+    container_name: vrww-db-test
+    network_mode: bridge
+    volumes:
+      - ./.vol/vrww-db-test:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: vrww
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
