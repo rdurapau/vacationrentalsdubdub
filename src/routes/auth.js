@@ -116,7 +116,7 @@ app.post('/auth/sign-up', [
                 });
 
                 if (process.env.APP_ENV === 'production') {
-                    axios.post('https://hooks.slack.com/services/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', {
+                    axios.post('https://hooks.slack.com/services/', {
                         text: ([
                             `New User *${user.first_name} ${user.last_name}*`,
                             `ID: ${user.id} `,
